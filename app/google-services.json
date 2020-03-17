@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "24099753586",
+    "firebase_url": "https://arrangeme-b5809.firebaseio.com",
+    "project_id": "arrangeme-b5809",
+    "storage_bucket": "arrangeme-b5809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24099753586:android:e9bcbc2f7a6e094f603ceb",
+        "android_client_info": {
+          "package_name": "com.example.arrangeme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24099753586-emq0uh6ag7ok23bn49sa1akaaig9r8q3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlA9LivD5BC4_bHtNyPkyLLD_FPVm8RvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24099753586-emq0uh6ag7ok23bn49sa1akaaig9r8q3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
