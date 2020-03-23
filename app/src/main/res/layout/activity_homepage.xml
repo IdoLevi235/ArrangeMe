@@ -13,4 +13,18 @@
         android:text="test DB!"
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="212dp" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="10dp"
+        android:layout_height="12dp"
+        android:id="@+id/button"
+        tools:layout_editor_absoluteY="385dp"
+        tools:layout_editor_absoluteX="183dp" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
