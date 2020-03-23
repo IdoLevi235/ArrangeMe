@@ -29,11 +29,12 @@ public class Homepage extends AppCompatActivity{
 
                 if (v==mButton){
                     mDatabase = FirebaseDatabase.getInstance().getReference("users");
-                    User user = new User("popo", "papa");
+                    User user = new User("xxxxxxx", "xxxxxxx");
                     mDatabase.push().setValue(user);
                     Toast toast = Toast. makeText(getApplicationContext(),"User added",Toast. LENGTH_SHORT);
                     toast.show();
 
+                    //User user = new User("test!!", "test!!");
                     //User user = new User("test!!", "test!!");
                     //mDatabase.child("111").setValue(user);
                 }

@@ -43,20 +43,13 @@ public class MainActivity extends AppCompatActivity {
         avatar = (ImageView) findViewById(R.id.avatar);
         infoText = (TextView) findViewById(R.id.infoText) ;
         infoText.setText("Number of attempts remaining : 5");
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("test");
+        //mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         login.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v == login) {
                     validate(username.getText().toString(), password.getText().toString());
                 }
-
-                /*if (v==testButton){
-                    mDatabase.push().setValue("testttttt");
-                    Toast.makeText(getApplicationContext(), "data inserted succesfully", Toast.LENGTH_LONG).show();
-                    //User user = new User("test!!", "test!!");
-                    //mDatabase.child("111").setValue(user);
-                }*/
             }
 
 
