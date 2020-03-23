@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="142dp"
+        android:layout_height="145dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <CheckBox
+        android:id="@+id/rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember me"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575" />
+
+    <TextView
+        android:id="@+id/forgetPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:gravity="center"
+        android:text="Forget your password?"
+        android:textAllCaps="false"
+        android:textColor="#494949"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="56dp"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:text="Welcome!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:fontFamily="sans-serif-condensed-light"
+        app:layout_constraintBottom_toTopOf="@+id/userNameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/userNameText"
+        android:layout_width="288dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.449" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="409dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:text="or connect with"
+        android:textColor="#707070"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/passwordText"
+        android:layout_width="285dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.513" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="207dp"
+        android:layout_height="38dp"
+        android:shadowColor="#05FFFFFF"
+        android:background="@drawable/btn_rounded"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.698" />
+
+    <ImageButton
+        android:id="@+id/googleBtn"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="99dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/googlelogo" />
+
+    <ImageButton
+        android:id="@+id/facebookBtn"
+        android:layout_width="51dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="99dp"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/facebooklogo" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#75C1C9"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="102dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
