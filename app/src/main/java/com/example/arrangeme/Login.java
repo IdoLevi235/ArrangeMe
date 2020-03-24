@@ -29,9 +29,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        username = (EditText) findViewById(R.id.userNameText);
+        username = (EditText) findViewById(R.id.emailText);
         password = (EditText) findViewById(R.id.passwordText);
-        login = (Button) findViewById(R.id.loginBtn);
+        login = (Button) findViewById(R.id.sumbitBtn);
         login.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {

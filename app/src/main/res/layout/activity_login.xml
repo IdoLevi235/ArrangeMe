@@ -44,11 +44,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/signupText"
         android:layout_width="141dp"
         android:layout_height="43dp"
         android:layout_marginBottom="56dp"
@@ -59,7 +59,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="sans-serif-condensed-light"
-        app:layout_constraintBottom_toTopOf="@+id/userNameText"
+        app:layout_constraintBottom_toTopOf="@+id/emailText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/userNameText"
+        android:id="@+id/emailText"
         android:layout_width="288dp"
         android:layout_height="46dp"
         android:ems="10"
@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -110,7 +110,7 @@
         app:layout_constraintVertical_bias="0.513" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/sumbitBtn"
         android:layout_width="207dp"
         android:layout_height="38dp"
         android:shadowColor="#05FFFFFF"
@@ -135,7 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/googlelogo" />
 
@@ -151,7 +151,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/facebooklogo" />
 
