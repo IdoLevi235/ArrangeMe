@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         loginBtn = (Button) findViewById(R.id.loginBtnMain);
         mButton = (Button) findViewById(R.id.test_button);
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity{
                 }
 
             }
+
         }));
 
     }
