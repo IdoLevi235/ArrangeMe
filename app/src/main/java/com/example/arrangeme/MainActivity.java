@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
 
-            }
-        }));
 
 //Login button onClick
         loginBtn.setOnClickListener((new View.OnClickListener() { //TODO: implement view.setonclick and make the code look nicer
