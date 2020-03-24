@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SignInWithMail", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Welcome Motek" + user.getDisplayName(),
+                            Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
                                     Toast.LENGTH_SHORT).show();
                             //TODO: New screen after login..
                             updateUI(user);

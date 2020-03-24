@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -74,10 +75,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
             String confPass = passwordText.getText().toString();
-            String fname = fnameText.getText().toString();
+            final String fname = fnameText.getText().toString(); // final because access from inner class
             String lname = lnameText.getText().toString();
 
-            createAccount(email,password); //TODO: EMAIL authentication with link (not important)
+            createAccount(email,password,fname); //TODO: EMAIL authentication with link (not important)
             addNewUserToDB(email,password,fname,lname);//maybe without email+password?
         }
     }
@@ -88,7 +89,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         mDatabase.push().setValue(user);
     }
 
-    private void createAccount(String email, String password) { //TODO: form validation (valid email, pass=confpass...)
+    private void createAccount(String email, String password, final String fname) { //TODO: form validation (valid email, pass=confpass...)
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -100,6 +101,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             Toast toast=Toast. makeText(getApplicationContext(),"Registeration completed successfully!",Toast. LENGTH_SHORT);
                             toast. show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
+                            user.updateProfile(profileUpdates);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
