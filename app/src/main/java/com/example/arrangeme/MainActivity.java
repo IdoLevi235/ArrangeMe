@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity{
 
     Button loginBtn;
     private DatabaseReference mDatabase;
-    Button mButton;
     private FirebaseAuth mAuth;
     Button signUpBtn;
     @Override
@@ -27,25 +26,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginBtn = (Button) findViewById(R.id.loginBtnMain);
-        mButton = (Button) findViewById(R.id.test_button);
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
-//TEST DB BUTTON onClick
-        mButton.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v==mButton){
-                    Log.d("db", "database activated");
-                    mDatabase = FirebaseDatabase.getInstance().getReference("users");
-                    User user = new User("a", "b");
-                    mDatabase.push().setValue(user);
-                    Toast toast = Toast. makeText(getApplicationContext(),"User added",Toast. LENGTH_SHORT);
-                    toast.show();
-                }
 
-            }
-
-        }));
 
 //Login button onClick
         loginBtn.setOnClickListener((new View.OnClickListener() { //TODO: implement view.setonclick and make the code look nicer
