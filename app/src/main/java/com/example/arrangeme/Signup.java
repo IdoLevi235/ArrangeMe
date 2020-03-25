@@ -1,5 +1,6 @@
 package com.example.arrangeme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,6 +81,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
             createAccount(email,password,fname); //TODO: EMAIL authentication with link (not important)
             addNewUserToDB(email,password,fname,lname);//maybe without email+password?
+            //Intent intent = new Intent(Signup.this, Questionnaire.class); //Start the activity of Questionnaire
+            //startActivity(intent);
         }
     }
 
