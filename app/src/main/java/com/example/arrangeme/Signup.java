@@ -1,5 +1,6 @@
 package com.example.arrangeme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,13 +63,12 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     }
 
     protected void onStop() {
-
         super.onStop();
     }
 
     protected void onDestroy() {
-
         super.onDestroy();
+
     }
 
     @Override
@@ -75,15 +76,47 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         if (v==sumbitBtn){//works
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
-            String confPass = passwordText.getText().toString();
+            String confPass = confPassText.getText().toString();
             final String fname = fnameText.getText().toString(); // final because access from inner class
             String lname = lnameText.getText().toString();
-
-            createAccount(email,password,fname); //TODO: EMAIL authentication with link (not important)
-            addNewUserToDB(email,password,fname,lname);//maybe without email+password?
+            if (signUpFormValidation(email,password,confPass,fname,lname)) //form is OK
+            {
+                createAccount(email, password, fname); //TODO: EMAIL authentication with link (not important)
+                addNewUserToDB(email, password, fname, lname);//maybe without email+password?
+            }
             //Intent intent = new Intent(Signup.this, Questionnaire.class); //Start the activity of Questionnaire
             //startActivity(intent);
         }
+    }
+
+    private boolean signUpFormValidation(String email, String password, String confPass, String fname, String lname) {
+        String msg;
+        if (!password.equals(confPass)){
+            msg = "Passwords doesn't match";
+            createAlert(msg);
+        }
+        else if (email.isEmpty()||password.isEmpty()||confPass.isEmpty()||fname.isEmpty()||lname.isEmpty()) {
+            msg = "You must fill all fields";
+            createAlert(msg);
+        }
+
+        return false;
+    }
+
+    private void createAlert(String msg) {
+        AlertDialog alertDialog = new AlertDialog.Builder(Signup.this).create();
+        alertDialog.setTitle("Error");
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Try Again",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();//finishing activity, calling onDestroy;
+                        finish();
+                        startActivity(getIntent()); //reloading it
+                    }
+                });
+        alertDialog.show();
+
     }
 
     private void addNewUserToDB(String email, String password, String fname, String lname) {
@@ -92,7 +125,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         mDatabase.push().setValue(user);
     }
 
-    private void createAccount(String email, String password, final String fname) { //TODO: form validation (valid email, pass=confpass...)
+    private void createAccount(String email, String password, final String fname) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
