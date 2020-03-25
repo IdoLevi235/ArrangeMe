@@ -67,10 +67,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
                                     Toast.LENGTH_SHORT).show();
                             //TODO: New screen after login..
-                            //Questionnairecheck
-                            //Intent intent = new Intent(Login.this, Questionnaire.class);//
-                           // startActivity(intent);
+                            Intent intent = new Intent(Login.this, Questionnaire.class);//
+                            startActivity(intent);
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
