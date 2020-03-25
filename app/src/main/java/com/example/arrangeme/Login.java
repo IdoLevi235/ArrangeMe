@@ -67,8 +67,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
                                     Toast.LENGTH_SHORT).show();
                             //TODO: New screen after login..
-                            Intent intent = new Intent(Login.this, Questionnaire.class);//
-                            startActivity(intent);
+                            startActivity(new Intent(Login.this, Questionnaire.class));
                             updateUI(user);
 
                         } else {

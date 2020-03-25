@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 /**
@@ -34,7 +35,7 @@ public class StartQ extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final NavController navController = Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.maleButton);
+        ImageButton button = view.findViewById(R.id.maleButton);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
