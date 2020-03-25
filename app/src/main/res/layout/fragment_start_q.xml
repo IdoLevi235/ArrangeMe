@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.77" />
+            app:layout_constraintVertical_bias="0.876" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -41,14 +41,13 @@
 
         <TextView
             android:id="@+id/Hello"
-            android:layout_width="307dp"
-            android:layout_height="99dp"
+            android:layout_width="321dp"
+            android:layout_height="123dp"
             android:layout_marginTop="96dp"
             android:layout_marginBottom="3dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="In order to help you to adjust a good schedules for you, we need to know some details about you.
-            Don't worry, we respect your privacy and will keep your details safe."
+            android:text="In order to help us adjust a good schedules for you, we need to know some details about you. Don't worry, we respect your privacy and will keep your details safe."
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,15 +71,16 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="367dp"
-            android:layout_height="377dp"
-            android:layout_marginTop="189dp"
+            android:layout_width="366dp"
+            android:layout_height="344dp"
+            android:layout_marginTop="274dp"
             android:background="#4AADC3C2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.201" />
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.115" />
 
         <ImageButton
             android:id="@+id/femaleButton"
@@ -96,7 +96,7 @@
             app:layout_constraintHorizontal_bias="0.548"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.777" />
+            app:layout_constraintVertical_bias="0.804" />
 
         <ImageButton
             android:id="@+id/maleButton"
@@ -111,7 +111,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.622" />
+            app:layout_constraintVertical_bias="0.64" />
 
         <TextView
             android:id="@+id/chooseGender"
@@ -127,7 +127,7 @@
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.031" />
+            app:layout_constraintVertical_bias="0.118" />
 
         <Button
             android:id="@+id/button"
