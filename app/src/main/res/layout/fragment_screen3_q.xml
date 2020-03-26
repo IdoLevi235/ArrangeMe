@@ -138,7 +138,7 @@
             app:layout_constraintVertical_bias="0.961" />
 
         <TextView
-            android:id="@+id/personYouAre"
+            android:id="@+id/howWellTimeOrgText"
             android:layout_width="306dp"
             android:layout_height="83dp"
             android:fontFamily="casual"
