@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startQ"
-        android:name="com.example.arrangeme.StartQ"
+        android:name="com.example.arrangeme.Questionnaire.StartQ"
         android:label="fragment_start_q"
         tools:layout="@layout/fragment_start_q" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/screen2Q"
-        android:name="com.example.arrangeme.Screen2Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen2Q"
         android:label="fragment_screen2_q"
         tools:layout="@layout/fragment_screen2_q" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/screen3Q"
-        android:name="com.example.arrangeme.Screen3Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen3Q"
         android:label="fragment_screen3_q"
         tools:layout="@layout/fragment_screen3_q" >
         <action

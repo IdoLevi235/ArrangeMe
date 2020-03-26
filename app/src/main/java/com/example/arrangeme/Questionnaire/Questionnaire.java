@@ -1,8 +1,10 @@
-package com.example.arrangeme;
+package com.example.arrangeme.Questionnaire;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.arrangeme.R;
 
 public class Questionnaire extends AppCompatActivity {
 
