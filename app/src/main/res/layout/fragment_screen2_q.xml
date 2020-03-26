@@ -25,6 +25,7 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
+            android:scaleX="1"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
@@ -59,24 +60,10 @@
             android:background="@drawable/rounded_rec"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.462"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.261" />
-
-        <TextView
-            android:id="@+id/chooseGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="casual"
-            android:text="Do You Smoke?"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.479"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.29" />
+            app:layout_constraintVertical_bias="0.275" />
 
         <View
             android:id="@+id/view2"
@@ -107,19 +94,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.236" />
 
+
         <Switch
             android:id="@+id/isSmoke"
-            android:layout_width="52dp"
-            android:layout_height="101dp"
-            android:text=""
+            android:layout_width="222dp"
+            android:layout_height="84dp"
+            android:fontFamily="casual"
+            android:scaleX="1"
+            android:text="Do You Smoke?"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.802"
+            app:layout_constraintHorizontal_bias="0.624"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.265" />
-
-
+            app:layout_constraintVertical_bias="0.284" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -131,7 +120,7 @@
             app:layout_constraintHorizontal_bias="0.143"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.281" />
+            app:layout_constraintVertical_bias="0.291" />
 
         <ImageButton
             android:id="@+id/imageView5"
