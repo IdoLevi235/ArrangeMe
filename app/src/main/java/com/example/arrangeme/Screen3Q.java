@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -36,7 +37,7 @@ public class Screen3Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final NavController navController= Navigation.findNavController(view);
-        ImageButton button = view.findViewById(R.id.continue3);
+        Button button = view.findViewById(R.id.continue3);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override

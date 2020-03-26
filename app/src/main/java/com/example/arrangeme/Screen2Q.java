@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -35,7 +36,7 @@ public class Screen2Q extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        ImageButton button = view.findViewById(R.id.continue2);
+        Button button = view.findViewById(R.id.continue2);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override

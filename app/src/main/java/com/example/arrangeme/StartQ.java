@@ -35,7 +35,7 @@ public class StartQ extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final NavController navController = Navigation.findNavController(view);
-        ImageButton button = view.findViewById(R.id.maleButton);
+        Button button = view.findViewById(R.id.continue1);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
