@@ -21,7 +21,7 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintVertical_bias="0.805" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -161,19 +161,45 @@
 
         <TextView
             android:id="@+id/textView156"
-            android:layout_width="298dp"
-            android:layout_height="101dp"
+            android:layout_width="292dp"
+            android:layout_height="83dp"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="Are you under medical treatment (such as Ritalin etc.)"
+            android:text="Are you taking medication for ADHD?"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.557"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.6" />
+
+        <ImageButton
+            android:id="@+id/imageButton7"
+            android:layout_width="112dp"
+            android:layout_height="96dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/v"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.267"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.77" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="103dp"
+            android:layout_height="96dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/x"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.743"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.77" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
