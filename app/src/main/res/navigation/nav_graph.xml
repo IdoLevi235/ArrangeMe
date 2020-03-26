@@ -45,5 +45,23 @@
         android:id="@+id/screen5Q"
         android:name="com.example.arrangeme.Questionnaire.Screen5Q"
         android:label="fragment_screen5_q"
-        tools:layout="@layout/fragment_screen5_q" />
+        tools:layout="@layout/fragment_screen5_q" >
+        <action
+            android:id="@+id/action_screen5Q_to_screen6Q"
+            app:destination="@id/screen6Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen6Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen6Q"
+        android:label="fragment_screen6_q"
+        tools:layout="@layout/fragment_screen6_q" >
+        <action
+            android:id="@+id/action_screen6Q_to_screen7Q"
+            app:destination="@id/screen7Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen7Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen7Q"
+        android:label="fragment_screen7_q"
+        tools:layout="@layout/fragment_screen7_q" />
 </navigation>
