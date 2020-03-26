@@ -44,7 +44,7 @@ public class Screen3Q extends Fragment {
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen3Q_to_startQ);
+                navController.navigate(R.id.action_screen3Q_to_screen4Q);
             }
         });
     }

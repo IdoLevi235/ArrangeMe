@@ -29,7 +29,21 @@
         android:label="fragment_screen3_q"
         tools:layout="@layout/fragment_screen3_q" >
         <action
-            android:id="@+id/action_screen3Q_to_startQ"
-            app:destination="@id/startQ" />
+            android:id="@+id/action_screen3Q_to_screen4Q"
+            app:destination="@id/screen4Q" />
     </fragment>
+    <fragment
+        android:id="@+id/screen4Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen4Q"
+        android:label="fragment_screen4_q"
+        tools:layout="@layout/fragment_screen4_q" >
+        <action
+            android:id="@+id/action_screen4Q_to_screen5Q"
+            app:destination="@id/screen5Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen5Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen5Q"
+        android:label="fragment_screen5_q"
+        tools:layout="@layout/fragment_screen5_q" />
 </navigation>
