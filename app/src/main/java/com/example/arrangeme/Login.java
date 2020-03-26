@@ -57,29 +57,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private void signInWithEmailAndPassword(String email, String password) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
-        mAuth.signInWithEmailAndPassword(email, password)
+        try {
+            mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("SignInWithMail", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
-                                    Toast.LENGTH_SHORT).show();
-                            //TODO: New screen after login..
-                            startActivity(new Intent(Login.this, Questionnaire.class));
-                            updateUI(user);
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("SignInWithMail", "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
+                                        Toast.LENGTH_SHORT).show();
+                                //TODO: New screen after login..
+                                startActivity(new Intent(Login.this, Questionnaire.class));
+                                updateUI(user);
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Login failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Login failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                updateUI(null);
+                            }
                         }
-                    }
-                });
+                    });
+                }//end of try
+        catch(IllegalArgumentException e){
+            Toast.makeText(getApplicationContext(), "You must fill all fields.",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     private void updateUI(FirebaseUser user) {
