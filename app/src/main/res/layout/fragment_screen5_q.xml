@@ -179,10 +179,10 @@
             android:layout_height="140dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.186"
+            app:layout_constraintHorizontal_bias="0.239"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.869">
+            app:layout_constraintVertical_bias="0.884">
 
             <RadioButton
                 android:id="@+id/radioButton15"
@@ -208,10 +208,10 @@
             android:layout_height="137dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.821"
+            app:layout_constraintHorizontal_bias="0.871"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.865">
+            app:layout_constraintVertical_bias="0.88">
 
             <RadioButton
                 android:id="@+id/radioButton18"
