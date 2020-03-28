@@ -36,13 +36,13 @@ public class Screen4Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue3);
+        Button button = view.findViewById(R.id.continue4);
 
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen3Q_to_screen4Q);
+                navController.navigate(R.id.action_screen4Q_to_screen5Q);
             }
         });
     }

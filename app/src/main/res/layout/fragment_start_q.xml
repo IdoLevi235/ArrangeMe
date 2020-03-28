@@ -48,9 +48,10 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
@@ -92,13 +93,13 @@
             android:layout_width="265dp"
             android:layout_height="58dp"
             android:layout_marginTop="274dp"
-            android:background="@drawable/rounded_rec"
+            android:background="@drawable/rounded_rec_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.527"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.679" />
+            app:layout_constraintVertical_bias="0.733" />
 
         <View
             android:id="@+id/view3"
@@ -111,23 +112,23 @@
             app:layout_constraintHorizontal_bias="0.527"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.498" />
+            app:layout_constraintVertical_bias="0.519" />
 
         <TextView
             android:id="@+id/chooseGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="208dp"
-            android:fontFamily="@font/bubblegum_sans"
+            android:fontFamily="@font/roboto_condensed_regular"
             android:text="What Is Your Gender?"
             android:textColor="#619DA3"
             android:textSize="35sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.569"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.152" />
+            app:layout_constraintVertical_bias="0.115" />
 
         <TextView
             android:id="@+id/textView11"
@@ -138,7 +139,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center|start"
             android:text="I prefere not to tell"
-            android:textColor="#FFFFFF"
+            android:textColor="#292929"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +156,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center|start"
             android:text="Male"
-            android:textColor="#535353"
+            android:textColor="#292929"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/view3"
@@ -172,13 +173,39 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center|start"
             android:text="Female"
-            android:textColor="#535353"
+            android:textColor="#292929"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="@+id/view8"
             app:layout_constraintEnd_toEndOf="@+id/view8"
             app:layout_constraintHorizontal_bias="0.088"
             app:layout_constraintStart_toStartOf="@+id/view8"
             app:layout_constraintTop_toTopOf="@+id/view8"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="51dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="1dp"
+            android:src="@drawable/female"
+            app:layout_constraintBottom_toBottomOf="@+id/view8"
+            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="@+id/view8"
+            app:layout_constraintTop_toTopOf="@+id/view8"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="54dp"
+            android:layout_height="57dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/male"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toTopOf="@+id/view3"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,21 +7,63 @@
     tools:context=".Questionnaire.Screen4Q">
 
     <!-- TODO: Update blank fragment layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/view4"
-            android:layout_width="322dp"
-            android:layout_height="259dp"
-            android:background="@drawable/rounded_rec"
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="276dp"
+            android:layout_height="190dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.311"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintVertical_bias="0.646">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="Never"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="true"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="Rarely"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="Often"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="Always"
+                android:textSize="20sp" />
+
+        </RadioGroup>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -31,29 +73,49 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <ProgressBar
-            android:id="@+id/progressBar4"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="365dp"
-            android:layout_height="37dp"
-            android:progress="20"
-            android:scaleX="1"
+
+        <Button
+            android:id="@+id/continue4"
+            android:layout_width="416dp"
+            android:layout_height="67dp"
+            android:background="#75C1C9"
+            android:fontFamily="sans-serif-light"
+            android:shadowColor="#05FFFFFF"
+            android:text="Continue"
+            android:textColor="#535353"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.998" />
+
+        <TextView
+            android:id="@+id/chooseGender5"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:text="How often do you struggle remembering meetings or obligations?"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.108" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.33" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView20"
             android:layout_width="345dp"
             android:layout_height="52dp"
-            android:layout_marginTop="100dp"
             android:gravity="center"
             android:text="Thank you *****, Keep Going!"
             android:textSize="20sp"
@@ -61,151 +123,22 @@
             app:layout_constraintBottom_toTopOf="@+id/Hello"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar4"
             app:layout_constraintVertical_bias="0.876" />
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="318dp"
-            android:layout_height="214dp"
-            android:background="@drawable/rounded_rec"
+        <ProgressBar
+            android:id="@+id/progressBar4"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:progress="10"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.293" />
-
-        <Button
-            android:id="@+id/continue3"
-            android:layout_width="267dp"
-            android:layout_height="58dp"
-            android:background="@drawable/btn_rounded"
-            android:shadowColor="#05FFFFFF"
-            android:text="Continue"
-            android:textColor="#292929"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.961" />
-
-        <TextView
-            android:id="@+id/howWellTimeOrgText"
-            android:layout_width="301dp"
-            android:layout_height="70dp"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:text="On scale of 1-5, How well do you manage your time?"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.253" />
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="237dp"
-            android:layout_height="46dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.36" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="299dp"
-            android:layout_height="40dp"
-            android:fontFamily="casual"
-            android:text="Rate your time managment skills from 1 to 5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="6dp"
-            android:layout_height="17dp"
-            android:fontFamily="sans-serif"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.266"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.408" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="8dp"
-            android:layout_height="16dp"
-            android:text="5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.746"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.409" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="312dp"
-            android:layout_height="99dp"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:text="How often do you struggle remembering meetings or obligations?"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.535"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.598" />
-
-        <RadioGroup
-            android:layout_width="293dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="124dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <RadioButton
-                android:id="@+id/radioButton7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Never"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rarely"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Often"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Always"
-                android:textSize="12sp" />
-        </RadioGroup>
+            app:layout_constraintVertical_bias="0.108" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,24 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Questionnaire.Screen5Q">
+    tools:context=".Questionnaire.Screen6Q">
 
     <!-- TODO: Update blank fragment layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view6"
-            android:layout_width="322dp"
-            android:layout_height="259dp"
-            android:background="@drawable/rounded_rec"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.805" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,170 +25,131 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar6"
+            android:id="@+id/progressBar4"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="20"
+            android:progress="10"
+            android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.108" />
 
 
         <TextView
-            android:id="@+id/textView86"
+            android:id="@+id/textView14"
             android:layout_width="345dp"
             android:layout_height="52dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="496dp"
             android:gravity="center"
             android:text="Thank you *****, Keep Going!"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Hello"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
-
-        <View
-            android:id="@+id/view36"
-            android:layout_width="318dp"
-            android:layout_height="214dp"
-            android:background="@drawable/rounded_rec"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.293" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar4"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/continue6"
-            android:layout_width="267dp"
-            android:layout_height="58dp"
-            android:background="@drawable/btn_rounded"
+            android:layout_width="416dp"
+            android:layout_height="67dp"
+            android:background="#75C1C9"
+            android:fontFamily="sans-serif-light"
             android:shadowColor="#05FFFFFF"
             android:text="Continue"
-            android:textColor="#292929"
+            android:textColor="#535353"
             android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.961" />
+            app:layout_constraintVertical_bias="0.998" />
 
         <TextView
-            android:id="@+id/textView146"
-            android:layout_width="312dp"
-            android:layout_height="106dp"
-            android:fontFamily="casual"
-            android:gravity="center"
+            android:id="@+id/chooseGender7"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
+            android:fontFamily="@font/roboto_condensed_regular"
             android:text="How often do you feel restless or impatient?"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.245" />
-
-        <RadioGroup
-            android:layout_width="156dp"
-            android:layout_height="108dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.286"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.414">
-
-            <RadioButton
-                android:id="@+id/radioButton66"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Never" />
-
-            <RadioButton
-                android:id="@+id/radioButton116"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rarely" />
-
-            <RadioButton
-                android:id="@+id/radioButton126"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sometimes" />
-        </RadioGroup>
+            app:layout_constraintVertical_bias="0.33" />
 
         <RadioGroup
-            android:layout_width="161dp"
-            android:layout_height="107dp"
+            android:id="@+id/radioGroup"
+            android:layout_width="285dp"
+            android:layout_height="241dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.908"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.413">
-
-            <RadioButton
-                android:id="@+id/radioButton136"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Often" />
-
-            <RadioButton
-                android:id="@+id/radioButton146"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Always" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView156"
-            android:layout_width="292dp"
-            android:layout_height="83dp"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:text="Are you taking medication for ADHD?"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.688">
 
-        <ImageButton
-            android:id="@+id/imageButton7"
-            android:layout_width="112dp"
-            android:layout_height="96dp"
-            android:background="#00FFFFFF"
-            android:src="@drawable/v"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.267"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.77" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Never"
+                android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/imageButton6"
-            android:layout_width="103dp"
-            android:layout_height="96dp"
-            android:background="#00FFFFFF"
-            android:src="@drawable/x"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.743"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.77" />
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="true"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Rarely"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="true"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Sometimes"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Often"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Always"
+                android:textSize="20sp" />
+
+        </RadioGroup>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,12 +15,10 @@ import android.widget.Button;
 
 import com.example.arrangeme.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Screen7Q extends Fragment {
 
-    public Screen7Q() {
+public class Screen8Q extends Fragment {
+
+    public Screen8Q() {
         // Required empty public constructor
     }
 
@@ -29,19 +27,19 @@ public class Screen7Q extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen7_q, container, false);
+        return inflater.inflate(R.layout.fragment_screen8_q, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue7);
+        Button button = view.findViewById(R.id.continue8);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen7Q_to_startQ);
+                navController.navigate(R.id.action_screen8Q_to_screen6Q);
             }
         });
     }
