@@ -11,7 +11,7 @@
         android:label="fragment_start_q"
         tools:layout="@layout/fragment_start_q" >
         <action
-            android:id="@+id/action_startQ_to_screen2Q2"
+            android:id="@+id/action_startQ_to_screen2Q"
             app:destination="@id/screen2Q" />
     </fragment>
     <fragment

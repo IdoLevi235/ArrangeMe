@@ -21,11 +21,56 @@
             android:text="Hello *****"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Hello"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.12" />
+
+        <Button
+            android:id="@+id/maleRec"
+            android:layout_width="264dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Male"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.725" />
+
+        <ImageView
+            android:id="@+id/imageViewFemale"
+            android:layout_width="51dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="213dp"
+            android:layout_marginLeft="213dp"
+            android:layout_marginTop="68dp"
+            android:src="@drawable/female"
+            app:layout_constraintBottom_toBottomOf="@+id/femaleRec"
+            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/femaleRec"
+            app:layout_constraintTop_toTopOf="@+id/femaleRec"
             app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageViewMale"
+            android:layout_width="54dp"
+            android:layout_height="57dp"
+            android:layout_marginBottom="9dp"
+            android:src="@drawable/male"
+            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
+            app:layout_constraintEnd_toEndOf="@+id/maleRec"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/maleRec"
+            app:layout_constraintTop_toTopOf="@+id/maleRec"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,16 +90,15 @@
             android:id="@+id/Hello"
             android:layout_width="345dp"
             android:layout_height="129dp"
-            android:layout_marginBottom="3dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:text="In order to help us adjust a good schedules for you, we need to know some details about you. \n Don't worry, we respect your privacy and will keep your details safe."
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/femaleRec"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.338" />
+            app:layout_constraintVertical_bias="0.266" />
 
         <Button
             android:id="@+id/continue1"
@@ -75,61 +119,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
-        <View
-            android:id="@+id/biSex"
-            android:layout_width="265dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="274dp"
-            android:background="@drawable/rounded_rec_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.672" />
-
-        <View
-            android:id="@+id/femaleRec"
-            android:layout_width="265dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="274dp"
-            android:background="@drawable/rounded_rec_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.244" />
-
-        <View
-            android:id="@+id/maleRec"
-            android:layout_width="265dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="274dp"
-            android:background="@drawable/rounded_rec_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.446" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="118dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="1dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|start"
-            android:text="Male"
-            android:textColor="#292929"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
-            app:layout_constraintEnd_toEndOf="@+id/maleRec"
-            app:layout_constraintHorizontal_bias="0.088"
-            app:layout_constraintStart_toStartOf="@+id/maleRec"
-            app:layout_constraintTop_toTopOf="@+id/maleRec"
-            app:layout_constraintVertical_bias="0.0" />
-
         <TextView
             android:id="@+id/chooseGender"
             android:layout_width="wrap_content"
@@ -143,69 +132,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.215" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="196dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="235dp"
-            android:layout_marginBottom="11dp"
+        <Button
+            android:id="@+id/biSex"
+            android:layout_width="264dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
             android:fontFamily="sans-serif-light"
-            android:gravity="center|start"
-            android:text="I prefere not to tell"
-            android:textColor="#292929"
+            android:gravity="center|left"
+            android:text="  I prefere not to tell"
+            android:textAllCaps="false"
             android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/biSex"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.418"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/biSex"
-            app:layout_constraintVertical_bias="0.963" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.842" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="118dp"
+        <Button
+            android:id="@+id/femaleRec"
+            android:layout_width="264dp"
             android:layout_height="57dp"
-            android:layout_marginBottom="1dp"
+            android:background="@drawable/rounded_rec_white"
             android:fontFamily="sans-serif-light"
-            android:gravity="center|start"
-            android:text="Female"
-            android:textColor="#292929"
+            android:gravity="center|left"
+            android:text="  Female"
+            android:textAllCaps="false"
             android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/femaleRec"
-            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
-            app:layout_constraintHorizontal_bias="0.088"
-            app:layout_constraintStart_toStartOf="@+id/femaleRec"
-            app:layout_constraintTop_toTopOf="@+id/femaleRec"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="51dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="1dp"
-            android:src="@drawable/female"
-            app:layout_constraintBottom_toBottomOf="@+id/femaleRec"
-            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
-            app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/femaleRec"
-            app:layout_constraintTop_toTopOf="@+id/femaleRec"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="54dp"
-            android:layout_height="57dp"
-            android:layout_marginBottom="1dp"
-            android:src="@drawable/male"
-            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
-            app:layout_constraintEnd_toEndOf="@+id/maleRec"
-            app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="@+id/maleRec"
-            app:layout_constraintTop_toTopOf="@+id/maleRec"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.602" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
