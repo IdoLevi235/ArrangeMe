@@ -13,19 +13,6 @@
         android:layout_height="match_parent">
 
 
-        <View
-            android:id="@+id/view8"
-            android:layout_width="265dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="274dp"
-            android:background="@drawable/rounded_rec_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.3" />
-
         <TextView
             android:id="@+id/textView5"
             android:layout_width="345dp"
@@ -67,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.416" />
+            app:layout_constraintVertical_bias="0.338" />
 
         <Button
             android:id="@+id/continue1"
@@ -89,20 +76,19 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/biSex"
             android:layout_width="265dp"
             android:layout_height="58dp"
             android:layout_marginTop="274dp"
             android:background="@drawable/rounded_rec_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.733" />
+            app:layout_constraintVertical_bias="0.672" />
 
         <View
-            android:id="@+id/view3"
+            android:id="@+id/femaleRec"
             android:layout_width="265dp"
             android:layout_height="58dp"
             android:layout_marginTop="274dp"
@@ -112,7 +98,37 @@
             app:layout_constraintHorizontal_bias="0.527"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.519" />
+            app:layout_constraintVertical_bias="0.244" />
+
+        <View
+            android:id="@+id/maleRec"
+            android:layout_width="265dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="274dp"
+            android:background="@drawable/rounded_rec_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.527"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.446" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="118dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|start"
+            android:text="Male"
+            android:textColor="#292929"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
+            app:layout_constraintEnd_toEndOf="@+id/maleRec"
+            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintStart_toStartOf="@+id/maleRec"
+            app:layout_constraintTop_toTopOf="@+id/maleRec"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/chooseGender"
@@ -128,7 +144,7 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.115" />
+            app:layout_constraintVertical_bias="0.071" />
 
         <TextView
             android:id="@+id/textView11"
@@ -141,29 +157,12 @@
             android:text="I prefere not to tell"
             android:textColor="#292929"
             android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintBottom_toBottomOf="@+id/biSex"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.418"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/biSex"
             app:layout_constraintVertical_bias="0.963" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="118dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="1dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|start"
-            android:text="Male"
-            android:textColor="#292929"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view3"
-            app:layout_constraintEnd_toEndOf="@+id/view3"
-            app:layout_constraintHorizontal_bias="0.088"
-            app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toTopOf="@+id/view3"
-            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView10"
@@ -175,11 +174,11 @@
             android:text="Female"
             android:textColor="#292929"
             android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view8"
-            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintBottom_toBottomOf="@+id/femaleRec"
+            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
             app:layout_constraintHorizontal_bias="0.088"
-            app:layout_constraintStart_toStartOf="@+id/view8"
-            app:layout_constraintTop_toTopOf="@+id/view8"
+            app:layout_constraintStart_toStartOf="@+id/femaleRec"
+            app:layout_constraintTop_toTopOf="@+id/femaleRec"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
@@ -189,10 +188,10 @@
             android:layout_marginTop="1dp"
             android:src="@drawable/female"
             app:layout_constraintBottom_toBottomOf="@+id/view8"
-            app:layout_constraintEnd_toEndOf="@+id/view8"
+            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
             app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="@+id/view8"
-            app:layout_constraintTop_toTopOf="@+id/view8"
+            app:layout_constraintStart_toStartOf="@+id/femaleRec"
+            app:layout_constraintTop_toTopOf="@+id/femaleRec"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
@@ -201,11 +200,11 @@
             android:layout_height="57dp"
             android:layout_marginBottom="1dp"
             android:src="@drawable/male"
-            app:layout_constraintBottom_toBottomOf="@+id/view3"
-            app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
+            app:layout_constraintEnd_toEndOf="@+id/maleRec"
             app:layout_constraintHorizontal_bias="0.488"
-            app:layout_constraintStart_toStartOf="@+id/view3"
-            app:layout_constraintTop_toTopOf="@+id/view3"
+            app:layout_constraintStart_toStartOf="@+id/maleRec"
+            app:layout_constraintTop_toTopOf="@+id/maleRec"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.example.arrangeme.R;
 
 
+
 public class Screen61Q extends Fragment {
 
     public Screen61Q() {
@@ -34,7 +35,7 @@ public class Screen61Q extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue8);
+        Button button = view.findViewById(R.id.continue61);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override

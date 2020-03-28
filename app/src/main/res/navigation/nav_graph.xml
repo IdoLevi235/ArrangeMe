@@ -11,7 +11,7 @@
         android:label="fragment_start_q"
         tools:layout="@layout/fragment_start_q" >
         <action
-            android:id="@+id/action_startQ_to_screen2Q"
+            android:id="@+id/action_startQ_to_screen2Q2"
             app:destination="@id/screen2Q" />
     </fragment>
     <fragment
@@ -47,7 +47,7 @@
         android:label="fragment_screen5_q"
         tools:layout="@layout/fragment_screen5_q" >
         <action
-            android:id="@+id/action_screen5Q_to_screen8Q"
+            android:id="@+id/action_screen5Q_to_screen61Q"
             app:destination="@id/screen61Q" />
     </fragment>
     <fragment
@@ -65,8 +65,8 @@
         android:label="fragment_screen7_q"
         tools:layout="@layout/fragment_screen7_q" >
         <action
-            android:id="@+id/action_screen7Q_to_startQ"
-            app:destination="@id/startQ" />
+            android:id="@+id/action_screen7Q_to_screen8Q"
+            app:destination="@id/screen8Q" />
     </fragment>
     <fragment
         android:id="@+id/screen61Q"
@@ -76,5 +76,14 @@
         <action
             android:id="@+id/action_screen61Q_to_screen6Q"
             app:destination="@id/screen6Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen8Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen8Q"
+        android:label="fragment_screen8_q"
+        tools:layout="@layout/fragment_screen8_q" >
+        <action
+            android:id="@+id/action_screen8Q_to_startQ"
+            app:destination="@id/startQ" />
     </fragment>
 </navigation>

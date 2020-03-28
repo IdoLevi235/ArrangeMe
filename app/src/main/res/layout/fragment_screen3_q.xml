@@ -55,6 +55,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.232" />
 
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="48dp"
@@ -66,10 +67,10 @@
             android:src="@drawable/home_school"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
+            app:layout_constraintHorizontal_bias="0.253"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -78,14 +79,13 @@
             android:layout_marginStart="201dp"
             android:layout_marginLeft="201dp"
             android:layout_marginTop="280dp"
-            android:src="@drawable/home_school"
+            android:src="@drawable/classroom"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup"
+            app:layout_constraintHorizontal_bias="0.253"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0"
-            tools:src="@drawable/classroom" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <RadioGroup
             android:id="@+id/radioGroup"

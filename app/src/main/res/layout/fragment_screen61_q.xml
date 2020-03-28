@@ -69,7 +69,7 @@
 
 
         <Button
-            android:id="@+id/continue8"
+            android:id="@+id/continue61"
             android:layout_width="416dp"
             android:layout_height="67dp"
             android:background="#75C1C9"
