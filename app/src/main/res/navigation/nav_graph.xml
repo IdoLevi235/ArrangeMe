@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_screen5_q" >
         <action
             android:id="@+id/action_screen5Q_to_screen8Q"
-            app:destination="@id/screen8Q" />
+            app:destination="@id/screen61Q" />
     </fragment>
     <fragment
         android:id="@+id/screen6Q"
@@ -69,12 +69,12 @@
             app:destination="@id/startQ" />
     </fragment>
     <fragment
-        android:id="@+id/screen8Q"
-        android:name="com.example.arrangeme.Questionnaire.Screen8Q"
-        android:label="fragment_screen8_q"
-        tools:layout="@layout/fragment_screen8_q" >
+        android:id="@+id/screen61Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen61Q"
+        android:label="fragment_screen61_q"
+        tools:layout="@layout/fragment_screen61_q">
         <action
-            android:id="@+id/action_screen8Q_to_screen6Q"
+            android:id="@+id/action_screen61Q_to_screen6Q"
             app:destination="@id/screen6Q" />
     </fragment>
 </navigation>
