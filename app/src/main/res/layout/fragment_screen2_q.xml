@@ -71,8 +71,8 @@
             app:layout_constraintBottom_toTopOf="@+id/view5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.94" />
 
         <View
             android:id="@+id/view5"
@@ -218,7 +218,7 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/continue2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintHorizontal_bias="0.268"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5"
             app:layout_constraintVertical_bias="0.0" />
@@ -275,8 +275,8 @@
 
         <ImageView
             android:id="@+id/imageView11"
-            android:layout_width="53dp"
-            android:layout_height="73dp"
+            android:layout_width="54dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="21dp"
             android:src="@drawable/cooluser"
             app:layout_constraintBottom_toBottomOf="@+id/view17"
@@ -295,7 +295,7 @@
             android:src="@drawable/smoke"
             app:layout_constraintBottom_toTopOf="@+id/continue2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintHorizontal_bias="0.788"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5"
             app:layout_constraintVertical_bias="1.0" />
