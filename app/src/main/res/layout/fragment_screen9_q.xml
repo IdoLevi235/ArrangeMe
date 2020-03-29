@@ -4,28 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Questionnaire.Screen7Q">
+    tools:context=".Questionnaire.Screen9Q">
 
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/HW8"
-            android:layout_width="347dp"
-            android:layout_height="104dp"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:text="Let's say you recieved Home Work to assign in 1 week from today, when will you start work on it?  "
-            android:textColor="#619DA3"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.64"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.354" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -40,7 +25,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBar4"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
@@ -53,10 +38,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.108" />
 
+
         <TextView
-            android:id="@+id/textView148"
+            android:id="@+id/textView149"
             android:layout_width="345dp"
             android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="496dp"
             android:gravity="center"
             android:text="Thank you *****, Keep Going!"
             android:textSize="20sp"
@@ -64,21 +52,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.007" />
-
-        <View
-            android:id="@+id/view48"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar4"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/continue8"
+            android:id="@+id/continue9"
             android:layout_width="416dp"
             android:layout_height="67dp"
             android:background="#75C1C9"
@@ -91,52 +69,66 @@
             android:typeface="serif"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.998" />
+
+        <TextView
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:text="Do you try to keep home study during the entire emester or only before exams?"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.287" />
 
         <RadioGroup
-            android:layout_width="310dp"
-            android:layout_height="216dp"
-            app:layout_constraintBottom_toBottomOf="@+id/continue8"
+            android:id="@+id/radioGroup9"
+            android:layout_width="285dp"
+            android:layout_height="241dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.326"
+            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view48"
-            app:layout_constraintVertical_bias="0.753">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.643">
 
             <RadioButton
-                android:id="@+id/radioButton10"
+                android:id="@+id/radioButton91"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
-                android:text="Immediatley when recieving the HW"
+                android:scaleX="1"
+                android:text="  Entire semester"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton11"
+                android:id="@+id/radioButton92"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="45dp"
+                android:checked="true"
                 android:fontFamily="sans-serif-light"
-                android:text="1-3 Days after reciving the HW"
+                android:scaleX="1"
+                android:text="  Only before exams"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton12"
+                android:id="@+id/radioButton93"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="45dp"
+                android:checked="true"
                 android:fontFamily="sans-serif-light"
-                android:text="4-6 Days after reciving the HW"
+                android:scaleX="1"
+                android:text=" Combined"
                 android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/radioButton13"
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:fontFamily="sans-serif-light"
-                android:text="On due date"
-                android:textSize="20sp" />
         </RadioGroup>
 
 
