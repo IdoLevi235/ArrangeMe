@@ -33,12 +33,12 @@ public class Screen8Q extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue7);
+        Button button = view.findViewById(R.id.continue8);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen8Q_to_startQ);
+                navController.navigate(R.id.action_screen8Q_to_screen9Q);
             }
         });
     }

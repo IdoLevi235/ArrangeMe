@@ -83,7 +83,16 @@
         android:label="fragment_screen8_q"
         tools:layout="@layout/fragment_screen8_q" >
         <action
-            android:id="@+id/action_screen8Q_to_startQ"
+            android:id="@+id/action_screen8Q_to_screen9Q"
+            app:destination="@id/screen9Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen9Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen9Q"
+        android:label="fragment_screen9_q"
+        tools:layout="@layout/fragment_screen9_q" >
+        <action
+            android:id="@+id/action_screen9Q_to_startQ"
             app:destination="@id/startQ" />
     </fragment>
 </navigation>

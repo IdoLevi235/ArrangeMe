@@ -28,13 +28,14 @@ public class Screen9Q extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final NavController navController = Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue7);
-      //  button.setOnClickListener(new View.OnClickListener() {
-            //@Override
-        //    public void onClick(View v) {
-        //        navController.navigate(R.id.action_screen9Q_to_startQ);
-        //    }
-      //  });
+        final NavController navController= Navigation.findNavController(view);
+        Button button = view.findViewById(R.id.continue9);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v){
+                navController.navigate(R.id.action_screen9Q_to_startQ);
+            }
+        });
     }
 }
