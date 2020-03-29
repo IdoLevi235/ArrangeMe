@@ -18,30 +18,32 @@ import com.example.arrangeme.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Screen9Q extends Fragment {
+public class Screen10Q extends Fragment {
 
-    public Screen9Q() {
+    public Screen10Q() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen9_q, container, false);
+        return inflater.inflate(R.layout.fragment_screen10_q, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue9);
+        Button button = view.findViewById(R.id.continue10);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen9Q_to_screen10Q);
+                navController.navigate(R.id.action_screen10Q_to_screen11Q);
             }
         });
     }
+
 }

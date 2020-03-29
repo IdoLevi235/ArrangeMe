@@ -92,7 +92,25 @@
         android:label="fragment_screen9_q"
         tools:layout="@layout/fragment_screen9_q" >
         <action
-            android:id="@+id/action_screen9Q_to_startQ"
+            android:id="@+id/action_screen9Q_to_screen10Q"
+            app:destination="@id/screen10Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen10Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen10Q"
+        android:label="fragment_screen10_q"
+        tools:layout="@layout/fragment_screen10_q" >
+        <action
+            android:id="@+id/action_screen10Q_to_screen11Q"
+            app:destination="@id/screen11Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen11Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen11Q"
+        android:label="fragment_screen11_q"
+        tools:layout="@layout/fragment_screen11_q" >
+        <action
+            android:id="@+id/action_screen11Q_to_startQ"
             app:destination="@id/startQ" />
     </fragment>
 </navigation>
