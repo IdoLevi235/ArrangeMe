@@ -110,7 +110,52 @@
         android:label="fragment_screen11_q"
         tools:layout="@layout/fragment_screen11_q" >
         <action
-            android:id="@+id/action_screen11Q_to_startQ"
+            android:id="@+id/action_screen11Q_to_screen12Q"
+            app:destination="@id/screen12Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen12Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen12Q"
+        android:label="fragment_screen12_q"
+        tools:layout="@layout/fragment_screen12_q" >
+        <action
+            android:id="@+id/action_screen12Q_to_screen13Q"
+            app:destination="@id/screen13Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen13Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen13Q"
+        android:label="fragment_screen13_q"
+        tools:layout="@layout/fragment_screen13_q" >
+        <action
+            android:id="@+id/action_screen13Q_to_screen14Q"
+            app:destination="@id/screen14Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen14Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen14Q"
+        android:label="fragment_screen14_q"
+        tools:layout="@layout/fragment_screen14_q" >
+        <action
+            android:id="@+id/action_screen14Q_to_screen15Q"
+            app:destination="@id/screen15Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen15Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen15Q"
+        android:label="fragment_screen15_q"
+        tools:layout="@layout/fragment_screen15_q" >
+        <action
+            android:id="@+id/action_screen15Q_to_screen16Q"
+            app:destination="@id/screen16Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen16Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen16Q"
+        android:label="fragment_screen16_q"
+        tools:layout="@layout/fragment_screen16_q" >
+        <action
+            android:id="@+id/action_screen16Q_to_startQ"
             app:destination="@id/startQ" />
     </fragment>
 </navigation>

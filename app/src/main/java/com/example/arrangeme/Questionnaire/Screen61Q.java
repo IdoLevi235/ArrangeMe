@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import com.example.arrangeme.R;
 
 
 
 public class Screen61Q extends Fragment {
+
+
 
     public Screen61Q() {
         // Required empty public constructor

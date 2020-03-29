@@ -14,3 +14,10 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
     }
 }
+
+//TODO: What happens when user exits in the middle ? or leaving field empty?
+//TODO: progress bar? dots?
+//TODO: username in top of each fragment
+//todo: Start after sign up
+//todo initial popup welcome
+//TODO: apps question maybe CHIPGROUP

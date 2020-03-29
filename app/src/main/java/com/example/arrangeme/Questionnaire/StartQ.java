@@ -51,7 +51,6 @@ public class StartQ extends Fragment  implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         for(int i = 0; i < btn.length; i++){
             btn[i] = (Button)getView().findViewById(btn_id[i]);
             btn[i].setOnClickListener(this);

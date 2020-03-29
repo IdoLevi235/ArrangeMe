@@ -18,9 +18,9 @@ import com.example.arrangeme.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Screen12Q extends Fragment {
+public class Screen14Q extends Fragment {
 
-    public Screen12Q() {
+    public Screen14Q() {
         // Required empty public constructor
     }
 
@@ -29,20 +29,19 @@ public class Screen12Q extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen12_q, container, false);
+        return inflater.inflate(R.layout.fragment_screen14_q, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue12);
+        Button button = view.findViewById(R.id.continue14);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                navController.navigate(R.id.action_screen12Q_to_screen13Q);
+                navController.navigate(R.id.action_screen14Q_to_screen15Q);
             }
         });
     }

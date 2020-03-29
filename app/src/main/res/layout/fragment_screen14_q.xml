@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Questionnaire.Screen12Q">
+    tools:context=".Questionnaire.Screen14Q">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,14 +14,14 @@
 
 
         <Button
-            android:id="@+id/sixRec"
+            android:id="@+id/yesRec"
             android:layout_width="264dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/sixoclock"
+            android:drawableRight="@drawable/healthyfood"
             android:fontFamily="sans-serif-light"
             android:gravity="center|left"
-            android:text="  6pm-8pm"
+            android:text="  Yes"
             android:textAllCaps="false"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,10 +29,10 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.483" />
+            app:layout_constraintVertical_bias="0.518" />
 
         <TextView
-            android:id="@+id/textView502"
+            android:id="@+id/textView504"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -46,14 +46,13 @@
             app:layout_constraintVertical_bias="0.12" />
 
         <Button
-            android:id="@+id/eightRec"
+            android:id="@+id/dontknowRec"
             android:layout_width="264dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/tenocklock"
             android:fontFamily="sans-serif-light"
             android:gravity="center|left"
-            android:text="  10pm-12pm"
+            android:text="  I don't know"
             android:textAllCaps="false"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +60,7 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.725" />
+            app:layout_constraintVertical_bias="0.784" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -78,7 +77,7 @@
 
 
         <Button
-            android:id="@+id/continue12"
+            android:id="@+id/continue14"
             android:layout_width="416dp"
             android:layout_height="67dp"
             android:background="#75C1C9"
@@ -97,29 +96,30 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/chooseGender12"
-            android:layout_width="359dp"
-            android:layout_height="131dp"
+            android:id="@+id/chooseGender14"
+            android:layout_width="360dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="152dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="In what time you usually go to sleep?"
+            android:text="Do you consider yourself as a person that eats healthy food?"
             android:textColor="#619DA3"
             android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/continue12"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.634"
+            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.261" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/tenRec"
+            android:id="@+id/noRec"
             android:layout_width="264dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/twelveocklok"
+            android:drawableRight="@drawable/pizza"
             android:fontFamily="sans-serif-light"
             android:gravity="center|left"
-            android:text="  12pm and later"
+            android:text="  No"
             android:textAllCaps="false"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,25 +127,7 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.84" />
-
-        <Button
-            android:id="@+id/TwelveRec"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/eightocklock"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  8pm-10pm"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.602" />
+            app:layout_constraintVertical_bias="0.652" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
