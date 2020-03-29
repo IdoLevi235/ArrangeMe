@@ -29,7 +29,6 @@
 
         <Button
             android:id="@+id/maleRec"
-            android:drawableRight="@drawable/male_xml"
             android:layout_width="264dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
@@ -44,6 +43,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.725" />
+
+        <ImageView
+            android:id="@+id/imageViewMale"
+            android:layout_width="54dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="213dp"
+            android:layout_marginLeft="213dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginBottom="9dp"
+            android:elevation="2dp"
+            android:src="@drawable/male"
+            app:layout_constraintBottom_toBottomOf="@+id/maleRec"
+            app:layout_constraintEnd_toEndOf="@+id/maleRec"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/maleRec"
+            app:layout_constraintTop_toTopOf="@+id/maleRec"
+            app:layout_constraintVertical_bias="0.883" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -126,7 +142,6 @@
             app:layout_constraintVertical_bias="0.842" />
 
         <Button
-            android:drawableRight="@drawable/female_xml"
             android:id="@+id/femaleRec"
             android:layout_width="264dp"
             android:layout_height="57dp"
@@ -142,6 +157,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.602" />
+
+        <ImageView
+            android:id="@+id/imageViewFemale"
+            android:layout_width="51dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="213dp"
+            android:layout_marginLeft="213dp"
+            android:layout_marginTop="68dp"
+            android:elevation="2dp"
+            android:src="@drawable/female"
+            app:layout_constraintBottom_toBottomOf="@+id/femaleRec"
+            app:layout_constraintEnd_toEndOf="@+id/femaleRec"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/femaleRec"
+            app:layout_constraintTop_toTopOf="@+id/femaleRec"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

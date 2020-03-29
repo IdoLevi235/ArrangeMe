@@ -15,11 +15,6 @@ import android.widget.Button;
 
 import com.example.arrangeme.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Screen8Q#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Screen8Q extends Fragment {
 
     public Screen8Q() {
