@@ -18,6 +18,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center|left"
         android:text="  Google"
+        android:drawableTint="#75C1C9"
         android:textAllCaps="true"
         android:textColor="#75C1C9"
         android:textSize="15sp"
