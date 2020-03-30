@@ -10,14 +10,15 @@
 
     <View
         android:id="@+id/view3"
-        android:layout_width="299dp"
-        android:layout_height="299dp"
+        android:layout_width="318dp"
+        android:layout_height="315dp"
         android:background="@drawable/rounded_rec_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <TextView
         android:id="@+id/forgetPass"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:gravity="center"
-        android:text="I Already Have An Account"
+        android:text="I Already Have An Account?"
         android:textAllCaps="false"
         android:textColor="#494949"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192"
+        app:layout_constraintVertical_bias="0.155"
         app:srcCompat="@drawable/logo_arrange_me2" />
 
     <EditText
