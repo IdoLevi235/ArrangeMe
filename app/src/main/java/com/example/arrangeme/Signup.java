@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,6 +86,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
 
             }
+            Globals.currentUsername = fname;
+            startActivity(new Intent(Signup.this, Questionnaire.class));
+            //updateUI(user);
 
         }
     }

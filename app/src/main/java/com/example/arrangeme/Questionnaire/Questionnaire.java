@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.arrangeme.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Questionnaire extends AppCompatActivity {
 
@@ -17,7 +19,8 @@ public class Questionnaire extends AppCompatActivity {
 
 //TODO: What happens when user exits in the middle ? or leaving field empty?
 //TODO: progress bar? dots?
-//TODO: username in top of each fragment
-//todo: Start after sign up
 //todo initial popup welcome
 //TODO: apps question maybe CHIPGROUP
+//TODO: לסדר את כל המלבנים עם התמונות הקטנות שיעבדו טוב כמו במסך הראשון
+//todo: auto login after registration
+// todo: fix continue + toolbar to questionnaire activity

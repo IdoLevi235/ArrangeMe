@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 
 /**
@@ -37,6 +39,9 @@ public class Screen19Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue19);
+        TextView topMessage = view.findViewById(R.id.textView199);
+        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
