@@ -5,13 +5,13 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/BackgroundApp"
+    android:background="@drawable/backgroundapp"
     tools:context=".Login">
 
 
     <Button
         android:id="@+id/Google"
-        android:layout_width="119dp"
+        android:layout_width="115dp"
         android:layout_height="37dp"
         android:background="@drawable/rounded_rec_blueborder"
         android:drawableRight="@drawable/google_xml"
@@ -23,15 +23,15 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.773"
+        app:layout_constraintHorizontal_bias="0.787"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.913" />
+        app:layout_constraintVertical_bias="0.906" />
 
     <Button
         android:id="@+id/facebook"
-        android:layout_width="136dp"
-        android:layout_height="34dp"
+        android:layout_width="154dp"
+        android:layout_height="35dp"
         android:background="@drawable/rounded_rec_blueborder"
         android:drawableRight="@drawable/facebook_xml"
         android:fontFamily="sans-serif-medium"
@@ -42,10 +42,10 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintHorizontal_bias="0.233"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.905" />
 
     <Button
         android:id="@+id/sumbitBtn"
@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.192"
-        app:srcCompat="@drawable/logoArrangeMe2" />
+        app:srcCompat="@drawable/logo_arrange_me2" />
 
 
     <TextView
