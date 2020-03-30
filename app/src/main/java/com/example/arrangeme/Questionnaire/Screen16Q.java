@@ -73,7 +73,7 @@ public class Screen16Q extends Fragment implements View.OnClickListener{
         final NavController navController = Navigation.findNavController(v);
 
         if (v.getId() == R.id.continue16) { //continue
-            navController.navigate(R.id.action_screen16Q_to_startQ);
+            navController.navigate(R.id.action_screen16Q_to_screen17Q);
         } else {//checkboxes
             CheckBox c = ((CheckBox) v);
             if(c.isChecked()) { //check

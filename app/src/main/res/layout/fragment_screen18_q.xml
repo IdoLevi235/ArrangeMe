@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Questionnaire.Screen18Q">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView198"
+            android:layout_width="345dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="Thank you *****, Keep Going!"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/continue18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.178" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#75C1C9"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar18"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:progress="15"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
+            app:layout_constraintBottom_toTopOf="@+id/view28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.232" />
+
+
+        <ImageView
+            android:id="@+id/imageView48"
+            android:layout_width="48dp"
+            android:layout_height="46dp"
+            android:src="@drawable/sportalone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.84"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.386" />
+
+        <ImageView
+            android:id="@+id/imageView128"
+            android:layout_width="48dp"
+            android:layout_height="46dp"
+            android:src="@drawable/sportgroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.84"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.474" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup18"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toTopOf="@+id/view28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.367"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.943">
+
+            <RadioButton
+                android:id="@+id/radioButton80"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Alone at home/gym"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton82"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:checked="true"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  In a group"
+                android:textSize="20sp" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/continue18"
+            android:layout_width="416dp"
+            android:layout_height="67dp"
+            android:background="#75C1C9"
+            android:fontFamily="sans-serif-light"
+            android:shadowColor="#05FFFFFF"
+            android:text="Continue"
+            android:textColor="#535353"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/chooseGender218"
+            android:layout_width="324dp"
+            android:layout_height="62dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:text="Where do you prefer doing sports?"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/continue18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.268" />
+
+        <View
+            android:id="@+id/view28"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.524" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="316dp"
+            android:layout_height="69dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:text="How many times a week you do sports activities?"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view28"
+            app:layout_constraintVertical_bias="0.073" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup1882"
+            android:layout_width="266dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view28"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RadioButton
+                android:id="@+id/radioButton15"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  None"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton16"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  1-3 times"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton17"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  4 times and above"
+                android:textSize="20sp" />
+
+        </RadioGroup>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
