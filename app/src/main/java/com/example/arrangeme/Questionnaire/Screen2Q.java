@@ -39,6 +39,7 @@ public class Screen2Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue2);
+
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
