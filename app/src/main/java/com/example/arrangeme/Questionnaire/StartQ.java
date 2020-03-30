@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.arrangeme.R;
+
 import org.w3c.dom.Text;
 import java.util.function.ToDoubleBiFunction;
 import static com.example.arrangeme.R.*;
@@ -29,13 +32,12 @@ import static com.example.arrangeme.R.*;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartQ extends Fragment  implements View.OnClickListener {
+public class StartQ<viewPager> extends Fragment  implements View.OnClickListener {
     private Button femaleRec;
     private ImageView female;
     private Button maleRec;
     private ImageView male;
     private Button biSex;
-
     private Button[] btn = new Button[3];
     private Button btn_unfocus;
     private int[] btn_id = {R.id.femaleRec, R.id.maleRec, R.id.biSex};
@@ -49,6 +51,7 @@ public class StartQ extends Fragment  implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(layout.fragment_start_q, container, false);
     }
     @Override
@@ -61,6 +64,7 @@ public class StartQ extends Fragment  implements View.OnClickListener {
         btn_unfocus = btn[0];
         Button continue1 = view.findViewById(id.continue1);
         continue1.setOnClickListener(this);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

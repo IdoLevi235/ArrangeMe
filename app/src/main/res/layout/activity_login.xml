@@ -5,19 +5,73 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/BackgroundApp"
     tools:context=".Login">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="142dp"
-        android:layout_height="145dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/avatar"
+    <Button
+        android:id="@+id/Google"
+        android:layout_width="119dp"
+        android:layout_height="37dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/google_xml"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center|left"
+        android:text="  Google"
+        android:textAllCaps="true"
+        android:textColor="#75C1C9"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.913" />
+
+    <Button
+        android:id="@+id/facebook"
+        android:layout_width="136dp"
+        android:layout_height="34dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/facebook_xml"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center|left"
+        android:text="  Facebook"
+        android:textAllCaps="true"
+        android:textColor="#75C1C9"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91" />
+
+    <Button
+        android:id="@+id/sumbitBtn"
+        android:layout_width="281dp"
+        android:layout_height="41dp"
+        android:background="@drawable/btn_rounded"
+        android:shadowColor="#05FFFFFF"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.695" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="302dp"
+        android:layout_height="146dp"
+        android:background="@drawable/rounded_rec_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
 
     <CheckBox
         android:id="@+id/rememberMe"
@@ -31,40 +85,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.575" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="211dp"
+        android:layout_height="118dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.192"
+        app:srcCompat="@drawable/logoArrangeMe2" />
+
+
     <TextView
         android:id="@+id/forgetPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="427dp"
         android:gravity="center"
         android:text="Forget your password?"
         android:textAllCaps="false"
         android:textColor="#494949"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/signupText"
         android:layout_width="141dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:text="Welcome!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:fontFamily="sans-serif-condensed-light"
+        app:fontFamily="@font/roboto_condensed_regular"
         app:layout_constraintBottom_toTopOf="@+id/emailText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/emailText"
@@ -84,16 +149,15 @@
         android:id="@+id/textView2"
         android:layout_width="409dp"
         android:layout_height="23dp"
-        android:layout_marginTop="76dp"
         android:gravity="center"
-        android:text="or connect with"
+        android:text="Sign Up With"
         android:textColor="#707070"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.837" />
 
     <EditText
         android:id="@+id/passwordText"
@@ -108,52 +172,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.513" />
-
-    <Button
-        android:id="@+id/sumbitBtn"
-        android:layout_width="207dp"
-        android:layout_height="38dp"
-        android:shadowColor="#05FFFFFF"
-        android:background="@drawable/btn_rounded"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698" />
-
-    <ImageButton
-        android:id="@+id/googleBtn"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="99dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.556"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/googlelogo" />
-
-    <ImageButton
-        android:id="@+id/facebookBtn"
-        android:layout_width="51dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="99dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sumbitBtn"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/facebooklogo" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
