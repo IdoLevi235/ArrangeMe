@@ -120,7 +120,6 @@
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="Thank you *****, Keep Going!"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -69,8 +69,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                 Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
                                         Toast.LENGTH_SHORT).show();
                                 //TODO: New screen after login..
+                                Globals.currentUsername = user.getDisplayName();
                                 startActivity(new Intent(Login.this, Questionnaire.class));
-                                updateUI(user);
 
                             } else {
                                 // If sign in fails, display a message to the user.
