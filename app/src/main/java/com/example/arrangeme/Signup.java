@@ -66,9 +66,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 createAccount(email, password, fname); //TODO: EMAIL authentication with link (not important)
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
                 Globals.currentUsername = fname;
+                //loginAfterRegistartion(email,password);
+
             }
-            //auto login after registration
-            //loginAfterRegistartion(email,password);
 
             //updateUI(user);
 
@@ -159,11 +159,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("SignInWithMail", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
+                                Toast.makeText(getApplicationContext(), "Connected successfully " + user.getDisplayName(),
                                         Toast.LENGTH_SHORT).show();
                                 //TODO: New screen after login..
                                 Globals.currentUsername = user.getDisplayName();
-                                startActivity(new Intent(Signup.this, Questionnaire.class));
 
                             } else {
                                 // If sign in fails, display a message to the user.
