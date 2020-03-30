@@ -63,17 +63,16 @@ public class StartQ extends Fragment  implements View.OnClickListener {
     @SuppressLint("ResourceAsColor")
     public void onClick(View v){ //check for what button is pressed
         final NavController navController = Navigation.findNavController(v);
-        ImageView male = (ImageView) getView().findViewById(id.imageViewMale);
-        ImageView female = (ImageView) getView().findViewById(id.imageViewFemale);
 
+        //btn_unfocus.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
         switch (v.getId()) {
             case id.femaleRec:
                 setFocus(btn_unfocus,btn[0]);
-                female.setColorFilter(getContext().getResources().getColor(color.colorWhite));
+                //female.setColorFilter(getContext().getResources().getColor(color.colorWhite));
                 break;
             case id.maleRec:
                 setFocus(btn_unfocus, btn[1]);
-                male.setColorFilter(getContext().getResources().getColor(color.colorWhite));
+                //male.setColorFilter(getContext().getResources().getColor(color.colorWhite));
                 break;
             case id.biSex:
                 setFocus(btn_unfocus, btn[2]);
@@ -89,6 +88,7 @@ public class StartQ extends Fragment  implements View.OnClickListener {
     @SuppressLint("ResourceAsColor")
     private void setFocus(Button btn_unfocus, Button btn_focus){
         btn_unfocus.setTextColor(Color.parseColor("#000000"));
+
         btn_unfocus.setBackgroundResource(R.drawable.rounded_rec_white);
         btn_focus.setTextColor(Color.parseColor("#FFFFFF"));
         btn_focus.setBackgroundResource(drawable.rounded_rec_blue);
