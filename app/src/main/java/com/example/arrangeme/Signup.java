@@ -47,25 +47,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    protected void onStart() {
-        super.onStart();
-    }
-
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onStop() {
-        super.onStop();
-    }
 
     protected void onDestroy() {
         super.onDestroy();
@@ -84,27 +65,33 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             {
                 createAccount(email, password, fname); //TODO: EMAIL authentication with link (not important)
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
-
+                Globals.currentUsername = fname;
             }
-            Globals.currentUsername = fname;
-            startActivity(new Intent(Signup.this, Questionnaire.class));
+            //auto login after registration
+            //loginAfterRegistartion(email,password);
+
             //updateUI(user);
 
         }
     }
+
+
+
 
     private boolean signUpFormValidation(String email, String password, String confPass, String fname, String lname) {
         String msg;
         if (!password.equals(confPass)){
             msg = "Passwords doesn't match";
             createAlert(msg);
+            return false;
         }
         else if (email.isEmpty()||password.isEmpty()||confPass.isEmpty()||fname.isEmpty()||lname.isEmpty()) {
             msg = "You must fill all fields";
             createAlert(msg);
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private void createAlert(String msg) {
@@ -143,6 +130,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
                             user.updateProfile(profileUpdates);
+                            startActivity(new Intent(Signup.this, Questionnaire.class));
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -159,4 +147,46 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     private void updateUI(FirebaseUser user) {
     }
+
+    private void loginAfterRegistartion(String email, String password) {
+        mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
+        try {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("SignInWithMail", "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(getApplicationContext(), "Welcome " + user.getDisplayName(),
+                                        Toast.LENGTH_SHORT).show();
+                                //TODO: New screen after login..
+                                Globals.currentUsername = user.getDisplayName();
+                                startActivity(new Intent(Signup.this, Questionnaire.class));
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Login failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                updateUI(null);
+                            }
+                        }
+                    });
+        }//end of try
+        catch(IllegalArgumentException e){
+            Toast.makeText(getApplicationContext(), "You must fill all fields.",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+
+
+
+
 }
+
+
