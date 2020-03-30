@@ -155,7 +155,34 @@
         android:label="fragment_screen16_q"
         tools:layout="@layout/fragment_screen16_q" >
         <action
-            android:id="@+id/action_screen16Q_to_startQ"
+            android:id="@+id/action_screen16Q_to_screen17Q"
+            app:destination="@id/screen17Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen17Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen17Q"
+        android:label="fragment_screen17_q"
+        tools:layout="@layout/fragment_screen17_q" >
+        <action
+            android:id="@+id/action_screen17Q_to_screen18Q"
+            app:destination="@id/screen18Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen18Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen18Q"
+        android:label="fragment_screen18_q"
+        tools:layout="@layout/fragment_screen18_q" >
+        <action
+            android:id="@+id/action_screen18Q_to_screen19Q"
+            app:destination="@id/screen19Q" />
+    </fragment>
+    <fragment
+        android:id="@+id/screen19Q"
+        android:name="com.example.arrangeme.Questionnaire.Screen19Q"
+        android:label="fragment_screen19_q"
+        tools:layout="@layout/fragment_screen19_q" >
+        <action
+            android:id="@+id/action_screen19Q_to_startQ"
             app:destination="@id/startQ" />
     </fragment>
 </navigation>
