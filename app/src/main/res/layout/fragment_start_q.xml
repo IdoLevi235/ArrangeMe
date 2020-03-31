@@ -17,32 +17,13 @@
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="Hello *****"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.163" />
-
-        <Button
-            android:id="@+id/maleRec"
-            android:drawableRight="@drawable/male_xml"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  Male"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.725" />
+            app:layout_constraintVertical_bias="0.202" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -57,20 +38,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-
-        <TextView
-            android:id="@+id/Hello"
-            android:layout_width="345dp"
-            android:layout_height="129dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:text="In order to help us adjust a good schedules for you, we need to know some details about you. \n Don't worry, we respect your privacy and will keep your details safe."
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.266" />
 
         <Button
             android:id="@+id/continue1"
@@ -105,7 +72,41 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.215" />
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/femaleRec"
+            android:layout_width="264dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/female_xml"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Female"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48" />
+
+        <Button
+            android:id="@+id/maleRec"
+            android:layout_width="264dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/male_xml"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Male"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.602" />
 
         <Button
             android:id="@+id/biSex"
@@ -119,28 +120,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.842" />
-
-        <Button
-            android:drawableRight="@drawable/female_xml"
-            android:id="@+id/femaleRec"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  Female"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.602" />
+            app:layout_constraintVertical_bias="0.719" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
