@@ -28,8 +28,6 @@ import java.util.Collections;
  * A simple {@link Fragment} subclass.
  */
 public class Screen16Q extends Fragment implements View.OnClickListener{
-    private ArrayList<CheckBox> mChecks;
-    private ArrayList<CheckBox> mSelectedChecks;
     private int count = 0 ;
     private int last;
 
@@ -52,6 +50,21 @@ public class Screen16Q extends Fragment implements View.OnClickListener{
         topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         Button continue16 = view.findViewById(R.id.continue16);
         continue16.setOnClickListener(this);
+        CheckBox c1 = (CheckBox) getView().findViewById(R.id.checkBox2);
+        CheckBox c2 = (CheckBox) getView().findViewById(R.id.checkBox6);
+        CheckBox c3 = (CheckBox) getView().findViewById(R.id.checkBox7);
+        CheckBox c4 = (CheckBox) getView().findViewById(R.id.checkBox9);
+        CheckBox c5 = (CheckBox) getView().findViewById(R.id.checkBox10);
+        CheckBox c6 = (CheckBox) getView().findViewById(R.id.checkBox11);
+        CheckBox c7 = (CheckBox) getView().findViewById(R.id.checkBox12);
+        CheckBox c8 = (CheckBox) getView().findViewById(R.id.checkBox13);
+        CheckBox c9 = (CheckBox) getView().findViewById(R.id.checkBox14);
+        CheckBox[] values = {c1,c2,c3,c4,c5,c6,c7,c8,c9};
+        for(CheckBox c : values) {
+            c.setOnClickListener(this);
+        }
+
+
     }
 
     @Override
@@ -74,8 +87,6 @@ public class Screen16Q extends Fragment implements View.OnClickListener{
 
             else { //uncheck
                 count--;
-                Toast.makeText(getActivity(), "UNCHECK", Toast.LENGTH_SHORT).show();
-
             }
 
             }

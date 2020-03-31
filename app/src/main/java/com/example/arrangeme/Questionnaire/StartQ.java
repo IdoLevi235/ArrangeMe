@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 
 import org.w3c.dom.Text;
@@ -63,6 +65,8 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         }
         btn_unfocus = btn[0];
         Button continue1 = view.findViewById(id.continue1);
+        TextView topMessage = view.findViewById(R.id.textView5);
+        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         continue1.setOnClickListener(this);
 
     }

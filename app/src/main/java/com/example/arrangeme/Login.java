@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-public class Login extends AppCompatActivity implements View.OnClickListener{
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     private EditText emailText;
@@ -31,7 +33,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private Button testButton;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-
 
 
     @Override
@@ -48,10 +49,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v==login){
+        if (v == login) {
             String password = passwordText.getText().toString();
             String email = emailText.getText().toString();
-            signInWithEmailAndPassword(email,password);
+            signInWithEmailAndPassword(email, password);
         }
     }
 
@@ -59,7 +60,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         try {
             mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -75,14 +76,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getApplicationContext(), "Login failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                updateUI(null);
+                                createAlert("Login failed.", SweetAlertDialog.ERROR_TYPE);
                             }
                         }
                     });
-                }//end of try
-        catch(IllegalArgumentException e){
+        }//end of try
+        catch (IllegalArgumentException e) {
             Toast.makeText(getApplicationContext(), "You must fill all fields.",
                     Toast.LENGTH_SHORT).show();
 
@@ -90,7 +89,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void createAlert(String s, int type) {
+        new SweetAlertDialog(Login.this, type)
+                .setTitleText("Error")
+                .setContentText("Login failed.")
+                .show();
+
     }
+
+
 }
+
+
+
+
+
 //TODO: GOOGLE/FACEBOOK SIGN IN/UP
