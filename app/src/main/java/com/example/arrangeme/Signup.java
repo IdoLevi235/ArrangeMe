@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import android.graphics.Color;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
@@ -67,7 +69,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
                 Globals.currentUsername = fname;
                 //loginAfterRegistartion(email,password);
-
             }
 
             //updateUI(user);
@@ -82,31 +83,40 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         String msg;
         if (!password.equals(confPass)){
             msg = "Passwords doesn't match";
-            createAlert(msg);
+            createErrorAlert(msg);
             return false;
         }
         else if (email.isEmpty()||password.isEmpty()||confPass.isEmpty()||fname.isEmpty()||lname.isEmpty()) {
             msg = "You must fill all fields";
-            createAlert(msg);
+            createErrorAlert(msg);
             return false;
         }
 
         return true;
     }
 
-    private void createAlert(String msg) {
-        AlertDialog alertDialog = new AlertDialog.Builder(Signup.this).create();
-        alertDialog.setTitle("Error");
-        alertDialog.setMessage(msg);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Try Again",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();//finishing activity, calling onDestroy;
-                        finish();
-                        startActivity(getIntent()); //reloading it
+    private void createErrorAlert(String msg) {
+        new SweetAlertDialog(Signup.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Error")
+                .setContentText(msg)
+                .show();
+    }
+
+    private void createWelcomeAlert(){
+        new SweetAlertDialog(Signup.this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Welcome :)")
+                .setContentText(("You've registered successfully into ArrangeMe! In order to provide " +
+                        "great schedule recommendations for you, we will ask you few questions " +
+                        "and in that way we will get to know you better and adjust ourself according" +
+                        " to your preferences."))
+                .setConfirmText("Let's start!")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        startActivity(new Intent(Signup.this, Questionnaire.class));
                     }
-                });
-        alertDialog.show();
+                })
+                .show();
 
     }
 
@@ -125,18 +135,16 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("createAccountMail", "createUserWithEmail:success");
-                            Toast toast=Toast. makeText(getApplicationContext(),"Registeration completed successfully!",Toast. LENGTH_SHORT);
-                            toast. show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
                             user.updateProfile(profileUpdates);
-                            startActivity(new Intent(Signup.this, Questionnaire.class));
-                            updateUI(user);
+                            createWelcomeAlert();
+                            //startActivity(new Intent(Signup.this, Questionnaire.class));
+                            //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("createAccountMail", "createUserWithEmail:failure", task.getException());
-                            Toast toast=Toast. makeText(getApplicationContext(),"Registered failed!",Toast. LENGTH_SHORT);
-                            toast. show();
+                            createErrorAlert("Something went wrong, try again please!");
                             updateUI(null);
                         }
 
@@ -161,7 +169,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), "Connected successfully " + user.getDisplayName(),
                                         Toast.LENGTH_SHORT).show();
-                                //TODO: New screen after login..
                                 Globals.currentUsername = user.getDisplayName();
 
                             } else {
