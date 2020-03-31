@@ -69,7 +69,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
                 Globals.currentUsername = fname;
                 //loginAfterRegistartion(email,password);
-
             }
 
             //updateUI(user);
@@ -104,6 +103,20 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void createWelcomeAlert(){
+        new SweetAlertDialog(Signup.this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Welcome :)")
+                .setContentText(("You've registered successfully into ArrangeMe! In order to provide " +
+                        "great schedule recommendations for you, we will ask you few questions " +
+                        "and in that way we will get to know you better and adjust ourself according" +
+                        " to your preferences."))
+                .setConfirmText("Let's start!")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        startActivity(new Intent(Signup.this, Questionnaire.class));
+                    }
+                })
+                .show();
 
     }
 
@@ -125,8 +138,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
                             user.updateProfile(profileUpdates);
-                            startActivity(new Intent(Signup.this, Questionnaire.class));
-                            updateUI(user);
+                            createWelcomeAlert();
+                            //startActivity(new Intent(Signup.this, Questionnaire.class));
+                            //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("createAccountMail", "createUserWithEmail:failure", task.getException());
