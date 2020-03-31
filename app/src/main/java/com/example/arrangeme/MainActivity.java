@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);//TODO: what happens in UI when user opens mainactivity
     }
 
     private void updateUI(FirebaseUser currentUser) {

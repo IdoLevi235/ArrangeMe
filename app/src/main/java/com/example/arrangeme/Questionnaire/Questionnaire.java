@@ -17,10 +17,7 @@ public class Questionnaire extends AppCompatActivity {
     }
 }
 
-//TODO: What happens when user exits in the middle ? or leaving field empty?
-//TODO: progress bar? dots?
-//todo initial popup welcome
-//TODO: apps question maybe CHIPGROUP
-//TODO: לסדר את כל המלבנים עם התמונות הקטנות שיעבדו טוב כמו במסך הראשון
-//todo: auto login after registration
-// todo: fix continue + toolbar to questionnaire activity
+// TODO: What happens when user exits in the middle ? or leaving field empty?
+// TODO: progress bar? dots?
+// todo initial popup welcome
+// TODO: לסדר את כל המלבנים עם התמונות הקטנות שיעבדו טוב כמו במסך הראשון
