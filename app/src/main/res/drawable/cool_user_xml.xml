@@ -3,8 +3,8 @@
 
     <item
         android:drawable="@drawable/cool_user"
-        android:width="40dp"
-        android:height="40dp"
+        android:width="45dp"
+        android:height="45dp"
         />
 
 </layer-list>

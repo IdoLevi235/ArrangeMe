@@ -16,7 +16,7 @@
             android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/cooluser_xml"
+            android:drawableRight="@drawable/cool_user_xml"
             android:fontFamily="sans-serif-light"
             android:gravity="center|left"
             android:text="  Personal"
