@@ -130,14 +130,14 @@
             android:layout_width="327dp"
             android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text= "In what time you usually go to sleep?"
+            android:text="In what time you usually go to sleep?"
             android:textColor="#619DA3"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.279" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <Button
             android:id="@+id/twelveBtn"

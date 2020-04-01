@@ -11,25 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/isSmoke"
-            android:layout_width="330dp"
-            android:layout_height="72dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/pill"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:scaleX="1"
-            android:text="     Are you taking \n     medication for ADHD?      "
-            android:textColor="#619DA3"
-            android:textSize="20sp"
-            android:theme="@style/SCBSwitch"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.481"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.275" />
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -41,6 +22,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp" />
+
+
+        <Switch
+            android:id="@+id/isSmoke"
+            android:layout_width="330dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="13dp"
+            android:drawableLeft="@drawable/pill"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:scaleX="1"
+            android:text="     Are you taking \n     medication for ADHD?      "
+            android:textColor="#619DA3"
+            android:textSize="20sp"
+            android:theme="@style/SCBSwitch"
+            app:layout_constraintBottom_toTopOf="@+id/view5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.983" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -70,15 +71,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.163" />
 
+
         <View
-            android:id="@+id/view4"
+            android:id="@+id/view5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.358" />
 
         <Button
             android:id="@+id/continue7"
@@ -103,12 +107,13 @@
             android:id="@+id/radioGroup"
             android:layout_width="312dp"
             android:layout_height="232dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="136dp"
+            app:layout_constraintBottom_toBottomOf="@+id/continue7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.393"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.769">
+            app:layout_constraintTop_toBottomOf="@+id/view5"
+            app:layout_constraintVertical_bias="0.0">
 
             <RadioButton
                 android:id="@+id/radioButton"
@@ -166,15 +171,17 @@
             android:id="@+id/chooseGender7"
             android:layout_width="327dp"
             android:layout_height="96dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_condensed_regular"
             android:text="If so, how often do you take medication for ADHD? (If you don't, skip this question)"
             android:textColor="#619DA3"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.423" />
+            app:layout_constraintTop_toBottomOf="@+id/view5"
+            app:layout_constraintVertical_bias="0.011" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

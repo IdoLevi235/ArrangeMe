@@ -163,7 +163,7 @@
             android:drawableLeft="@drawable/smoke"
             android:fontFamily="@font/roboto_condensed_regular"
             android:scaleX="1"
-            android:text="      Do you smoke?"
+            android:text="     Do you smoke?"
             android:textColor="#619DA3"
             android:textSize="22sp"
             android:theme="@style/SCBSwitch"
