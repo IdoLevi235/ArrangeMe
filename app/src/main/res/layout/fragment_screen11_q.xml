@@ -23,10 +23,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <RadioGroup
-            android:id="@+id/radioGroup11"
+            android:id="@+id/radioGroup"
             android:layout_width="285dp"
             android:layout_height="241dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,10 +34,10 @@
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.722">
+            app:layout_constraintVertical_bias="0.671">
 
             <RadioButton
-                android:id="@+id/radioButton111"
+                android:id="@+id/radioButton"
                 android:layout_width="179dp"
                 android:layout_height="47dp"
                 android:checked="false"
@@ -47,27 +47,27 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton311"
+                android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:checked="true"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
                 android:text="  Rarely"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton611"
+                android:id="@+id/radioButton6"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:checked="true"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
                 android:text="  Sometimes"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton211"
+                android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:checked="false"
@@ -77,7 +77,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton411"
+                android:id="@+id/radioButton4"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:checked="false"
@@ -87,6 +87,7 @@
                 android:textSize="20sp" />
 
         </RadioGroup>
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -105,18 +106,19 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="10"
+            android:layout_marginBottom="423dp"
+            android:progress="50"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
+            app:layout_constraintVertical_bias="0.284" />
 
 
         <TextView
-            android:id="@+id/textView141"
+            android:id="@+id/text_hello11"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -125,8 +127,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.007" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <Button
             android:id="@+id/continue11"

@@ -23,10 +23,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <RadioGroup
-            android:id="@+id/radioGroup13"
+            android:id="@+id/radioGroup"
             android:layout_width="285dp"
             android:layout_height="241dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,56 +34,56 @@
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.722">
+            app:layout_constraintVertical_bias="0.657">
 
             <RadioButton
-                android:id="@+id/radioButton113"
+                android:id="@+id/radioButton"
                 android:layout_width="179dp"
                 android:layout_height="47dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
-                android:text="  0-4"
+                android:text="  Less then 4"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton313"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:checked="true"
-                android:fontFamily="sans-serif-light"
-                android:scaleX="1"
-                android:text="  4-6"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton613"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:checked="true"
-                android:fontFamily="sans-serif-light"
-                android:scaleX="1"
-                android:text="  6-8"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton213"
+                android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
-                android:text="  8-10"
+                android:text="  4-6 hours"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton413"
+                android:id="@+id/radioButton6"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  6-8 hours"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  8-10 hours"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
-                android:text="  10+"
+                android:text="  More then 10 hours"
                 android:textSize="20sp" />
 
         </RadioGroup>
@@ -105,18 +105,18 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="10"
+            android:layout_marginBottom="423dp"
+            android:progress="60"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
-
+            app:layout_constraintVertical_bias="0.284" />
 
         <TextView
-            android:id="@+id/textView143"
+            android:id="@+id/text_hello13"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -125,8 +125,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.007" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <Button
             android:id="@+id/continue13"

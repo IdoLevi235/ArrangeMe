@@ -36,34 +36,32 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar4"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="10"
+            android:layout_marginBottom="423dp"
+            android:progress="75"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
-
+            app:layout_constraintVertical_bias="0.284" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/text_hello16"
             android:layout_width="345dp"
             android:layout_height="52dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="496dp"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar4"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <Button
             android:id="@+id/continue16"

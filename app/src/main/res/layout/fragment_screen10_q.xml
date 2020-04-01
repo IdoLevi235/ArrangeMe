@@ -13,8 +13,8 @@
 
 
         <Button
-            android:id="@+id/MorningRec"
-            android:layout_width="264dp"
+            android:id="@+id/morningBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/sunwithcloud"
@@ -25,13 +25,27 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.483" />
+            app:layout_constraintVertical_bias="0.470" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
+            android:progress="45"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.284" />
 
         <TextView
-            android:id="@+id/textView50"
+            android:id="@+id/text_hello10"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -41,11 +55,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.12" />
+            app:layout_constraintVertical_bias="0.163" />
 
         <Button
-            android:id="@+id/NoonRec"
-            android:layout_width="264dp"
+            android:id="@+id/eveningBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/moonwithcloud"
@@ -56,10 +70,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.725" />
+            app:layout_constraintVertical_bias="0.585" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -94,24 +107,24 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
+
         <TextView
-            android:id="@+id/chooseGender"
-            android:layout_width="359dp"
-            android:layout_height="131dp"
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
             android:text="In which part of the day you are most focused and study efficiently?"
             android:textColor="#619DA3"
-            android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/continue10"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.261" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.279" />
 
         <Button
-            android:id="@+id/EveningRec"
-            android:layout_width="264dp"
+            android:id="@+id/nightBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/moon"
@@ -122,14 +135,13 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.84" />
+            app:layout_constraintVertical_bias="0.815" />
 
         <Button
-            android:id="@+id/NightRec"
-            android:layout_width="264dp"
+            android:id="@+id/noonBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/sun"
@@ -140,10 +152,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.602" />
+            app:layout_constraintVertical_bias="0.700" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -46,7 +46,7 @@ public class Screen16Q extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView topMessage = view.findViewById(R.id.textView16);
+        TextView topMessage = view.findViewById(R.id.text_hello16);
         topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         Button continue16 = view.findViewById(R.id.continue16);
         continue16.setOnClickListener(this);

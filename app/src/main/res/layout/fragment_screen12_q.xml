@@ -12,9 +12,37 @@
         android:layout_height="match_parent">
 
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
+            android:progress="55"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.284" />
+
+        <TextView
+            android:id="@+id/text_hello12"
+            android:layout_width="345dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
+
         <Button
-            android:id="@+id/sixRec"
-            android:layout_width="264dp"
+            android:id="@+id/sixBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/sixoclock"
@@ -25,27 +53,30 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.483" />
+            app:layout_constraintVertical_bias="0.470" />
 
-        <TextView
-            android:id="@+id/textView502"
-            android:layout_width="345dp"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
+        <Button
+            android:id="@+id/eightBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/eightocklock"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  8pm-10pm"
+            android:textAllCaps="false"
+            android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.12" />
+            app:layout_constraintVertical_bias="0.585" />
 
         <Button
-            android:id="@+id/eightRec"
-            android:layout_width="264dp"
+            android:id="@+id/tenBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/tenocklock"
@@ -56,10 +87,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.725" />
+            app:layout_constraintVertical_bias="0.700" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -94,24 +124,24 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
+
         <TextView
-            android:id="@+id/chooseGender12"
-            android:layout_width="359dp"
-            android:layout_height="131dp"
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="In what time you usually go to sleep?"
+            android:text= "In what time you usually go to sleep?"
             android:textColor="#619DA3"
-            android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/continue12"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.261" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.279" />
 
         <Button
-            android:id="@+id/tenRec"
-            android:layout_width="264dp"
+            android:id="@+id/twelveBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/twelveocklok"
@@ -122,28 +152,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.84" />
-
-        <Button
-            android:id="@+id/TwelveRec"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/eightocklock"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  8pm-10pm"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.602" />
+            app:layout_constraintVertical_bias="0.815" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

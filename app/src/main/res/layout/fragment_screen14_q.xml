@@ -12,26 +12,23 @@
         android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/yesRec"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/healthyfood"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  Yes"
-            android:textAllCaps="false"
-            android:textSize="23sp"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
+            android:progress="65"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518" />
+            app:layout_constraintVertical_bias="0.284" />
 
         <TextView
-            android:id="@+id/textView504"
+            android:id="@+id/text_hello14"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -41,24 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.12" />
-
-        <Button
-            android:id="@+id/dontknowRec"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  I don't know"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.784" />
+            app:layout_constraintVertical_bias="0.163" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -94,24 +74,39 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/chooseGender14"
-            android:layout_width="360dp"
-            android:layout_height="125dp"
-            android:layout_marginTop="152dp"
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="Do you consider yourself as a person that eats healthy food?"
+            android:text= "Do you consider yourself as a person that eats healthy food?"
             android:textColor="#619DA3"
-            android:textSize="35sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.279" />
 
         <Button
-            android:id="@+id/noRec"
-            android:layout_width="264dp"
+            android:id="@+id/yesBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/healthyfood"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Yes"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.470" />
+
+        <Button
+            android:id="@+id/noBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/pizza"
@@ -122,10 +117,25 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.652" />
+            app:layout_constraintVertical_bias="0.587" />
+
+        <Button
+            android:id="@+id/dontKnowBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  I don't know"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.704" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

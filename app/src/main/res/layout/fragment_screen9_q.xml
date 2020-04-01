@@ -24,34 +24,33 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar4"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="10"
+            android:layout_marginBottom="423dp"
+            android:progress="40"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
+            app:layout_constraintVertical_bias="0.284" />
 
 
         <TextView
-            android:id="@+id/textView149"
+            android:id="@+id/text_hello9"
             android:layout_width="345dp"
             android:layout_height="52dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="496dp"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar4"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <Button
             android:id="@+id/continue9"
@@ -77,29 +76,29 @@
             android:layout_width="327dp"
             android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="Do you try to keep home study during the entire emester or only before exams?"
+            android:text="Do you try to keep home study during the entire semester or only before exams?"
             android:textColor="#619DA3"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.287" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <RadioGroup
-            android:id="@+id/radioGroup9"
-            android:layout_width="285dp"
-            android:layout_height="241dp"
+            android:id="@+id/radioGroup"
+            android:layout_width="276dp"
+            android:layout_height="190dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.643">
+            app:layout_constraintVertical_bias="0.591">
 
             <RadioButton
-                android:id="@+id/radioButton91"
-                android:layout_width="match_parent"
+                android:id="@+id/radioButton"
+                android:layout_width="251dp"
                 android:layout_height="47dp"
                 android:checked="false"
                 android:fontFamily="sans-serif-light"
@@ -108,26 +107,28 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton92"
+                android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:checked="true"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
                 android:text="  Only before exams"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton93"
+                android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:checked="true"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
-                android:text=" Combined"
+                android:text="  Combined"
                 android:textSize="20sp" />
 
+
         </RadioGroup>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

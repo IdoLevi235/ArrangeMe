@@ -38,7 +38,7 @@ public class Screen9Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue9);
-        TextView topMessage = view.findViewById(R.id.textView149);
+        TextView topMessage = view.findViewById(R.id.text_hello9);
         topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         button.setOnClickListener(new View.OnClickListener()
         {

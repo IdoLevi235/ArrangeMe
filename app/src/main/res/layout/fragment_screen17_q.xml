@@ -11,10 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <Button
-            android:id="@+id/yesRec17"
-            android:layout_width="264dp"
+            android:id="@+id/yesSportBtn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/muscle"
@@ -25,27 +24,30 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.546" />
+            app:layout_constraintVertical_bias="0.470" />
 
-        <TextView
-            android:id="@+id/textView507"
-            android:layout_width="345dp"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
+        <Button
+            android:id="@+id/noSportBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/blackx"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  No"
+            android:textAllCaps="false"
+            android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.12" />
+            app:layout_constraintVertical_bias="0.587" />
 
         <Button
-            android:id="@+id/dontknowRec17"
-            android:layout_width="264dp"
+            android:id="@+id/dontKnow2Btn"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:fontFamily="sans-serif-light"
@@ -55,10 +57,39 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.803" />
+            app:layout_constraintVertical_bias="0.704" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
+            android:progress="80"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.284" />
+
+        <TextView
+            android:id="@+id/text_hello17"
+            android:layout_width="345dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -94,38 +125,18 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/chooseGender17"
-            android:layout_width="347dp"
-            android:layout_height="169dp"
-            android:layout_marginTop="152dp"
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="Do you consider yourself as a sporty person or someone that exercise is important to him?"
+            android:text= "Do you consider yourself as a sporty person or someone that exercise is important to him?"
             android:textColor="#619DA3"
-            android:textSize="33sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/noRec17"
-            android:layout_width="264dp"
-            android:layout_height="57dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/blackx"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|left"
-            android:text="  No"
-            android:textAllCaps="false"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.677" />
+            app:layout_constraintVertical_bias="0.279" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
