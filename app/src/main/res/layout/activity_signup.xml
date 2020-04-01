@@ -5,20 +5,19 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundapp"
+    android:background="#FFF4F4F4"
     tools:context=".Signup">
 
     <View
         android:id="@+id/view3"
-        android:layout_width="318dp"
-        android:layout_height="315dp"
+        android:layout_width="319dp"
+        android:layout_height="337dp"
         android:background="@drawable/rounded_rec_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintVertical_bias="0.573" />
 
     <TextView
         android:id="@+id/forgetPass"
@@ -75,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.852" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

@@ -73,7 +73,7 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
             case R.id.eightBtn:
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
-            case R.id.noonBtn:
+            case R.id.tenBtn:
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
             case R.id.twelveBtn:

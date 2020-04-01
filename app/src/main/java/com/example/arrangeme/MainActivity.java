@@ -89,4 +89,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 }
-//
+//TODO: night mode option
+//TODO: dots indicator instead of progress bar?
+//TODO: slide left right option

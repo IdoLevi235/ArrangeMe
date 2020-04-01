@@ -13,14 +13,14 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:layout_width="276dp"
-            android:layout_height="190dp"
+            android:layout_width="285dp"
+            android:layout_height="241dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.591">
+            app:layout_constraintVertical_bias="0.671">
 
             <RadioButton
                 android:id="@+id/radioButton"
@@ -40,6 +40,16 @@
                 android:fontFamily="sans-serif-light"
                 android:scaleX="1"
                 android:text="  Rarely"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Sometimes"
                 android:textSize="20sp" />
 
             <RadioButton
