@@ -38,7 +38,7 @@ public class Screen5Q extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue5);
-        TextView topMessage = view.findViewById(R.id.textView14);
+        TextView topMessage = view.findViewById(R.id.text_hello5);
         topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         button.setOnClickListener(new View.OnClickListener()
         {

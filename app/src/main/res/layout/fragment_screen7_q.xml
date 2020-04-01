@@ -12,20 +12,22 @@
         android:layout_height="match_parent">
 
         <Switch
-            android:id="@+id/isSmoke2"
-            android:layout_width="303dp"
-            android:layout_height="62dp"
+            android:id="@+id/isSmoke"
+            android:layout_width="285dp"
+            android:layout_height="63dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto_condensed_regular"
             android:scaleX="1"
-            android:text="Are you taking medication for ADHD?"
+            android:text="Are you taking medication for ADHD?      "
             android:textColor="#619DA3"
-            android:textSize="23sp"
+            android:textSize="25sp"
+            android:theme="@style/SCBSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.851"
+            app:layout_constraintHorizontal_bias="0.674"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.309" />
+            app:layout_constraintVertical_bias="0.279" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,17 +46,18 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="10"
+            android:layout_marginBottom="423dp"
+            android:progress="30"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
+            app:layout_constraintVertical_bias="0.284" />
 
         <TextView
-            android:id="@+id/textView147"
+            android:id="@+id/text_hello7"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
@@ -63,8 +66,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.007" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <View
             android:id="@+id/view4"
@@ -78,16 +81,16 @@
 
         <ImageView
             android:id="@+id/imageView13"
-            android:layout_width="52dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="128dp"
+            android:layout_width="45dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="188dp"
             android:layout_marginBottom="12dp"
             android:src="@drawable/smoke"
             app:layout_constraintBottom_toTopOf="@+id/continue2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintHorizontal_bias="0.091"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             tools:src="@drawable/pill" />
 
@@ -111,77 +114,82 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <RadioGroup
-            android:id="@+id/radioGroup2"
-            android:layout_width="247dp"
-            android:layout_height="159dp"
+            android:id="@+id/radioGroup"
+            android:layout_width="314dp"
+            android:layout_height="245dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.604"
+            app:layout_constraintHorizontal_bias="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.768">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.79">
 
             <RadioButton
-                android:id="@+id/radioButton5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
+                android:id="@+id/radioButton"
+                android:layout_width="245dp"
+                android:layout_height="47dp"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
-                android:text="Few times a day"
+                android:scaleX="1"
+                android:text="  Few times a day"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton7"
+                android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
-                android:text="Once a day"
+                android:scaleX="1"
+                android:text="  Once a day"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton8"
+                android:id="@+id/radioButton6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
-                android:text="Few times a week"
+                android:scaleX="1"
+                android:text="  Sometimes"
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton9"
+                android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:checked="false"
                 android:fontFamily="sans-serif-light"
-                android:text="Only before studying/exams"
+                android:scaleX="1"
+                android:text="  Few times a week"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="305dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Only before studying/exams"
                 android:textSize="20sp" />
 
         </RadioGroup>
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="306dp"
-            android:layout_height="86dp"
+            android:id="@+id/chooseGender7"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:gravity="left"
             android:text="If so, how often do you take medication for ADHD? (If you don't, skip this question)"
             android:textColor="#619DA3"
-            android:textSize="23sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.885"
+            app:layout_constraintHorizontal_bias="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.471" />
-
-        <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="52dp"
-            android:layout_height="47dp"
-            android:layout_marginBottom="340dp"
-            android:src="@drawable/clock_bw"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.064"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintVertical_bias="0.423" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

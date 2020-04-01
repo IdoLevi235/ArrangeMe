@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.878"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596"
+        app:layout_constraintVertical_bias="0.598"
         app:srcCompat="@drawable/logo_arrange_me2" />
 
     <androidx.appcompat.widget.Toolbar
@@ -35,7 +35,7 @@
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="155dp"
-        android:layout_height="45dp"
+        android:layout_height="44dp"
         android:background="@drawable/btn_rounded"
         android:shadowColor="#05FFFFFF"
         android:text="SIGN UP"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.918" />
 
     <Button
@@ -59,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.595" />
+        app:layout_constraintVertical_bias="0.717" />
 
     <TextView
         android:id="@+id/textView"
@@ -73,7 +73,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.59" />
 
     <TextView
         android:id="@+id/textView3"
@@ -86,8 +86,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721" />
 
     <ImageView
         android:id="@+id/imageView2"

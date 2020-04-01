@@ -12,12 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="365dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
+            android:progress="0"
+            android:progressTint="@color/colorProjectBlue"
+            android:scaleX="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.284" />
+
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/text_hello1"
             android:layout_width="345dp"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="Hello *****"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

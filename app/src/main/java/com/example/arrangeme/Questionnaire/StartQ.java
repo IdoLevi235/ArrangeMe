@@ -35,13 +35,13 @@ import static com.example.arrangeme.R.*;
  * A simple {@link Fragment} subclass.
  */
 public class StartQ<viewPager> extends Fragment  implements View.OnClickListener {
+
     private Button femaleRec;
-    private ImageView female;
     private Button maleRec;
-    private ImageView male;
     private Button biSex;
-    private Button[] btn = new Button[3];
     private Button btn_unfocus;
+
+    private Button[] btn = new Button[3];
     private int[] btn_id = {R.id.femaleRec, R.id.maleRec, R.id.biSex};
 
     public StartQ() {
@@ -52,42 +52,36 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
     //Initializes the layout but not the attributes from the XML
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         return inflater.inflate(layout.fragment_start_q, container, false);
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        for(int i = 0; i < btn.length; i++){
-            btn[i] = (Button)getView().findViewById(btn_id[i]);
+        for (int i = 0; i < btn.length; i++) {
+            btn[i] = (Button) getView().findViewById(btn_id[i]);
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
+
         Button continue1 = view.findViewById(id.continue1);
-        TextView topMessage = view.findViewById(R.id.textView5);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
         continue1.setOnClickListener(this);
 
+        TextView topMessage = view.findViewById(R.id.text_hello1);
+        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("ResourceAsColor")
     public void onClick(View v){ //check for what button is pressed
         final NavController navController = Navigation.findNavController(v);
-
-        //btn_unfocus.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
         switch (v.getId()) {
             case id.femaleRec:
-                setFocus(btn_unfocus,btn[0]);
-                //female.setColorFilter(getContext().getResources().getColor(color.colorWhite));
+                btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case id.maleRec:
-                setFocus(btn_unfocus, btn[1]);
-                //male.setColorFilter(getContext().getResources().getColor(color.colorWhite));
+                btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case id.biSex:
-                setFocus(btn_unfocus, btn[2]);
+                btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
            case id.continue1:
                 navController.navigate(id.action_startQ_to_screen2Q);
@@ -97,16 +91,5 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("ResourceAsColor")
-    private void setFocus(Button btn_unfocus, Button btn_focus){
-        btn_unfocus.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
-        btn_unfocus.setTextColor(Color.parseColor("#000000"));
-        btn_unfocus.setBackgroundResource(R.drawable.rounded_rec_white);
-        btn_focus.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-        btn_focus.setTextColor(Color.parseColor("#FFFFFF"));
-        btn_focus.setBackgroundResource(drawable.rounded_rec_blue);
-        this.btn_unfocus = btn_focus;
-    }
 
 }

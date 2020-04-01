@@ -12,18 +12,17 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/text_hello3"
             android:layout_width="345dp"
             android:layout_height="52dp"
-            android:layout_marginBottom="93dp"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,73 +43,15 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
-            android:progress="15"
+            android:layout_marginBottom="423dp"
+            android:progress="10"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.232" />
-
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="48dp"
-            android:layout_height="46dp"
-            android:layout_marginBottom="64dp"
-            android:src="@drawable/home_school"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.112"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="48dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="280dp"
-            android:src="@drawable/classroom"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.112"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="215dp"
-            android:layout_height="96dp"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.943">
-
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="179dp"
-                android:layout_height="47dp"
-                android:checked="false"
-                android:fontFamily="sans-serif-light"
-                android:scaleX="1"
-                android:text="  Learn at home"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="186dp"
-                android:layout_height="45dp"
-                android:checked="true"
-                android:fontFamily="sans-serif-light"
-                android:scaleX="1"
-                android:text="  Study at College"
-                android:textSize="20sp" />
-
-        </RadioGroup>
+            app:layout_constraintVertical_bias="0.284" />
 
         <Button
             android:id="@+id/continue3"
@@ -142,10 +83,10 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.819" />
 
         <View
             android:id="@+id/view2"
@@ -157,7 +98,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.521" />
+            app:layout_constraintVertical_bias="0.536" />
 
         <TextView
             android:id="@+id/chooseGender4"
@@ -174,7 +115,7 @@
             app:layout_constraintVertical_bias="0.082" />
 
         <RatingBar
-            android:id="@+id/ratingBar2"
+            android:id="@+id/rateManageTime"
             android:layout_width="237dp"
             android:layout_height="46dp"
             android:layout_marginTop="13dp"
@@ -194,39 +135,75 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar2"
+            app:layout_constraintTop_toBottomOf="@+id/rateManageTime"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="50dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="27dp"
             android:layout_marginTop="1dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="center"
+            android:gravity="right"
             android:text="Best"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.759"
+            app:layout_constraintHorizontal_bias="0.749"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar2"
-            app:layout_constraintVertical_bias="0.007" />
+            app:layout_constraintTop_toBottomOf="@+id/rateManageTime"
+            app:layout_constraintVertical_bias="0.006" />
 
         <TextView
             android:id="@+id/textView17"
-            android:layout_width="57dp"
-            android:layout_height="34dp"
+            android:layout_width="47dp"
+            android:layout_height="29dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="center"
+            android:gravity="left"
             android:text="Worse"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.245"
+            app:layout_constraintHorizontal_bias="0.263"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/rateManageTime"
+            app:layout_constraintVertical_bias="0.013" />
+
+        <Button
+            android:id="@+id/learnAtHomeBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/home_school"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Learn at home"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.455"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.36" />
+
+        <Button
+            android:id="@+id/learnAtClassBtn"
+            android:layout_width="321dp"
+            android:layout_height="57dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/classroom"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center|left"
+            android:text="  Study in a class"
+            android:textAllCaps="false"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.468" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
