@@ -33,6 +33,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button testButton;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private Button signUpWithGoogleBtn;
+    private Button getSignUpWithFacebookBtn;
 
 
     @Override
@@ -42,6 +44,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Toolbar toolbar = findViewById(R.id.toolbar);
         emailText = (EditText) findViewById(R.id.emailText);
         passwordText = (EditText) findViewById(R.id.passwordText);
+        signUpWithGoogleBtn = (Button) findViewById(R.id.signUpGoogle);
+        getSignUpWithFacebookBtn = (Button) findViewById(R.id.signUpFacebook);
         login = (Button) findViewById(R.id.sumbitBtn);
         login.setOnClickListener(this);
     }

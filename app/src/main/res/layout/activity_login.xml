@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.492" />
 
     <Button
-        android:id="@+id/Google"
+        android:id="@+id/signUpGoogle"
         android:layout_width="115dp"
         android:layout_height="37dp"
         android:background="@drawable/rounded_rec_blueborder"
@@ -42,7 +42,7 @@
         app:layout_constraintVertical_bias="0.906" />
 
     <Button
-        android:id="@+id/facebook"
+        android:id="@+id/signUpFacebook"
         android:layout_width="154dp"
         android:layout_height="37dp"
         android:background="@drawable/rounded_rec_blueborder"
@@ -102,7 +102,6 @@
         android:id="@+id/forgetPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="427dp"
         android:gravity="center"
         android:text="Forget your password?"
         android:textAllCaps="false"
@@ -112,7 +111,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintVertical_bias="0.657" />
 
     <TextView
         android:id="@+id/signupText"

@@ -19,5 +19,7 @@ public class Questionnaire extends AppCompatActivity {
 
 // TODO: What happens when user exits in the middle ? or leaving field empty? or pressing "back" in his phone?
 // TODO: progress bar? dots?
-// todo initial popup welcome
-// TODO: לסדר את כל המלבנים עם התמונות הקטנות שיעבדו טוב כמו במסך הראשון
+// TODO: initial popup welcome
+// TODO: finish questionnaire pop up
+// TODO: change the text views to a different one in every screen
+// TODO: change popup color
