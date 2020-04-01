@@ -135,10 +135,11 @@
             app:layout_constraintVertical_bias="0.163" />
 
         <ProgressBar
-            android:id="@+id/progressBar4"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="365dp"
             android:layout_height="37dp"
+            android:layout_marginBottom="423dp"
             android:progress="15"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
@@ -146,7 +147,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108" />
+            app:layout_constraintVertical_bias="0.284" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
