@@ -29,7 +29,7 @@
             android:layout_width="365dp"
             android:layout_height="37dp"
             android:layout_marginBottom="423dp"
-            android:progress="40"
+            android:progress="45"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"

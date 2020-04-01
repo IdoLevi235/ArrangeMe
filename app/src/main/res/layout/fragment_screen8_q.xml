@@ -12,9 +12,9 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/HW8"
-            android:layout_width="347dp"
-            android:layout_height="104dp"
+            android:id="@+id/chooseGender9"
+            android:layout_width="327dp"
+            android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
             android:text="Let's say you recieved Home Work to assign in 1 week from today, when will you start work on it?  "
             android:textColor="#619DA3"
@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.279" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,7 +43,7 @@
             android:layout_width="365dp"
             android:layout_height="37dp"
             android:layout_marginBottom="423dp"
-            android:progress="35"
+            android:progress="40"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"

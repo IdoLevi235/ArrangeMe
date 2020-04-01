@@ -30,7 +30,7 @@
             android:layout_width="365dp"
             android:layout_height="37dp"
             android:layout_marginBottom="423dp"
-            android:progress="85"
+            android:progress="90"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,7 @@
             app:layout_constraintVertical_bias="0.163" />
 
         <Button
-            android:id="@+id/learnAtHomeBtn"
+            android:id="@+id/aloneGymBtn"
             android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
@@ -65,14 +65,13 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.455"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.37" />
 
 
         <Button
-            android:id="@+id/learnAtClassBtn"
+            android:id="@+id/groupGymBtn"
             android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
@@ -84,10 +83,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.455"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.479" />
+            app:layout_constraintVertical_bias="0.484" />
 
         <Button
             android:id="@+id/continue18"
@@ -119,7 +117,6 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/view28"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.809" />
@@ -134,7 +131,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.536" />
+            app:layout_constraintVertical_bias="0.55" />
 
         <TextView
             android:id="@+id/textView9"
@@ -146,22 +143,23 @@
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view28"
-            app:layout_constraintVertical_bias="0.073" />
+            app:layout_constraintVertical_bias="0.03" />
 
         <RadioGroup
             android:id="@+id/radiogroup1882"
-            android:layout_width="266dp"
-            android:layout_height="135dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="294dp"
+            android:layout_height="136dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginBottom="76dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view28"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="1.0">
 
             <RadioButton
                 android:id="@+id/radioButton15"
@@ -181,7 +179,7 @@
 
             <RadioButton
                 android:id="@+id/radioButton17"
-                android:layout_width="match_parent"
+                android:layout_width="228dp"
                 android:layout_height="45dp"
                 android:fontFamily="sans-serif-light"
                 android:text="  4 times and above"

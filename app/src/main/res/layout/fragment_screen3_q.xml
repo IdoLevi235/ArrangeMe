@@ -181,10 +181,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.455"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.36" />
+            app:layout_constraintVertical_bias="0.35" />
 
         <Button
             android:id="@+id/learnAtClassBtn"
@@ -199,10 +198,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.468" />
+            app:layout_constraintVertical_bias="0.458" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,16 +12,56 @@
         android:layout_height="match_parent">
 
         <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="80dp"
-            android:layout_height="38dp"
-            android:drawableLeft="@drawable/facebook"
+            android:id="@+id/checkBoxfacebook"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/facebook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintHorizontal_bias="0.104"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.466" />
+            app:layout_constraintVertical_bias="0.487" />
+
+        <CheckBox
+            android:id="@+id/checkBoxyoutube"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/youtube"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.582" />
+
+        <CheckBox
+            android:id="@+id/checkBoxwaze"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/waze"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.669" />
+
+        <CheckBox
+            android:id="@+id/checkBoxtiktok"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/tiktok"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.673" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -41,7 +81,7 @@
             android:layout_width="365dp"
             android:layout_height="37dp"
             android:layout_marginBottom="423dp"
-            android:progress="75"
+            android:progress="80"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,114 +123,110 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/chooseGender16"
+            android:id="@+id/chooseGender15"
             android:layout_width="327dp"
             android:layout_height="96dp"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:text="While using your smartphone, what apps you use the most? Pick two apps"
+            android:text="While using your smartphone, what apps you use the most? Pick only two apps"
             android:textColor="#619DA3"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.31" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
-            android:layout_width="80dp"
-            android:layout_height="36dp"
-            android:drawableLeft="@drawable/youtube"
+            android:id="@+id/checkBoxtwitter"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/twitter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintHorizontal_bias="0.895"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.548" />
+            app:layout_constraintVertical_bias="0.484" />
 
         <CheckBox
-            android:id="@+id/checkBox7"
-            android:layout_width="77dp"
-            android:layout_height="34dp"
-            android:drawableLeft="@drawable/spotify"
-            app:layout_constraintBottom_toBottomOf="@+id/continue16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.125"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.63" />
-
-        <CheckBox
-            android:id="@+id/checkBox9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/instagram"
+            android:id="@+id/checkBoxnews"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:text="  News\n  apps"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintHorizontal_bias="0.895"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.722" />
+            app:layout_constraintVertical_bias="0.669" />
 
         <CheckBox
-            android:id="@+id/checkBox10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/tiktok"
+            android:id="@+id/checkBoxinsetgram"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/instagram"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintHorizontal_bias="0.895"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.815" />
+            app:layout_constraintVertical_bias="0.578" />
 
         <CheckBox
-            android:id="@+id/checkBox11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/waze"
+            android:id="@+id/checkBoxwhatsapp"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.466" />
+            app:layout_constraintVertical_bias="0.486" />
 
         <CheckBox
-            android:id="@+id/checkBox12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="News apps"
+            android:id="@+id/checkBoxsports"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:text="  Sports\n  apps"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.728"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.543" />
-
-        <CheckBox
-            android:id="@+id/checkBox13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sports apps"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.742"
+            app:layout_constraintHorizontal_bias="0.104"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.626" />
+            app:layout_constraintVertical_bias="0.768" />
 
         <CheckBox
-            android:id="@+id/checkBox14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other"
+            android:id="@+id/checkBoxother"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:text="  Other"
             app:layout_constraintBottom_toBottomOf="@+id/continue16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.656"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.715" />
+            app:layout_constraintVertical_bias="0.768" />
+
+        <CheckBox
+            android:id="@+id/checkBoxspotify"
+            android:layout_width="96dp"
+            android:layout_height="44dp"
+            android:background="@drawable/rounded_rec_white"
+            android:drawableRight="@drawable/spotify"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.58" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

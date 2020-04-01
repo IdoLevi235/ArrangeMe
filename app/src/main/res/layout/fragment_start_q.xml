@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/maleRec"
-            android:layout_width="264dp"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/male_xml"
@@ -53,10 +53,9 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.672" />
+            app:layout_constraintVertical_bias="0.667" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -105,6 +104,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
+
         <TextView
             android:id="@+id/chooseGender"
             android:layout_width="wrap_content"
@@ -113,17 +113,17 @@
             android:fontFamily="@font/roboto_condensed_regular"
             android:text="What Is Your Gender?"
             android:textColor="#619DA3"
-            android:textSize="35sp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.163" />
+            app:layout_constraintVertical_bias="0.224" />
 
         <Button
             android:id="@+id/biSex"
-            android:layout_width="264dp"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:fontFamily="sans-serif-light"
@@ -133,14 +133,13 @@
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.795" />
+            app:layout_constraintVertical_bias="0.778" />
 
         <Button
             android:id="@+id/femaleRec"
-            android:layout_width="264dp"
+            android:layout_width="321dp"
             android:layout_height="57dp"
             android:background="@drawable/rounded_rec_white"
             android:drawableRight="@drawable/female_xml"
