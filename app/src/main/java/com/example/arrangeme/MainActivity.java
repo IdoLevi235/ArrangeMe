@@ -90,5 +90,5 @@ public class MainActivity extends AppCompatActivity{
 
 }
 //TODO: night mode option
-//TODO: dots indicator instead of progress bar?
+//TODO: change the "description"!!!!!!!!!!!
 //TODO: slide left right option
