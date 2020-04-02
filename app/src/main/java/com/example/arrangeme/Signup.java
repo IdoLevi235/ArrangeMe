@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private Button sumbitBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
+    private TextView alreadyHave;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
@@ -48,8 +49,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         confPassText=(EditText)findViewById(R.id.confPasswordText);
         fnameText=(EditText)findViewById(R.id.firstNameText);
         lnameText=(EditText)findViewById(R.id.lastNameText);
+        alreadyHave = (TextView)findViewById(R.id.alreadyHave);
         sumbitBtn.setOnClickListener(this);
-
+        alreadyHave.setOnClickListener(this);
     }
 
 
@@ -69,14 +71,16 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             String lname = lnameText.getText().toString();
             if (signUpFormValidation(email,password,confPass,fname,lname)) //form is OK
             {
-                createAccount(email, password, fname); //TODO: EMAIL authentication with link (not important)
+                createAccount(email, password, fname);
                 addNewUserToDB(email, password, fname, lname);//maybe without email+password?
                 Globals.currentUsername = fname;
                 //loginAfterRegistartion(email,password);
             }
 
-            //updateUI(user);
 
+        }
+        else if (v==alreadyHave){
+            startActivity(new Intent(Signup.this, Login.class));
         }
     }
 
@@ -204,7 +208,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-//TODO: I have already an account option
 
 
 

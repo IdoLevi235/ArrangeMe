@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 //Login button onClick
-        loginBtn.setOnClickListener((new View.OnClickListener() { //TODO: implement view.setonclick and make the code look nicer
+        loginBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v==loginBtn){
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
     }));
 
 //Sign Up button clicked
-        signUpBtn.setOnClickListener((new View.OnClickListener() { //TODO: implement view.setonclick and make the code look nicer
+        signUpBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v==signUpBtn){

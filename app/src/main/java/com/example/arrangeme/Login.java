@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button testButton;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private Button signUpWithGoogleBtn;
+    private Button getSignUpWithFacebookBtn;
+    private TextView forgotPass;
 
     //private Button getSignUpWithFacebookBtn;
 
@@ -76,7 +80,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         passwordText = (EditText) findViewById(R.id.passwordText);
 
         login = (Button) findViewById(R.id.sumbitBtn);
+        forgotPass = (TextView)findViewById(R.id.forgetPass);
         login.setOnClickListener(this);
+        forgotPass.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();//?
 
@@ -116,6 +122,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             default:
                 break;
         }
+        else if (v==forgotPass){
+            startActivity(new Intent(Login.this, ForgotPass.class));
+        }
+
     }
 
     private void signOutWithGoogle() {
@@ -260,5 +270,4 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
 //TODO: remember me option
-//TODO: GOOGLE/FACEBOOK SIGN IN/UP
-//TODO: forget you password option
+//TODO: FACEBOOK SIGN IN/UP
