@@ -6,11 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arrangeme.Questionnaire.Questionnaire;
@@ -35,7 +37,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private Button signUpWithGoogleBtn;
     private Button getSignUpWithFacebookBtn;
-
+    private TextView forgotPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         signUpWithGoogleBtn = (Button) findViewById(R.id.signUpGoogle);
         getSignUpWithFacebookBtn = (Button) findViewById(R.id.signUpFacebook);
         login = (Button) findViewById(R.id.sumbitBtn);
+        forgotPass = (TextView)findViewById(R.id.forgetPass);
         login.setOnClickListener(this);
+        forgotPass.setOnClickListener(this);
+
     }
 
 
@@ -58,6 +63,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String email = emailText.getText().toString();
             signInWithEmailAndPassword(email, password);
         }
+        else if (v==forgotPass){
+            startActivity(new Intent(Login.this, ForgotPass.class));
+        }
+
     }
 
     private void signInWithEmailAndPassword(String email, String password) {
