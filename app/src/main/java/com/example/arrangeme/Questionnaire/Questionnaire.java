@@ -18,4 +18,3 @@ public class Questionnaire extends AppCompatActivity {
 }
 
 // TODO: What happens when user exits in the middle ? or leaving field empty? or pressing "back" in his phone?
-// TODO: change the text views to a different one in every screen

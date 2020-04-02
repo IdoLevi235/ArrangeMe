@@ -117,5 +117,4 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
 //TODO: remember me option
-//TODO: GOOGLE/FACEBOOK SIGN IN/UP
-//TODO: forget you password option
+//TODO: FACEBOOK SIGN IN/UP
