@@ -64,7 +64,7 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
         continue2.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello2);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Thank You " + Globals.currentUsername + ", Keep Going!");
     }
 
 

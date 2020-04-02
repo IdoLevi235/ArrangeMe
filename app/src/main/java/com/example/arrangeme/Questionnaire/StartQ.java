@@ -67,7 +67,7 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         continue1.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello1);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Welcome " + Globals.currentUsername );
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -91,5 +91,5 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         }
     }
 
-
+//TODO: first pop up too long - need to change and compare with the text in the beginning of this page
 }

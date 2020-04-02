@@ -40,7 +40,7 @@ public class Screen13Q extends Fragment {
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue13);
         TextView topMessage = view.findViewById(R.id.text_hello13);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep up The Good Work!");
 
         button.setOnClickListener(new View.OnClickListener()
         {

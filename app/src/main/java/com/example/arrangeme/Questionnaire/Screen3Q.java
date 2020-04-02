@@ -58,7 +58,7 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
         continue3.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello3);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("You Are Doing Great!");
     }
 
 

@@ -61,7 +61,7 @@ public class Screen10Q extends Fragment implements View.OnClickListener {
         continue10.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello10);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("You Are Halfway There!");
     }
 
 

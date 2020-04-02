@@ -59,7 +59,7 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
         continue12.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello12);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Great Job" + Globals.currentUsername +"!");
     }
 
 

@@ -37,7 +37,7 @@ public class Screen8Q extends Fragment {
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue8);
         TextView topMessage = view.findViewById(R.id.text_hello8);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("You Are Awesome");
 
         button.setOnClickListener(new View.OnClickListener()
         {

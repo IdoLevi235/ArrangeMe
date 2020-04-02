@@ -77,7 +77,7 @@
             android:layout_height="129dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Don't worry, we respect your privacy and will keep your details safe. \n  Thank you for your cooperation"
+            android:text="Don't worry, we respect your privacy and will keep your details safe. \n  Thank you for your cooperation!"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

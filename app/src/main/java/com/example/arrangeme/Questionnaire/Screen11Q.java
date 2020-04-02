@@ -40,7 +40,7 @@ public class Screen11Q extends Fragment {
         final NavController navController= Navigation.findNavController(view);
         Button button = view.findViewById(R.id.continue11);
         TextView topMessage = view.findViewById(R.id.text_hello11);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Keep Calm " + Globals.currentUsername + "You Are Doing Great!");
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override

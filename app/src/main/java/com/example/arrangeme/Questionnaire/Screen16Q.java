@@ -47,7 +47,7 @@ public class Screen16Q extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView topMessage = view.findViewById(R.id.text_hello16);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Excellent! You Are Fantastic!");
         Button continue16 = view.findViewById(R.id.continue16);
         continue16.setOnClickListener(this);
         CheckBox c1 = (CheckBox) getView().findViewById(R.id.checkBoxfacebook);

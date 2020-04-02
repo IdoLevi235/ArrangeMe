@@ -58,7 +58,7 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         continue19.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello19);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Keep Going!");
+        topMessage.setText("Thank you " + Globals.currentUsername + ", Just One More To Go!");
     }
 
 
