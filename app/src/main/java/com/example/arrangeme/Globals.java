@@ -14,7 +14,7 @@ public class Globals {
     private  Button btn_unfocus;
     private  Button btn_focus;
     public static String currentUsername;
-    
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
