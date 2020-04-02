@@ -20,12 +20,12 @@
         app:layout_constraintVertical_bias="0.573" />
 
     <TextView
-        android:id="@+id/forgetPass"
+        android:id="@+id/alreadyHave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:gravity="center"
-        android:text="I Already Have An Account?"
+        android:text="I Already Have An Account"
         android:textAllCaps="false"
         android:textColor="#494949"
         app:layout_constraintBottom_toBottomOf="parent"
