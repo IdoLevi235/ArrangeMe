@@ -1,7 +1,9 @@
 package com.example.arrangeme;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,6 +58,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         if (v==sumbitBtn){//works
@@ -79,6 +83,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean signUpFormValidation(String email, String password, String confPass, String fname, String lname) {
         String msg;
         if (!password.equals(confPass)){
@@ -94,29 +99,38 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
         return true;
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("ResourceAsColor")
 
     private void createErrorAlert(String msg) {
-        new SweetAlertDialog(Signup.this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Error")
-                .setContentText(msg)
-                .show();
+       SweetAlertDialog ad;
+       ad =  new SweetAlertDialog(Signup.this, SweetAlertDialog.ERROR_TYPE);
+       ad.setTitleText("Error");
+       ad.setContentText(msg);
+       ad.show();
+       Button btn = (Button) ad.findViewById(R.id.confirm_button);
+       btn.setBackgroundResource(R.drawable.rounded_rec);
     }
 
     private void createWelcomeAlert(){
-        new SweetAlertDialog(Signup.this, SweetAlertDialog.SUCCESS_TYPE)
+        SweetAlertDialog ad;
+       ad =  new SweetAlertDialog(Signup.this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Welcome :)")
                 .setContentText(("You've registered successfully into ArrangeMe! In order to provide " +
                         "great schedule recommendations for you, we will ask you few questions " +
                         "and in that way we will get to know you better and adjust ourself according" +
-                        " to your preferences."))
-                .setConfirmText("Let's start!")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        " to your preferences."));
+        ad.setConfirmText("Let's start!");
+        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         startActivity(new Intent(Signup.this, Questionnaire.class));
                     }
-                })
-                .show();
+                });
+        ad.show();
+        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        btn.setBackgroundResource(R.drawable.rounded_rec);
+
 
     }
 
@@ -130,6 +144,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

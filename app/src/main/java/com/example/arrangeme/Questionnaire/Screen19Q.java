@@ -73,7 +73,8 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.continue19:
-                navController.navigate(R.id.action_screen19Q_to_startQ);
+
+
                 break;
             default:
                 break;

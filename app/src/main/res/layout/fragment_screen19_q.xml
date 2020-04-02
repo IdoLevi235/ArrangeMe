@@ -97,7 +97,7 @@
             android:background="#75C1C9"
             android:fontFamily="sans-serif-light"
             android:shadowColor="#05FFFFFF"
-            android:text="Continue"
+            android:text="Finish!"
             android:textColor="#535353"
             android:textSize="20sp"
             android:textStyle="bold"

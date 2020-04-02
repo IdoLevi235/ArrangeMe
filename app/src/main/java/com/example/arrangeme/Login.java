@@ -86,18 +86,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     });
         }//end of try
         catch (IllegalArgumentException e) {
-            Toast.makeText(getApplicationContext(), "You must fill all fields.",
-                    Toast.LENGTH_SHORT).show();
-
+            createAlert("You must fill all fields.", SweetAlertDialog.ERROR_TYPE);
         }
 
     }
 
-    private void createAlert(String s, int type) {
-        new SweetAlertDialog(Login.this, type)
-                .setTitleText("Error")
-                .setContentText("Login failed.")
-                .show();
+    private void createAlert(String msg, int type) {
+        SweetAlertDialog ad = new SweetAlertDialog(Login.this, type);
+        ad.setTitleText("Error");
+        ad.setContentText(msg);
+        ad.show();
+        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        btn.setBackgroundResource(R.drawable.rounded_rec);
 
     }
 
