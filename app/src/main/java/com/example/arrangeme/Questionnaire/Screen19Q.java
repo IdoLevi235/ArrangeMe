@@ -1,5 +1,6 @@
 package com.example.arrangeme.Questionnaire;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,7 +18,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Signup;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,8 +78,11 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.continue19:
-
-
+                SweetAlertDialog ad;
+                ad =  new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                ad.setTitleText("Thank you");
+                ad.setContentText("Your answers are being processed now, please wait");
+                ad.show();
                 break;
             default:
                 break;
