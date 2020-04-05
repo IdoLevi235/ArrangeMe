@@ -119,11 +119,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Log.d("google", "google Btn Activated");
                 signOutWithGoogle();
                 break;
+            case R.id.forgetPass:
+                startActivity(new Intent(Login.this, ForgotPass.class));
             default:
                 break;
-        }
-        else if (v==forgotPass){
-            startActivity(new Intent(Login.this, ForgotPass.class));
         }
 
     }
