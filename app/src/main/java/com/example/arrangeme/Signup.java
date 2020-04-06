@@ -29,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import android.graphics.Color;
 
+import java.util.Vector;
+
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     private EditText emailText;
@@ -142,6 +144,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
         User user = new User(email,password,fname,lname);
         mDatabase.push().setValue(user);
+
     }
 
     private void createAccount(String email, String password, final String fname) {
