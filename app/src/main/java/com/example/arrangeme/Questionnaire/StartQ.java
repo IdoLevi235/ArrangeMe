@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 import java.util.function.ToDoubleBiFunction;
@@ -40,9 +42,11 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
     private Button maleRec;
     private Button biSex;
     private Button btn_unfocus;
-
     private Button[] btn = new Button[3];
     private int[] btn_id = {R.id.femaleRec, R.id.maleRec, R.id.biSex};
+
+    private DatabaseReference mDatabase;
+
 
     public StartQ() {
         // Required empty public constructor
@@ -84,7 +88,9 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
            case id.continue1:
-                navController.navigate(id.action_startQ_to_screen2Q);
+               //mDatabase = FirebaseDatabase.getInstance().getReference();
+               //mDatabase.child("users").child(Globals.UID).child("Personality Vector").child("2").setValue(20);
+               navController.navigate(id.action_startQ_to_screen2Q);
             break;
             default:
                 break;

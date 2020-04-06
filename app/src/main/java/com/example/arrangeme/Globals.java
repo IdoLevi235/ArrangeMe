@@ -11,6 +11,8 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 
 public class Globals {
+    public static String UID;
+    public static String currentEmail;
     private  Button btn_unfocus;
     private  Button btn_focus;
     public static String currentUsername;

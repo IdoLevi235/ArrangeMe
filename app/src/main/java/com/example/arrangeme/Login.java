@@ -236,6 +236,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         Toast.LENGTH_SHORT).show();
                                 //TODO: New screen after login..
                                 Globals.currentUsername = user.getDisplayName();
+                                Globals.currentEmail = user.getEmail();
+                                Globals.UID = user.getUid();
                                 startActivity(new Intent(Login.this, Questionnaire.class));
 
                             } else {
