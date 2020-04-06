@@ -21,62 +21,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.492" />
 
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="143dp"
         android:layout_height="45dp"
+        android:layout_marginTop="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.223"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
-
-    <Button
-        android:id="@+id/signUpGoogle"
-        android:layout_width="115dp"
-        android:layout_height="37dp"
-        android:background="@drawable/rounded_rec_blueborder"
-        android:drawableRight="@drawable/google_xml"
-        android:drawableTint="#75C1C9"
-        android:fontFamily="@font/roboto_thin"
-        android:gravity="center|left"
-        android:text="  Google"
-        android:textAllCaps="true"
-        android:textColor="#75C1C9"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/sign_out_button"
-        android:layout_width="115dp"
-        android:layout_height="37dp"
+        android:layout_width="144dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/rounded_rec_blueborder"
         android:drawableRight="@drawable/google_xml"
         android:drawableTint="#75C1C9"
         android:fontFamily="sans-serif-medium"
         android:gravity="center|left"
         android:text="  Sign Out"
-        android:visibility="invisible"
         android:textAllCaps="true"
         android:textColor="#75C1C9"
         android:textSize="15sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.792" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/signUpFacebook"
-        android:layout_width="154dp"
-        android:layout_height="37dp"
+        android:layout_width="143dp"
+        android:layout_height="45dp"
         android:background="@drawable/rounded_rec_blueborder"
         android:drawableRight="@drawable/facebook_xml"
         android:fontFamily="sans-serif-medium"
@@ -87,10 +70,10 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintVertical_bias="0.902" />
 
     <Button
         android:id="@+id/sumbitBtn"
@@ -203,7 +186,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.837" />
+        app:layout_constraintVertical_bias="0.802" />
 
     <EditText
         android:id="@+id/passwordText"
