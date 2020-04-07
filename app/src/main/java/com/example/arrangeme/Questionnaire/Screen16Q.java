@@ -86,25 +86,25 @@ public class Screen16Q extends Fragment implements View.OnClickListener {
                 int selectedRadioButtonID2 = rg2.getCheckedRadioButtonId(); //returns -1 if not selected
 
                 if (selectedRadioButtonID1 == R.id.radioButton161) {
-                    Server.questionnaireFill("12",1);
+                    Server.questionnaireFill("20",1);
                 } else if (selectedRadioButtonID1 == R.id.radioButton162) {
-                    Server.questionnaireFill("12",2);
+                    Server.questionnaireFill("20",2);
                 } else if (selectedRadioButtonID1 == R.id.radioButton163) {
-                    Server.questionnaireFill("12",3);
+                    Server.questionnaireFill("20",3);
                 } else if (selectedRadioButtonID1 == R.id.radioButton164) {
-                    Server.questionnaireFill("12",4);
+                    Server.questionnaireFill("20",4);
                 } else if (selectedRadioButtonID1 == R.id.radioButton165) {
-                    Server.questionnaireFill("12", 5);
+                    Server.questionnaireFill("20", 5);
                 } else if (selectedRadioButtonID2 == R.id.radioButton166) {
-                    Server.questionnaireFill("12",6);
+                    Server.questionnaireFill("20",6);
                 } else if (selectedRadioButtonID2 == R.id.radioButton167) {
-                    Server.questionnaireFill("12",7);
+                    Server.questionnaireFill("20",7);
                 } else if (selectedRadioButtonID2 == R.id.radioButton168) {
-                    Server.questionnaireFill("12", 8);
+                    Server.questionnaireFill("20", 8);
                 } else if (selectedRadioButtonID2 == R.id.radioButton169) {
-                    Server.questionnaireFill("12",9);
+                    Server.questionnaireFill("20",9);
                 } else if (selectedRadioButtonID2 == R.id.radioButton1610) {
-                    Server.questionnaireFill("12",10);
+                    Server.questionnaireFill("20",10);
                 }
 
                 navController.navigate(R.id.action_screen16Q_to_screen17Q);

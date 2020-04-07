@@ -1,10 +1,13 @@
 package com.example.arrangeme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.Questionnaire.Screen19Q;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,32 +32,8 @@ public class Server extends Activity {
     }
 
     public static void isQuestionnaireFilled() {
-        final ArrayList<Integer> q_answers = new ArrayList<>() ;
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference currUserRef = mDatabase.child("users").child(Globals.UID).child("personality_vector");
-        currUserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (!(data.getKey().equals("0"))) { // ignore children 0 of "Personality vector" (doesn't exist (null), only 1-->25)
-                        q_answers.add(Integer.parseInt(data.getValue().toString()));
-                    }
-                }
-                if (!q_answers.contains(0)) {
-                    System.out.println("GOOD");
-                }
-                else {
-                    System.out.println("KAKA");
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
+
 
 }
 

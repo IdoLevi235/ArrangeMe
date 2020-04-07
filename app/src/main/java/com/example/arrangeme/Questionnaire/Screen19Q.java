@@ -23,6 +23,13 @@ import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
 import com.example.arrangeme.Signup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -95,11 +102,82 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
                     Server.questionnaireFill("25",3);
                 }
 
-                Server.isQuestionnaireFilled();
+               isQuestionnaireFilled();
                 break;
             default:
                 break;
         }
+    }
+
+    private void isQuestionnaireFilled() {
+        final ArrayList<Integer> q_answers = new ArrayList<>() ;
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference currUserRef = mDatabase.child("users").child(Globals.UID).child("personality_vector");
+        currUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (!(data.getKey().equals("0"))) { // ignore children 0 of "Personality vector" (doesn't exist (null), only 1-->25)
+                        q_answers.add(Integer.parseInt(data.getValue().toString()));
+                    }
+                }
+                if (!q_answers.contains(0)) {
+                    System.out.println("GOOD");
+                    alertQfinish();
+                }
+                else {
+                    System.out.println("KAKA");
+                    alertQnotFinish();
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void alertQnotFinish() {
+        SweetAlertDialog ad;
+        ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Pay attention!")
+                .setContentText(("You haven't finished the questionnaire yet. The system will not provide you " +
+                        "schedules recommendations until you will complete the questionnaire. You are now taken to homepage.."));
+        ad.setConfirmText("OK");
+        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                Intent i= new Intent(getActivity(),MainActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
+        ad.show();
+        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        btn.setBackgroundResource(R.drawable.rounded_rec);
+
+
+    }
+
+    private void alertQfinish() {
+        SweetAlertDialog ad;
+        ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Thank you!")
+                .setContentText(("You've completed the questionnaire. You are now taken to homepage.."));
+        ad.setConfirmText("OK");
+        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                Intent i= new Intent(getActivity(),MainActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
+        ad.show();
+        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        btn.setBackgroundResource(R.drawable.rounded_rec);
+
     }
 
 
