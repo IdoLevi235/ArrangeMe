@@ -15,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
 import com.example.arrangeme.Signup;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -31,12 +33,10 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
 
     private Button aloneBtn;
     private Button withMyParentsBtn;
-
     private Button btn_unfocus;
-
     private Button[] btn = new Button[2];
     private int[] btn_id = {R.id.aloneBtn, R.id.withMyParentsBtn};
-
+    private boolean isReply = false ;
 
     public Screen19Q() {
         // Required empty public constructor
@@ -58,12 +58,11 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
         Button continue19 = view.findViewById(R.id.continue19);
         continue19.setOnClickListener(this);
-
         TextView topMessage = view.findViewById(R.id.text_hello19);
         topMessage.setText("Thank you " + Globals.currentUsername + ", Just One More To Go!");
+        isReply = false;
     }
 
 
@@ -72,17 +71,31 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.aloneBtn:
+                isReply = true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.withMyParentsBtn:
+                isReply = true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.continue19:
-                SweetAlertDialog ad;
-                ad =  new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-                ad.setTitleText("Thank you");
-                ad.setContentText("Your answers are being processed now, please wait");
-                ad.show();
+                if (btn_unfocus == btn[0]) {
+                    Server.questionnaireFill("24",1);
+                } else {
+                    Server.questionnaireFill("24",2);
+                }
+
+                RadioGroup rg = (RadioGroup)getView().findViewById(R.id.radioGroup19);
+                int selectedRadioButtonID = rg.getCheckedRadioButtonId(); //returns -1 if not selected
+                if (selectedRadioButtonID == R.id.radioButton191) {
+                    Server.questionnaireFill("25",1);
+                } else if (selectedRadioButtonID == R.id.radioButton192) {
+                    Server.questionnaireFill("25",2);
+                } else if (selectedRadioButtonID == R.id.radioButton193) {
+                    Server.questionnaireFill("25",3);
+                }
+
+                Server.isQuestionnaireFilled();
                 break;
             default:
                 break;

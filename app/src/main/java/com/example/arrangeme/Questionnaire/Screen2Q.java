@@ -15,12 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -33,11 +37,13 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
     private Button socialBtn;
     private Button familyBtn;
     private Button CareerBtn;
-
     private Button btn_unfocus;
-
     private Button[] btn = new Button[4];
     private int[] btn_id = {R.id.personalBtn, R.id.socialBtn, R.id.familyBtn, R.id.careerBtn};
+    private Switch smoke;
+    private boolean isReply=false;
+
+
 
     public Screen2Q() {
         // Required empty public constructor
@@ -62,9 +68,10 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
 
         Button continue2 = view.findViewById(R.id.continue2);
         continue2.setOnClickListener(this);
-
+        smoke=(Switch)getView().findViewById(R.id.isSmoke);
         TextView topMessage = view.findViewById(R.id.text_hello2);
         topMessage.setText("Thank You " + Globals.currentUsername + ", Keep Going!");
+        isReply=false;
     }
 
 
@@ -73,18 +80,37 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.personalBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.socialBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.familyBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
             case R.id.careerBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[3]);
                 break;
             case R.id.continue2:
+                if (isReply){
+                    if (btn_unfocus == btn[0]) {
+                        Server.questionnaireFill("2",1);
+                    } else if (btn_unfocus == btn[1]) {
+                        Server.questionnaireFill("2",2);
+                    } else if (btn_unfocus==btn[2]) {
+                        Server.questionnaireFill("2",3);
+                    }else {
+                        Server.questionnaireFill("2",4);
+                    }
+                }
+                if (smoke.isChecked())
+                    Server.questionnaireFill("3",1);
+                else Server.questionnaireFill("3",2);
+
                 navController.navigate(R.id.action_screen2Q_to_screen3Q);
                 break;
             default:
@@ -92,3 +118,4 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
         }
     }
 }
+//todo: isSmoke switch default is "not" , changes the value in PV after editing the Questionnaire

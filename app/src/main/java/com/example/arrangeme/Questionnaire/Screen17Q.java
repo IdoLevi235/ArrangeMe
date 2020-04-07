@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +33,7 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
 
     private Button[] btn = new Button[3];
     private int[] btn_id = {R.id.yesSportBtn, R.id.noSportBtn, R.id.dontKnow2Btn};
+    private boolean isReply=false;
 
     public Screen17Q() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
 
         TextView topMessage = view.findViewById(R.id.text_hello17);
         topMessage.setText("Nice Going " + Globals.currentUsername +"!");
+        isReply=false;
     }
 
 
@@ -67,15 +70,28 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.yesSportBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.noSportBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.dontKnow2Btn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
             case R.id.continue17:
+                if (isReply){
+                    if (btn_unfocus == btn[0]) {
+                        Server.questionnaireFill("21",1);
+                    } else if (btn_unfocus == btn[1]) {
+                        Server.questionnaireFill("21",2);
+                    } else {
+                        Server.questionnaireFill("21",3);
+                    }
+                }
+
                 navController.navigate(R.id.action_screen17Q_to_screen18Q);
                 break;
             default:

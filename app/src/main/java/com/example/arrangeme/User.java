@@ -22,6 +22,9 @@ public class User {
         this.fname = fname;
         this.lname = lname;
         this.personality_vector.setSize(25);
+        for (int i=1;i<=25;i++){
+            this.personality_vector.add(i,0);
+        }
     }
 }
 

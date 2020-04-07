@@ -14,10 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,12 +28,10 @@ public class Screen18Q extends Fragment implements View.OnClickListener {
 
     private Button aloneGymBtn;
     private Button groupGymBtn;
-
     private Button btn_unfocus;
-
     private Button[] btn = new Button[2];
     private int[] btn_id = {R.id.aloneGymBtn, R.id.groupGymBtn};
-
+    private boolean isReply = false;
 
     public Screen18Q() {
         // Required empty public constructor
@@ -52,12 +52,11 @@ public class Screen18Q extends Fragment implements View.OnClickListener {
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
         Button continue18 = view.findViewById(R.id.continue18);
         continue18.setOnClickListener(this);
-
         TextView topMessage = view.findViewById(R.id.text_hello18);
         topMessage.setText("You Are Almost Done");
+        isReply = false;
     }
 
 
@@ -66,12 +65,29 @@ public class Screen18Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.aloneGymBtn:
+                isReply = true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.groupGymBtn:
+                isReply = true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.continue18:
+                if (btn_unfocus == btn[0]) {
+                    Server.questionnaireFill("22",1);
+                } else {
+                    Server.questionnaireFill("22",2);
+                }
+
+                RadioGroup rg = (RadioGroup)getView().findViewById(R.id.radioGroup18);
+                int selectedRadioButtonID = rg.getCheckedRadioButtonId(); //returns -1 if not selected
+                if (selectedRadioButtonID == R.id.radioButton181) {
+                    Server.questionnaireFill("23",1);
+                } else if (selectedRadioButtonID == R.id.radioButton182) {
+                    Server.questionnaireFill("23",2);
+                } else if (selectedRadioButtonID == R.id.radioButton183) {
+                    Server.questionnaireFill("23",3);
+                }
                 navController.navigate(R.id.action_screen18Q_to_screen19Q);
                 break;
             default:

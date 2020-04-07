@@ -25,10 +25,13 @@ import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
 import java.util.function.ToDoubleBiFunction;
 import static com.example.arrangeme.R.*;
 
@@ -44,8 +47,7 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
     private Button btn_unfocus;
     private Button[] btn = new Button[3];
     private int[] btn_id = {R.id.femaleRec, R.id.maleRec, R.id.biSex};
-
-    private DatabaseReference mDatabase;
+    private boolean isReply = false;
 
 
     public StartQ() {
@@ -66,12 +68,11 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
         Button continue1 = view.findViewById(id.continue1);
         continue1.setOnClickListener(this);
-
         TextView topMessage = view.findViewById(R.id.text_hello1);
         topMessage.setText("Welcome " + Globals.currentUsername );
+        isReply=false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,17 +80,27 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case id.femaleRec:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case id.maleRec:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case id.biSex:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
            case id.continue1:
-               //mDatabase = FirebaseDatabase.getInstance().getReference();
-               //mDatabase.child("users").child(Globals.UID).child("Personality Vector").child("2").setValue(20);
+               if (isReply) {
+                if (btn_unfocus == btn[0]) {
+                   Server.questionnaireFill("1",1);
+               } else if (btn_unfocus == btn[1]) {
+                   Server.questionnaireFill("1",2);
+               } else {
+                   Server.questionnaireFill("1",3);
+               }
+           }
                navController.navigate(id.action_startQ_to_screen2Q);
             break;
             default:
