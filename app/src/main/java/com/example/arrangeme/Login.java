@@ -31,11 +31,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -136,6 +138,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //google sign-in method
     private void signInWithGoogle() {
         Log.d("signInWithGoogle", "signInWithGoogle Happened");
+        FirebaseUser user = mAuth.getCurrentUser();
+
+
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -208,9 +213,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
             Globals.currentUsername=account.getGivenName(); //update user's name
-            String user_email = account.getEmail(); //update user's mail
-            emailText.setText(user_email); // put his email on the screen
-            Toast.makeText(Login.this,user_email, Toast.LENGTH_SHORT).show();
+            Globals.UID = fUser.getUid();
+            Globals.currentEmail = account.getEmail();
+
+
+            /* addNewUserToDB */
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            User userToAdd = new User(Globals.currentEmail,Globals.currentUsername);
+            mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
+            /* addNewUserToDB end */
+
+
+            //String user_email = account.getEmail(); //update user's mail
+            //emailText.setText(user_email); // put his email on the screen
+            //Toast.makeText(Login.this,user_email, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Login.this, Questionnaire.class));
             //Uri personPhoto = account.getPhotoUrl(); //TODO: photo if we would like
         }
@@ -263,8 +279,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btn.setBackgroundResource(R.drawable.rounded_rec);
 
     }
-
-
 }
 
 

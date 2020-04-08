@@ -14,6 +14,16 @@ public class User {
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
+    public User(String email, String fname) { //Special constructor for google sign-in
+        this.email = email;
+        this.fname = fname;
+        this.personality_vector.setSize(25);
+        for (int i=1;i<=25;i++){
+            this.personality_vector.add(i,0);
+        }
+
+    }
+
 
     public User(String email, String password, String fname, String lname) {
         //this.uid = Globals.UID;
