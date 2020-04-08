@@ -11,57 +11,88 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <CheckBox
-            android:id="@+id/checkBoxfacebook"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/facebook"
+        <TextView
+            android:id="@+id/chooseGender16"
+            android:layout_width="331dp"
+            android:layout_height="87dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:text="While using your smartphone, what apps you use the most?"
+            android:textColor="#619DA3"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.487" />
+            app:layout_constraintVertical_bias="0.311" />
 
-        <CheckBox
-            android:id="@+id/checkBoxyoutube"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/youtube"
+        <RadioGroup
+            android:id="@+id/radioGroup16"
+            android:layout_width="180dp"
+            android:layout_height="236dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintHorizontal_bias="0.119"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582" />
+            app:layout_constraintVertical_bias="0.676">
 
-        <CheckBox
-            android:id="@+id/checkBoxwaze"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/waze"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.669" />
+            <RadioButton
+                android:id="@+id/radioButton161"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:drawableRight="@drawable/facebook"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Facebook"
+                android:textSize="20sp"
+                />
 
-        <CheckBox
-            android:id="@+id/checkBoxtiktok"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/tiktok"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.673" />
+            <RadioButton
+                android:id="@+id/radioButton162"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:drawableRight="@drawable/youtube"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Youtube"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton163"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:drawableRight="@drawable/instagram"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Instagram"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton164"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:drawableRight="@drawable/tiktok"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Tiktok"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton165"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:checked="false"
+                android:drawableRight="@drawable/twitter"
+                android:fontFamily="sans-serif-light"
+                android:scaleX="1"
+                android:text="  Twitter"
+                android:textSize="20sp" />
+
+        </RadioGroup>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -81,7 +112,7 @@
             android:layout_width="365dp"
             android:layout_height="37dp"
             android:layout_marginBottom="423dp"
-            android:progress="80"
+            android:progress="75"
             android:progressTint="@color/colorProjectBlue"
             android:scaleX="1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -122,110 +153,58 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/chooseGender15"
-            android:layout_width="327dp"
-            android:layout_height="96dp"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:text="While using your smartphone, what apps you use the most? Pick only two apps"
-            android:textColor="#619DA3"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.311" />
-
-        <CheckBox
-            android:id="@+id/checkBoxtwitter"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/twitter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.895"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.484" />
-
-        <CheckBox
-            android:id="@+id/checkBoxnews"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:text="  News\n  apps"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.895"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.669" />
-
-        <CheckBox
-            android:id="@+id/checkBoxinsetgram"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/instagram"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.895"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.578" />
-
-        <CheckBox
-            android:id="@+id/checkBoxwhatsapp"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/whatsapp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.486" />
-
-        <CheckBox
-            android:id="@+id/checkBoxsports"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:text="  Sports\n  apps"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.768" />
-
-        <CheckBox
-            android:id="@+id/checkBoxother"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:text="  Other"
+        <RadioGroup
+            android:id="@+id/radioGroup161"
+            android:layout_width="186dp"
+            android:layout_height="243dp"
+            android:layout_marginBottom="152dp"
             app:layout_constraintBottom_toBottomOf="@+id/continue16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.768" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <CheckBox
-            android:id="@+id/checkBoxspotify"
-            android:layout_width="96dp"
-            android:layout_height="44dp"
-            android:background="@drawable/rounded_rec_white"
-            android:drawableRight="@drawable/spotify"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.58" />
+            <RadioButton
+                android:id="@+id/radioButton166"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:drawableRight="@drawable/waze"
+                android:fontFamily="sans-serif-light"
+                android:text="  Waze"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton167"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:drawableRight="@drawable/spotify"
+                android:fontFamily="sans-serif-light"
+                android:text="  Spotify"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton168"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  Sports Apps"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton169"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  News Apps"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton1610"
+                android:layout_width="179dp"
+                android:layout_height="47dp"
+                android:fontFamily="sans-serif-light"
+                android:text="  Other"
+                android:textSize="20sp" />
+        </RadioGroup>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

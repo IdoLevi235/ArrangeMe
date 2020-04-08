@@ -25,7 +25,7 @@
 
 
         <Switch
-            android:id="@+id/isSmoke"
+            android:id="@+id/isMed"
             android:layout_width="330dp"
             android:layout_height="72dp"
             android:layout_marginBottom="13dp"
@@ -104,7 +104,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/radioGroup7"
             android:layout_width="312dp"
             android:layout_height="232dp"
             android:layout_marginTop="136dp"
@@ -116,7 +116,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioButton71"
                 android:layout_width="245dp"
                 android:layout_height="47dp"
                 android:checked="false"
@@ -126,7 +126,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/radioButton72"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:checked="false"
@@ -136,7 +136,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/radioButton73"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:checked="false"
@@ -146,7 +146,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioButton74"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:checked="false"
@@ -156,7 +156,7 @@
                 android:textSize="20sp" />
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/radioButton75"
                 android:layout_width="305dp"
                 android:layout_height="47dp"
                 android:checked="false"

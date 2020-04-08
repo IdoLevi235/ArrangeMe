@@ -1,9 +1,11 @@
 package com.example.arrangeme.Questionnaire;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,12 +14,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class Screen8Q extends Fragment {
+/**
+ * create an instance of this fragment.
+ */
+public class Screen8Q extends Fragment implements View.OnClickListener {
+
+
 
     public Screen8Q() {
         // Required empty public constructor
@@ -30,21 +42,40 @@ public class Screen8Q extends Fragment {
         return inflater.inflate(R.layout.fragment_screen8_q, container, false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final NavController navController= Navigation.findNavController(view);
-        Button button = view.findViewById(R.id.continue8);
-        TextView topMessage = view.findViewById(R.id.text_hello8);
-        topMessage.setText("You Are Awesome");
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v){
-                navController.navigate(R.id.action_screen8Q_to_screen9Q);
-            }
-        });
+        final NavController navController = Navigation.findNavController(view);
+        Button continue8 = view.findViewById(R.id.continue8);
+        TextView topMessage = view.findViewById(R.id.text_hello8);
+        topMessage.setText("Keep Up The Good Work!");
+        continue8.setOnClickListener(this);
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onClick(View v) {
+        final NavController navController = Navigation.findNavController(v);
+        switch (v.getId()) {
+            case (R.id.continue8):
+                RadioGroup rg = (RadioGroup)getView().findViewById(R.id.radioGroup8);
+                int selectedRadioButtonID = rg.getCheckedRadioButtonId(); //returns -1 if not selected
+                if (selectedRadioButtonID == R.id.radioButton81) {
+                    Server.questionnaireFill("12",1);
+                } else if (selectedRadioButtonID == R.id.radioButton82) {
+                    Server.questionnaireFill("12",2);
+                } else if (selectedRadioButtonID == R.id.radioButton83) {
+                    Server.questionnaireFill("12",3);
+                } else if (selectedRadioButtonID == R.id.radioButton84) {
+                    Server.questionnaireFill("12",4);
+                }
+                navController.navigate(R.id.action_screen8Q_to_screen9Q);
+                break;
+            default:
+                break;
+        }
+    }
+
 }
