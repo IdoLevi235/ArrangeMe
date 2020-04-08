@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     Button signUpBtn;
+    Button adminBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity{
         loginBtn = (Button) findViewById(R.id.loginBtnMain);
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
-
+        adminBtn = (Button) findViewById(R.id.adminBtn);
 
 //Login button onClick
         loginBtn.setOnClickListener((new View.OnClickListener() {
@@ -57,6 +58,19 @@ public class MainActivity extends AppCompatActivity{
             }
 
         }));
+
+        adminBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v==adminBtn){
+                    Intent intent = new Intent(MainActivity.this, Adminzone.class);//
+                    startActivity(intent);
+                }
+
+            }
+
+        }));
+
 
 
     }
