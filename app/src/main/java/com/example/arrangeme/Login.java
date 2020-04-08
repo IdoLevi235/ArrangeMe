@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -257,16 +258,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 startActivity(new Intent(Login.this, Questionnaire.class));
 
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
-                                createAlert("Login failed.", SweetAlertDialog.ERROR_TYPE);
-                            }
+                                try {
+                                    throw task.getException();
+                                }
+                                catch (Exception e) {
+                                    createAlert(e.getMessage(), SweetAlertDialog.ERROR_TYPE);
+                                }
+                            } //end else
                         }
                     });
         }//end of try
+
+
         catch (IllegalArgumentException e) {
             createAlert("You must fill all fields.", SweetAlertDialog.ERROR_TYPE);
         }
+
 
     }
 

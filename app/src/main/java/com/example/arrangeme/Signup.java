@@ -164,12 +164,17 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("createAccountMail", "createUserWithEmail:failure", task.getException());
-                            createErrorAlert("Something went wrong, try again please!");
-                            updateUI(null);
+                            try {
+                                throw task.getException();
+                            }
+                            catch (Exception e) {
+                                createErrorAlert(e.getMessage());
+                            }
+                        } //end else
                         }
 
                         // ...
-                    }
+
                 });
 
 
