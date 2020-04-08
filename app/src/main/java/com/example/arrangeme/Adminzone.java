@@ -13,6 +13,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private DatabaseReference mDatabase;
     private Button deleteDB;
     private Button sim1;
+    private Button deleteSim1;
 
 
     @Override
@@ -21,10 +22,10 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_adminzone);
         deleteDB = (Button)findViewById(R.id.dDBbtn);
         sim1 = (Button)findViewById(R.id.sim1btn);
-
+        deleteSim1=(Button)findViewById(R.id.dSim1);
         deleteDB.setOnClickListener(this);
         sim1.setOnClickListener(this);
-
+        deleteSim1.setOnClickListener(this);
     }
 
     @Override
@@ -33,18 +34,25 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             case (R.id.dDBbtn):
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("users").removeValue();
+                mDatabase.child("simulated_users").removeValue();
                 break;
             case (R.id.sim1btn):
                 simulate1000withPVnoSC();
+                break;
+
+            case (R.id.dSim1):
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("simulated_users").removeValue();
+
         }
     }
 
     private void simulate1000withPVnoSC() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").setValue("simulated_users");
-
+        mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users");
         for(int i = 1 ; i<=1000 ; i++){
-            //mDatabase.child("email").setValue()
+            String s = Integer.toString(i);
+            mDatabase.push().setValue("Sim " + s);
         }
+
     }
 }
