@@ -228,7 +228,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             //String user_email = account.getEmail(); //update user's mail
             //emailText.setText(user_email); // put his email on the screen
             //Toast.makeText(Login.this,user_email, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Login.this, Questionnaire.class));
+            startActivity(new Intent(Login.this, Homepage.class));
             //Uri personPhoto = account.getPhotoUrl(); //TODO: photo if we would like
         }
 
@@ -255,7 +255,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.currentUsername = user.getDisplayName();
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
-                                startActivity(new Intent(Login.this, Questionnaire.class));
+                                startActivity(new Intent(Login.this, Homepage.class));
 
                             } else {
                                 try {

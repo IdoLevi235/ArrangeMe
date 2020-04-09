@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
@@ -150,8 +151,8 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                Intent i= new Intent(getActivity(),MainActivity.class);
-                getActivity().startActivity(i);
+                Intent homepage= new Intent(getActivity(), Homepage.class);
+                getActivity().startActivity(homepage);
             }
         });
         ad.show();
@@ -170,8 +171,8 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                Intent i= new Intent(getActivity(),MainActivity.class);
-                getActivity().startActivity(i);
+                Intent homepage= new Intent(getActivity(),Homepage.class);
+                getActivity().startActivity(homepage);
             }
         });
         ad.show();
