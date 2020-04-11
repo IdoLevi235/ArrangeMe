@@ -241,8 +241,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void signInWithEmailAndPassword(String email, String password) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         try {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -256,7 +255,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
                                 startActivity(new Intent(Login.this, Homepage.class));
-
                             } else {
                                 try {
                                     throw task.getException();
