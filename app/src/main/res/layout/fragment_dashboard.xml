@@ -6,27 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="match_parent"
-        android:layout_height="293dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/dash_back"
+        android:layout_width="413dp"
+        android:layout_height="224dp"
+        android:background= "@drawable/dash_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,20 +24,245 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="36dp"
         android:layout_marginEnd="204dp"
         android:layout_marginRight="204dp"
-        android:fontFamily="@font/roboto_condensed_light"
+        android:layout_marginBottom="164dp"
+        android:fontFamily="@font/arsenal"
         android:gravity="center"
         android:text="Welcome Linoy !"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/addTaskBtn"
+        android:layout_width="132dp"
+        android:layout_height="123dp"
+        android:background="#00FFFFFF"
+        android:drawableTop="@drawable/addtaskbtn"
+        android:fontFamily="sans-serif-light"
+        android:text="Add Tasks"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.742" />
+
+    <Button
+        android:id="@+id/calenderBtn"
+        android:layout_width="132dp"
+        android:layout_height="123dp"
+        android:background="#00FFFFFF"
+        android:drawableTop="@drawable/calendarbtn"
+        android:fontFamily="sans-serif-light"
+        android:text="Calendar"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.742" />
+
+    <Button
+        android:id="@+id/chooseTasksBtn"
+        android:layout_width="126dp"
+        android:layout_height="148dp"
+        android:background="#00FFFFFF"
+        android:drawableTop="@drawable/choosetaskbtn"
+        android:fontFamily="sans-serif-light"
+        android:text="Choose Tasks\nFor Today"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.980"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.907" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="#E3E3E3"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="#E3E3E3"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E3E3E3"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.313" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="377dp"
+        android:layout_height="343dp"
+        android:background="@drawable/rounded_rec_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.22000003" />
+
+    <TextView
+        android:id="@+id/Hello"
+        android:layout_width="325dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="374dp"
+        android:fontFamily="sans-serif-light"
+        android:text="This is your suggested schedule for today:"
+        android:textColor="#4E4E4E"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ScheduleForToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/arsenal"
+        android:gravity="center"
+        android:text="Schedule For Today"
+        android:textColor="#2E2E2E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:layout_width="348dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/task1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/unchecked2"
+                android:padding="6dp"
+                android:text="  Clean The Room"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/task2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/checked2"
+                android:padding="6dp"
+                android:text="  Do Dishes"
+                android:textSize="21sp" />
+
+            <CheckBox
+                android:id="@+id/task3"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Do Dishes"
+                android:textSize="21sp"
+                android:checked="false"/>
+
+            <CheckBox
+                android:id="@+id/task4"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Do Dishes"
+                android:textSize="21sp"
+                android:checked="false"/>
+            <CheckBox
+                android:id="@+id/task5"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Do Dishes"
+                android:textSize="21sp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:id="@+id/task6"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Do Dishes"
+                android:textSize="21sp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:id="@+id/task7"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Do Dishes"
+                android:textSize="21sp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:id="@+id/task8"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  Don't Do Dishes"
+                android:textSize="21sp"
+                android:checked="true"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
