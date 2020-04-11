@@ -3,27 +3,27 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/dashboard"
         android:title="@string/title_dashboard" />
 
     <item
         android:id="@+id/navigation_calendar"
-        android:icon="@drawable/calendar100"
+        android:icon="@drawable/calendar"
         android:title="Calendar" />
 
     <item
         android:id="@+id/navigation_tasks"
-        android:icon="@drawable/tasks"
+        android:icon="@drawable/task"
         android:title="Tasks" />
 
     <item
         android:id="@+id/navigation_schedule"
-        android:icon="@drawable/schedule"
+        android:icon="@drawable/checklist"
         android:title="My Schedule" />
 
     <item
         android:id="@+id/navigation_myprofile"
-        android:icon="@drawable/customer"
+        android:icon="@drawable/user"
         android:title="Profile" />
 
 </menu>
