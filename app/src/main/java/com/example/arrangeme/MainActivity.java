@@ -1,5 +1,4 @@
 package com.example.arrangeme;
-//LINOY
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,15 +20,18 @@ public class MainActivity extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     Button signUpBtn;
+    Button adminBtn;
+    Button homepageBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         loginBtn = (Button) findViewById(R.id.loginBtnMain);
+        homepageBtn = (Button) findViewById(R.id.homepageBtn);
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
-
+        adminBtn = (Button) findViewById(R.id.adminBtn);
 
 //Login button onClick
         loginBtn.setOnClickListener((new View.OnClickListener() {
@@ -57,6 +59,33 @@ public class MainActivity extends AppCompatActivity{
             }
 
         }));
+
+        adminBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v==adminBtn){
+                    Intent intent = new Intent(MainActivity.this, Adminzone.class);//
+                    startActivity(intent);
+                }
+
+            }
+
+        }));
+
+
+        homepageBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v==homepageBtn){
+                    Intent intent = new Intent(MainActivity.this, Homepage.class);//
+                    startActivity(intent);
+                }
+
+            }
+
+        }));
+
+
 
     }
     protected void onStart() {

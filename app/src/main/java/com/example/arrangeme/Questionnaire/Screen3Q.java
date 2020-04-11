@@ -15,10 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -28,12 +32,11 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
 
     private Button learnAtHome;
     private Button learnAtSchool;
-
     private Button btn_unfocus;
-
     private Button[] btn = new Button[2];
     private int[] btn_id = {R.id.learnAtHomeBtn, R.id.learnAtClassBtn};
-
+    private boolean isReply=false;
+    private RatingBar ratingBar;
     public Screen3Q() {
         // Required empty public constructor
     }
@@ -56,9 +59,10 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
 
         Button continue3 = view.findViewById(R.id.continue3);
         continue3.setOnClickListener(this);
-
         TextView topMessage = view.findViewById(R.id.text_hello3);
         topMessage.setText("You Are Doing Great!");
+        ratingBar = (RatingBar)getView().findViewById(R.id.rateManageTime);
+        isReply=false;
     }
 
 
@@ -69,12 +73,25 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.learnAtHomeBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.learnAtClassBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.continue3:
+                if(isReply){
+                    if (btn_unfocus == btn[0]) {
+                        Server.questionnaireFill("4",1);
+                    } else  {
+                        Server.questionnaireFill("4",2);
+                    }
+                }
+                int rateValue = (int)ratingBar.getRating();
+                if (rateValue>0) {
+                    Server.questionnaireFill("5",rateValue);
+                }
                 navController.navigate(R.id.action_screen3Q_to_screen4Q);
                 break;
             default:

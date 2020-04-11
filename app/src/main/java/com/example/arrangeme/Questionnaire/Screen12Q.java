@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Server;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,11 +31,10 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
     private Button eightBtn;
     private Button tenBtn;
     private Button twelveBtn;
-
     private Button btn_unfocus;
-
     private Button[] btn = new Button[4];
     private int[] btn_id = {R.id.sixBtn, R.id.eightBtn, R.id.tenBtn, R.id.twelveBtn};
+    private boolean isReply=false;
 
     public Screen12Q() {
         // Required empty public constructor
@@ -60,6 +62,7 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
 
         TextView topMessage = view.findViewById(R.id.text_hello12);
         topMessage.setText("Great Job " + Globals.currentUsername +"!");
+        isReply=false;
     }
 
 
@@ -68,18 +71,34 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
         final NavController navController = Navigation.findNavController(v);
         switch (v.getId()) {
             case R.id.sixBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[0]);
                 break;
             case R.id.eightBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[1]);
                 break;
             case R.id.tenBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[2]);
                 break;
             case R.id.twelveBtn:
+                isReply=true;
                 btn_unfocus=Globals.setFocus(btn_unfocus,btn[3]);
                 break;
             case R.id.continue12:
+                if (isReply){
+                    if (btn_unfocus == btn[0]) {
+                        Server.questionnaireFill("16",1);
+                    } else if (btn_unfocus == btn[1]) {
+                        Server.questionnaireFill("16",2);
+                    } else if (btn_unfocus==btn[2]) {
+                        Server.questionnaireFill("16",3);
+                    }else {
+                        Server.questionnaireFill("16",4);
+                    }
+                }
+
                 navController.navigate(R.id.action_screen12Q_to_screen13Q);
                 break;
             default:

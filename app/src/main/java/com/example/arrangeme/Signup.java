@@ -42,6 +42,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private TextView alreadyHave;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
@@ -73,10 +74,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             String lname = lnameText.getText().toString();
             if (signUpFormValidation(email,password,confPass,fname,lname)) //form is OK
             {
-                createAccount(email, password, fname);
-                addNewUserToDB(email, password, fname, lname);//maybe without email+password?
+                createAccount(email, password, fname, lname);
                 Globals.currentUsername = fname;
-                //loginAfterRegistartion(email,password);
             }
 
 
@@ -140,14 +139,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void addNewUserToDB(String email, String password, String fname, String lname) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        User user = new User(email,password,fname,lname);
-        mDatabase.push().setValue(user);
-
-    }
-
-    private void createAccount(String email, String password, final String fname) {
+    private void createAccount( final String email, final String password, final String fname, final String lname) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -160,56 +152,37 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
                             user.updateProfile(profileUpdates);
+                            Globals.UID = user.getUid();
+
+                            /* addNewUserToDB is now here because of problems with Globals.UID */
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            User userToAdd = new User(email,password,fname,lname);
+                            mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
+                            /* addNewUserToDB end */
+
                             createWelcomeAlert();
-                            //startActivity(new Intent(Signup.this, Questionnaire.class));
-                            //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("createAccountMail", "createUserWithEmail:failure", task.getException());
-                            createErrorAlert("Something went wrong, try again please!");
-                            updateUI(null);
+                            try {
+                                throw task.getException();
+                            }
+                            catch (Exception e) {
+                                createErrorAlert(e.getMessage());
+                            }
+                        } //end else
                         }
 
                         // ...
-                    }
+
                 });
+
+
     }
 
     private void updateUI(FirebaseUser user) {
     }
 
-    private void loginAfterRegistartion(String email, String password) {
-        mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
-        try {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("SignInWithMail", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(getApplicationContext(), "Connected successfully " + user.getDisplayName(),
-                                        Toast.LENGTH_SHORT).show();
-                                Globals.currentUsername = user.getDisplayName();
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("SignInWithMail", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getApplicationContext(), "Login failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                updateUI(null);
-                            }
-                        }
-                    });
-        }//end of try
-        catch(IllegalArgumentException e){
-            Toast.makeText(getApplicationContext(), "You must fill all fields.",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-    }
 
 
 
