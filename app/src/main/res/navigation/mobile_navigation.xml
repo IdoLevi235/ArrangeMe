@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.arrangeme.ui.calendar.CalendarFragment"
-        android:label="fragment_calendar"
+        android:name="com.example.arrangeme.ui.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.example.arrangeme.ui.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
+        android:name="com.example.arrangeme.ui.calendar.CalendarFragment"
+        android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
 
 

@@ -8,9 +8,9 @@
 
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="413dp"
-        android:layout_height="224dp"
-        android:background= "@drawable/dash_back"
+        android:layout_width="454dp"
+        android:layout_height="228dp"
+        android:background="@drawable/dash_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,6 +32,7 @@
         android:text="Welcome Linoy !"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -132,14 +133,15 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="377dp"
-        android:layout_height="343dp"
+        android:layout_width="373dp"
+        android:layout_height="253dp"
         android:background="@drawable/rounded_rec_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.22000003" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004" />
 
     <TextView
         android:id="@+id/Hello"
@@ -165,18 +167,18 @@
         android:fontFamily="@font/arsenal"
         android:gravity="center"
         android:text="Schedule For Today"
-        android:textColor="#2E2E2E"
-        android:textSize="20sp"
+        android:textColor="#C66A63"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="@+id/view4"
         app:layout_constraintTop_toTopOf="@+id/view4"
         app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
-        android:layout_width="348dp"
-        android:layout_height="255dp"
+        android:layout_width="328dp"
+        android:layout_height="153dp"
         android:layout_marginTop="68dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
@@ -211,58 +213,128 @@
 
             <CheckBox
                 android:id="@+id/task3"
-                android:padding="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="false"
+                android:padding="6dp"
                 android:text="  Do Dishes"
-                android:textSize="21sp"
-                android:checked="false"/>
+                android:textSize="21sp" />
 
             <CheckBox
                 android:id="@+id/task4"
-                android:padding="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="  Do Dishes"
-                android:textSize="21sp"
-                android:checked="false"/>
-            <CheckBox
-                android:id="@+id/task5"
+                android:checked="false"
                 android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="  Do Dishes"
-                android:textSize="21sp"
-                android:checked="true"/>
+                android:textSize="21sp" />
 
-            <CheckBox
-                android:id="@+id/task6"
-                android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="  Do Dishes"
-                android:textSize="21sp"
-                android:checked="true"/>
-
-            <CheckBox
-                android:id="@+id/task7"
-                android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="  Do Dishes"
-                android:textSize="21sp"
-                android:checked="true"/>
-
-            <CheckBox
-                android:id="@+id/task8"
-                android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="  Don't Do Dishes"
-                android:textSize="21sp"
-                android:checked="true"/>
 
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="183dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/rounded_rec_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862" />
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="183dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/rounded_rec_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862" />
+
+    <TextView
+        android:id="@+id/Taskcompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="Completed Tasks"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="@+id/view9"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <TextView
+        android:id="@+id/TaskcompletedNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="200"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="@+id/view9"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <TextView
+        android:id="@+id/tasksWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="Left To Do This Week"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view10"
+        app:layout_constraintEnd_toEndOf="@+id/view10"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="@+id/view10"
+        app:layout_constraintTop_toTopOf="@+id/view10"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/tasksWeekNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="30"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view10"
+        app:layout_constraintEnd_toEndOf="@+id/view10"
+        app:layout_constraintStart_toStartOf="@+id/view10"
+        app:layout_constraintTop_toTopOf="@+id/view10"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
