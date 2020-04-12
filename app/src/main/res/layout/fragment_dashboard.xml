@@ -145,7 +145,7 @@
         app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.26" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -162,7 +162,7 @@
         app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.23000002" />
 
     <ScrollView
         android:layout_width="357dp"
@@ -172,7 +172,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.57">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,26 +224,26 @@
         android:layout_width="183dp"
         android:layout_height="78dp"
         android:layout_marginTop="49dp"
-        android:background="@drawable/rounded_rec_pink"
+        android:background="@drawable/rounded_rec_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919" />
+        app:layout_constraintVertical_bias="0.406" />
 
     <View
         android:id="@+id/view10"
         android:layout_width="183dp"
         android:layout_height="78dp"
         android:layout_marginTop="49dp"
-        android:background="@drawable/rounded_rec_pink"
+        android:background="@drawable/rounded_rec_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.921" />
+        app:layout_constraintVertical_bias="0.408" />
 
     <TextView
         android:id="@+id/Taskcompleted"
@@ -275,7 +275,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="200"
-        android:textColor="#FFFFFF"
+        android:textColor="#C66A63"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toEndOf="@+id/view9"
@@ -314,7 +314,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="30"
-        android:textColor="#FFFFFF"
+        android:textColor="#C66A63"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view10"
         app:layout_constraintEnd_toEndOf="@+id/view10"
