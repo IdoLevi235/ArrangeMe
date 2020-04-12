@@ -13,6 +13,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.dashboard.DashboardViewModel;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class CalendarFragment extends Fragment {
 
