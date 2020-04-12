@@ -9,15 +9,15 @@
 
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="454dp"
-        android:layout_height="228dp"
-        android:background="@drawable/dash_back"
+        android:layout_width="459dp"
+        android:layout_height="224dp"
+        android:background="@color/arrangeMeMain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.116" />
 
     <TextView
         android:id="@+id/welcomText"
@@ -33,10 +33,9 @@
         android:text="Welcome Linoy !"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -130,35 +129,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="373dp"
-        android:layout_height="253dp"
-        android:background="@drawable/rounded_rec_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58000004" />
+        app:layout_constraintVertical_bias="0.433" />
 
     <TextView
         android:id="@+id/Hello"
         android:layout_width="325dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="374dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="sans-serif-light"
         android:text="This is your suggested schedule for today:"
         android:textColor="#4E4E4E"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.29"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.381"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.015" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -171,23 +158,21 @@
         android:textColor="#C66A63"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.008" />
 
     <ScrollView
-        android:layout_width="328dp"
-        android:layout_height="153dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.431"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.2">
+        android:layout_width="357dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="86dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -242,23 +227,23 @@
         android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintVertical_bias="0.919" />
 
     <View
         android:id="@+id/view10"
         android:layout_width="183dp"
         android:layout_height="78dp"
         android:layout_marginTop="49dp"
-        android:background="@drawable/rounded_rec_blue"
+        android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintVertical_bias="0.921" />
 
     <TextView
         android:id="@+id/Taskcompleted"
@@ -267,10 +252,10 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="9dp"
         android:layout_marginRight="9dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="Completed Tasks"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toEndOf="@+id/view9"
@@ -306,10 +291,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="7dp"
         android:layout_marginRight="7dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="Left To Do This Week"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/view10"
         app:layout_constraintEnd_toEndOf="@+id/view10"
