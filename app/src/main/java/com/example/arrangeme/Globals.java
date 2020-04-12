@@ -31,7 +31,7 @@ public class Globals {
         //define the colors of the button that is focused
         btn_focus.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
         btn_focus.setTextColor(Color.parseColor("#FFFFFF"));
-        btn_focus.setBackgroundResource(R.drawable.rounded_rec);
+        btn_focus.setBackgroundResource(R.drawable.rounded_rec_blue);
 
         //return the button that is focused
         return btn_focus;
