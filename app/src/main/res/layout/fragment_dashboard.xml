@@ -9,15 +9,15 @@
 
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="509dp"
-        android:layout_height="260dp"
-        android:background="@color/arrangeMeMain"
+        android:layout_width="413dp"
+        android:layout_height="233dp"
+        android:background="@drawable/dash_back2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/welcomText"
@@ -35,10 +35,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <Button
         android:id="@+id/addTaskBtn"
@@ -56,7 +56,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
         android:id="@+id/calenderBtn"
@@ -74,7 +74,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
         android:id="@+id/chooseTasksBtn"
@@ -92,7 +92,7 @@
         app:layout_constraintHorizontal_bias="0.980"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <View
         android:id="@+id/view6"
@@ -132,19 +132,6 @@
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
         app:layout_constraintVertical_bias="0.0" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="201dp"
-        android:background="#E3E3E3"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.060000002" />
-
     <TextView
         android:id="@+id/Hello"
         android:layout_width="325dp"
@@ -160,7 +147,7 @@
         app:layout_constraintHorizontal_bias="0.337"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -178,11 +165,11 @@
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.206" />
 
     <ScrollView
         android:layout_width="357dp"
-        android:layout_height="172dp"
+        android:layout_height="200dp"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="28dp"
         android:elevation="2dp"
@@ -239,6 +226,26 @@
                 android:text="  Do Dishes"
                 android:textSize="21sp" />
 
+            <TextView
+                android:id="@+id/task5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/checked2"
+                android:elevation="2dp"
+                android:padding="6dp"
+                android:text="  Do Dishes"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/task6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/checked2"
+                android:elevation="2dp"
+                android:padding="6dp"
+                android:text="  Do Dishes"
+                android:textSize="21sp" />
+
 
         </LinearLayout>
     </ScrollView>
@@ -255,12 +262,12 @@
         app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.380" />
+        app:layout_constraintVertical_bias="0.298" />
 
     <View
         android:id="@+id/view11"
         android:layout_width="380dp"
-        android:layout_height="196dp"
+        android:layout_height="220dp"
         android:layout_marginTop="49dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
@@ -269,7 +276,7 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintVertical_bias="0.89" />
 
     <TextView
         android:id="@+id/Taskcompleted"
@@ -321,10 +328,10 @@
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.380" />
+        app:layout_constraintVertical_bias="0.298" />
 
     <TextView
         android:id="@+id/tasksWeek"
