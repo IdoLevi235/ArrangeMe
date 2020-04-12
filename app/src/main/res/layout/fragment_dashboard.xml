@@ -42,95 +42,61 @@
 
     <Button
         android:id="@+id/addTaskBtn"
-        android:layout_width="132dp"
-        android:layout_height="123dp"
-        android:background="#00FFFFFF"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:elevation="2dp"
+        android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/addtaskbtn"
         android:fontFamily="sans-serif-light"
         android:text="Add Tasks"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.66" />
+        app:layout_constraintVertical_bias="0.658" />
 
     <Button
         android:id="@+id/calenderBtn"
-        android:layout_width="132dp"
-        android:layout_height="123dp"
-        android:background="#00FFFFFF"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:elevation="2dp"
+        android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/calendarbtn"
         android:fontFamily="sans-serif-light"
         android:text="Calendar"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.66" />
+        app:layout_constraintVertical_bias="0.658" />
+
 
     <Button
         android:id="@+id/chooseTasksBtn"
-        android:layout_width="126dp"
-        android:layout_height="148dp"
-        android:background="#00FFFFFF"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+
+        android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/choosetaskbtn"
         android:fontFamily="sans-serif-light"
-        android:text="Choose Tasks\nFor Today"
+        android:text="Choose Tasks"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.980"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.66" />
-
-    <View
-        android:id="@+id/view6"
-        android:layout_width="1dp"
-        android:layout_height="155dp"
-        android:background="#E3E3E3"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
-
-    <View
-        android:id="@+id/view7"
-        android:layout_width="1dp"
-        android:layout_height="155dp"
-        android:background="#E3E3E3"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
-
-
-    <View
-        android:id="@+id/view8"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="52dp"
-        android:background="#E3E3E3"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.658" />
 
     <TextView
         android:id="@+id/Hello"
