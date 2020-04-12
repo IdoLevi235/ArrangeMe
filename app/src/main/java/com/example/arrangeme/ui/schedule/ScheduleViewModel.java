@@ -9,7 +9,7 @@ public class ScheduleViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public ScheduleViewModel() {
-        mText = new MutableLiveData<>();
+        mText = new MutableLiveData<String>();
         mText.setValue("This is Schedule fragment");
     }
 
