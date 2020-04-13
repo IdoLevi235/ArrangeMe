@@ -49,6 +49,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
+
             public void onChanged(@Nullable String s) {
                 //Here we need to change the text view of the name and more staff to change
             }
