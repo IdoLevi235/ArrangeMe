@@ -1,5 +1,6 @@
 package com.example.arrangeme.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.arrangeme.ChooseTasks;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.calendar.CalendarViewModel;
 
@@ -46,6 +49,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         calenderBtn = view.findViewById(R.id.calenderBtn);
         addTaskBtn = view.findViewById(R.id.addTaskBtn);
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
+        chooseTasksBtn.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -63,7 +67,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             case (R.id.chooseTasksBtn):
             {
+                Intent ct= new Intent(getActivity(), ChooseTasks.class);
 
+                getActivity().startActivity(ct);
             }
         }
     }
