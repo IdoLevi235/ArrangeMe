@@ -46,7 +46,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         calenderBtn = view.findViewById(R.id.calenderBtn);
         addTaskBtn = view.findViewById(R.id.addTaskBtn);
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
