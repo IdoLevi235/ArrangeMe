@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.arrangeme.Questionnaire.Questionnaire;
 
+import org.w3c.dom.Text;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ChooseTasks extends AppCompatActivity implements View.OnClickListener{
@@ -26,6 +28,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private TextView redTextView;
     private TextView greenTextView;
     private TextView howMuchMore;
+    private TextView helloTxt;
     private Button confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         greenTextView = (TextView)findViewById(R.id.textViewNumbersGreen);
         howMuchMore = (TextView)findViewById(R.id.textViewHowManyMore);
         confirm=(Button)findViewById(R.id.confirmTasksBtn);
+        helloTxt=(TextView)findViewById(R.id.textViewHello);
         ll.setOrientation(LinearLayout.VERTICAL);
         for(int i = 0; i < 20; i++) {
             CheckBox ch = new CheckBox(ChooseTasks.this);
@@ -48,6 +52,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             ll.addView(ch);
         }
         count=0;
+        helloTxt.setText("Hello, " + Globals.currentUsername + "!");
         redTextView.setText(Integer.toString(count));
         greenTextView.setVisibility(View.GONE);
         howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");

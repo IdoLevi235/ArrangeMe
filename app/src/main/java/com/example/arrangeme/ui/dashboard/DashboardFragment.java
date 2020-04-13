@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,6 +42,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 //Here we need to change the text view of the name and more staff to change
             }
         });
+        setHasOptionsMenu(true);
         return root;
     }
 
@@ -73,4 +76,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             }
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.dashboard_menu_xml, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 }
