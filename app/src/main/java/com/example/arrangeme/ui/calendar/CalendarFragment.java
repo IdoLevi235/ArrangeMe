@@ -39,14 +39,15 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
     private WeekView weekCalendar;
     private Switch switchCat;
     private ConstraintLayout.LayoutParams parms;
+    private ConstraintLayout.LayoutParams parms2;
     private TextView monthName;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
-
         weekCalendar = root.findViewById(R.id.weekView);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
+        parms2 = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -73,15 +74,14 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             case (R.id.switchCat):
             {
                 if(switchCat.isChecked()) {
-                    ConstraintLayout.LayoutParams parms2=parms;
-                    parms2.height=(parms2.height)-300;
-                    weekCalendar.setLayoutParams(parms2);
+                    parms.height=(parms.height)-300;
+                    weekCalendar.setLayoutParams(parms);
                     weekCalendar.setTranslationY(-150);
                     monthName.setTranslationY(-150);
-                    switchCat.setTranslationY(-150);
+                    switchCat.setTranslationY(+85);
                 }
                 else{
-                    weekCalendar.setLayoutParams(parms);
+                    weekCalendar.setLayoutParams(parms2);
                 }
             }
             break;
