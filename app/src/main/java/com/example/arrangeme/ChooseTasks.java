@@ -54,9 +54,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         count=0;
         helloTxt.setText("Hello, " + Globals.currentUsername + "!");
         redTextView.setText(Integer.toString(count));
+        redTextView.setBackgroundResource(R.drawable.red_button_background);
         greenTextView.setVisibility(View.GONE);
         howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");
         confirm.setOnClickListener(this);
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,7 +85,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         TextView redTextView = (TextView)findViewById(R.id.textViewNumbersRed);
-        TextView greenTextView = (TextView)findViewById(R.id.textViewNumbersGreen);
+        //TextView greenTextView = (TextView)findViewById(R.id.textViewNumbersGreen);
         TextView howMuch = (TextView) findViewById (R.id.textViewHowManyMore);
         switch (v.getId()){
             case R.id.confirmTasksBtn:
@@ -122,15 +124,17 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 if(c.isChecked()) { //check
                     if (count==numOfTasksToChoose-1){ //red--->green
                         count++;
-                        redTextView.setVisibility(View.GONE);
-                        greenTextView.setVisibility(View.VISIBLE);
-                        greenTextView.setText(Integer.toString(count));
+                        redTextView.setBackgroundResource(R.drawable.green_button_background);
+                        redTextView.setText(Integer.toString(count));
+
+                        // greenTextView.setVisibility(View.VISIBLE)
+                        // greenTextView.setText(Integer.toString(count));
                         howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");
                     }
                     else if (count < numOfTasksToChoose) { //stay red
                         count++;
-                        redTextView.setVisibility(View.VISIBLE);
-                        greenTextView.setVisibility(View.GONE);
+                        redTextView.setBackgroundResource(R.drawable.red_button_background);
+                       // greenTextView.setVisibility(View.GONE);
                         redTextView.setText(Integer.toString(count));
                         howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");
                     }
@@ -142,9 +146,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
                 else { //uncheck
                     count--;
-                    if (redTextView.getVisibility()==View.GONE){ //red-->green
-                        greenTextView.setVisibility(View.GONE);
-                        redTextView.setVisibility(View.VISIBLE);
+                    if (count==numOfTasksToChoose-1){ //green-->red
+                        //greenTextView.setVisibility(View.GONE);
+                        redTextView.setBackgroundResource(R.drawable.red_button_background);
                     }
                     redTextView.setText(Integer.toString(count));
                     howMuchMore.setText("(You have to choose " + Integer.toString(numOfTasksToChoose-count) + " more tasks..)");
