@@ -24,9 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginEnd="204dp"
-        android:layout_marginRight="204dp"
         android:layout_marginBottom="164dp"
         android:fontFamily="@font/arsenal"
         android:gravity="center"
@@ -119,7 +117,7 @@
         android:id="@+id/ScheduleForToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="30dp"
         android:elevation="2dp"
         android:fontFamily="@font/arsenal"
         android:gravity="center"
@@ -130,8 +128,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintTop_toBottomOf="@+id/view10"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
         android:layout_width="357dp"
@@ -220,15 +218,15 @@
         android:id="@+id/view9"
         android:layout_width="183dp"
         android:layout_height="78dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="163dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view11"
@@ -242,7 +240,7 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.96" />
 
     <TextView
         android:id="@+id/Taskcompleted"
@@ -289,15 +287,15 @@
         android:id="@+id/view10"
         android:layout_width="183dp"
         android:layout_height="78dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="163dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tasksWeek"

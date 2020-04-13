@@ -9,8 +9,8 @@
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
-        android:layout_width="400dp"
-        android:layout_height="490dp"
+        android:layout_width="393dp"
+        android:layout_height="530dp"
         android:elevation="2dp"
         android:hapticFeedbackEnabled="false"
         app:columnGap="1dp"
@@ -21,14 +21,13 @@
         app:firstDayOfWeek="sunday"
         app:headerRowBackgroundColor="#FFF4F4F4"
         app:headerRowPadding="12dp"
-        app:headerRowTextSize="10sp"
+        app:headerRowTextSize="12sp"
         app:hourHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603"
+        app:layout_constraintVertical_bias="0.356"
         app:numberOfVisibleDays="7"
         app:restoreNumberOfVisibleDays="false"
         app:showCompleteDay="false"
@@ -47,17 +46,19 @@
 
     <TextView
         android:id="@+id/monthName"
-        android:layout_width="109dp"
-        android:layout_height="29dp"
+        android:layout_width="205dp"
+        android:layout_height="34dp"
         android:fontFamily="@font/roboto_condensed_regular"
-        android:text="APRIL 2020"
+        android:gravity="center"
+        android:text="Month Name Year"
+        android:textAllCaps="true"
         android:textColor="@color/arrangeMeMain"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/weekView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <RadioButton
         android:id="@+id/radioButton"
@@ -68,10 +69,10 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/weekView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.48" />
 
 
     <!--
