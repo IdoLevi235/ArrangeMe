@@ -6,10 +6,18 @@
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="300"
+        android:orderInCategory="3"
         android:title="User"
         android:icon="@drawable/settings"
         app:showAsAction="always">
     </item>
+    <item
+        android:id="@+id/action_back"
+        android:orderInCategory="2"
+        android:title="User"
+        android:icon="@drawable/back"
+        app:showAsAction="always">
+    </item>
+
 
 </menu>

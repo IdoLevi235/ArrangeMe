@@ -47,8 +47,12 @@ private Toolbar toolbar;
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(Homepage.this, "Settings clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
             return true;
+        }
+        else if (id==R.id.action_back){
+            Toast.makeText(Homepage.this, "back clicked homepage", Toast.LENGTH_LONG).show();
+
         }
 
         return super.onOptionsItemSelected(item);

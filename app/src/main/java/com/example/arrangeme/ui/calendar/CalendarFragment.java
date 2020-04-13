@@ -4,6 +4,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
@@ -55,6 +58,8 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
                 //Here we need to change the text view of the name and more staff to change
             }
         });
+        setHasOptionsMenu(true);
+
         return root;
     }
 
@@ -90,5 +95,27 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.calendar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id==R.id.action_3dots){
+            Toast.makeText(getContext(), "3dots clicked inside dashboard", Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }
