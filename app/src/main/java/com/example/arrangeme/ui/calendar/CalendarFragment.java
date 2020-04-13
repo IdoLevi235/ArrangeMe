@@ -78,8 +78,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
                     parms.height=(parms.height)-300;
                     weekCalendar.setLayoutParams(parms);
                     weekCalendar.setTranslationY(-150);
-                    monthName.setTranslationY(-150);
-                    switchCat.setTranslationY(+85);
                 }
                 else{
                     weekCalendar.setLayoutParams(parms2);

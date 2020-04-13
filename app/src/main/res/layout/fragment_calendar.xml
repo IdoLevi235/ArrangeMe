@@ -9,8 +9,8 @@
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
-        android:layout_width="399dp"
-        android:layout_height="479dp"
+        android:layout_width="408dp"
+        android:layout_height="494dp"
         android:elevation="2dp"
         android:hapticFeedbackEnabled="false"
         app:columnGap="1dp"
@@ -25,6 +25,7 @@
         app:hourHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.496"
@@ -54,11 +55,11 @@
         android:textAllCaps="true"
         android:textColor="@color/arrangeMeMain"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/weekView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.041" />
 
     <Switch
         android:id="@+id/switchCat"
@@ -68,9 +69,10 @@
         android:text="Show Categories"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.003"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -80,7 +82,6 @@
         android:layout_marginTop="408dp"
         android:layout_marginBottom="15dp"
         android:clickable="true"
-        android:backgroundTint="@color/arrangeMeMain"
         android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="@+id/weekView"
         app:layout_constraintEnd_toEndOf="parent"

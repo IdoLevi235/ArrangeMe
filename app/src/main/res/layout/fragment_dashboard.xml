@@ -110,7 +110,7 @@
         app:layout_constraintHorizontal_bias="0.337"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintVertical_bias="0.24" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -241,7 +241,7 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintVertical_bias="0.93" />
 
     <TextView
         android:id="@+id/Taskcompleted"

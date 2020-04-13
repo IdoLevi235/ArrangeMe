@@ -21,82 +21,72 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="102dp" />
 
+    <View
+        android:id="@+id/view4"
+        android:layout_width="356dp"
+        android:layout_height="359dp"
+        android:background="@drawable/rounded_rec_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_chooseTasks"
+        app:layout_constraintVertical_bias="0.639" />
+
     <TextView
         android:id="@+id/textViewHello"
         android:layout_width="144dp"
         android:layout_height="47dp"
         android:fontFamily="@font/arsenal"
         android:text="Hello, Ido!"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorProjectBlue"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
-
-    <TextView
-        android:id="@+id/textViewPleaseChoose"
-        android:layout_width="279dp"
-        android:layout_height="70dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Please choose which tasks you would like to do today!"
-        android:textColor="@color/colorPrimary"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_chooseTasks"
         app:layout_constraintVertical_bias="0.125" />
 
     <TextView
+        android:id="@+id/textViewPleaseChoose"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Please choose which tasks you would like to do today!"
+        android:textColor="#4E4E4E"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_chooseTasks"
+        app:layout_constraintVertical_bias="0.12" />
+
+    <TextView
         android:id="@+id/textViewExplanation"
-        android:layout_width="271dp"
-        android:layout_height="227dp"
+        android:layout_width="329dp"
+        android:layout_height="61dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="173dp"
-        android:background="@drawable/rounded_rec_gray"
         android:fontFamily="sans-serif-light"
-        android:paddingLeft="40px"
-        android:paddingTop="20px"
-        android:paddingRight="40px"
+        android:gravity="center"
         android:text="According to your anchors, today you have  4 free-time windows. You have to choose 4 tasks."
-        android:textSize="19sp"
-        android:textStyle="italic"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/confirmTasksBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="90dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewHowManyMore"
-        app:layout_constraintEnd_toEndOf="@+id/textViewExplanation"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewExplanation"
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"
-        app:layout_constraintVertical_bias="0.767"
-        app:srcCompat="@drawable/basket" />
+        app:layout_constraintVertical_bias="0.265" />
 
     <TextView
         android:id="@+id/textViewNumbersRed"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="45dp"
-
-        android:layout_marginLeft="45dp"
         android:layout_marginTop="53dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginRight="19dp"
         android:layout_marginBottom="14dp"
         android:background="@drawable/circle_textview_red"
         android:gravity="center"
@@ -105,18 +95,31 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textViewHowManyMore"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="90dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="96dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.277"
+        app:srcCompat="@drawable/basket" />
 
     <TextView
         android:id="@+id/textViewNumbersGreen"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
         android:layout_marginTop="53dp"
         android:layout_marginEnd="21dp"
-        android:layout_marginRight="19dp"
         android:layout_marginBottom="14dp"
         android:background="@drawable/circle_textview_green"
         android:enabled="false"
@@ -127,26 +130,22 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/textViewHowManyMore"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewHowManyMore"
         android:layout_width="173dp"
         android:layout_height="12dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="186dp"
-        android:layout_marginEnd="173dp"
-        android:layout_marginRight="173dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="200dp"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewExplanation"
-        app:layout_constraintEnd_toEndOf="@+id/textViewExplanation"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewExplanation"
-        app:layout_constraintTop_toTopOf="@+id/textViewExplanation"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <ScrollView
         android:id="@+id/tasksScrollView"
@@ -158,10 +157,10 @@
         android:fadingEdge="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewExplanation"
-        app:layout_constraintVertical_bias="0.698">
+        app:layout_constraintVertical_bias="0.582">
 
         <LinearLayout
             android:id="@+id/tasksLinearLayout"
@@ -178,12 +177,13 @@
         android:layout_width="171dp"
         android:layout_height="40dp"
         android:background="@drawable/rounded_rec"
+        android:fontFamily="sans-serif"
         android:text="confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974" />
+        app:layout_constraintVertical_bias="0.951" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
