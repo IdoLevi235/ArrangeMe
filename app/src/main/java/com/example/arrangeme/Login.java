@@ -198,18 +198,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     if (task.isSuccessful()) {
                     Toast.makeText(Login.this,"Success!", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
-                    updateUI(user);
+                        boolean isNewuser = task.getResult().getAdditionalUserInfo().isNewUser();
+                        System.err.println(isNewuser + "!!!!!!!1");
+                        if (isNewuser) {
+                            updateUI(user,true);
+                        }
+                        else {
+                            updateUI(user,false);
+                        }
                     }
                     else{
                         Toast.makeText(Login.this,"Failed!", Toast.LENGTH_SHORT).show();
-                        updateUI(null);
+                        updateUI(null,false);
                     }
                 }
             });
     }
 
 
-    private void updateUI(FirebaseUser fUser){
+    private void updateUI(FirebaseUser fUser, boolean isNewUser){
         sign_out_button.setVisibility(View.VISIBLE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
@@ -217,25 +224,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Globals.UID = fUser.getUid();
             Globals.currentEmail = account.getEmail();
 
+            if(isNewUser) {
+                /* addNewUserToDB */
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
+                mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
+                /* addNewUserToDB end */
 
-            /* addNewUserToDB */
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            User userToAdd = new User(Globals.currentEmail,Globals.currentUsername);
-            mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
-            /* addNewUserToDB end */
+                startActivity(new Intent(Login.this, Questionnaire.class));
+            }
+            else {
+                startActivity(new Intent(Login.this, Homepage.class));
 
-
-            //String user_email = account.getEmail(); //update user's mail
-            //emailText.setText(user_email); // put his email on the screen
-            //Toast.makeText(Login.this,user_email, Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Login.this, Homepage.class));
-            //Uri personPhoto = account.getPhotoUrl(); //TODO: photo if we would like
+            }
         }
-
-
-
-        //TODO: update it's mail on the DB + check how the password updates?
-
     }
 
     private void signInWithEmailAndPassword(String email, String password) {

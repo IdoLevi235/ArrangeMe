@@ -3,6 +3,7 @@ package com.example.arrangeme;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +26,15 @@ private Toolbar toolbar;
         // menu should be considered as top level destinations.
         Toolbar toolbar = findViewById(R.id.toolbar_homepage);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        //toolbar.setSubtitle("");
+        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_dashboard, R.id.navigation_calendar, R.id.navigation_tasks, R.id.navigation_schedule, R.id.navigation_myprofile).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -45,14 +55,11 @@ private Toolbar toolbar;
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        System.err.println();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
             return true;
-        }
-        else if (id==R.id.action_back){
-            Toast.makeText(Homepage.this, "back clicked homepage", Toast.LENGTH_LONG).show();
-
         }
 
         return super.onOptionsItemSelected(item);
