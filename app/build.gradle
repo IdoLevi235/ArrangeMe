@@ -37,9 +37,9 @@ dependencies {
     def nav_version = "2.3.0-alpha04"
 
 
-    implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
+   // implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
 
-    implementation 'com.applandeo:material-calendar-view:1.6.0'
+   // implementation 'com.applandeo:material-calendar-view:1.6.0'
 
     implementation 'com.github.thellmund.Android-Week-View:core:4.0.1'
 

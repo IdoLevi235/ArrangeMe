@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +29,6 @@ import com.alamkanak.weekview.WeekView;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.dashboard.DashboardViewModel;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,6 +48,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         weekCalendar = root.findViewById(R.id.weekView);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         parms2 = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
+
+
+
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
 
@@ -116,6 +116,5 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-
-
+    //TODO: להוסיף בסוף אייקונים לטאבים - לא מסובך אבל ארוך לשלב זה
 }

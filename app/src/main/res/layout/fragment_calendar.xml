@@ -9,8 +9,8 @@
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
-        android:layout_width="408dp"
-        android:layout_height="494dp"
+        android:layout_width="411dp"
+        android:layout_height="167dp"
         android:elevation="2dp"
         android:hapticFeedbackEnabled="false"
         app:columnGap="1dp"
@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496"
+        app:layout_constraintVertical_bias="0.236"
         app:numberOfVisibleDays="7"
         app:restoreNumberOfVisibleDays="false"
         app:showCompleteDay="false"
@@ -91,6 +91,77 @@
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#FFFFFF" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="474dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="304dp"
+        android:fadeScrollbars="false"
+        android:isScrollContainer="true"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarSize="4dp"
+        android:verticalScrollbarPosition="defaultPosition"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekView"
+        app:layout_constraintVertical_bias="1.0"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorProjectBlue"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorProjectBlue"
+        app:tabTextColor="@color/darkgray">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/familyTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/family_xml"
+            android:text="Family" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/studyTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/student"
+            android:text="Study" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/workTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/work"
+            android:text="Work" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/nutritionTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/food"
+            android:text="Nutrition" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/eventsTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/star"
+            android:text="Events" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/friendsTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/friends"
+            android:text="Friends" />
+
+    </com.google.android.material.tabs.TabLayout>
+
 
     <!--
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -107,4 +178,6 @@
         app:mcv_selectionColor="@color/arrangeMeMain"
         app:mcv_showOtherDates="all"
         /> -->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
