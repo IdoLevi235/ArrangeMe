@@ -80,12 +80,14 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             case (R.id.switchCat):
             {
                 if(switchCat.isChecked()) {
-                    parms.height=(parms.height)-300;
+                    parms.height= (int) ((parms.height)*0.5);
                     weekCalendar.setLayoutParams(parms);
                     weekCalendar.setTranslationY(-150);
                 }
                 else{
-                    weekCalendar.setLayoutParams(parms2);
+                    parms.height= (int) ((parms.height)*2);
+                    weekCalendar.setTranslationY(+150);
+                    weekCalendar.setLayoutParams(parms);
                 }
             }
             break;
