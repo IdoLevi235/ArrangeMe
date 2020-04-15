@@ -111,7 +111,7 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     }
 
     private void isQuestionnaireFilled() {
-        final ArrayList<Integer> q_answers = new ArrayList<>() ;
+        final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference currUserRef = mDatabase.child("users").child(Globals.UID).child("personality_vector");

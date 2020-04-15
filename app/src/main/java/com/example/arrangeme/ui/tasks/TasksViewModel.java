@@ -9,7 +9,7 @@ public class TasksViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public TasksViewModel() {
-        mText = new MutableLiveData<>();
+        mText = new MutableLiveData<String>();
         mText.setValue("This is tasks fragment");
     }
 

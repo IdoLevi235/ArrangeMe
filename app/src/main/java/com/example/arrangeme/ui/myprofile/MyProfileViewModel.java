@@ -9,7 +9,7 @@ public class MyProfileViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public MyProfileViewModel() {
-        mText = new MutableLiveData<>();
+        mText = new MutableLiveData<String>();
         mText.setValue("This is myProfile fragment");
     }
 

@@ -69,7 +69,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private HashMap<String,Integer> calculate_PV() {
-        HashMap<String,Integer> pv = new HashMap<>();
+        HashMap<String,Integer> pv = new HashMap<String,Integer>();
         ArrayList<Integer> randomValues = getRandomValues();
         for (int i=0 ; i<25 ; i++) {
             pv.put(Integer.toString(i+1), randomValues.get(i));
@@ -108,7 +108,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                 randomNum6,randomNum7,randomNum8,randomNum9,randomNum10,randomNum11,randomNum12,randomNum13,
                 randomNum14,randomNum15,randomNum16,randomNum17,randomNum18,randomNum19,randomNum20,randomNum21,
                 randomNum22,randomNum23,randomNum24,randomNum25);
-        ArrayList<Integer> randArrayList = new ArrayList<>();
+        ArrayList<Integer> randArrayList = new ArrayList<Integer>();
         randArrayList.addAll(randList);
         return randArrayList;
 
