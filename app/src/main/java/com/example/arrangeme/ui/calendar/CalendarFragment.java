@@ -15,7 +15,6 @@ import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,7 +23,6 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.alamkanak.weekview.WeekView;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
@@ -118,5 +116,4 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO: להוסיף בסוף אייקונים לטאבים - לא מסובך אבל ארוך לשלב זה
 }
