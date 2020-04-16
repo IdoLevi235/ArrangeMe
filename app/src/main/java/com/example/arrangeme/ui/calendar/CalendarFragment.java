@@ -1,5 +1,6 @@
 package com.example.arrangeme.ui.calendar;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TabHost;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.alamkanak.weekview.WeekView;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.dashboard.DashboardViewModel;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,6 +42,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
     private ConstraintLayout.LayoutParams parms;
     private ConstraintLayout.LayoutParams parms2;
     private TextView monthName;
+    private TabLayout tabLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
@@ -46,7 +50,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         weekCalendar = root.findViewById(R.id.weekView);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         parms2 = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-
 
 
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -66,10 +69,12 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         monthName =view.findViewById(R.id.monthName);
         switchCat =  view.findViewById(R.id.switchCat);
+        tabLayout =view.findViewById(R.id.tabLayout);
         switchCat.setOnClickListener(this);
         weekCalendar.setOnClickListener(this);
     }
 
+    @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -78,14 +83,16 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             case (R.id.switchCat):
             {
                 if(switchCat.isChecked()) {
-                    parms.height= (int) ((parms.height)*0.5);
+                    parms.height= (int) ((parms.height)*0.75);
                     weekCalendar.setLayoutParams(parms);
                     weekCalendar.setTranslationY(-150);
+                    tabLayout.setVisibility(View.VISIBLE);
                 }
                 else{
-                    parms.height= (int) ((parms.height)*2);
+                    parms.height= (int) ((parms.height)*1.25);
                     weekCalendar.setTranslationY(+150);
                     weekCalendar.setLayoutParams(parms);
+                    tabLayout.setVisibility(View.GONE);
                 }
             }
             break;

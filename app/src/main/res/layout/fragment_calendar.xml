@@ -27,8 +27,8 @@
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
-        android:layout_width="414dp"
-        android:layout_height="211dp"
+        android:layout_width="match_parent"
+        android:layout_height="542dp"
         android:elevation="2dp"
         app:columnGap="1dp"
         app:dayBackgroundColor="#FFF4F4F4"
@@ -42,10 +42,10 @@
         app:hourHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187"
+        app:layout_constraintVertical_bias="0.658"
         app:numberOfVisibleDays="7"
         app:restoreNumberOfVisibleDays="false"
         app:showCompleteDay="false"
@@ -66,14 +66,13 @@
         android:id="@+id/switchCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="528dp"
         android:text="Show Categories"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintTop_toTopOf="@+id/weekView" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -105,7 +104,7 @@
         android:scrollbarAlwaysDrawVerticalTrack="false"
         android:scrollbarSize="4dp"
         android:verticalScrollbarPosition="defaultPosition"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -68,6 +68,7 @@
         android:layout_width="281dp"
         android:layout_height="41dp"
         android:background="@drawable/btn_rounded"
+        android:fontFamily="sans-serif-medium"
         android:shadowColor="#05FFFFFF"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"

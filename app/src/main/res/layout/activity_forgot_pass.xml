@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.457" />
 
     <ImageView
-        android:id="@+id/Logo"
+        android:id="@+id/imageView3"
         android:layout_width="211dp"
         android:layout_height="118dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,11 +36,10 @@
 
 
     <TextView
-        android:id="@+id/forgotText"
-        android:layout_width="322dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/signupText"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:text="Forgot Your Password?"
@@ -48,12 +47,11 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="@font/roboto_condensed_regular"
-        app:layout_constraintBottom_toTopOf="@+id/emailText"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.883" />
+        app:layout_constraintVertical_bias="0.23000002" />
 
     <EditText
         android:id="@+id/emailText1"
@@ -88,7 +86,7 @@
         android:layout_height="44dp"
         android:background="@drawable/btn_rounded"
         android:capitalize="none"
-        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-medium"
         android:text="Reset my password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +100,7 @@
         android:layout_width="155dp"
         android:layout_height="44dp"
         android:background="@drawable/btn_rounded"
-        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-medium"
         android:text="Back to login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
