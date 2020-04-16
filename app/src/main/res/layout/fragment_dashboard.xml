@@ -9,8 +9,8 @@
 
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="413dp"
-        android:layout_height="233dp"
+        android:layout_width="414dp"
+        android:layout_height="215dp"
         android:background="@drawable/dash_back2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,16 +35,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.56" />
 
     <Button
         android:id="@+id/addTaskBtn"
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:elevation="2dp"
         android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/addtaskbtn"
-        android:fontFamily="sans-serif-light"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
         android:text="Add Tasks"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
@@ -60,10 +60,10 @@
         android:id="@+id/calenderBtn"
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:elevation="2dp"
         android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/calendarbtn"
-        android:fontFamily="sans-serif-light"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
         android:text="Calendar"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
@@ -83,7 +83,7 @@
 
         android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/choosetaskbtn"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/montserrat"
         android:text="Choose Tasks"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
@@ -99,9 +99,8 @@
         android:id="@+id/Hello"
         android:layout_width="325dp"
         android:layout_height="25dp"
-        android:layout_marginTop="48dp"
         android:elevation="2dp"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/montserrat"
         android:text="This is your suggested schedule for today:"
         android:textColor="#4E4E4E"
         android:textSize="15sp"
@@ -109,14 +108,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.337"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:elevation="2dp"
         android:fontFamily="@font/arsenal"
         android:gravity="center"
@@ -127,12 +125,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view10"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.499" />
 
     <ScrollView
         android:layout_width="357dp"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="28dp"
         android:elevation="2dp"
@@ -151,6 +149,7 @@
 
             <TextView
                 android:id="@+id/task1"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/unchecked2"
@@ -161,6 +160,7 @@
 
             <TextView
                 android:id="@+id/task2"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/checked2"
@@ -171,6 +171,7 @@
 
             <CheckBox
                 android:id="@+id/task3"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -181,6 +182,7 @@
 
             <CheckBox
                 android:id="@+id/task4"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -191,6 +193,7 @@
 
             <TextView
                 android:id="@+id/task5"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/checked2"
@@ -201,6 +204,7 @@
 
             <TextView
                 android:id="@+id/task6"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/checked2"
@@ -232,7 +236,7 @@
     <View
         android:id="@+id/view11"
         android:layout_width="380dp"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:layout_marginTop="49dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
@@ -241,21 +245,20 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintVertical_bias="0.90999997" />
 
     <TextView
         android:id="@+id/Taskcompleted"
-        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:fontFamily="sans-serif-light"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Completed Tasks"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toEndOf="@+id/view9"
         app:layout_constraintHorizontal_bias="0.666"
@@ -307,11 +310,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="7dp"
         android:elevation="2dp"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Left To Do This Week"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/view10"
         app:layout_constraintEnd_toEndOf="@+id/view10"
         app:layout_constraintHorizontal_bias="0.7"

@@ -13,4 +13,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string-array name="categories_array">
+        <item>All</item>
+        <item>Special Events</item>
+        <item>Study</item>
+        <item>Family</item>
+        <item>Work</item>
+        <item>Sport</item>
+        <item>Food</item>
+        <item>Chores</item>
+    </string-array>
 </resources>

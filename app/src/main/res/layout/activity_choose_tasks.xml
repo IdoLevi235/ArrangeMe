@@ -39,7 +39,7 @@
         android:layout_height="47dp"
         android:fontFamily="@font/arsenal"
         android:textColor="@color/colorProjectBlue"
-        android:textSize="28sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,9 +50,9 @@
 
     <TextView
         android:id="@+id/textViewPleaseChoose"
+        android:fontFamily="@font/montserrat"
         android:layout_width="327dp"
         android:layout_height="48dp"
-        android:fontFamily="sans-serif-light"
         android:text="Please choose which tasks you would like to do today!"
         android:textColor="#4E4E4E"
         android:textSize="15sp"
@@ -65,11 +65,11 @@
 
     <TextView
         android:id="@+id/textViewExplanation"
+        android:fontFamily="@font/montserrat"
         android:layout_width="329dp"
         android:layout_height="61dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="173dp"
-        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="According to your anchors, today you have  4 free-time windows. You have to choose 4 tasks."
         android:textSize="15sp"
@@ -140,6 +140,7 @@
         android:layout_height="12dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="200dp"
+        android:fontFamily="@font/montserrat"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="@+id/view4"
@@ -163,6 +164,7 @@
 
         <LinearLayout
             android:id="@+id/tasksLinearLayout"
+            android:fontFamily="@font/montserrat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="?android:dividerHorizontal"

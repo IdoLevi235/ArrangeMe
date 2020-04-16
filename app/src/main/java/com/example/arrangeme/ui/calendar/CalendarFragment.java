@@ -1,5 +1,4 @@
 package com.example.arrangeme.ui.calendar;
-
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,47 +9,42 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TabHost;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import com.alamkanak.weekview.WeekView;
-import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.dashboard.DashboardViewModel;
-import com.google.android.material.tabs.TabLayout;
+import org.w3c.dom.Text;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-public class CalendarFragment extends Fragment implements View.OnClickListener {
+public class CalendarFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
     private CalendarViewModel calendarViewModel;
     private WeekView weekCalendar;
     private Switch switchCat;
     private ConstraintLayout.LayoutParams parms;
-    private ConstraintLayout.LayoutParams parms2;
     private TextView monthName;
-    private TabLayout tabLayout;
+    private Spinner catSpinner;
+    private RelativeLayout relativeLayout;
+    private TextView eventsName;
+    private RecyclerView eventsRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
         weekCalendar = root.findViewById(R.id.weekView);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-        parms2 = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-
 
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -59,6 +53,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
                 //Here we need to change the text view of the name and more staff to change
             }
         });
+
         setHasOptionsMenu(true);
 
         return root;
@@ -69,9 +64,19 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         monthName =view.findViewById(R.id.monthName);
         switchCat =  view.findViewById(R.id.switchCat);
-        tabLayout =view.findViewById(R.id.tabLayout);
+        relativeLayout =  view.findViewById(R.id.relativeLayout);
+        eventsName =  view.findViewById(R.id.eventsName);
+        eventsRecyclerView =  view.findViewById(R.id.eventsRecyclerView);
+        catSpinner = view.findViewById(R.id.categorySpinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity() ,R.array.categories_array, android.R.layout.simple_list_item_multiple_choice);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+        catSpinner.setAdapter(adapter);
+
+        eventsRecyclerView.setOnClickListener(this);
         switchCat.setOnClickListener(this);
         weekCalendar.setOnClickListener(this);
+
     }
 
     @SuppressLint("WrongConstant")
@@ -83,16 +88,16 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             case (R.id.switchCat):
             {
                 if(switchCat.isChecked()) {
-                    parms.height= (int) ((parms.height)*0.75);
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    parms.height= (int) ((parms.height)*(0.64));
                     weekCalendar.setLayoutParams(parms);
-                    weekCalendar.setTranslationY(-150);
-                    tabLayout.setVisibility(View.VISIBLE);
+
                 }
                 else{
-                    parms.height= (int) ((parms.height)*1.25);
-                    weekCalendar.setTranslationY(+150);
+                    relativeLayout.setVisibility(View.GONE);
+                    parms.height= (int) ((parms.height)*(1.5625));
                     weekCalendar.setLayoutParams(parms);
-                    tabLayout.setVisibility(View.GONE);
+
                 }
             }
             break;
@@ -123,4 +128,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    //This function refers to the spinner's categories
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("Category", "onItemClick:category");
+        // An item was selected. You can retrieve the selected item using
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
+

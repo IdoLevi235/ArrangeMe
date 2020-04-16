@@ -11,9 +11,9 @@
 
     <TextView
         android:id="@+id/monthName"
-        android:layout_width="205dp"
+        android:layout_width="256dp"
         android:layout_height="34dp"
-        android:fontFamily="@font/roboto_condensed_regular"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Month Name Year"
         android:textAllCaps="true"
@@ -21,15 +21,18 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintVertical_bias="0.044" />
 
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
-        android:layout_width="match_parent"
-        android:layout_height="542dp"
+        android:layout_width="408dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="12dp"
         android:elevation="2dp"
+        android:visibility="visible"
         app:columnGap="1dp"
         app:dayBackgroundColor="#FFF4F4F4"
         app:daySeparatorStrokeWidth="1dp"
@@ -37,6 +40,7 @@
         app:eventTextColor="@color/colorWhite"
         app:firstDayOfWeek="sunday"
         app:headerRowBackgroundColor="#FFF4F4F4"
+        app:headerRowBottomLineWidth="1dp"
         app:headerRowPadding="12dp"
         app:headerRowTextSize="12sp"
         app:hourHeight="60dp"
@@ -44,8 +48,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.658"
+        app:layout_constraintTop_toBottomOf="@+id/monthName"
+        app:layout_constraintVertical_bias="0.0"
+        app:nowLineStrokeWidth="1dp"
         app:numberOfVisibleDays="7"
         app:restoreNumberOfVisibleDays="false"
         app:showCompleteDay="false"
@@ -57,6 +62,7 @@
         app:timeColumnBackgroundColor="#FFF4F4F4"
         app:timeColumnPadding="4dp"
         app:timeColumnSeparatorColor="@color/colorPrimary"
+        app:timeColumnSeparatorStrokeWidth="1dp"
         app:timeColumnTextColor="@color/colorPrimary"
         app:timeColumnTextSize="10sp"
         app:todayBackgroundColor="@color/arrangeMeMain"
@@ -66,13 +72,14 @@
         android:id="@+id/switchCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="528dp"
-        android:text="Show Categories"
+        android:fontFamily="@font/montserrat"
+        android:text="Show Events   "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/weekView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -83,82 +90,80 @@
         android:layout_marginBottom="15dp"
         android:clickable="true"
         android:src="@drawable/plus"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/weekView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="@+id/weekView"
         app:layout_constraintTop_toTopOf="@+id/weekView"
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#FFFFFF" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="474dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="3dp"
-        android:fadeScrollbars="false"
-        android:isScrollContainer="true"
-        android:nestedScrollingEnabled="true"
-        android:overScrollMode="ifContentScrolls"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbarSize="4dp"
-        android:verticalScrollbarPosition="defaultPosition"
-        android:visibility="gone"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="387dp"
+        android:layout_height="183dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weekView"
-        app:layout_constraintVertical_bias="0.0"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/colorProjectBlue"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/colorProjectBlue"
-        app:tabTextColor="@color/darkgray">
+        app:layout_constraintVertical_bias="1.0">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/familyTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/family_xml"
-            android:text="Family" />
+        <TextView
+            android:id="@+id/eventsName"
+            android:layout_width="118dp"
+            android:layout_height="23dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="255dp"
+            android:layout_marginBottom="180dp"
+            android:elevation="1.5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Tasks"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:visibility="visible" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/studyTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/student"
-            android:text="Study" />
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="177dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="181dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="185dp"
+            android:contextClickable="true"
+            android:elevation="1.5dp"
+            android:tooltipText="All Categories"
+            android:visibility="visible" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/workTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/work"
-            android:text="Work" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRecyclerView"
+            android:layout_width="340dp"
+            android:layout_height="160dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="23dp"
+            android:layout_marginBottom="14dp"
+            android:elevation="1.5dp"
+            android:visibility="visible">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/nutritionTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/food"
-            android:text="Nutrition" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/eventsTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/star"
-            android:text="Events" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/friendsTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/friends"
-            android:text="Friends" />
-
-    </com.google.android.material.tabs.TabLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
