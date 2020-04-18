@@ -4,13 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Homepage">
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="3"
-        android:title="User"
-        android:icon="@drawable/settings"
-        app:showAsAction="always">
-    </item>
-
 
 </menu>

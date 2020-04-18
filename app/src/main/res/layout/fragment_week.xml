@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.calendar.WeekFragment">
+
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
+        android:layout_width="408dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="12dp"
+        android:elevation="2dp"
+        android:visibility="visible"
+        app:columnGap="1dp"
+        app:dayBackgroundColor="#FFF4F4F4"
+        app:daySeparatorStrokeWidth="1dp"
+        app:defaultEventColor="@color/arrangeMeMain"
+        app:eventTextColor="@color/colorWhite"
+        app:firstDayOfWeek="sunday"
+        app:headerRowBackgroundColor="#FFF4F4F4"
+        app:headerRowBottomLineWidth="1dp"
+        app:headerRowPadding="12dp"
+        app:headerRowTextSize="12sp"
+        app:hourHeight="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.57"
+        app:nowLineStrokeWidth="1dp"
+        app:numberOfVisibleDays="7"
+        app:restoreNumberOfVisibleDays="false"
+        app:showCompleteDay="false"
+        app:showCurrentTimeFirst="true"
+        app:showDaySeparator="true"
+        app:showFirstDayOfWeekFirst="true"
+        app:showHeaderRowBottomLine="true"
+        app:showTimeColumnSeparator="true"
+        app:timeColumnBackgroundColor="#FFF4F4F4"
+        app:timeColumnPadding="4dp"
+        app:timeColumnSeparatorColor="@color/colorPrimary"
+        app:timeColumnSeparatorStrokeWidth="1dp"
+        app:timeColumnTextColor="@color/colorPrimary"
+        app:timeColumnTextSize="10sp"
+        app:todayBackgroundColor="@color/arrangeMeMain"
+        app:todayHeaderTextColor="@color/colorProjectBlue" />
+
+
+    <Switch
+        android:id="@+id/switchCat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="Show Events   "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="333dp"
+        android:layout_marginTop="408dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:src="@drawable/plus"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/weekView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintStart_toStartOf="@+id/weekView"
+        app:layout_constraintTop_toTopOf="@+id/weekView"
+        app:layout_constraintVertical_bias="1.0"
+        app:rippleColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="390dp"
+        android:layout_height="220dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekView"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/eventsName"
+            android:layout_width="124dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="258dp"
+            android:layout_marginBottom="185dp"
+            android:elevation="1.5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Tasks"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="194dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            android:elevation="1.5dp"
+            android:visibility="visible">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

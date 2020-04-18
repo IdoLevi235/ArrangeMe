@@ -56,11 +56,12 @@ private Toolbar toolbar;
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         System.err.println();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
-            return true;
-        }
+
+        //TODO: IF WE WOULD LIKE- THIS IS THE PLACE TO PUT AN ITEM LIKE SETTINGS FOR ALL THE FRAGMENTS - I think we don't need it for now.
+        //if (id == R.id.action_settings) {
+            //Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
+            //return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }

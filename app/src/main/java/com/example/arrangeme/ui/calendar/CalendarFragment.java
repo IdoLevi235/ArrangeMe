@@ -33,24 +33,19 @@ import com.example.arrangeme.ForgotPass;
 import com.example.arrangeme.R;
 import org.w3c.dom.Text;
 
-public class CalendarFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
+public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     private CalendarViewModel calendarViewModel;
-    private WeekView weekCalendar;
-    private Switch switchCat;
-    private ConstraintLayout.LayoutParams parms;
     private TextView monthName;
-    private RelativeLayout relativeLayout;
-    private TextView eventsName;
-    private RecyclerView eventsRecyclerView;
-    private FrameLayout container;
+    private FrameLayout containerFilter;
+    private FrameLayout containerCalender;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
-        weekCalendar = root.findViewById(R.id.weekView);
-        parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-        container = root.findViewById(R.id.filter_container);
+
+        containerFilter = root.findViewById(R.id.filter_container);
+        containerCalender = root.findViewById(R.id.calendars_container);
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
 
@@ -68,13 +63,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         monthName =view.findViewById(R.id.monthName);
-        switchCat =  view.findViewById(R.id.switchCat);
-        relativeLayout =  view.findViewById(R.id.relativeLayout);
-        eventsName =  view.findViewById(R.id.eventsName);
-        eventsRecyclerView =  view.findViewById(R.id.eventsRecyclerView);
-        eventsRecyclerView.setOnClickListener(this);
-        switchCat.setOnClickListener(this);
-        weekCalendar.setOnClickListener(this);
+
 
     }
 
@@ -83,28 +72,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case (R.id.switchCat):
-            {
-                if(switchCat.isChecked()) {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    parms.height= (int) ((parms.height)*(0.64));
-                    weekCalendar.setLayoutParams(parms);
-
-                }
-                else{
-                    relativeLayout.setVisibility(View.GONE);
-                    parms.height= (int) ((parms.height)*(1.5625));
-                    weekCalendar.setLayoutParams(parms);
-
-                }
-            }
-            break;
-
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
     }
 
     @Override
@@ -118,20 +85,30 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id==R.id.filterIcon){
-            openFragment();
+            openFilterFragment();
         }
-        else if (id==R.id.action_3dots){
-            openMenu();
+        else if (id==R.id.menuDay){
+            openCalendarFragment();
+        }
+        else if (id==R.id.menuWeek){
+            openCalendarFragment();
+        }
+        else if (id==R.id.menuMonth){
+            openCalendarFragment();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void openMenu() {
-
+    private void openCalendarFragment() {
+        WeekFragment weekfragment = new WeekFragment();
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.add(R.id.fragment_week, weekfragment,"Blank").commit();
     }
 
-    private void openFragment() {
+    private void openFilterFragment() {
         FilterFragment filterFragment = new FilterFragment();
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -141,18 +118,5 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
     }
 
 
-    //This function refers to the spinner's categories
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("Category", "onItemClick:category");
-        // An item was selected. You can retrieve the selected item using
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
 
