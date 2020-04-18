@@ -10,18 +10,19 @@
         android:paddingStart="10dp"
         android:layout_marginEnd="10dp">
 
-        <ImageView
+        <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/image_view"
+            android:id="@+id/button"
             android:src="@drawable/logo_arrange_me2"/>
 
         <TextView
+            android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_view"
+            android:fontFamily="@font/montserrat"
             android:text="TEST"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
