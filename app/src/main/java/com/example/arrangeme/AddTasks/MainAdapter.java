@@ -2,16 +2,14 @@ package com.example.arrangeme.AddTasks;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +19,8 @@ import com.example.arrangeme.R;
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
-ArrayList<MainModel> mainModels;
-Context context;
+    ArrayList<MainModel> mainModels;
+    Context context;
 
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     this.context=context;
@@ -47,6 +45,9 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         holder.button.setText(mainModels.get(position).getCatName());
         holder.button.setTextSize(12);
         holder.button.setTextColor(Color.parseColor("#ffffff"));
+        holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
+        holder.button.setOnClickListener(v -> {
+        });
     }
 
     @Override
@@ -56,11 +57,11 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
 
     public class ViewHolder extends RecyclerView.ViewHolder{
     Button button;
-    TextView textView;
+   // TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             button=itemView.findViewById(R.id.button);
-            textView=itemView.findViewById(R.id.text_view);
+            //textView=itemView.findViewById(R.id.text_view);
         }
     }
 }
