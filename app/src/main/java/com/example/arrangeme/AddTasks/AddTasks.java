@@ -71,10 +71,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(AddTasks.this, "Settings clicked", Toast.LENGTH_LONG).show();
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+           // Toast.makeText(AddTasks.this, "Settings clicked", Toast.LENGTH_LONG).show();
+           // return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }

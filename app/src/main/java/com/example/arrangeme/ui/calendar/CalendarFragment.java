@@ -100,8 +100,8 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
             openCalendarFragment(weekfragment);
         }
         else if (id==R.id.menuMonth){
-            WeekFragment weekfragment = new WeekFragment();
-            openCalendarFragment(weekfragment);
+            MonthFragment monthFragment = new MonthFragment();
+            openCalendarFragment(monthFragment);
         }
 
         return super.onOptionsItemSelected(item);
