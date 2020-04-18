@@ -1,19 +1,16 @@
 package com.example.arrangeme.ui.calendar;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,27 +18,29 @@ import android.widget.TextView;
 import com.alamkanak.weekview.WeekView;
 import com.example.arrangeme.R;
 
-public class WeekFragment extends Fragment implements View.OnClickListener{
+public class DayFragment extends Fragment implements  View.OnClickListener{
 
-    private WeekView weekCalendar;
+    private WeekView dayCalendar;
     private Switch switchCat;
     private ConstraintLayout.LayoutParams parms;
     private RelativeLayout relativeLayout;
     private TextView eventsName;
     private RecyclerView eventsRecyclerView;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_week, container, false);
-        weekCalendar = view.findViewById(R.id.weekView);
-        parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-        // Inflate the layout for this fragment
-
+        View view= inflater.inflate(R.layout.fragment_day, container, false);
+        dayCalendar = view.findViewById(R.id.dayView);
+        parms = (ConstraintLayout.LayoutParams) dayCalendar.getLayoutParams();
         setHasOptionsMenu(true);
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener{
         eventsRecyclerView =  view.findViewById(R.id.eventsRecyclerView);
         eventsRecyclerView.setOnClickListener(this);
         switchCat.setOnClickListener(this);
-        weekCalendar.setOnClickListener(this);
+        dayCalendar.setOnClickListener(this);
     }
 
     @Override
@@ -65,13 +64,13 @@ public class WeekFragment extends Fragment implements View.OnClickListener{
                 if(switchCat.isChecked()) {
                     relativeLayout.setVisibility(View.VISIBLE);
                     parms.height= (int) ((parms.height)*(0.64));
-                    weekCalendar.setLayoutParams(parms);
+                    dayCalendar.setLayoutParams(parms);
 
                 }
                 else{
                     relativeLayout.setVisibility(View.GONE);
                     parms.height= (int) ((parms.height)*(1.5625));
-                    weekCalendar.setLayoutParams(parms);
+                    dayCalendar.setLayoutParams(parms);
 
                 }
             }
@@ -82,3 +81,4 @@ public class WeekFragment extends Fragment implements View.OnClickListener{
     }
 
 }
+

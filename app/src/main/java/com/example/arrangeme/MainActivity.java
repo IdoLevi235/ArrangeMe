@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity{
     Button signUpBtn;
     Button adminBtn;
     Button homepageBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity{
             }
 
         }));
-
 
 
     }

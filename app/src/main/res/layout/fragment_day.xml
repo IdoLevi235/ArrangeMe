@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF4F4F4"
-    tools:context=".ui.calendar.WeekFragment">
+    tools:context=".ui.calendar.DayFragment">
 
 
     <com.alamkanak.weekview.WeekView
-        android:id="@+id/weekView"
+        android:id="@+id/dayView"
         android:layout_width="408dp"
         android:layout_height="570dp"
         android:layout_marginTop="12dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:nowLineStrokeWidth="1dp"
-        app:numberOfVisibleDays="7"
+        app:numberOfVisibleDays="1"
         app:restoreNumberOfVisibleDays="false"
         app:showCompleteDay="false"
         app:showCurrentTimeFirst="true"
@@ -47,7 +47,7 @@
         app:timeColumnSeparatorStrokeWidth="1dp"
         app:timeColumnTextColor="@color/colorPrimary"
         app:timeColumnTextSize="10sp"
-        app:todayBackgroundColor="@color/arrangeMeMain"
+        app:todayBackgroundColor="#FFF4F4F4"
         app:todayHeaderTextColor="@color/colorProjectBlue" />
 
     <Switch
@@ -74,11 +74,11 @@
         android:clickable="true"
         android:src="@drawable/plus"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/weekView"
+        app:layout_constraintBottom_toBottomOf="@+id/dayView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.272"
-        app:layout_constraintStart_toStartOf="@+id/weekView"
-        app:layout_constraintTop_toTopOf="@+id/weekView"
+        app:layout_constraintStart_toStartOf="@+id/dayView"
+        app:layout_constraintTop_toTopOf="@+id/dayView"
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#FFFFFF" />
 
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekView"
+        app:layout_constraintTop_toBottomOf="@+id/dayView"
         app:layout_constraintVertical_bias="1.0">
 
         <TextView

@@ -40,12 +40,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     private FrameLayout containerFilter;
     private FrameLayout containerCalender;
 
+    @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         containerFilter = root.findViewById(R.id.filter_container);
         containerCalender = root.findViewById(R.id.calendars_container);
+
+        //Default Schedule is Week View
+        WeekFragment weekfragment = new WeekFragment();
+        openCalendarFragment(weekfragment);
+
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
 
@@ -63,8 +69,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         monthName =view.findViewById(R.id.monthName);
-
-
     }
 
     @SuppressLint("WrongConstant")
@@ -88,24 +92,27 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
             openFilterFragment();
         }
         else if (id==R.id.menuDay){
-            openCalendarFragment();
+            DayFragment dayfragment = new DayFragment();
+            openCalendarFragment(dayfragment);
         }
         else if (id==R.id.menuWeek){
-            openCalendarFragment();
+            WeekFragment weekfragment = new WeekFragment();
+            openCalendarFragment(weekfragment);
         }
         else if (id==R.id.menuMonth){
-            openCalendarFragment();
+            WeekFragment weekfragment = new WeekFragment();
+            openCalendarFragment(weekfragment);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void openCalendarFragment() {
-        WeekFragment weekfragment = new WeekFragment();
+    @SuppressLint("ResourceType")
+    private void openCalendarFragment(Fragment calenderFragment) {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
-        transaction.add(R.id.fragment_week, weekfragment,"Blank").commit();
+        transaction.add(R.id.calendars_container, calenderFragment,"Blank").commit();
     }
 
     private void openFilterFragment() {
