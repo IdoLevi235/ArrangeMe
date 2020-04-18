@@ -1,10 +1,16 @@
-package com.example.arrangeme.ui.tasks;
+package com.example.arrangeme.AddTasks;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +36,17 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     return new ViewHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imageView.setImageResource(mainModels.get(position).getCatLogo());
-        holder.textView.setText(mainModels.get(position).getCatName());
-
+        //holder.button.setImageResource(mainModels.get(position).getCatLogo());
+        //holder.textView.setText(mainModels.get(position).getCatName());
+        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,mainModels.get(position).getCatLogo(),0,0);
+        holder.button.setBackgroundResource(mainModels.get(position).getCatBackground());
+        holder.button.setLayoutParams (new LinearLayout.LayoutParams(200, 215));
+        holder.button.setText(mainModels.get(position).getCatName());
+        holder.button.setTextSize(12);
+        holder.button.setTextColor(Color.parseColor("#ffffff"));
     }
 
     @Override
@@ -43,11 +55,11 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-    ImageView imageView;
+    Button button;
     TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.image_view);
+            button=itemView.findViewById(R.id.button);
             textView=itemView.findViewById(R.id.text_view);
         }
     }

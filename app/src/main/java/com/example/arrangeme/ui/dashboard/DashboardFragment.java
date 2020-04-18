@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.ChooseTasks;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
@@ -55,27 +56,26 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         addTaskBtn = view.findViewById(R.id.addTaskBtn);
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
         chooseTasksBtn.setOnClickListener(this);
+        addTaskBtn.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
+        Intent ct;
         switch (v.getId()) {
             case (R.id.calenderBtn):
-            {
-            }
-
+                break;
             case (R.id.addTaskBtn):
-            {
-
-            }
-
-            case (R.id.chooseTasksBtn):
-            {
-                Intent ct= new Intent(getActivity(), ChooseTasks.class);
-
+                 ct= new Intent(getActivity(), AddTasks.class);
                 getActivity().startActivity(ct);
-            }
+                break;
+            case (R.id.chooseTasksBtn):
+                 ct= new Intent(getActivity(), ChooseTasks.class);
+                getActivity().startActivity(ct);
+                break;
+            default:
+                break;
         }
     }
 
