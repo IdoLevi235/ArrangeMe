@@ -117,12 +117,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener, 
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id==R.id.action_3dots){
+        if (id==R.id.filterIcon){
             openFragment();
-            return true;
+        }
+        else if (id==R.id.action_3dots){
+            openMenu();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openMenu() {
+
     }
 
     private void openFragment() {
