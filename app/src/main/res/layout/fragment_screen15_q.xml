@@ -15,7 +15,7 @@
             android:id="@+id/chooseGender15"
             android:layout_width="327dp"
             android:layout_height="96dp"
-            android:fontFamily="@font/roboto_condensed_regular"
+            android:fontFamily="@font/arsenal"
             android:text="How many hours a day you spend watching TV / on your smartphone?"
             android:textColor="#619DA3"
             android:textSize="25sp"

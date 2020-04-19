@@ -15,7 +15,7 @@
             android:id="@+id/chooseGender11"
             android:layout_width="327dp"
             android:layout_height="96dp"
-            android:fontFamily="@font/roboto_condensed_regular"
+            android:fontFamily="@font/arsenal"
             android:text="How often is the cellphone a factor that interferes with concentration in studies?"
             android:textColor="#619DA3"
             android:textSize="25sp"

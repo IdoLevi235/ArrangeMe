@@ -9,6 +9,67 @@
     tools:context=".ui.calendar.CalendarFragment">
 
 
+    <Button
+        android:id="@+id/DayBtn"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/day_view"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|left"
+        android:paddingEnd="10dp"
+        android:text="  Day"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/monthName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <Button
+        android:id="@+id/WeekBtn"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/week_view"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|left"
+        android:paddingEnd="10dp"
+        android:text="  Week"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/monthName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <Button
+        android:id="@+id/MonthBtn"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/month_view"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|left"
+        android:paddingEnd="10dp"
+        android:text="  Month"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/monthName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64" />
+
+
     <TextView
         android:id="@+id/monthName"
         android:layout_width="256dp"
@@ -24,31 +85,31 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <FrameLayout
         android:id="@+id/calendars_container"
         android:layout_width="match_parent"
-        android:layout_height="665dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="32dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintTop_toBottomOf="@+id/monthName"
-        app:layout_constraintVertical_bias="0.00999999">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87">
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/filter_container"
-        android:elevation="3dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 

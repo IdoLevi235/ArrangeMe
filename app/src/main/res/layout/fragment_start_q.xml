@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="208dp"
-            android:fontFamily="@font/roboto_condensed_regular"
+            android:fontFamily="@font/arsenal"
             android:text="What Is Your Gender?"
             android:textColor="#619DA3"
             android:textSize="30sp"

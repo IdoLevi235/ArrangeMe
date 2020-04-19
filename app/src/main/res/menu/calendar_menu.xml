@@ -10,21 +10,6 @@
         android:orderInCategory="2"
         android:title=""
         app:showAsAction="always"></item>
-    <item
-        android:id="@+id/menuDay"
-        android:icon="@drawable/day_view"
-        android:orderInCategory="1"
-        android:title="Day" />
-    <item
-        android:id="@+id/menuWeek"
-        android:icon="@drawable/week_view"
-        android:orderInCategory="2"
-        android:title="Week" />
-    <item
-        android:id="@+id/menuMonth"
-        android:icon="@drawable/month_view"
-        android:orderInCategory="3"
-        android:title="Month" />
 
 
 </menu>

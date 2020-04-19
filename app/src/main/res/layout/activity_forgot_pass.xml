@@ -15,7 +15,7 @@
         android:layout_height="56dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="Enter your e-mail here and we'll send you a link to reset your password"
+        android:text="Enter your e-mail here and we'll send you a link to reset your password."
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,21 +37,21 @@
 
     <TextView
         android:id="@+id/signupText"
-        android:layout_width="141dp"
-        android:layout_height="43dp"
+        android:layout_width="327dp"
+        android:layout_height="41dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:text="Forgot Your Password?"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold"
-        app:fontFamily="@font/roboto_condensed_regular"
+        app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.23000002" />
+        app:layout_constraintVertical_bias="0.227" />
 
     <EditText
         android:id="@+id/emailText1"
@@ -59,7 +59,7 @@
         android:layout_height="46dp"
         android:drawableRight="@drawable/mail"
         android:ems="10"
-        android:hint="Type your email here..."
+        android:hint="Type your email here"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,10 +90,10 @@
         android:text="Reset my password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
+        app:layout_constraintVertical_bias="0.793" />
 
     <Button
         android:id="@+id/backtologin"
@@ -104,7 +104,7 @@
         android:text="Back to login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.793" />
