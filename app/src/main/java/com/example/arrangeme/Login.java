@@ -252,7 +252,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), "Welcome  " + user.getDisplayName(),
                                         Toast.LENGTH_SHORT).show();
-                                //TODO: New screen after login..
                                 Globals.currentUsername = user.getDisplayName();
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
@@ -291,5 +290,3 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
 
-//TODO: remember me option
-//TODO: FACEBOOK SIGN IN/UP

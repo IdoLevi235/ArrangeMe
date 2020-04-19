@@ -118,4 +118,3 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
         }
     }
 }
-//todo: isSmoke switch default is "not" , changes the value in PV after editing the Questionnaire

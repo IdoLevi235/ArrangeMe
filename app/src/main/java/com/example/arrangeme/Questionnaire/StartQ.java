@@ -108,5 +108,4 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         }
     }
 
-//TODO: first pop up too long - need to change and compare with the text in the beginning of this page
 }

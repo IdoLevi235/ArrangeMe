@@ -166,3 +166,5 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         }
     }
 }
+
+//TODO: toolbar items

@@ -17,4 +17,3 @@ public class Questionnaire extends AppCompatActivity {
     }
 }
 
-// TODO: What happens when user exits in the middle ? or leaving field empty? or pressing "back" in his phone?
