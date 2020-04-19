@@ -41,7 +41,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         //holder.textView.setText(mainModels.get(position).getCatName());
         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,mainModels.get(position).getCatLogo(),0,0);
         holder.button.setBackgroundResource(mainModels.get(position).getCatBackground());
-        holder.button.setLayoutParams (new LinearLayout.LayoutParams(200, 215));
+        holder.button.setLayoutParams (new LinearLayout.LayoutParams(210, 225));
         holder.button.setText(mainModels.get(position).getCatName());
         holder.button.setTextSize(12);
         holder.button.setTextColor(Color.parseColor("#ffffff"));
