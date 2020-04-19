@@ -23,19 +23,21 @@
         app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="107dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.448" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addTasks"
@@ -102,17 +104,17 @@
 
     <EditText
         android:id="@+id/text_desc"
-        android:layout_width="288dp"
+        android:layout_width="278dp"
         android:layout_height="46dp"
         android:layout_marginTop="33dp"
         android:ems="10"
         android:hint="Insert description here.."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="0.693" />
 
     <Button
         android:id="@+id/sumbitBtn11"
@@ -128,5 +130,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.913" />
+
+    <Button
+        android:id="@+id/btnLeftScrl"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="189dp"
+        android:background="@drawable/leftscroll"
+        app:layout_constraintBottom_toTopOf="@+id/text_above_desc"
+        app:layout_constraintEnd_toStartOf="@+id/recycler_view"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnRightScrl"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="189dp"
+        android:background="@drawable/rightscroll"
+        app:layout_constraintBottom_toTopOf="@+id/text_above_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view"
+        app:layout_constraintTop_toBottomOf="@+id/text_title"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
