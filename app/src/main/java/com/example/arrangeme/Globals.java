@@ -43,7 +43,7 @@ public class Globals {
 
     //This function acting like a "radio group" like with buttons with two parameter for the Button unfocused
     //use: in the Calendar main screen tab
-    public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Button btn_focus2){
+public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Button btn_focus2){
         //define the colors of the button that is unfocused
         btn_unfocus2a.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#75C1C9")));
         btn_unfocus2a.setTextColor(Color.parseColor("#333333"));
@@ -61,5 +61,6 @@ public class Globals {
         //return the button that is focused
         return btn_focus2;
     }
+
 
 }

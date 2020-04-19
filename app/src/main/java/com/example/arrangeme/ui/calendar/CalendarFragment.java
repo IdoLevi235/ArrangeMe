@@ -39,6 +39,9 @@ import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     private CalendarViewModel calendarViewModel;
@@ -49,6 +52,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     private Button WeekBtn;
     private Button MonthBtn;
     private int flag=0;
+
 
     @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,7 +102,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
                 Globals.setFocus2(WeekBtn,MonthBtn ,DayBtn);
                 DayFragment dayfragment = new DayFragment();
                 openCalendarFragment(dayfragment);
-
                 break;
             case (R.id.WeekBtn):
                 Log.d("TAG2", "onClick: WeekBtn");
@@ -130,7 +133,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         //noinspection SimplifiableIfStatement
         if (id==R.id.filterIcon){
             if (flag==0)
-            openFilterFragment();
+                openFilterFragment();
             else if(flag==1){
             closeFilterFragment();
             }
@@ -141,14 +144,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     }
 
     private void closeFilterFragment() {
-        FilterFragment filterFragment = new FilterFragment();
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
-        transaction.addToBackStack(null);
-        transaction.add(R.id.filter_container, filterFragment,"Blank").commit();
-        flag=0;
-    }
+        flag = 0;
+        getActivity().getSupportFragmentManager().popBackStack();
+        }
 
     private void openFilterFragment() {
         flag=1;
@@ -158,12 +156,12 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
         transaction.addToBackStack(null);
         transaction.add(R.id.filter_container, filterFragment,"Blank").commit();
+
     }
 
 
     @SuppressLint("ResourceType")
     private void openCalendarFragment(Fragment calenderFragment) {
-
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
