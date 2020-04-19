@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/filterIcon"
-        android:icon="@drawable/filter"
+        android:icon="@drawable/filter_sort"
         android:orderInCategory="2"
         android:title=""
         app:showAsAction="always"></item>

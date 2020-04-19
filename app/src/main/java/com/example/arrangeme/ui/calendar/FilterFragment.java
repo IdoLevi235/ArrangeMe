@@ -77,93 +77,93 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-
         switch (v.getId()) {
             case (R.id.studyBtn):
-                if(studyBtn.isPressed()==true)
+                if(studyBtn.isPressed())
                 {
-                    setBtnUnFocus(studyBtn);
+                    setBtnFocus(studyBtn);
                 }
                 else {
-                    setBtnFocus(studyBtn);
+                    setBtnUnFocus(studyBtn);
                 }
                 break;
             case (R.id.friendsBtn):
                 if(friendsBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(friendsBtn);
+                    setBtnFocus(friendsBtn);
                 }
                 else {
-                    setBtnFocus(friendsBtn);
+                    setBtnUnFocus(friendsBtn);
                 }
                 break;
             case (R.id.familyBtn):
                 if(familyBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(familyBtn);
+                    setBtnFocus(familyBtn);
+
                 }
                 else {
-                    setBtnFocus(familyBtn);
+                    setBtnUnFocus(familyBtn);
                 }
                 break;
             case (R.id.workBtn):
                 if(workBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(workBtn);
+                    setBtnFocus(workBtn);
                 }
                 else {
-                    setBtnFocus(workBtn);
+                    setBtnUnFocus(workBtn);
                 }
                 break;
             case (R.id.relaxBtn):
                 if(relaxBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(relaxBtn);
+                    setBtnFocus(relaxBtn);
                 }
                 else {
-                    setBtnFocus(relaxBtn);
+                    setBtnUnFocus(relaxBtn);
                 }
                 break;
             case (R.id.sportBtn):
                 if(sportBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(sportBtn);
+                    setBtnFocus(sportBtn);
                 }
                 else {
-                    setBtnFocus(sportBtn);
+                    setBtnUnFocus(sportBtn);
                 }
                 break;
             case (R.id.nutritionBtn):
                 if(nutritionBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(nutritionBtn);
+                    setBtnFocus(nutritionBtn);
                 }
                 else {
-                    setBtnFocus(nutritionBtn);
+                    setBtnUnFocus(nutritionBtn);
                 }
                 break;
             case (R.id.choresBtn):
                 if(choresBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(choresBtn);
+                    setBtnFocus(choresBtn);
                 }
                 else {
-                    setBtnFocus(choresBtn);
+                    setBtnUnFocus(choresBtn);
                 }
                 break;
             case (R.id.otherBtn):
                 if(otherBtn.isPressed()==true)
                 {
-                    setBtnUnFocus(otherBtn);
+                    setBtnFocus(otherBtn);
+
                 }
                 else {
-                    setBtnFocus(otherBtn);
+                    setBtnUnFocus(otherBtn);
                 }
                 break;
 
             case (R.id.checkBoxAll):
-                if(checkBoxAll.isChecked()==true)
+                if(!checkBoxAll.isChecked())
                 {
                     setBtnUnFocus(studyBtn);
                     setBtnUnFocus(friendsBtn);
@@ -172,17 +172,19 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                     setBtnUnFocus(relaxBtn);
                     setBtnUnFocus(nutritionBtn);
                     setBtnUnFocus(sportBtn);
+                    setBtnUnFocus(choresBtn);
                     setBtnUnFocus(otherBtn);
                 }
                 else {
-                    setBtnUnFocus(studyBtn);
-                    setBtnUnFocus(friendsBtn);
-                    setBtnUnFocus(familyBtn);
-                    setBtnUnFocus(workBtn);
-                    setBtnUnFocus(relaxBtn);
-                    setBtnUnFocus(nutritionBtn);
-                    setBtnUnFocus(sportBtn);
-                    setBtnUnFocus(otherBtn);
+                    setBtnFocus(studyBtn);
+                    setBtnFocus(friendsBtn);
+                    setBtnFocus(familyBtn);
+                    setBtnFocus(workBtn);
+                    setBtnFocus(relaxBtn);
+                    setBtnFocus(nutritionBtn);
+                    setBtnFocus(sportBtn);
+                    setBtnFocus(choresBtn);
+                    setBtnFocus(otherBtn);
                 }
                 break;
             default:
@@ -192,7 +194,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     }
 
        public void setBtnFocus(Button btn){
-           btn.setPressed(true);
            Log.d("TAG", "setBtnFocus: btn");
            btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
            btn.setTextColor(Color.parseColor("#FFFFFF"));
@@ -200,7 +201,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
 
        public void setBtnUnFocus(Button btn){
-           btn.setPressed(false);
            switch (btn.getId()) {
                case (R.id.studyBtn):
                {

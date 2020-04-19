@@ -15,14 +15,14 @@
         android:layout_height="30dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Filters"
+        android:text="Filters &amp; Sort"
         android:textColor="@color/arrangeMeMain"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/catText"
@@ -34,10 +34,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.156" />
 
     <CheckBox
         android:id="@+id/checkBoxAll"
@@ -54,7 +54,7 @@
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.158" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -65,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.94">
 
 
         <Button
@@ -333,7 +333,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <View
         android:id="@+id/view3"
@@ -358,7 +358,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3"
         app:layout_constraintVertical_bias="0.087" />
@@ -367,17 +367,17 @@
         android:id="@+id/chooseText"
         android:layout_width="210dp"
         android:layout_height="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="5dp"
         android:fontFamily="@font/montserrat"
         android:text="Show Only"
         android:textColor="@color/darkgray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <RadioGroup
         android:layout_width="155dp"
@@ -408,6 +408,7 @@
     </RadioGroup>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="251dp"
         android:layout_height="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -415,7 +416,7 @@
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintVertical_bias="0.25">
+        app:layout_constraintVertical_bias="0.26999998">
 
         <CheckBox
             android:id="@+id/checkBoxAnchor"
