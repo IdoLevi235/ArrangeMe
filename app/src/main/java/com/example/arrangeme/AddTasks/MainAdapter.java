@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     ArrayList<MainModel> mainModels;
     Context context;
-    int row_index;
+    int row_index=-1;
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     this.context=context;
     this.mainModels=mainModels;
@@ -57,10 +57,9 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         if(row_index==position){
             holder.button.setBackgroundColor(Color.parseColor("#567845"));
         }
-        else
-        {
-            holder.button.setBackgroundColor(Color.parseColor("#000000"));
-        }
+        //else
+        //   holder.button.setBackgroundColor(Color.parseColor("#000000"));
+        //}
 
     }
 
