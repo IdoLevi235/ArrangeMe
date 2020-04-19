@@ -91,6 +91,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
             }
             });
 
+
+        recyclerView.setOnClickListener(v -> {
+
+        });
+
         /* Recycler View Stuff End*/
 
         /* Right and Left click listenrs */
@@ -114,7 +119,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
             return true;
         });
         /* Right and Left click listenrs end*/
-
         textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
         textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
     }
