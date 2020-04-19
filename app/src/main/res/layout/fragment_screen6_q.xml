@@ -74,7 +74,7 @@
             android:id="@+id/chooseGender7"
             android:layout_width="327dp"
             android:layout_height="96dp"
-            android:fontFamily="@font/roboto_condensed_regular"
+            android:fontFamily="@font/arsenal"
             android:text="How often do you feel restless or impatient?"
             android:textColor="#619DA3"
             android:textSize="25sp"

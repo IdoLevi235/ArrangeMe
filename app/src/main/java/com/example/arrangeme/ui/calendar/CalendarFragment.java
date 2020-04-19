@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -39,6 +40,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     private TextView monthName;
     private FrameLayout containerFilter;
     private FrameLayout containerCalender;
+    private Button DayBtn;
+    private Button WeekBtn;
+    private Button MonthBtn;
 
     @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +73,10 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         monthName =view.findViewById(R.id.monthName);
+        DayBtn =view.findViewById(R.id.DayBtn);
+        WeekBtn =view.findViewById(R.id.WeekBtn);
+        MonthBtn =view.findViewById(R.id.MonthBtn);
+
     }
 
     @SuppressLint("WrongConstant")
@@ -91,15 +99,15 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         if (id==R.id.filterIcon){
             openFilterFragment();
         }
-        else if (id==R.id.menuDay){
+        else if (id==R.id.DayBtn){
             DayFragment dayfragment = new DayFragment();
             openCalendarFragment(dayfragment);
         }
-        else if (id==R.id.menuWeek){
+        else if (id==R.id.WeekBtn){
             WeekFragment weekfragment = new WeekFragment();
             openCalendarFragment(weekfragment);
         }
-        else if (id==R.id.menuMonth){
+        else if (id==R.id.MonthBtn){
             MonthFragment monthFragment = new MonthFragment();
             openCalendarFragment(monthFragment);
         }
