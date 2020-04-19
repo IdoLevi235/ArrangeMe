@@ -18,6 +18,9 @@ import android.widget.CheckBox;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FilterFragment extends Fragment implements View.OnClickListener {
 
 
@@ -31,6 +34,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     private Button choresBtn;
     private Button otherBtn;
     private CheckBox checkBoxAll;
+    private Set<String> Category_Set = new HashSet<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,85 +83,101 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.studyBtn):
-                if(studyBtn.isPressed())
+                if(!Category_Set.contains("Study"))
                 {
+                    Category_Set.add("Study");
                     setBtnFocus(studyBtn);
                 }
                 else {
+                    Category_Set.remove("Study");
                     setBtnUnFocus(studyBtn);
                 }
                 break;
             case (R.id.friendsBtn):
-                if(friendsBtn.isPressed()==true)
+                if(!Category_Set.contains("Friends"))
                 {
+                    Category_Set.add("Friends");
                     setBtnFocus(friendsBtn);
                 }
                 else {
+                    Category_Set.remove("Friends");
                     setBtnUnFocus(friendsBtn);
                 }
                 break;
             case (R.id.familyBtn):
-                if(familyBtn.isPressed()==true)
+                if(!Category_Set.contains("Family"))
                 {
+                    Category_Set.add("Family");
                     setBtnFocus(familyBtn);
-
                 }
                 else {
+                    Category_Set.remove("Family");
                     setBtnUnFocus(familyBtn);
                 }
                 break;
             case (R.id.workBtn):
-                if(workBtn.isPressed()==true)
+                if(!Category_Set.contains("Work"))
                 {
+                    Category_Set.add("Work");
                     setBtnFocus(workBtn);
                 }
                 else {
+                    Category_Set.remove("Work");
                     setBtnUnFocus(workBtn);
                 }
                 break;
             case (R.id.relaxBtn):
-                if(relaxBtn.isPressed()==true)
+                if(!Category_Set.contains("Relax"))
                 {
+                    Category_Set.add("Relax");
                     setBtnFocus(relaxBtn);
                 }
                 else {
+                    Category_Set.remove("Relax");
                     setBtnUnFocus(relaxBtn);
                 }
                 break;
             case (R.id.sportBtn):
-                if(sportBtn.isPressed()==true)
+                if(!Category_Set.contains("Sport"))
                 {
+                    Category_Set.add("Sport");
                     setBtnFocus(sportBtn);
                 }
                 else {
+                    Category_Set.remove("Sport");
                     setBtnUnFocus(sportBtn);
                 }
                 break;
             case (R.id.nutritionBtn):
-                if(nutritionBtn.isPressed()==true)
+                if(!Category_Set.contains("Nutrition"))
                 {
+                    Category_Set.add("Nutrition");
                     setBtnFocus(nutritionBtn);
                 }
                 else {
+                    Category_Set.remove("Nutrition");
                     setBtnUnFocus(nutritionBtn);
                 }
                 break;
             case (R.id.choresBtn):
-                if(choresBtn.isPressed()==true)
+                if(!Category_Set.contains("Chores"))
                 {
+                    Category_Set.add("Chores");
                     setBtnFocus(choresBtn);
                 }
                 else {
+                    Category_Set.remove("Chores");
                     setBtnUnFocus(choresBtn);
                 }
                 break;
             case (R.id.otherBtn):
-                if(otherBtn.isPressed()==true)
+                if(!Category_Set.contains("Other"))
                 {
+                    Category_Set.add("Other");
                     setBtnFocus(otherBtn);
-
                 }
                 else {
+                    Category_Set.remove("Other");
                     setBtnUnFocus(otherBtn);
                 }
                 break;
@@ -166,25 +186,43 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                 if(!checkBoxAll.isChecked())
                 {
                     setBtnUnFocus(studyBtn);
+                    Category_Set.remove("Study");
                     setBtnUnFocus(friendsBtn);
+                    Category_Set.remove("Friends");
                     setBtnUnFocus(familyBtn);
+                    Category_Set.remove("Family");
                     setBtnUnFocus(workBtn);
+                    Category_Set.remove("Work");
                     setBtnUnFocus(relaxBtn);
+                    Category_Set.remove("Relax");
                     setBtnUnFocus(nutritionBtn);
+                    Category_Set.remove("Nutrition");
                     setBtnUnFocus(sportBtn);
+                    Category_Set.remove("Sport");
                     setBtnUnFocus(choresBtn);
+                    Category_Set.remove("Chores");
                     setBtnUnFocus(otherBtn);
+                    Category_Set.remove("Other");
                 }
                 else {
                     setBtnFocus(studyBtn);
+                    Category_Set.add("Study");
                     setBtnFocus(friendsBtn);
+                    Category_Set.add("Friends");
                     setBtnFocus(familyBtn);
+                    Category_Set.add("Family");
                     setBtnFocus(workBtn);
+                    Category_Set.add("Work");
                     setBtnFocus(relaxBtn);
+                    Category_Set.add("Relax");
                     setBtnFocus(nutritionBtn);
+                    Category_Set.add("Nutrition");
                     setBtnFocus(sportBtn);
+                    Category_Set.add("Sport");
                     setBtnFocus(choresBtn);
+                    Category_Set.add("Chores");
                     setBtnFocus(otherBtn);
+                    Category_Set.add("Other");
                 }
                 break;
             default:
