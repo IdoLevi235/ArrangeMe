@@ -2,21 +2,26 @@ package com.example.arrangeme.AddTasks;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arrangeme.ChooseTasks;
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.android.material.circularreveal.CircularRevealWidget;
 
@@ -31,16 +36,17 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
     Button leftScrl;
     int currentPosition;
     final int numOfCategories = 8;
+    TextView textViewHelloAdd;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tasks);
         Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
+        setSupportActionBar(toolbar);
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
-        setSupportActionBar(toolbar);
-        leftScrl.setOnClickListener(this);
-        rightScrl.setOnClickListener(this);
+
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.familycat, R.drawable.work, R.drawable.sport,
@@ -64,32 +70,57 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mainAdapter = new MainAdapter(AddTasks.this, mainModels);
         recyclerView.setAdapter(mainAdapter);
+        leftScrl.setVisibility(View.INVISIBLE);
+        rightScrl.setVisibility(View.VISIBLE);
+        rightScrl.setBackgroundResource(0);
+        leftScrl.setBackgroundResource(0);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                currentPosition = layoutManager.findFirstVisibleItemPosition();
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    currentPosition = ((LinearLayoutManager)recyclerView.getLayoutManager())
+                            .findFirstVisibleItemPosition();
+                   //onPageChanged(position);
+                    SwitchArrows();
+                }
+                else if (newState==RecyclerView.SCROLL_STATE_DRAGGING) {
+                    SwitchArrows();
+                }
                 System.err.println(currentPosition);
-                if (currentPosition==0) {
-                    leftScrl.setVisibility(View.INVISIBLE);
-                    rightScrl.setVisibility(View.VISIBLE);
-                }
-                else if (currentPosition==numOfCategories-3){
-                    leftScrl.setVisibility(View.VISIBLE);
-                    rightScrl.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    leftScrl.setVisibility(View.VISIBLE);
-                    rightScrl.setVisibility(View.VISIBLE);
-
-                }
-
-
-
             }
             });
-            /* Recycler View Stuff End*/
 
+
+        recyclerView.setOnClickListener(v -> {
+
+        });
+
+        /* Recycler View Stuff End*/
+
+        /* Right and Left click listenrs */
+        rightScrl.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                recyclerView.smoothScrollBy(300, 0);
+                rightScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                rightScrl.setBackgroundResource(0);
+            }
+            return true;
+        });
+
+        leftScrl.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                recyclerView.smoothScrollBy(-300, 0);
+                leftScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                leftScrl.setBackgroundResource(0);
+            }
+            return true;
+        });
+        /* Right and Left click listenrs end*/
+        textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
+        textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
     }
 
 
@@ -119,23 +150,25 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        recyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AddTasks.this,
-                LinearLayoutManager.HORIZONTAL, false);
-
-        switch (v.getId()){
-            case (R.id.btnRightScrl):
-                recyclerView.getLayoutManager().scrollToPosition(currentPosition + 1);
-                System.err.println("click right");
-                break;
-            case (R.id.btnLeftScrl):
-                recyclerView.getLayoutManager().scrollToPosition(currentPosition - 1);
-                System.err.println("click left");
-                break;
-            default:
-                break;
-
-        }
 
     }
+
+
+
+    public void SwitchArrows(){
+        leftScrl=findViewById(R.id.btnLeftScrl);
+        rightScrl=findViewById(R.id.btnRightScrl);
+        if (currentPosition == 0) {
+            leftScrl.setVisibility(View.INVISIBLE);
+            rightScrl.setVisibility(View.VISIBLE);
+        } else if (currentPosition == numOfCategories - 3) {
+            leftScrl.setVisibility(View.VISIBLE);
+            rightScrl.setVisibility(View.INVISIBLE);
+        } else {
+            leftScrl.setVisibility(View.VISIBLE);
+            rightScrl.setVisibility(View.VISIBLE);
+        }
+    }
 }
+
+//TODO: toolbar items

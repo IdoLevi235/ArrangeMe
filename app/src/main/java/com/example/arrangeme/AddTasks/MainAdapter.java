@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     ArrayList<MainModel> mainModels;
     Context context;
-
+    int row_index=-1;
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     this.context=context;
     this.mainModels=mainModels;
@@ -46,9 +47,23 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         holder.button.setTextSize(12);
         holder.button.setTextColor(Color.parseColor("#ffffff"));
         holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
-        holder.button.setOnClickListener(v -> {
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                row_index=position;
+                notifyDataSetChanged();
+            }
         });
+        if(row_index==position){
+            holder.button.setBackgroundColor(Color.parseColor("#567845"));
+        }
+        //else
+        //   holder.button.setBackgroundColor(Color.parseColor("#000000"));
+        //}
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -56,7 +71,8 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-    Button button;
+        private static final String TAG = "ViewHolder";
+        Button button;
    // TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.718" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -34,10 +34,9 @@
         android:layout_height="107dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addTasks"
@@ -57,13 +56,12 @@
         android:layout_width="278dp"
         android:layout_height="51dp"
         android:fontFamily="@font/arsenal"
-        android:text="Hello mother fucker!"
+        android:gravity="center"
         android:textColor="@color/colorProjectBlue"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123" />
@@ -75,12 +73,12 @@
         android:layout_marginTop="63dp"
         android:layout_marginBottom="584dp"
         android:fontFamily="@font/montserrat"
+        android:gravity="center"
         android:text="Here you can insert new tasks that you would like to do in the next few days. "
         android:textColor="#4E4E4E"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewHelloAdd"
         app:layout_constraintVertical_bias="0.12" />
@@ -111,10 +109,10 @@
         android:hint="Insert description here.."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.693" />
+        app:layout_constraintVertical_bias="0.73" />
 
     <Button
         android:id="@+id/sumbitBtn11"
@@ -135,30 +133,25 @@
         android:id="@+id/btnLeftScrl"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="189dp"
-        android:background="@drawable/leftscroll"
-        app:layout_constraintBottom_toTopOf="@+id/text_above_desc"
+        android:foreground="@drawable/leftscroll"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recycler_view"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
 
     <Button
         android:id="@+id/btnRightScrl"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="189dp"
-        android:background="@drawable/rightscroll"
-        app:layout_constraintBottom_toTopOf="@+id/text_above_desc"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="16dp"
+        android:foreground="@drawable/rightscroll"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toEndOf="@+id/recycler_view"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
