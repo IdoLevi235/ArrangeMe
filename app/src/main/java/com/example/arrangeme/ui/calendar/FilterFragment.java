@@ -231,12 +231,84 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     }
 
-       public void setBtnFocus(Button btn){
-           Log.d("TAG", "setBtnFocus: btn");
-           btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-           btn.setTextColor(Color.parseColor("#FFFFFF"));
-           btn.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
+    public void setBtnFocus(Button btn){
+        switch (btn.getId()) {
+            case (R.id.studyBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_study_nostroke);
+            }
+            break;
+            case (R.id.friendsBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_friends_nostroke);
+            }
+            break;
+            case (R.id.familyBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_family_nostroke);
+            }
+            break;
+            case (R.id.workBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_work_nostroke);
+            }
+            break;
+            case (R.id.relaxBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_relax_nostroke);
+            }
+            break;
+            case (R.id.sportBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_sport_nostroke);
+            }
+            break;
+            case (R.id.nutritionBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_nutrition_nostroke);
+            }
+            break;
+            case (R.id.choresBtn):
+            {
+                btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_chores_nostroke);
+            }
+            break;
+            case (R.id.otherBtn):
+            {
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
+                btn.setPadding(0,25,0,25);
+                btn.setBackgroundResource(R.drawable.rounded_rec_other_nostroke);
+            }
+            break;
+            default:
+                break;
         }
+    }
+
 
        public void setBtnUnFocus(Button btn){
            switch (btn.getId()) {
@@ -245,6 +317,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                    Log.d("TAG", "setBtnUnFocus: btn");
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FF8A65")));
                    btn.setTextColor(Color.parseColor("#FF8A65"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_study);
                }
                break;
@@ -252,6 +325,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFD54F")));
                    btn.setTextColor(Color.parseColor("#FFD54F"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_friends);
                }
                break;
@@ -259,6 +333,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#F06292")));
                    btn.setTextColor(Color.parseColor("#F06292"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_family);
                }
                break;
@@ -266,6 +341,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#E57373")));
                    btn.setTextColor(Color.parseColor("#E57373"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_work);
                }
                break;
@@ -273,6 +349,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#9575CD")));
                    btn.setTextColor(Color.parseColor("#9575CD"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_relax);
                }
                break;
@@ -280,6 +357,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#4DD0E1")));
                    btn.setTextColor(Color.parseColor("#4DD0E1"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_sport);
                }
                break;
@@ -287,6 +365,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#81C784")));
                    btn.setTextColor(Color.parseColor("#81C784"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_nutrition);
                }
                break;
@@ -294,12 +373,14 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                {
                    btn.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#64B5F6")));
                    btn.setTextColor(Color.parseColor("#64B5F6"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_chores);
                }
                break;
                case (R.id.otherBtn):
                {
                    btn.setTextColor(Color.parseColor("#A1887F"));
+                   btn.setPadding(0,25,0,25);
                    btn.setBackgroundResource(R.drawable.category_btn_other);
                }
                break;
