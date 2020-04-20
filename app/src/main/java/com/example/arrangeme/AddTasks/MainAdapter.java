@@ -61,6 +61,8 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             holder.button.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
             holder.button.setTextColor(Color.parseColor("#FFFFFF"));
             holder.button.setBackgroundResource(mainModels.get(position).getCatColorFull());
+            holder.button.setPadding(0,25,0,25);
+
         }
 
         else{
