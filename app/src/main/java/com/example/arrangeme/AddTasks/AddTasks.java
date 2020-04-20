@@ -49,18 +49,25 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
 
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
-        Integer[] catIcon = {R.drawable.study, R.drawable.familycat, R.drawable.work, R.drawable.sport,
-                R.drawable.nutrition, R.drawable.chores, R.drawable.relax, 0};
-        String[] catName = {"Study", "Family", "Work", "Sport", "Nutrition", "Chores", "Relax", "Other"};
-        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_family,
-                R.drawable.category_btn_work, R.drawable.category_btn_sport,
-                R.drawable.category_btn_nutrition, R.drawable.category_btn_chores,
+        Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
+                R.drawable.familycat, R.drawable.chores, R.drawable.relax, 0};
+        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Other"};
+        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
+                R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
+                R.drawable.category_btn_family, R.drawable.category_btn_chores,
                 R.drawable.category_btn_relax, R.drawable.category_btn_other};
+        Integer[] catBackgroundFull =
+                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
 
+        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+                R.color.family, R.color.chores, R.color.relax, R.color.other};
         mainModels = new ArrayList<>();
 
         for (int i = 0; i < catIcon.length; i++) {
-            MainModel model = new MainModel(catIcon[i], catName[i], catBackground[i]);
+            MainModel model = new MainModel(catIcon[i], catName[i], catBackground[i],catColor[i],catBackgroundFull[i]);
             mainModels.add(model);
         }
 

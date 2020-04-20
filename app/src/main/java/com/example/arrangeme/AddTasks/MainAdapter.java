@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.R;
@@ -20,6 +21,7 @@ import com.example.arrangeme.R;
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+    private static final String TAG = "MainAdapter";
     ArrayList<MainModel> mainModels;
     Context context;
     int row_index=-1;
@@ -45,7 +47,8 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         holder.button.setLayoutParams (new LinearLayout.LayoutParams(210, 225));
         holder.button.setText(mainModels.get(position).getCatName());
         holder.button.setTextSize(12);
-        holder.button.setTextColor(Color.parseColor("#ffffff"));
+        holder.button.setTextColor(ContextCompat.getColor
+                (context, mainModels.get(position).getCatColor()));
         holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +58,16 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             }
         });
         if(row_index==position){
-            holder.button.setBackgroundColor(Color.parseColor("#567845"));
+            holder.button.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+            holder.button.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.button.setBackgroundResource(mainModels.get(position).getCatColorFull());
         }
-        //else
-        //   holder.button.setBackgroundColor(Color.parseColor("#000000"));
-        //}
+
+        else{
+            holder.button.setCompoundDrawableTintList
+                    (ColorStateList.valueOf(ContextCompat.getColor
+                            (context, mainModels.get(position).getCatColor())));
+        }
 
     }
 

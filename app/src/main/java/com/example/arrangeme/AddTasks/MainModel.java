@@ -4,11 +4,16 @@ public class MainModel {
     Integer catBackground;
     Integer catLogo;
     String catName;
+    Integer catColor;
+    Integer catColorFull;
 
-    public MainModel(Integer catLogo,String catName , Integer catBackground){
+
+    public MainModel(Integer catLogo, String catName, Integer catBackground, Integer catColor,Integer catColorFull){
         this.catLogo=catLogo;
         this.catName=catName;
         this.catBackground = catBackground;
+        this.catColor=catColor;
+        this.catColorFull=catColorFull;
     }
 
     public Integer getCatLogo() {
@@ -21,5 +26,13 @@ public class MainModel {
 
     public Integer getCatBackground() {
         return catBackground;
+    }
+
+    public Integer getCatColor() {
+        return catColor;
+    }
+
+    public Integer getCatColorFull() {
+        return catColorFull;
     }
 }
