@@ -1,4 +1,4 @@
-package com.example.arrangeme;
+package com.example.arrangeme.Entities;
 
 import java.util.Vector;
 

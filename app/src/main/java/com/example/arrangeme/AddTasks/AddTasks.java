@@ -1,5 +1,6 @@
 package com.example.arrangeme.AddTasks;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,16 +29,20 @@ import com.google.android.material.circularreveal.CircularRevealWidget;
 
 import java.util.ArrayList;
 
-public class AddTasks extends AppCompatActivity implements View.OnClickListener{
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+public class AddTasks extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<MainModel> mainModels;
     MainAdapter mainAdapter;
     Toolbar toolbar;
     Button rightScrl;
     Button leftScrl;
+    Button confirmBtn;
     int currentPosition;
     final int numOfCategories = 8;
     TextView textViewHelloAdd;
+    EditText desc;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         setSupportActionBar(toolbar);
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
-
+        confirmBtn=findViewById(R.id.sumbitBtn11);
+        desc=findViewById(R.id.text_desc);
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
@@ -99,10 +106,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
             });
 
 
-        recyclerView.setOnClickListener(v -> {
-
-        });
-
         /* Recycler View Stuff End*/
 
         /* Right and Left click listenrs */
@@ -128,6 +131,30 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         /* Right and Left click listenrs end*/
         textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
         textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
+
+        /* confirm button click listener */
+        confirmBtn.setOnClickListener(v -> {
+            if(!MainAdapter.isClicked) {
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must choose a category!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+
+            if (desc.getText().toString().trim().length() == 0){
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must enter task description!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+        });
+        /* confirm button click listener */
+
+
     }
 
 
@@ -155,10 +182,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
 
-    }
 
 
 
@@ -178,5 +202,5 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
     }
 }
 
-//TODO: set padding isn't working here
 //TODO: toolbar items
+//todo: better EditTexts
