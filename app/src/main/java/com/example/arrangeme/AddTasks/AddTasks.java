@@ -178,4 +178,5 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
     }
 }
 
+//TODO: set padding isn't working here
 //TODO: toolbar items

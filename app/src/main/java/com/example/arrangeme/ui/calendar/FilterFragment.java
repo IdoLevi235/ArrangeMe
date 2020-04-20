@@ -390,6 +390,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    //TODO: set padding isn't working here
+
+
 
 
 }
