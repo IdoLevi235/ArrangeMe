@@ -47,7 +47,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         for(int i = 0; i < 20; i++) {
             CheckBox ch = new CheckBox(ChooseTasks.this);
             ch.setTextAppearance(this, R.style.chooseTasksCheckBoxStyle);
-            ch.setText("Checkbox number " + (i+1));
+            ch.setText("    Checkbox number " + (i+1));
             ch.setOnClickListener(this);
             ll.addView(ch);
         }
@@ -56,7 +56,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         redTextView.setText(Integer.toString(count));
         redTextView.setBackgroundResource(R.drawable.red_button_background);
         greenTextView.setVisibility(View.GONE);
-        howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");
+        howMuchMore.setText("You have to choose " + (numOfTasksToChoose-count) + " more tasks");
         confirm.setOnClickListener(this);
 
     }
