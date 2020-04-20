@@ -25,8 +25,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private Toolbar toolbar;
     private int numOfTasksToChoose = 4; //needs to be recieved from DB
     private int count;
-    private TextView redTextView;
-    private TextView greenTextView;
+    private TextView numberTextView;
     private TextView howMuchMore;
     private TextView helloTxt;
     private Button confirm;
@@ -38,8 +37,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         setSupportActionBar(toolbar);
         ScrollView sv = (ScrollView) findViewById(R.id.tasksScrollView);
         LinearLayout ll =(LinearLayout)findViewById(R.id.tasksLinearLayout);
-        redTextView = (TextView)findViewById(R.id.textViewNumbersRed);
-        greenTextView = (TextView)findViewById(R.id.textViewNumbersGreen);
+        numberTextView = (TextView)findViewById(R.id.textViewNumbersRed);
         howMuchMore = (TextView)findViewById(R.id.textViewHowManyMore);
         confirm=(Button)findViewById(R.id.confirmTasksBtn);
         helloTxt=(TextView)findViewById(R.id.textViewHello);
@@ -54,9 +52,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         }
         count=0;
         helloTxt.setText("Hello, " + Globals.currentUsername + "!");
-        redTextView.setText(Integer.toString(count));
-        redTextView.setBackgroundResource(R.drawable.red_button_background);
-        greenTextView.setVisibility(View.GONE);
+        numberTextView.setText(Integer.toString(count));
+        numberTextView.setBackgroundResource(R.drawable.red_textview);
         howMuchMore.setText("You have to choose " + (numOfTasksToChoose-count) + " more tasks");
         confirm.setOnClickListener(this);
 
@@ -85,8 +82,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        TextView redTextView = (TextView)findViewById(R.id.textViewNumbersRed);
-        //TextView greenTextView = (TextView)findViewById(R.id.textViewNumbersGreen);
+        TextView numberTextView = (TextView)findViewById(R.id.textViewNumbersRed);
         TextView howMuch = (TextView) findViewById (R.id.textViewHowManyMore);
         switch (v.getId()){
             case R.id.confirmTasksBtn:
@@ -125,8 +121,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 if(c.isChecked()) { //check
                     if (count==numOfTasksToChoose-1){ //red--->green
                         count++;
-                        redTextView.setBackgroundResource(R.drawable.green_button_background);
-                        redTextView.setText(Integer.toString(count));
+                        numberTextView.setBackgroundResource(R.drawable.green_textview);
+                        numberTextView.setText(Integer.toString(count));
 
                         // greenTextView.setVisibility(View.VISIBLE)
                         // greenTextView.setText(Integer.toString(count));
@@ -134,9 +130,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     }
                     else if (count < numOfTasksToChoose) { //stay red
                         count++;
-                        redTextView.setBackgroundResource(R.drawable.red_button_background);
+                        numberTextView.setBackgroundResource(R.drawable.red_textview);
                        // greenTextView.setVisibility(View.GONE);
-                        redTextView.setText(Integer.toString(count));
+                        numberTextView.setText(Integer.toString(count));
                         howMuchMore.setText("(You have to choose " + (numOfTasksToChoose-count) + " more tasks..)");
                     }
                     else if (numOfTasksToChoose == count) { //more than numOfTasks, uncheck the last one checked
@@ -149,9 +145,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     count--;
                     if (count==numOfTasksToChoose-1){ //green-->red
                         //greenTextView.setVisibility(View.GONE);
-                        redTextView.setBackgroundResource(R.drawable.red_button_background);
+                        numberTextView.setBackgroundResource(R.drawable.red_textview);
                     }
-                    redTextView.setText(Integer.toString(count));
+                    numberTextView.setText(Integer.toString(count));
                     howMuchMore.setText("(You have to choose " + Integer.toString(numOfTasksToChoose-count) + " more tasks..)");
                 }//end else
         break;
