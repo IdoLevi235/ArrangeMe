@@ -9,8 +9,8 @@
 
     <View
         android:id="@+id/viewUpBtn"
-        android:layout_width="414dp"
-        android:layout_height="215dp"
+        android:layout_width="match_parent"
+        android:layout_height="234dp"
         android:background="@drawable/dash_back2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/addTaskBtn"
@@ -54,27 +54,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.658" />
-
-    <Button
-        android:id="@+id/calenderBtn"
-        android:layout_width="116dp"
-        android:layout_height="116dp"
-        android:background="@drawable/dashboard_topbuttons"
-        android:drawableTop="@drawable/calendarbtn"
-        android:elevation="2dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Calendar"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.658" />
-
+        app:layout_constraintVertical_bias="0.542" />
 
     <Button
         android:id="@+id/chooseTasksBtn"
@@ -93,7 +73,27 @@
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.658" />
+        app:layout_constraintVertical_bias="0.542" />
+
+    <Button
+        android:id="@+id/calenderBtn"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:background="@drawable/dashboard_topbuttons"
+        android:drawableTop="@drawable/calendarbtn"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Calendar"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.542" />
+
 
     <TextView
         android:id="@+id/Hello"
@@ -106,7 +106,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
         app:layout_constraintVertical_bias="0.0" />
@@ -116,17 +116,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
-        android:fontFamily="@font/arsenal"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Schedule For Today"
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.51" />
 
     <ScrollView
         android:layout_width="357dp"

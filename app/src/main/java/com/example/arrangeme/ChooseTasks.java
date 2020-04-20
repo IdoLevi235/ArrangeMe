@@ -47,6 +47,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         for(int i = 0; i < 20; i++) {
             CheckBox ch = new CheckBox(ChooseTasks.this);
             ch.setTextAppearance(this, R.style.chooseTasksCheckBoxStyle);
+            ch.setPadding(0,12,0,0);
             ch.setText("    Checkbox number " + (i+1));
             ch.setOnClickListener(this);
             ll.addView(ch);
@@ -103,7 +104,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     SweetAlertDialog ad;
                     ad =  new SweetAlertDialog( ChooseTasks.this, SweetAlertDialog.SUCCESS_TYPE)
                             .setTitleText("Great!")
-                            .setContentText(("The system recieved your tasks for today and will build you schedule immediatley"));
+                            .setContentText(("The system received your tasks for today and will build you schedule immediately"));
                     ad.setConfirmText("OK");
                     ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
