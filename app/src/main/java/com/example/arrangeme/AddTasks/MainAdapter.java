@@ -25,6 +25,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     ArrayList<MainModel> mainModels;
     Context context;
     int row_index=-1;
+    static  boolean isClicked;
+
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     this.context=context;
     this.mainModels=mainModels;
@@ -33,6 +35,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    isClicked=false;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks,parent,false);
     return new ViewHolder(view);
     }
@@ -54,6 +57,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             @Override
             public void onClick(View view) {
                 row_index=position;
+                isClicked=true;
                 notifyDataSetChanged();
             }
         });
