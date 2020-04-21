@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAW6UJ2KT7xl7-njJPZGjBiHXrcHNYvdwA" />
 
         <activity
             android:name=".AddTasks.AddTasks"
