@@ -8,30 +8,43 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.arrangeme.ChooseTasks;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.android.material.circularreveal.CircularRevealWidget;
-
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-public class AddTasks extends AppCompatActivity {
+public class AddTasks extends AppCompatActivity implements View.OnClickListener{
+    private static final int GALLERY_REQUEST_CODE = 1;
     RecyclerView recyclerView;
     ArrayList<MainModel> mainModels;
     MainAdapter mainAdapter;
@@ -43,6 +56,10 @@ public class AddTasks extends AppCompatActivity {
     final int numOfCategories = 8;
     TextView textViewHelloAdd;
     EditText desc;
+    Switch show_spinner;
+    Button addPhoto;
+    Button addLocation;
+    ImageView photo;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +70,13 @@ public class AddTasks extends AppCompatActivity {
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
         confirmBtn=findViewById(R.id.sumbitBtn11);
-        desc=findViewById(R.id.text_desc);
+        desc=findViewById(R.id.desc_text);
+        addPhoto=findViewById(R.id.add_photo);
+        addPhoto.setOnClickListener(this);
+        addLocation=findViewById(R.id.locationBtn);
+        addLocation.setOnClickListener(this);
+        photo=findViewById(R.id.photo);
+        photo.setVisibility(View.INVISIBLE);
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
@@ -152,8 +175,85 @@ public class AddTasks extends AppCompatActivity {
                 btn.setBackgroundResource(R.drawable.rounded_rec);
             }
         });
-        /* confirm button click listener */
+        /* confirm button click listener end*/
 
+        /* spinner stuff */
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setVisibility(View.INVISIBLE);
+        // Initializing a String Array
+        String[] reminderItems = new String[]{
+                "Select Reminder",
+                "5 minutes before",
+                "15 minutes before",
+                "1 hour before",
+                "1 day before"
+        };
+        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.item_spinner,reminderItemsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(desc.getHintTextColors());
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        /* spinner stuff end */
+
+
+        /* Toggle stuff */
+        show_spinner = (Switch)findViewById(R.id.reminder_switch);
+        show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    spinner.setVisibility(View.VISIBLE);
+                }
+                else {
+                    spinner.setVisibility(View.INVISIBLE);
+
+                }
+            }
+        });
+        /* Toggle stuff End*/
 
     }
 
@@ -200,7 +300,58 @@ public class AddTasks extends AppCompatActivity {
             rightScrl.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case (R.id.add_photo):
+                pickFromGallery();
+                break;
+            case (R.id.locationBtn):
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void pickFromGallery() {
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+    }
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+        // Result code is RESULT_OK only if the user selects an Image
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode) {
+                case GALLERY_REQUEST_CODE:
+                    //data.getData returns the content URI for the selected Image
+                    Button addPhoto = (Button)findViewById(R.id.add_photo);
+                    addPhoto.setText("Photo selected!");
+                    addPhoto.setTextColor(Color.parseColor("#3b9453"));
+                    addPhoto.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.greencheckmark24, 0);
+                    Uri selectedImage = data.getData();
+                    ImageView photo=findViewById(R.id.photo);
+                    photo.setImageURI(selectedImage);
+                    photo.requestLayout();
+                    photo.getLayoutParams().height = 85;
+                    photo.getLayoutParams().width = 85;
+                    photo.setScaleType(ImageView.ScaleType.FIT_XY);
+                    photo.setVisibility(View.VISIBLE);
+                    break;
+            }
+
+    }
+
 }
 
 //TODO: toolbar items
-//todo: better EditTexts
+// todo: better EditTexts

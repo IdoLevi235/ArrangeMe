@@ -282,6 +282,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 }
 
-
+//TODO actionDONE + singleline for EditTexts here and in signup (and anywhere else that has edit texts)
 
 

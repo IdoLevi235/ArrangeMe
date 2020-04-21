@@ -3,6 +3,9 @@
     package="com.example.arrangeme">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddTasks.AddTasks" android:windowSoftInputMode="adjustPan"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAW6UJ2KT7xl7-njJPZGjBiHXrcHNYvdwA" />
+
+        <activity
+            android:name=".AddTasks.AddTasks"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ChooseTasks" />
         <activity
             android:name=".Homepage"
