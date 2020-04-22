@@ -10,45 +10,75 @@
     tools:context=".AddTasks.AddTasks">
 
 
-    <TextView
-        android:id="@+id/text_above_desc"
-        android:layout_width="284dp"
-        android:layout_height="33dp"
-        android:gravity="center"
-        android:text="And then, add some more information about this task.."
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/montserrat"
+    <View
+        android:id="@+id/view7"
+        android:layout_width="349dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/add_task_round"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="23dp"
-        android:gravity="center"
-        android:text="First, Choose Category"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_width="304dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="9dp"
+        android:elevation="2dp"
+        android:gravity="left"
+        android:text="Choose Category:"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
         app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd" />
+        app:layout_constraintTop_toTopOf="@+id/view7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="280dp"
-        android:layout_height="107dp"
+        android:layout_width="289dp"
+        android:layout_height="97dp"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.407" />
+
+    <Button
+        android:id="@+id/btnRightScrl"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="36dp"
+        android:foreground="@drawable/ic__arrow_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
+    <Button
+        android:id="@+id/btnLeftScrl"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:foreground="@drawable/ic__arrow_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recycler_view"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addTasks"
@@ -63,10 +93,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/textViewHelloAdd"
-        android:layout_width="278dp"
-        android:layout_height="51dp"
+        android:layout_width="281dp"
+        android:layout_height="45dp"
         android:fontFamily="@font/arsenal"
         android:gravity="center"
         android:textColor="@color/colorProjectBlue"
@@ -74,10 +105,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/textViewPleaseChooseAdd"
@@ -89,65 +120,46 @@
         android:gravity="center"
         android:text="Here you can insert new tasks that you would like to do in the next few days. "
         android:textColor="#4E4E4E"
-        android:textSize="15sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewHelloAdd"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/sumbitBtn11"
-        android:layout_width="286dp"
-        android:layout_height="37dp"
-        android:background="@drawable/btn_rounded"
-        android:fontFamily="sans-serif-medium"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#75C1C9"
+        android:fontFamily="sans-serif-light"
         android:shadowColor="#05FFFFFF"
-        android:text="confirm"
+        android:text="Add New Task"
+        android:textAllCaps="true"
+        android:textColor="#535353"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
-
-    <Button
-        android:id="@+id/btnLeftScrl"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:foreground="@drawable/ic__arrow_left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recycler_view"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.365" />
-
-    <Button
-        android:id="@+id/btnRightScrl"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="16dp"
-        android:foreground="@drawable/ic__arrow_right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recycler_view"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.365" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <RelativeLayout
-        android:layout_width="398dp"
-        android:layout_height="278dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
+        android:id="@+id/relativeLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="304dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/sumbitBtn11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_above_desc"
-        app:layout_constraintVertical_bias="0.521">
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view"
+        app:layout_constraintVertical_bias="0.478">
 
         <EditText
             android:id="@+id/locationBtn"
@@ -159,9 +171,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="123dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="171dp"
+            android:layout_marginBottom="130dp"
             android:background="@drawable/add_task_round"
             android:drawableRight="@drawable/location"
             android:elevation="2dp"
@@ -173,18 +185,80 @@
             android:textAllCaps="false"
             android:textSize="14sp"></EditText>
 
-        <EditText
-            android:id="@+id/desc_text"
-            android:layout_width="354dp"
-            android:layout_height="49dp"
+        <Switch
+            android:id="@+id/reminder_switch"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/add_photo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="185dp"
+            android:layout_marginLeft="-194dp"
+            android:layout_marginTop="193dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="73dp"
+            android:layout_toRightOf="@id/spinner"
+            android:fontFamily="@font/montserrat"
+            android:paddingStart="8dp"
+            android:text="Set reminder?"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/add_photo"
+            android:layout_width="141dp"
+            android:layout_height="106dp"
+            android:layout_below="@id/locationBtn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="192dp"
+            android:layout_marginEnd="242dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/add_task_round"
+            android:capitalize="none"
+            android:drawableRight="@android:drawable/ic_menu_camera"
+            android:fontFamily="@font/montserrat"
+            android:hint="Add photo"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textAllCaps="false" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="186dp"
+            android:layout_marginTop="244dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/add_task_round"
+            android:elevation="2dp"
+            android:foreground="@drawable/downarrowspinner"
+            android:foregroundGravity="center|right|center_horizontal"
+            android:paddingStart="4dp"
+            android:popupBackground="@drawable/add_task_round"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/desc_text"
+            android:layout_width="351dp"
+            android:layout_height="94dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="11dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="229dp"
+            android:layout_marginBottom="199dp"
             android:background="@drawable/add_task_round"
             android:drawableRight="@android:drawable/ic_menu_edit"
             android:elevation="2dp"
@@ -196,48 +270,7 @@
             android:singleLine="true"
             android:textSize="14sp"></EditText>
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="205dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/photo"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="178dp"
-            android:layout_marginTop="209dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/add_task_round"
-            android:elevation="2dp"
-            android:foreground="@drawable/downarrowspinner"
-            android:foregroundGravity="center|right|center_horizontal"
-            android:paddingStart="4dp"
-            android:popupBackground="@drawable/add_task_round"
-            tools:visibility="visible" />
-
-        <Switch
-            android:id="@+id/reminder_switch"
-            android:layout_width="134dp"
-            android:layout_height="38dp"
-            android:layout_below="@id/add_photo"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="-337dp"
-            android:layout_marginTop="212dp"
-            android:layout_marginEnd="234dp"
-            android:layout_marginBottom="28dp"
-            android:layout_toRightOf="@id/spinner"
-            android:fontFamily="@font/montserrat"
-            android:paddingStart="8dp"
-            android:text="Set reminder?"
-            android:textSize="11sp" />
-
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/photo"
             android:layout_width="75dp"
             android:layout_height="75dp"
@@ -246,38 +279,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="278dp"
-            android:layout_marginTop="124dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="-357dp"
-            android:layout_marginBottom="79dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="197dp"
+            android:layout_marginEnd="212dp"
+            android:layout_marginRight="-169dp"
+            android:layout_marginBottom="6dp"
             android:layout_toLeftOf="@id/add_photo"
             android:background="#959090"
             android:padding="1.5dp"
-            android:src="@drawable/avatar" />
-
-        <Button
-            android:id="@+id/add_photo"
-            android:layout_width="237dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/locationBtn"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="120dp"
-            android:layout_marginEnd="141dp"
-            android:layout_marginBottom="108dp"
-            android:background="@drawable/add_task_round"
-            android:capitalize="none"
-            android:drawableRight="@android:drawable/ic_menu_camera"
-            android:fontFamily="@font/montserrat"
-            android:gravity="center|start"
-            android:hint="Add photo"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:textAllCaps="false" />
+            android:src="@drawable/avatar" /> -->
 
     </RelativeLayout>
 

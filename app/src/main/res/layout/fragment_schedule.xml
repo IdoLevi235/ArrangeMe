@@ -24,36 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043" />
 
-    <TextView
-        android:id="@+id/noScheduleYet"
-        android:layout_width="302dp"
-        android:layout_height="31dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="You Didn't Have Schedule Yet"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.147" />
-
-    <TextView
-        android:id="@+id/noScheduleYet2"
-        android:layout_width="362dp"
-        android:layout_height="45dp"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="You need to complete the questionnaire in order to make you a good schedule!"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.215" />
-
     <View
         android:id="@+id/view4"
         android:layout_width="367dp"
@@ -66,5 +36,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868" />
+
+    <TextView
+        android:id="@+id/noScheduleYet"
+        android:layout_width="302dp"
+        android:layout_height="31dp"
+        android:elevation="1.5dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="You Didn't Have Schedule Yet"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484" />
+
+    <TextView
+        android:id="@+id/noScheduleYet2"
+        android:layout_width="356dp"
+        android:layout_height="50dp"
+        android:elevation="1.5dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="You need to complete the questionnaire in order to make you a good schedule!"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +45,9 @@ import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.android.material.circularreveal.CircularRevealWidget;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,8 +86,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
         addLocation=(EditText)findViewById(R.id.locationBtn);
-        photo=findViewById(R.id.photo);
-        photo.setVisibility(View.INVISIBLE);
+        //photo=findViewById(R.id.photo);
+        //photo.setVisibility(View.INVISIBLE);
         taskToAdd=new Task();
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
@@ -352,17 +357,29 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
-                    addPhoto.setText("Photo selected!");
-                    addPhoto.setTextColor(Color.parseColor("#3b9453"));
-                    addPhoto.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.greencheckmark24, 0);
+                    //addPhoto.setText("Photo selected!");
+                    //addPhoto.setTextColor(Color.parseColor("#3b9453"));
+                    //addPhoto.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.greencheckmark24, 0);
                     Uri selectedImage = data.getData();
-                    ImageView photo=findViewById(R.id.photo);
-                    photo.setImageURI(selectedImage);
-                    photo.requestLayout();
-                    photo.getLayoutParams().height = 75;
-                    photo.getLayoutParams().width = 75;
-                    photo.setScaleType(ImageView.ScaleType.FIT_XY);
-                    photo.setVisibility(View.VISIBLE);
+                    //ImageView photo=findViewById(R.id.photo);
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                        Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
+                        //d.set
+                        addPhoto.setHint("");
+                        addPhoto.setCompoundDrawables(null,null,null,null);
+                        addPhoto.setBackground(d);
+
+                    } catch (FileNotFoundException e) {
+                        Drawable d = getResources().getDrawable(R.drawable.google_xml);
+                        addPhoto.setBackground(d);
+                    }
+
+                    //photo.requestLayout();
+                    //photo.getLayoutParams().height = 75;
+                    //photo.getLayoutParams().width = 75;
+                    //photo.setScaleType(ImageView.ScaleType.FIT_XY);
+                    //photo.setVisibility(View.VISIBLE);
                     break;
             }
 
