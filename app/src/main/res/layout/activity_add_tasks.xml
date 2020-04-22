@@ -149,7 +149,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_above_desc"
         app:layout_constraintVertical_bias="0.521">
 
-        <Button
+        <EditText
             android:id="@+id/locationBtn"
             android:layout_width="360dp"
             android:layout_height="51dp"
@@ -171,7 +171,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:textAllCaps="false"
-            android:textSize="14sp"></Button>
+            android:textSize="14sp"></EditText>
 
         <EditText
             android:id="@+id/desc_text"
