@@ -389,5 +389,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
 
 }
 
+//TODO: rounded corners at the photo
+//TODO: stretched photo
 //TODO: toolbar items
 // todo: better EditTexts
