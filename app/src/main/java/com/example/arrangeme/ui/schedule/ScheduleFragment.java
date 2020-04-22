@@ -14,9 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.AddTasks.AddTasks;
+import com.example.arrangeme.AddTasks.MainAdapter;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.calendar.DayFragment;
@@ -73,6 +77,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         recyclerSchedule.setAdapter(mAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration( getActivity(),DividerItemDecoration.VERTICAL);
         recyclerSchedule.addItemDecoration(dividerItemDecoration);
+
+
+
+        recyclerSchedule.setLayoutManager(layoutManager);
+        recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
+
 
     }
 
