@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF4F4F4"
     tools:context=".ui.schedule.ScheduleFragment">
 
 
@@ -14,7 +15,7 @@
         android:fontFamily="@font/arsenal"
         android:gravity="center"
         android:text="My Schedule For Today"
-        android:textColor="@color/colorProjectBlue"
+        android:textColor="@color/arrangeMeMain"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,13 +25,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043" />
 
+    <TextView
+        android:id="@+id/textViewPleaseChooseAdd"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginBottom="600dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="This is the schedule the system chose for you."
+        android:textColor="#4E4E4E"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewHelloAdd"
+        app:layout_constraintVertical_bias="0.0" />
+
     <RelativeLayout
+        android:id="@+id/noScheduleLayout"
         android:layout_width="340dp"
         android:layout_height="245dp"
         android:layout_marginStart="15dp"
-        android:elevation="1.5dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_rec_pink"
+        android:elevation="1.5dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="@+id/view4"
         app:layout_constraintStart_toStartOf="@+id/view4"
@@ -55,7 +75,7 @@
             android:text="You Don't Have Schedule Yet"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/quesMessage"
@@ -73,7 +93,8 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="You need to complete the questionnaire in order to make you a good schedule!"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/chooseMessage"
@@ -91,7 +112,8 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="You need to choose tasks for today in order to make you schedule!"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
 
         <Button
@@ -107,12 +129,13 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/btn_rounded"
+            android:elevation="1.5dp"
             android:fontFamily="sans-serif-medium"
             android:shadowColor="#535353"
-            android:elevation="1.5dp"
             android:text="Choose Tasks For Today"
             android:textAllCaps="false"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/questionnaireBtn"
@@ -125,14 +148,15 @@
             android:layout_marginStart="29dp"
             android:layout_marginTop="173dp"
             android:layout_marginEnd="30dp"
-            android:elevation="1.5dp"
             android:layout_marginBottom="31dp"
             android:background="@drawable/btn_rounded"
+            android:elevation="1.5dp"
             android:fontFamily="sans-serif-medium"
             android:shadowColor="#535353"
             android:text="Continue Fill The Questionnaire"
             android:textAllCaps="false"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -147,6 +171,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868" />
+
+    <RelativeLayout
+        android:id="@+id/scheduleExistsLayout"
+        android:layout_width="358dp"
+        android:layout_height="544dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.35">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerSchedule"
+            android:layout_width="319dp"
+            android:layout_height="514dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
