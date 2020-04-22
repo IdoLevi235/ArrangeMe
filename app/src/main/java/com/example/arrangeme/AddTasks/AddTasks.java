@@ -1,53 +1,51 @@
 package com.example.arrangeme.AddTasks;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.example.arrangeme.ChooseTasks;
-import com.example.arrangeme.Entities.Task;
+
+import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
-import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
-import com.google.android.material.circularreveal.CircularRevealWidget;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AddTasks extends AppCompatActivity implements View.OnClickListener {
+    private FirebaseFunctions mFunctions;
+
     private static final int GALLERY_REQUEST_CODE = 1;
     private RecyclerView recyclerView;
     private ArrayList<MainModel> mainModels;
@@ -64,7 +62,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private Button addPhoto;
     private EditText addLocation;
     private ImageView photo;
-    private Task taskToAdd;
+    private TaskEntity taskEntityToAdd;
     private ReminderType chosenReminder;
     private Uri selectedImage;
     @SuppressLint("ClickableViewAccessibility")
@@ -73,6 +71,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tasks);
         Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
+        mFunctions = FirebaseFunctions.getInstance();
         setSupportActionBar(toolbar);
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
@@ -83,7 +82,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         addLocation=(EditText)findViewById(R.id.locationBtn);
         photo=findViewById(R.id.photo);
         photo.setVisibility(View.INVISIBLE);
-        taskToAdd=new Task();
+        taskEntityToAdd =new TaskEntity();
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
@@ -267,17 +266,17 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
             }
 
             else {
-                taskToAdd.setCategory(mainAdapter.getCurrentCategory());
-                taskToAdd.setDescription(description);
-                taskToAdd.setReminderType(chosenReminder);
-                taskToAdd.setPhoto(selectedImage);
-                taskToAdd.setLocation(location);
-
+                taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
+                taskEntityToAdd.setDescription(description);
+                taskEntityToAdd.setReminderType(chosenReminder);
+                taskEntityToAdd.setPhoto(selectedImage);
+                taskEntityToAdd.setLocation(location);
             }
         });
         /* confirm button click listener end*/
 
     }
+
 
 
 

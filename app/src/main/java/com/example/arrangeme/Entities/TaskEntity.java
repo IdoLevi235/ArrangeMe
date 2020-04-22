@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 
-public class Task {
+public class TaskEntity {
     TaskCategory category;
     String description;
     Uri photo;
@@ -15,7 +15,7 @@ public class Task {
     String location;
 
 
-    public Task(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location) {
+    public TaskEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location) {
         this.category = category;
         this.description = description;
         this.photo = photo;
@@ -23,7 +23,7 @@ public class Task {
         this.location = location;
     }
 
-    public Task() {
+    public TaskEntity() {
 
     }
 
