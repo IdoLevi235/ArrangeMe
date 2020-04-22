@@ -24,50 +24,129 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043" />
 
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="245dp"
+        android:layout_marginStart="15dp"
+        android:elevation="1.5dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/rounded_rec_pink"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.345">
+
+        <TextView
+            android:id="@+id/noScheduleYet"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="175dp"
+            android:elevation="1.5dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="You Don't Have Schedule Yet"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/quesMessage"
+            android:layout_width="338dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="97dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="94dp"
+            android:elevation="1.5dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="You need to complete the questionnaire in order to make you a good schedule!"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/chooseMessage"
+            android:layout_width="338dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="97dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="94dp"
+            android:elevation="1.5dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="You need to choose tasks for today in order to make you schedule!"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/chooseTaskBtn"
+            android:layout_width="281dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="174dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/btn_rounded"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#535353"
+            android:elevation="1.5dp"
+            android:text="Choose Tasks For Today"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/questionnaireBtn"
+            android:layout_width="281dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="173dp"
+            android:layout_marginEnd="30dp"
+            android:elevation="1.5dp"
+            android:layout_marginBottom="31dp"
+            android:background="@drawable/btn_rounded"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#535353"
+            android:text="Continue Fill The Questionnaire"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
     <View
         android:id="@+id/view4"
-        android:layout_width="367dp"
-        android:layout_height="500dp"
+        android:layout_width="380dp"
+        android:layout_height="586dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_rec_pink"
-        android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868" />
 
-    <TextView
-        android:id="@+id/noScheduleYet"
-        android:layout_width="302dp"
-        android:layout_height="31dp"
-        android:elevation="1.5dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="You Didn't Have Schedule Yet"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
-
-    <TextView
-        android:id="@+id/noScheduleYet2"
-        android:layout_width="356dp"
-        android:layout_height="50dp"
-        android:elevation="1.5dp"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="You need to complete the questionnaire in order to make you a good schedule!"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
