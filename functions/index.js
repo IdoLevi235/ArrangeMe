@@ -14,6 +14,11 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   res.redirect(303, snapshot.ref.toString());
 });
 
+
+
+
+
+
 // Listens for new messages added to /messages/:pushId/original and creates an
 // uppercase version of the message to /messages/:pushId/uppercase
 exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
@@ -27,3 +32,4 @@ exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
       // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
       return snapshot.ref.parent.child('uppercase').set(uppercase);
     });
+
