@@ -16,16 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.R;
 
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private static final String TAG = "MainAdapter";
-    ArrayList<MainModel> mainModels;
-    Context context;
-    int row_index=-1;
-    static  boolean isClicked;
+    private ArrayList<MainModel> mainModels;
+    private Context context;
+    private int row_index=-1;
+
+
+    private  boolean isClicked;
+
+
+    private TaskCategory currentCategory;
 
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     this.context=context;
@@ -58,6 +64,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             public void onClick(View view) {
                 row_index=position;
                 isClicked=true;
+                currentCategory=TaskCategory.fromInt(position);
                 notifyDataSetChanged();
             }
         });
@@ -84,6 +91,15 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         return mainModels.size();
     }
 
+    public boolean getIsClicked() {
+        return isClicked;
+    }
+
+    public TaskCategory getCurrentCategory() {
+        return currentCategory;
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         private static final String TAG = "ViewHolder";
         Button button;
@@ -94,4 +110,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             //textView=itemView.findViewById(R.id.text_view);
         }
     }
+
+
+
 }

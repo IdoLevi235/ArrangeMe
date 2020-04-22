@@ -17,6 +17,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -36,6 +37,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.arrangeme.ChooseTasks;
+import com.example.arrangeme.Entities.Task;
+import com.example.arrangeme.Enums.ReminderType;
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.android.material.circularreveal.CircularRevealWidget;
@@ -43,23 +47,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-public class AddTasks extends AppCompatActivity implements View.OnClickListener{
+public class AddTasks extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_REQUEST_CODE = 1;
-    RecyclerView recyclerView;
-    ArrayList<MainModel> mainModels;
-    MainAdapter mainAdapter;
-    Toolbar toolbar;
-    Button rightScrl;
-    Button leftScrl;
-    Button confirmBtn;
-    int currentPosition;
-    final int numOfCategories = 8;
-    TextView textViewHelloAdd;
-    EditText desc;
-    Switch show_spinner;
-    Button addPhoto;
-    Button addLocation;
-    ImageView photo;
+    private RecyclerView recyclerView;
+    private ArrayList<MainModel> mainModels;
+    private MainAdapter mainAdapter;
+    private Toolbar toolbar;
+    private Button rightScrl;
+    private Button leftScrl;
+    private Button confirmBtn;
+    private int currentPosition;
+    private final int numOfCategories = 8;
+    private TextView textViewHelloAdd;
+    private EditText desc;
+    private Switch show_spinner;
+    private Button addPhoto;
+    private EditText addLocation;
+    private ImageView photo;
+    private Task taskToAdd;
+    private ReminderType chosenReminder;
+    private Uri selectedImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +80,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
-        addLocation=findViewById(R.id.locationBtn);
-        addLocation.setOnClickListener(this);
+        addLocation=(EditText)findViewById(R.id.locationBtn);
         photo=findViewById(R.id.photo);
         photo.setVisibility(View.INVISIBLE);
+        taskToAdd=new Task();
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
@@ -128,7 +135,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
             }
             });
 
-
         /* Recycler View Stuff End*/
 
         /*description stuff*/
@@ -159,28 +165,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         /* Right and Left click listenrs end*/
         textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
         textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
-
-        /* confirm button click listener */
-        confirmBtn.setOnClickListener(v -> {
-            if(!MainAdapter.isClicked) {
-                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
-                ad.setTitleText("Error");
-                ad.setContentText("You must choose a category!");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-            }
-
-            if (desc.getText().toString().trim().length() == 0){
-                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
-                ad.setTitleText("Error");
-                ad.setContentText("You must enter task description!");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-            }
-        });
-        /* confirm button click listener end*/
 
         /* spinner stuff */
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -232,9 +216,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
 
                 if(position > 0){
                     // Notify the selected item text
-                    Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
+                    chosenReminder = ReminderType.fromInt(position);
                 }
             }
             @Override
@@ -260,9 +242,42 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
         });
         /* Toggle stuff End*/
 
+
+
+        /* confirm button click listener */
+        confirmBtn.setOnClickListener(v -> {
+            String description = desc.getText().toString();
+            String location = addLocation.getText().toString();
+            if(!mainAdapter.getIsClicked()) {
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must choose a category!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+
+            if (description.trim().length() == 0){
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must enter task description!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+
+            else {
+                taskToAdd.setCategory(mainAdapter.getCurrentCategory());
+                taskToAdd.setDescription(description);
+                taskToAdd.setReminderType(chosenReminder);
+                taskToAdd.setPhoto(selectedImage);
+                taskToAdd.setLocation(location);
+
+            }
+        });
+        /* confirm button click listener end*/
+
     }
-
-
 
 
 
@@ -312,9 +327,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
             case (R.id.add_photo):
                 pickFromGallery();
                 break;
-            case (R.id.locationBtn):
-
-                break;
             default:
                 break;
         }
@@ -347,8 +359,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener{
                     ImageView photo=findViewById(R.id.photo);
                     photo.setImageURI(selectedImage);
                     photo.requestLayout();
-                    photo.getLayoutParams().height = 85;
-                    photo.getLayoutParams().width = 85;
+                    photo.getLayoutParams().height = 75;
+                    photo.getLayoutParams().width = 75;
                     photo.setScaleType(ImageView.ScaleType.FIT_XY);
                     photo.setVisibility(View.VISIBLE);
                     break;
