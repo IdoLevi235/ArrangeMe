@@ -1,5 +1,4 @@
 package com.example.arrangeme.AddTasks;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -11,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.R;
-
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
@@ -28,7 +24,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private int row_index=-1;
 
 
-    private  boolean isClicked;
 
 
     private TaskCategory currentCategory;
@@ -41,7 +36,6 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    isClicked=false;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks,parent,false);
     return new ViewHolder(view);
     }
@@ -63,7 +57,6 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
             @Override
             public void onClick(View view) {
                 row_index=position;
-                isClicked=true;
                 currentCategory=TaskCategory.fromInt(position);
                 notifyDataSetChanged();
             }
@@ -91,9 +84,6 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
         return mainModels.size();
     }
 
-    public boolean getIsClicked() {
-        return isClicked;
-    }
 
     public TaskCategory getCurrentCategory() {
         return currentCategory;

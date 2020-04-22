@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.android.material.circularreveal.CircularRevealWidget;
@@ -254,7 +255,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         confirmBtn.setOnClickListener(v -> {
             String description = desc.getText().toString();
             String location = addLocation.getText().toString();
-            if(!mainAdapter.getIsClicked()) {
+            if(mainAdapter.getCurrentCategory()==null) { //if no category picked
                 SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
                 ad.setTitleText("Error");
                 ad.setContentText("You must choose a category!");

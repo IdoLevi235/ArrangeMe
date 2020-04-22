@@ -180,8 +180,10 @@
             android:fontFamily="@font/montserrat"
             android:gravity="center|left"
             android:hint="Add location"
+            android:imeOptions="actionDone"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:singleLine="true"
             android:textAllCaps="false"
             android:textSize="14sp"></EditText>
 
