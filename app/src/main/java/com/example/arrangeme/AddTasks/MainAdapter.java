@@ -22,10 +22,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private ArrayList<MainModel> mainModels;
     private Context context;
     private int row_index=-1;
-
-
-
-
     private TaskCategory currentCategory;
 
 public MainAdapter(Context context, ArrayList<MainModel> mainModels){

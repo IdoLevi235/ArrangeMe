@@ -11,8 +11,8 @@
         android:paddingStart="10dp">
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="86dp" />
+            android:id="@+id/buttonsche"
+            android:layout_width="117dp"
+            android:layout_height="97dp" />
     </LinearLayout>
 </RelativeLayout>

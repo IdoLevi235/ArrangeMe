@@ -109,7 +109,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                 R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
                 R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
-
         Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
                 R.color.family, R.color.chores, R.color.relax, R.color.other};
         mainModels = new ArrayList<>();

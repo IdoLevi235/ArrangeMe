@@ -16,6 +16,9 @@ public class MainModel {
         this.catColorFull=catColorFull;
     }
 
+    public MainModel(String check) {
+    }
+
     public Integer getCatLogo() {
         return catLogo;
     }
