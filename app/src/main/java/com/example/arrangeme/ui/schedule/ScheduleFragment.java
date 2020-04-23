@@ -1,5 +1,6 @@
 package com.example.arrangeme.ui.schedule;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener {
     private ScheduleViewModel scheduleViewModel;
@@ -75,11 +78,79 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerSchedule.addItemDecoration(divider);
+
+        Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work,R.drawable.friends_cat, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, 0};
+
+        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
+                R.drawable.category_btn_work,R.drawable.category_btn_friends, R.drawable.category_btn_nutrition,
+                R.drawable.category_btn_family, R.drawable.category_btn_chores,
+                R.drawable.category_btn_relax, R.drawable.category_btn_other};
+        Integer[] catBackgroundFull =
+                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                        R.drawable.rounded_rec_work_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                        R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
+        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+                R.color.family,R.color.friends, R.color.chores, R.color.relax, R.color.other};
+        String[] catName = {"Study", "Sport", "Work","Friends","Nutrition", "Family", "Chores", "Relax", "Other"};
+
+
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+            @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                holder.button.setText(model.getCategory());
+                holder.button.setText("Task: "+model.getCategory()+" \n\n"+model.getDescription());
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                switch (model.getCategory()){
+                    case "STUDY":
+                        //holder.button.setBackgroundResource(catBackgroundFull[0]);
+                        holder.button.setBackgroundResource(catBackground[0]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[0],0);
+                        break;
+                    case "SPORT":
+                        //holder.button.setBackgroundResource(catBackgroundFull[1]);
+                        holder.button.setBackgroundResource(catBackground[1]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[1],0);
+                        break;
+                    case "WORK":
+                        //holder.button.setBackgroundResource(catBackgroundFull[2]);
+                        holder.button.setBackgroundResource(catBackground[2]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
+                        break;
+                    case "FRIENDS":
+                        //holder.button.setBackgroundResource(catBackgroundFull[3]);
+                        holder.button.setBackgroundResource(catBackground[3]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
+                        break;
+                    case "NUTRITION":
+
+                        //holder.button.setBackgroundResource(catBackgroundFull[4]);
+                        holder.button.setBackgroundResource(catBackground[4]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
+                        break;
+                    case "FAMILY":
+                        holder.button.setBackgroundResource(catBackground[5]);
+                        //holder.button.setBackgroundResource(catBackgroundFull[5]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
+                        break;
+                    case "CHORES":
+                        //holder.button.setBackgroundResource(catBackgroundFull[6]);
+                        holder.button.setBackgroundResource(catBackground[6]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
+                        break;
+                    case "RELAX":
+                        //holder.button.setBackgroundResource(catBackgroundFull[7]);
+                        holder.button.setBackgroundResource(catBackground[7]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
+                        break;
+                    case "OTHER":
+                        //holder.button.setBackgroundResource(catBackgroundFull[8]);
+                        holder.button.setBackgroundResource(catBackground[8]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
+
+                        break;
+                }
             }
 
             @NonNull
@@ -99,10 +170,15 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
                 int position_dragged = dragged.getAdapterPosition();
                 int position_target = target.getAdapterPosition();
-                Log.d("TAG", "onMove: inside onMove");
-                Collections.swap(mainModels,position_dragged,position_target);
-                fbAdapter.notifyItemMoved(position_dragged,position_target);
+                DatabaseReference firstItemRef = fbAdapter.getRef(dragged.getAdapterPosition());
+                DatabaseReference secondItemRef = fbAdapter.getRef(target.getAdapterPosition());
+
+               //TODO: fix the drag and drop
+                fbAdapter.notifyItemMoved(position_dragged, position_target);
                 return false;
+
+                //Collections.swap(mainModels,position_dragged,position_target);
+
             }
 
             @Override
