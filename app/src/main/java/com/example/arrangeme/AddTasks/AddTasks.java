@@ -41,6 +41,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -73,6 +75,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private TaskEntity taskEntityToAdd;
     private ReminderType chosenReminder;
     private Uri selectedImage;
+    private DatabaseReference mDatabase;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -279,6 +283,9 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 taskEntityToAdd.setReminderType(chosenReminder);
                 taskEntityToAdd.setPhoto(selectedImage);
                 taskEntityToAdd.setLocation(location);
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(taskEntityToAdd);
+
             }
         });
         /* confirm button click listener end*/
