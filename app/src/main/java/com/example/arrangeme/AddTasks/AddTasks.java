@@ -283,7 +283,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 taskEntityToAdd.setPhoto(selectedImage);
                 taskEntityToAdd.setLocation(location);
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(taskEntityToAdd);
+                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").push().setValue(taskEntityToAdd);
 
             }
         });

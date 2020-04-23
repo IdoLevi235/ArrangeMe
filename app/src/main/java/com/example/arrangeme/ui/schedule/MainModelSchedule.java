@@ -1,29 +1,26 @@
 package com.example.arrangeme.ui.schedule;
 
 public class MainModelSchedule {
-    String name;
+    String category;
+    String description;
 
+    public MainModelSchedule() {
 
-    Integer icon;
-    public MainModelSchedule(String name, Integer icon) {
-        this.name = name;
-        this.icon=icon;
     }
 
-    public String getName() {
-        return name;
+
+    public MainModelSchedule(String category, String description) {
+        this.category = category;
+        this.description = description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+
+    public String getCategory() {
+        return category;
     }
 
-    public Integer getIcon() {
-        return icon;
+    public void setCategory(String category) {
+        this.category = category;
     }
-
-    public void setIcon(Integer icon) {
-        this.icon = icon;
-    }
-
 }
