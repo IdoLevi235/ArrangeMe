@@ -21,12 +21,17 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.Entities.TaskEntity;
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -172,15 +177,41 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 int position_target = target.getAdapterPosition();
                 DatabaseReference firstItemRef = fbAdapter.getRef(dragged.getAdapterPosition());
                 DatabaseReference secondItemRef = fbAdapter.getRef(target.getAdapterPosition());
-
-               //TODO: fix the drag and drop
+                DatabaseReference tempRef;
                 fbAdapter.notifyItemMoved(position_dragged, position_target);
+               final String firstKey = firstItemRef.getKey();
+               final String secondKey = secondItemRef.getKey();
+
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
+                        String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
+                        String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
+                        String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
+                        String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
+                        String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
+
+                        dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
+                        dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
+                        dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
+
+                        dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
+                        dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
+                        dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
+
+                        // IMPORTANT: when we edit this to fir schedule, we must not "switch" between
+                        // startTime + endTime of this task!!!!!
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 return false;
-
                 //Collections.swap(mainModels,position_dragged,position_target);
-
             }
-
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
@@ -188,6 +219,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         });
         // Drag and drop stuff end//
         helper.attachToRecyclerView(recyclerSchedule);
+
     }
 
     @Override

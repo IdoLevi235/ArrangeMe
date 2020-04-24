@@ -15,6 +15,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -41,8 +42,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -276,14 +280,28 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 btn.setBackgroundResource(R.drawable.rounded_rec);
             }
 
-            else {
-                taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
-                taskEntityToAdd.setDescription(description);
-                taskEntityToAdd.setReminderType(chosenReminder);
-                taskEntityToAdd.setPhoto(selectedImage);
-                taskEntityToAdd.setLocation(location);
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").push().setValue(taskEntityToAdd);
+              else {
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int num = (int)dataSnapshot.getChildrenCount();
+                        Log.d("numofchildren", String.valueOf(num));
+                        taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
+                        taskEntityToAdd.setDescription(description);
+                        taskEntityToAdd.setReminderType(chosenReminder);
+                        taskEntityToAdd.setPhoto(selectedImage);
+                        taskEntityToAdd.setLocation(location);
+                        mDatabase.child(String.valueOf(num)).setValue(taskEntityToAdd);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
         });

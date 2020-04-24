@@ -194,7 +194,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(Login.this,"Success!", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                         boolean isNewuser = task.getResult().getAdditionalUserInfo().isNewUser();
-                        System.err.println(isNewuser + "!!!!!!!1");
                         if (isNewuser) {
                             updateUI(user,true);
                         }
