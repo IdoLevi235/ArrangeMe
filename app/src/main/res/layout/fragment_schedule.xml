@@ -149,7 +149,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="This is the schedule the system chose for you. You can drag and drop only the order of tasks. The Anchors will stay fixed."
+        android:text="This is the schedule that the system chose for you. You can switch the task's order by dragging them. The Anchors will stay fixed."
         android:textColor="#4E4E4E"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/view4"
@@ -183,31 +183,17 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSchedule"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="318dp"
+            android:layout_height="476dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="69dp"
+            android:layout_marginStart="33dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp" />
 
-        <ListView
-            android:id="@+id/listViewTime"
-            android:layout_width="57dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="297dp"
-            android:layout_marginBottom="-3dp" >
-
-        </ListView>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

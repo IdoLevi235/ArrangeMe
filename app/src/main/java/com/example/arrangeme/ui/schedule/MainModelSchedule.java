@@ -6,18 +6,28 @@ public class MainModelSchedule {
     private String description;
     private int catIcon;
     private int catBackground;
+    private String time;
 
     public MainModelSchedule() {
-
     }
 
-    public MainModelSchedule(String category, String description, int catIcon, int catBackgroundFull, int catBackground) {
+    public MainModelSchedule(String category, String description, int catIcon, int catBackgroundFull, int catBackground, String time) {
         this.category = category;
         this.description = description;
         this.catBackgroundFull=catBackgroundFull;
         this.catIcon=catIcon;
         this.catBackground= catBackground;
+        this.time = time;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 
     public int getCatIcon() {
         return catIcon;
