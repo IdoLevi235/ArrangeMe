@@ -57,6 +57,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
@@ -293,17 +294,22 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
 
               else {
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                Query lastQuery = mDatabase.orderByKey().limitToLast(1);
+
+                lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int num = (int)dataSnapshot.getChildrenCount();
-                        Log.d("numofchildren", String.valueOf(num));
+                        String biggestKey=null;
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                             biggestKey = ds.getKey();
+                        }
+                        int newKey = Integer.parseInt(biggestKey) + 1;
                         taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
                         taskEntityToAdd.setDescription(description);
                         taskEntityToAdd.setReminderType(chosenReminder);
                         taskEntityToAdd.setPhoto(selectedImage);
                         taskEntityToAdd.setLocation(location);
-                        mDatabase.child(String.valueOf(num)).setValue(taskEntityToAdd);
+                        mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
 
 
 
