@@ -3,11 +3,16 @@ package com.example.arrangeme.AddTasks;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.app.Fragment;
+
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -35,13 +40,19 @@ import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
+import com.example.arrangeme.MainActivity;
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.schedule.ScheduleFragment;
+import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.material.circularreveal.CircularRevealWidget;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +92,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private Uri selectedImage;
     private DatabaseReference mDatabase;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,19 +113,19 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
-                R.drawable.familycat, R.drawable.chores, R.drawable.relax, 0};
-        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Other"};
+                R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
+        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
         Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
                 R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
                 R.drawable.category_btn_family, R.drawable.category_btn_chores,
-                R.drawable.category_btn_relax, R.drawable.category_btn_other};
+                R.drawable.category_btn_relax, R.drawable.category_btn_friends, R.drawable.category_btn_other};
         Integer[] catBackgroundFull =
                 {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
                 R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                 R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
+                R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
         Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
-                R.color.family, R.color.chores, R.color.relax, R.color.other};
+                R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
         mainModels = new ArrayList<>();
 
         for (int i = 0; i < catIcon.length; i++) {
@@ -294,6 +305,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         taskEntityToAdd.setLocation(location);
                         mDatabase.child(String.valueOf(num)).setValue(taskEntityToAdd);
 
+
+
                     }
 
                     @Override
@@ -302,8 +315,19 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                     }
                 });
 
-
-            }
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.SUCCESS_TYPE);
+                ad.setTitleText("Great!");
+                ad.setContentText("You added new task!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // needs to go to tasks tab here
+                    }
+                });
+              }
         });
         /* confirm button click listener end*/
 

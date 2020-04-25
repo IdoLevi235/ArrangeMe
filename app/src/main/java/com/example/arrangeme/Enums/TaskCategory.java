@@ -1,7 +1,7 @@
 package com.example.arrangeme.Enums;
 
 public enum TaskCategory {
-    STUDY, SPORT, WORK, NUTRITION, FAMILY, CHORES, RELAX, OTHER;
+    STUDY, SPORT, WORK, NUTRITION, FAMILY, CHORES, RELAX, FRIENDS, OTHER;
 
     public static TaskCategory fromInt (int x){
         TaskCategory t;
@@ -28,6 +28,9 @@ public enum TaskCategory {
                 t=RELAX;
                 break;
             case 7:
+                t=FRIENDS;
+                break;
+            case 8:
                 t=OTHER;
                 break;
             default:

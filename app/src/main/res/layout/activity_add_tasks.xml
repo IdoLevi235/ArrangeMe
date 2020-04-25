@@ -180,7 +180,7 @@
             android:fontFamily="@font/montserrat"
             android:gravity="center|left"
             android:hint="Add location"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:singleLine="true"
