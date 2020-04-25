@@ -223,6 +223,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
                 mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
+                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(0);
                 /* addNewUserToDB end */
 
                 startActivity(new Intent(Login.this, Questionnaire.class));
