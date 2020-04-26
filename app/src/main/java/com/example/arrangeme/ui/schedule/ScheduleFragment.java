@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,7 +47,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private TextView chooseMessage;
     private Button chooseTaskBtn;
     private Button questionnaireBtn;
-
     private RecyclerView recyclerSchedule;
     private RecyclerView.LayoutManager layoutManager;
     private String[] myDataset;
@@ -103,15 +103,22 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         String[] catName = {"Study", "Sport", "Work","Friends","Nutrition", "Family", "Chores", "Relax", "Other"};
 
 
+
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                holder.timeText.setText(model.getTime());
+                holder.timeText.setText(" "+model.getTime());
                 holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-                holder.button.setLayoutParams (new LinearLayout.LayoutParams(750, ViewGroup.LayoutParams.MATCH_PARENT));
-                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(95, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
+
+                if(model.getType().equals("ANCHOR"))
+                    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                else if (model.getType().equals("TASK"))
+                    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
 
                 switch (model.getCategory()){
                     case "STUDY":
@@ -223,6 +230,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
             }
         });
+
+
         // Drag and drop stuff end//
         helper.attachToRecyclerView(recyclerSchedule);
 

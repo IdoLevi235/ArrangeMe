@@ -5,40 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="310dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/time_line" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="77dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="0dp"
+
         android:gravity="right"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/task_anchor"
-            android:layout_width="24dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/task" />
+        <Button
+            android:id="@+id/anchor_task"
+            android:layout_width="31dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/timeText"
-            android:layout_width="88dp"
-            android:layout_height="27dp"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:fontFamily="@font/montserrat"
             android:textAlignment="textStart"
-            android:textSize="12sp"
-            android:layout_gravity="left"
+            android:textSize="11sp"
             tools:ignore="RtlCompat" />
 
         <Button
             android:id="@+id/buttonsche"
-            android:layout_width="263dp"
+            android:layout_width="285dp"
             android:layout_height="match_parent"
             android:contextClickable="true"
             android:elegantTextHeight="false"
@@ -52,4 +66,5 @@
 
 
     </LinearLayout>
+
 </RelativeLayout>
