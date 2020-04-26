@@ -81,7 +81,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private Button leftScrl;
     private Button confirmBtn;
     private int currentPosition;
-    private final int numOfCategories = 8;
+    private final int numOfCategories = 9;
     private TextView textViewHelloAdd;
     private EditText desc;
     private Switch show_spinner;
