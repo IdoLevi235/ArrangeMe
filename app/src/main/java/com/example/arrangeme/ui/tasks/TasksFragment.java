@@ -2,10 +2,19 @@
 package com.example.arrangeme.ui.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.FragmentTransaction;
 import android.content.ClipData;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,8 +170,9 @@ public class TasksFragment extends Fragment {
                 int position=viewHolder.getAdapterPosition();
                 switch(direction){
                     case ItemTouchHelper.LEFT:
+                        //todo: UNDO stuff here
+                        fbAdapter.getRef(position).setValue(null);
 
-                        //fbAdapter.notifyItemRemoved(position);
                         break;
                     default:
                         break;
@@ -173,6 +183,11 @@ public class TasksFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                //new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                       // .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.redtrash))
+                       // .addSwipeLeftActionIcon(R.drawable.ic_delete_black_24dp)
+                       // .create()
+                       // .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         });
