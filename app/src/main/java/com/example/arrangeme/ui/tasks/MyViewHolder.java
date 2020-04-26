@@ -14,6 +14,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     Button button;
     public MyViewHolder(View v) {
         super(v);
-        button=itemView.findViewById(R.id.buttonTasksTab);
+        button=itemView.findViewById(R.id.button235);
     }
 }

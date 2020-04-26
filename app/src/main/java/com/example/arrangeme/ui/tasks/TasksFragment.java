@@ -143,7 +143,7 @@ public class TasksFragment extends Fragment {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks,parent,false);
+                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks_tab,parent,false);
                 return new MyViewHolder(v);
             }
         };
@@ -173,14 +173,6 @@ public class TasksFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.arrangeMeMain))
-                        .addSwipeLeftActionIcon(R.drawable.ic_delete_black_24dp)
-                        .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.sport))
-                        .addActionIcon(R.drawable.ic_delete_black_24dp)
-                        .create()
-                        .decorate();
-
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         });

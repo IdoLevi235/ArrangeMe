@@ -41,6 +41,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //holder.button.setImageResource(mainModels.get(position).getCatLogo());
         //holder.textView.setText(mainModels.get(position).getCatName());
+        Log.d(TAG, "onBindViewHolder: " + mainModels.get(position).getCatLogo());
         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,mainModels.get(position).getCatLogo(),0,0);
         holder.button.setBackgroundResource(mainModels.get(position).getCatBackground());
         holder.button.setLayoutParams (new LinearLayout.LayoutParams(210, 225));
@@ -92,7 +93,7 @@ public MainAdapter(Context context, ArrayList<MainModel> mainModels){
    // TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            button=itemView.findViewById(R.id.button);
+            button=itemView.findViewById(R.id.buttonTasksTab);
             //textView=itemView.findViewById(R.id.text_view);
         }
     }

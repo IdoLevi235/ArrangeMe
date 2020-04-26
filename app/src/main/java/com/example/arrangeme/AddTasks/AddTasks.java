@@ -111,10 +111,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         //photo=findViewById(R.id.photo);
         //photo.setVisibility(View.INVISIBLE);
         taskEntityToAdd =new TaskEntity();
+
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
-        Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
-                R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
+        Integer[] catIcon = {R.drawable.study, R.drawable.study,  R.drawable.work, R.drawable.study,
+                R.drawable.familycat, R.drawable.chores, R.drawable.study, R.drawable.friends_cat, 0};
         String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
         Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
                 R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
@@ -128,9 +129,9 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
                 R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
         mainModels = new ArrayList<>();
-
         for (int i = 0; i < catIcon.length; i++) {
             MainModel model = new MainModel(catIcon[i], catName[i], catBackground[i],catColor[i],catBackgroundFull[i]);
+            Log.d("TAG", "onCreate: " + catIcon[i]);
             mainModels.add(model);
         }
 
