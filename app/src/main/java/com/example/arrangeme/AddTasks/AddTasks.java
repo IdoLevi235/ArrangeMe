@@ -218,8 +218,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 }
             }
             @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
                 if(position == 0){

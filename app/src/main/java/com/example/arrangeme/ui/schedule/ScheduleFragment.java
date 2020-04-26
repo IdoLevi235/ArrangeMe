@@ -110,7 +110,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                 holder.timeText.setText(model.getTime());
                 holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-                holder.button.setLayoutParams (new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(750, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(95, ViewGroup.LayoutParams.MATCH_PARENT));
 
                 switch (model.getCategory()){
                     case "STUDY":
