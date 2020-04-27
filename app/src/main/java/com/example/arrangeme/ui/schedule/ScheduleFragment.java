@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,16 +21,20 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private ScheduleViewModel scheduleViewModel;
@@ -49,6 +54,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+        final TextView textView = root.findViewById(R.id.text_notifications);
         return root;
     }
 
@@ -73,9 +79,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
-        int[] dir = new int[1];
-        //RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        //recyclerSchedule.addItemDecoration(divider);
+        final int[] longPressCount = new int[1];
+        final int[] longPressKeys = new int[2];
+        final int[] longPressPositions = new int[2];
+
+        longPressKeys[0]=-1;longPressKeys[1]=-1;
+        longPressPositions[0]=-1;longPressPositions[1]=-1;
 
         Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white,R.drawable.friends_white, R.drawable.nutrition_white, R.drawable.family_white_frame, R.drawable.chores_white, R.drawable.relax_white, 0};
 
@@ -83,11 +92,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 R.drawable.category_btn_work,R.drawable.category_btn_friends, R.drawable.category_btn_nutrition,
                 R.drawable.category_btn_family, R.drawable.category_btn_chores,
                 R.drawable.category_btn_relax, R.drawable.category_btn_other};
-        Integer[] catBackgroundFull =
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
                 {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                        R.drawable.rounded_rec_work_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                        R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                         R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
+                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+        ///////////////////////////////////////////////////////////////////////////////////////////////
         Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
                 R.color.family,R.color.friends, R.color.chores, R.color.relax, R.color.other};
         String[] catName = {"Study", "Sport", "Work","Friends","Nutrition", "Family", "Chores", "Relax", "Other"};
@@ -108,7 +119,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-
                 if(model.getType().equals("ANCHOR")) {
                     holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
                 }
@@ -128,33 +138,132 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                         holder.button.setBackgroundResource(catBackgroundFull[2]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
                         break;
-                    case "FRIENDS":
-                        holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
-                        break;
                     case "NUTRITION":
-
-                        holder.button.setBackgroundResource(catBackgroundFull[4]);
+                        holder.button.setBackgroundResource(catBackgroundFull[3]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
                         break;
                     case "FAMILY":
-                        holder.button.setBackgroundResource(catBackgroundFull[5]);
+                        holder.button.setBackgroundResource(catBackgroundFull[4]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
                         break;
                     case "CHORES":
-                        holder.button.setBackgroundResource(catBackgroundFull[6]);
+                        holder.button.setBackgroundResource(catBackgroundFull[5]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
                         break;
                     case "RELAX":
-                        holder.button.setBackgroundResource(catBackgroundFull[7]);
+                        holder.button.setBackgroundResource(catBackgroundFull[6]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
+                        break;
+                    case "FRIENDS":
+                        holder.button.setBackgroundResource(catBackgroundFull[7]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
                         break;
                     case "OTHER":
                         holder.button.setBackgroundResource(catBackgroundFull[8]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
-
                         break;
                 }
+                //TODO: CHANGE THIS SWITCH TO ONE FUNCTION
+                //TODO: CANCEL MARK IN SHORT CLICK
+                holder.button.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Log.d("TAG", "onLongClick: COUNT=" + longPressCount[0] + " KEYS=" +
+                                longPressKeys[0]+ " " + longPressKeys[1] + " POSITIONS=" +
+                                longPressPositions[0]+ " " + longPressPositions[1]);
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String key = fbAdapter.getRef(position).getKey();
+                                int x = Integer.parseInt(key);
+                                if (dataSnapshot.child(key).child("type").getValue().equals("TASK")) {
+                                    if (longPressCount[0] == 2){ // 2 long presses already
+
+                                    }
+                                    else if (longPressCount[0] == 0) {//0 long presses until now
+                                        longPressCount[0]++; //count=1;
+                                        if (longPressKeys[0]==-1)
+                                            longPressKeys[0]=Integer.parseInt(key);//get first key
+                                        else longPressKeys[1]=Integer.parseInt(key);
+
+                                        if (longPressPositions[0]==-1)
+                                            longPressPositions[0]=(position);//get first key
+                                        else longPressPositions[1]=(position);
+                                        holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+
+                                    }
+                                    else if (longPressCount[0] == 1) {//1 long presses until now
+                                        if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
+                                            longPressKeys[0]=-1;
+                                            String cat = (String) dataSnapshot.child(key).child("category").getValue();
+                                            holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
+                                            longPressPositions[0]=-1;
+                                            longPressCount[0]--;
+                                        } else {
+                                            longPressCount[0]++;//count=2;
+                                            if (longPressKeys[0] == -1)
+                                                longPressKeys[0] = Integer.parseInt(key);//get first key
+                                            else longPressKeys[1] = Integer.parseInt(key);
+
+                                            if (longPressPositions[0] == -1)
+                                                longPressPositions[0] = position;//get first key
+                                            else longPressPositions[1] = position;
+
+                                            holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+                                            //SWAPPING HERE
+
+                                            Log.d("TAG", "onLongClick: positions = " + longPressPositions[0] + " " + longPressPositions[1]);
+                                            String firstKey = String.valueOf(longPressKeys[0]);
+                                            String secondKey = String.valueOf(longPressKeys[1]);
+                                            String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
+                                            String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
+                                            String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
+                                            String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
+                                            String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
+                                            String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
+
+                                            dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
+                                            dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
+                                            dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
+
+                                            dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
+                                            dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
+                                            dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
+
+                                            fbAdapter.notifyItemChanged(longPressPositions[0], longPressPositions[1]);
+                                            Snackbar.make(recyclerSchedule,"You swapped between " + firstTaskDescription
+                                                    +" and " + secondTaskDescription ,Snackbar.LENGTH_LONG)
+                                                    .setAction("Undo", new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dataSnapshot.child(firstKey).child("category").getRef().setValue(firstTaskCategory);
+                                                            dataSnapshot.child(firstKey).child("description").getRef().setValue(firstTaskDescription);
+                                                            dataSnapshot.child(firstKey).child("location").getRef().setValue(firstTaskLocation);
+
+                                                            dataSnapshot.child(secondKey).child("category").getRef().setValue(secondTaskCategory);
+                                                            dataSnapshot.child(secondKey).child("description").getRef().setValue(secondTaskDescription);
+                                                            dataSnapshot.child(secondKey).child("location").getRef().setValue(secondTaskLocation);
+                                                        }
+                                                    }).show();
+                                            //TODO: add msg in the snackbar after the undo
+                                            longPressCount[0]=0;
+                                            longPressKeys[0]=-1;longPressKeys[1]=-1;
+                                            longPressPositions[0]=-1;longPressPositions[1]=-1;
+
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        return false;
+                    }
+                });
             }
 
             @NonNull
@@ -168,86 +277,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         fbAdapter.startListening();
         recyclerSchedule.setAdapter(fbAdapter);
 
-        // Drag and drop stuff //
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
-
-
-            
-            @Override
-            public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
-                Log.d("TAG", "getDragDirs: " + viewHolder.getAdapterPosition());
-                mDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String type = (String) dataSnapshot.child(key).child("type").getValue();
-                        if(type.equals("ANCHOR")){
-                            dir[0]=0;
-                        }
-                        else if(type.equals("TASK")) {
-                            dir[0]=1;
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-                if(dir[0]==0) {
-                    return 0;
-                }
-                else return super.getDragDirs(recyclerView, viewHolder);
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
-                int position_dragged = dragged.getAdapterPosition();
-                int position_target = target.getAdapterPosition();
-                DatabaseReference firstItemRef = fbAdapter.getRef(dragged.getAdapterPosition());
-                DatabaseReference secondItemRef = fbAdapter.getRef(target.getAdapterPosition());
-                DatabaseReference tempRef;
-                fbAdapter.notifyItemMoved(position_dragged, position_target);
-                final String firstKey = firstItemRef.getKey();
-                final String secondKey = secondItemRef.getKey();
-
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
-                        String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
-                        String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
-                        String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
-                        String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
-                        String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
-
-                        dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
-                        dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
-                        dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
-
-                        dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
-                        dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
-                        dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
-
-                        // IMPORTANT: when we edit this to fir schedule, we must not "switch" between
-                        // startTime + endTime of this task!!!!!
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                return false;
-                //Collections.swap(mainModels,position_dragged,position_target);
-            }
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-            }
-        });
-
-
-        // Drag and drop stuff end//
-        helper.attachToRecyclerView(recyclerSchedule);
 
     }
 
