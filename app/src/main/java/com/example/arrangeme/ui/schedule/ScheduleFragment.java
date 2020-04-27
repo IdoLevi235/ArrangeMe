@@ -119,48 +119,39 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 switch (model.getCategory()){
                     case "STUDY":
                         holder.button.setBackgroundResource(catBackgroundFull[0]);
-                        //holder.button.setBackgroundResource(catBackground[0]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[0],0);
                         break;
                     case "SPORT":
                         holder.button.setBackgroundResource(catBackgroundFull[1]);
-                        //holder.button.setBackgroundResource(catBackground[1]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[1],0);
                         break;
                     case "WORK":
                         holder.button.setBackgroundResource(catBackgroundFull[2]);
-                        //holder.button.setBackgroundResource(catBackground[2]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
                         break;
                     case "FRIENDS":
                         holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        //holder.button.setBackgroundResource(catBackground[3]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
                         break;
                     case "NUTRITION":
 
                         holder.button.setBackgroundResource(catBackgroundFull[4]);
-                       //holder.button.setBackgroundResource(catBackground[4]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
                         break;
                     case "FAMILY":
-                        //holder.button.setBackgroundResource(catBackground[5]);
                         holder.button.setBackgroundResource(catBackgroundFull[5]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
                         break;
                     case "CHORES":
                         holder.button.setBackgroundResource(catBackgroundFull[6]);
-                        //holder.button.setBackgroundResource(catBackground[6]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
                         break;
                     case "RELAX":
                         holder.button.setBackgroundResource(catBackgroundFull[7]);
-                        //holder.button.setBackgroundResource(catBackground[7]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
                         break;
                     case "OTHER":
                         holder.button.setBackgroundResource(catBackgroundFull[8]);
-                        //holder.button.setBackgroundResource(catBackground[8]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
 
                         break;
@@ -180,6 +171,31 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
         // Drag and drop stuff //
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
+            @Override
+            public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+               final String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
+               final int[] dir = {0};
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String type = (String) dataSnapshot.child(key).child("type").getValue();
+                        if(type.equals("ANCHOR")){
+                            dir[0]=0;
+                        }
+                        else if(type.equals("TASK")) {
+                            dir[0] = 1;
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+                if(dir[0]==0) {
+                    return 0;
+                }
+                else return super.getDragDirs(recyclerView, viewHolder);
+            }
 
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {

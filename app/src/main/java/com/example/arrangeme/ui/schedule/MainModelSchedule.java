@@ -11,8 +11,6 @@ public class MainModelSchedule {
     private int catBackground;
     private String time;
     private Button anchorOrTask;
-
-
     private String type;
 
     public MainModelSchedule() {
