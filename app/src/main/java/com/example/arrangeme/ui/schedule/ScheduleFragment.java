@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment {
-    private int dir;
     private ScheduleViewModel scheduleViewModel;
     private TextView noScheduleYet;
     private TextView quesMessage;
@@ -75,7 +74,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
-        final int[] dir = new int[1];
+        int[] dir = new int[1];
         //RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         //recyclerSchedule.addItemDecoration(divider);
 
@@ -177,8 +176,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
             
             @Override
             public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-               final String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
+                Log.d("TAG", "getDragDirs: " + viewHolder.getAdapterPosition());
+                mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String type = (String) dataSnapshot.child(key).child("type").getValue();
