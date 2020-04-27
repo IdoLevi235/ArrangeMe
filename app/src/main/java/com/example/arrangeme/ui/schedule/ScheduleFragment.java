@@ -92,11 +92,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 R.drawable.category_btn_work,R.drawable.category_btn_friends, R.drawable.category_btn_nutrition,
                 R.drawable.category_btn_family, R.drawable.category_btn_chores,
                 R.drawable.category_btn_relax, R.drawable.category_btn_other};
-        Integer[] catBackgroundFull =
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
                 {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                        R.drawable.rounded_rec_work_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                        R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                         R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
+                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+        ///////////////////////////////////////////////////////////////////////////////////////////////
         Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
                 R.color.family,R.color.friends, R.color.chores, R.color.relax, R.color.other};
         String[] catName = {"Study", "Sport", "Work","Friends","Nutrition", "Family", "Chores", "Relax", "Other"};
