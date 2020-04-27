@@ -1,6 +1,7 @@
 package com.example.arrangeme;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -48,7 +49,19 @@ private Toolbar toolbar;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        Intent i = getIntent();
+        String data = i.getStringExtra("FromHomepage");
+        if (data != null && data.contentEquals("1")) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment, new TasksFragment());
+            fragmentTransaction.commitNow();
+            navView.setSelectedItemId(R.id.navigation_tasks);
+
+        }
     }
+
+
 
 
     @Override

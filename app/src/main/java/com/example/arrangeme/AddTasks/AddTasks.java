@@ -329,10 +329,12 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 ad.show();
                 Button btn = (Button) ad.findViewById(R.id.confirm_button);
                 btn.setBackgroundResource(R.drawable.rounded_rec);
+                Intent intent = new Intent(this, Homepage.class);
                 ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        //todo: move to tasks tab!!
+                        intent.putExtra("FromHomepage", "1");
+                        startActivity(intent);
                     }
                 });
               }
