@@ -4,6 +4,7 @@ package com.example.arrangeme.ui.tasks;
 import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.content.ClipData;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,31 +35,44 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.AddTasks.MainAdapter;
 import com.example.arrangeme.AddTasks.MainModel;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.MainActivity;
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.Signup;
 import com.example.arrangeme.ui.tasks.MyViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 
-public class TasksFragment extends Fragment {
+public class TasksFragment extends Fragment implements View.OnClickListener{
     private RecyclerView mRecycler;
     private ArrayList<MainModelTasks> mainModels;
     private DatabaseReference mDatabase;
     private FirebaseRecyclerOptions<MainModelTasks> options;
     private FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder> fbAdapter;
     private TasksViewModel tasksViewModel;
+    private String deletedCategory;
+    private String deletedDescription;
+    private String deletedLocation;
+    private String deletedKey;
+    private TextView hellotext;
+    private Button addTasks;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         tasksViewModel = ViewModelProviders.of(this).get(TasksViewModel.class);
@@ -72,6 +86,10 @@ public class TasksFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        addTasks = view.findViewById(R.id.add);
+        addTasks.setOnClickListener(this);
+        hellotext = view.findViewById(R.id.helloTaskTab);
+        hellotext.setText("Hello, " + Globals.currentUsername + " !");
         mRecycler= view.findViewById(R.id.recyclerTasks);
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
@@ -96,7 +114,6 @@ public class TasksFragment extends Fragment {
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
                 holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(750, ViewGroup.LayoutParams.MATCH_PARENT));
-
                 switch (model.getCategory()){
                     case "STUDY":
                         holder.button.setBackgroundResource(catBackgroundFull[0]);
@@ -147,6 +164,11 @@ public class TasksFragment extends Fragment {
                     default:
                         break;
                 }
+                holder.button.setOnClickListener(v -> {
+//todo:task page with edit/view
+                    startActivity(new Intent(getActivity(),TaskPagePopup.class));
+                });
+
             }
 
             @NonNull
@@ -158,6 +180,7 @@ public class TasksFragment extends Fragment {
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
+
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
             @Override
@@ -171,7 +194,34 @@ public class TasksFragment extends Fragment {
                 switch(direction){
                     case ItemTouchHelper.LEFT:
                         //todo: UNDO stuff here
+                        deletedKey = fbAdapter.getRef(position).getKey();
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                deletedCategory = (String) dataSnapshot.child(deletedKey).child("category").getValue();
+                                deletedDescription = (String) dataSnapshot.child(deletedKey).child("description").getValue();
+                                deletedLocation = (String) dataSnapshot.child(deletedKey).child("location").getValue();
+
+                                Snackbar.make(mRecycler,"You deleted a " + deletedCategory
+                                        +" task: " + deletedDescription ,Snackbar.LENGTH_LONG)
+                                        .setAction("Undo", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                mDatabase.child(deletedKey).child("category").setValue(deletedCategory);
+                                                mDatabase.child(deletedKey).child("description").setValue(deletedDescription);
+                                                mDatabase.child(deletedKey).child("location").setValue(deletedLocation);
+                                            }
+                                        }).show();
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         fbAdapter.getRef(position).setValue(null);
+
 
                         break;
                     default:
@@ -189,9 +239,19 @@ public class TasksFragment extends Fragment {
                        // .create()
                        // .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+
             }
         });
         helper.attachToRecyclerView(mRecycler);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.add:
+                startActivity(new Intent(getActivity(), AddTasks.class));
+        }
     }
 }
