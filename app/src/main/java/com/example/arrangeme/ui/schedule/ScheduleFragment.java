@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,13 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.arrangeme.Entities.TaskEntity;
-import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -33,14 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
-public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener {
+public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private ScheduleViewModel scheduleViewModel;
     private TextView noScheduleYet;
     private TextView quesMessage;
@@ -106,6 +97,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+
+
+
+
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
@@ -115,8 +110,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
 
-                if(model.getType().equals("ANCHOR"))
+                if(model.getType().equals("ANCHOR")) {
                     holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                }
                 else if (model.getType().equals("TASK"))
                     holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
 
@@ -184,6 +180,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
         // Drag and drop stuff //
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
                 int position_dragged = dragged.getAdapterPosition();
@@ -237,7 +234,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     }
 
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.DayBtn):

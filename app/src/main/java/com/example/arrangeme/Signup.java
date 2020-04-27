@@ -182,7 +182,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
 
-
+//TODO: CHANGE THE EDIT TEXT BOXES
 
 }
 
