@@ -46,6 +46,7 @@ import com.example.arrangeme.Signup;
 import com.example.arrangeme.ui.tasks.MyViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -71,7 +72,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private String deletedLocation;
     private String deletedKey;
     private TextView hellotext;
-    private Button addTasks;
+    private FloatingActionButton addTasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        addTasks = view.findViewById(R.id.add);
+        addTasks = (FloatingActionButton)view.findViewById(R.id.add);
         addTasks.setOnClickListener(this);
         hellotext = view.findViewById(R.id.helloTaskTab);
         hellotext.setText("Hello, " + Globals.currentUsername + " !");
@@ -112,7 +113,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
-                holder.button.setText("\t"+ "Category:" + model.getCategory()+" \n\n\t"+model.getDescription());
+                holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 switch (model.getCategory()){
                     case "STUDY":
