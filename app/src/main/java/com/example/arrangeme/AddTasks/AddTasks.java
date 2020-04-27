@@ -332,6 +332,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        //todo: move to tasks tab!!
                     }
                 });
               }

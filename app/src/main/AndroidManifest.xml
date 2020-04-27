@@ -15,11 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".ui.tasks.TaskPagePopup"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
 
         <activity
             android:name=".AddTasks.AddTasks"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ChooseTasks" />
+
         <activity
             android:name=".Homepage"
             android:label="@string/title_activity_homepage" />
