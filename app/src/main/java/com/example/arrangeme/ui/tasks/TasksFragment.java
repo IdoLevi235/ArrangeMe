@@ -71,7 +71,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private String deletedDescription;
     private String deletedLocation;
     private String deletedKey;
-    private TextView hellotext;
     private FloatingActionButton addTasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,8 +88,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         addTasks = (FloatingActionButton)view.findViewById(R.id.add);
         addTasks.setOnClickListener(this);
-        hellotext = view.findViewById(R.id.helloTaskTab);
-        hellotext.setText("Hello, " + Globals.currentUsername + " !");
         mRecycler= view.findViewById(R.id.recyclerTasks);
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);

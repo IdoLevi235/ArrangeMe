@@ -5,48 +5,67 @@
     android:id="@+id/tasksFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF4F4F4"
     tools:context=".ui.tasks.TasksFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTasks"
-        android:layout_width="344dp"
-        android:layout_height="411dp"
+    <View
+        android:id="@+id/view4"
+        android:layout_width="369dp"
+        android:layout_height="495dp"
+        android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTasks"
+        android:layout_width="338dp"
+        android:layout_height="466dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="21dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="265dp"
-        android:layout_height="55dp"
+        android:layout_width="333dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="22dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="These are your pending tasks.\n Press on a task to open this task's details, and swipe left to delete it."
+        android:text="These are your pending tasks. Press on a task to open this task's details, and swipe left to delete it."
         android:textColor="#4e4e4e"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerTasks"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797" />
+        app:layout_constraintTop_toBottomOf="@+id/myTasks"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/helloTaskTab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/arsenal"
+        android:id="@+id/myTasks"
+        android:layout_width="314dp"
+        android:layout_height="43dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:textColor="@color/colorProjectBlue"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        android:text="My Tasks"
+        android:textColor="@color/arrangeMeMain"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
@@ -62,7 +81,7 @@
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerTasks"
-        app:layout_constraintVertical_bias="0.181"
+        app:layout_constraintVertical_bias="0.19999999"
         app:rippleColor="#FFFFFF" />
 
 
