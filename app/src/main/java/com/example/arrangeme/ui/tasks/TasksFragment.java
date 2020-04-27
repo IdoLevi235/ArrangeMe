@@ -112,8 +112,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
-                holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-                holder.button.setLayoutParams (new LinearLayout.LayoutParams(750, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.button.setText("\t"+ "Category:" + model.getCategory()+" \n\n\t"+model.getDescription());
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 switch (model.getCategory()){
                     case "STUDY":
                         holder.button.setBackgroundResource(catBackgroundFull[0]);
