@@ -163,6 +163,7 @@
         android:id="@+id/view4"
         android:layout_width="369dp"
         android:layout_height="495dp"
+        android:elevation="1.5dp"
         android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,6 +173,7 @@
 
     <RelativeLayout
         android:id="@+id/scheduleExistsLayout"
+        android:elevation="1.5dp"
         android:layout_width="360dp"
         android:layout_height="479dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -182,6 +184,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSchedule"
+            android:elevation="1.5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"

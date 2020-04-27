@@ -13,6 +13,7 @@
         android:id="@+id/view4"
         android:layout_width="369dp"
         android:layout_height="495dp"
+        android:elevation="1.5dp"
         android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,6 +23,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTasks"
+        android:elevation="1.5dp"
         android:layout_width="338dp"
         android:layout_height="466dp"
         android:layout_marginTop="13dp"
