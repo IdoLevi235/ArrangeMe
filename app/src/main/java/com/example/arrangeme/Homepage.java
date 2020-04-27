@@ -9,11 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.ui.calendar.CalendarFragment;
+import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -34,11 +37,17 @@ private Toolbar toolbar;
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                getSupportFragmentManager().popBackStack();
+                return false;
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar_homepage);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
-        //toolbar.setSubtitle("");
         toolbar.setNavigationIcon(R.drawable.backsmall);
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
@@ -54,21 +63,13 @@ private Toolbar toolbar;
         Intent i = getIntent();
         String data = i.getStringExtra("FromHomepage");
         if (data != null && data.contentEquals("1")) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment, new TasksFragment());
-            fragmentTransaction.commitNow();
             navView.setSelectedItemId(R.id.navigation_tasks);
         }
         else if(data != null && data.contentEquals("2")){
             Log.d("getIntent", "onClick: getIntent-calenderBtn");
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment, new CalendarFragment());
-            fragmentTransaction.commitNow();
             navView.setSelectedItemId(R.id.navigation_calendar);
         }
     }
-
-
 
 
     @Override
@@ -78,11 +79,13 @@ private Toolbar toolbar;
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         System.err.println();
 
