@@ -172,6 +172,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         // Drag and drop stuff //
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
 
+
+            
             @Override
             public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                final String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
