@@ -138,32 +138,32 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                         holder.button.setBackgroundResource(catBackgroundFull[2]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
                         break;
-                    case "FRIENDS":
-                        holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
-                        break;
                     case "NUTRITION":
-                        holder.button.setBackgroundResource(catBackgroundFull[4]);
+                        holder.button.setBackgroundResource(catBackgroundFull[3]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
                         break;
                     case "FAMILY":
-                        holder.button.setBackgroundResource(catBackgroundFull[5]);
+                        holder.button.setBackgroundResource(catBackgroundFull[4]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
                         break;
                     case "CHORES":
-                        holder.button.setBackgroundResource(catBackgroundFull[6]);
+                        holder.button.setBackgroundResource(catBackgroundFull[5]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
                         break;
                     case "RELAX":
-                        holder.button.setBackgroundResource(catBackgroundFull[7]);
+                        holder.button.setBackgroundResource(catBackgroundFull[6]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
+                        break;
+                    case "FRIENDS":
+                        holder.button.setBackgroundResource(catBackgroundFull[7]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
                         break;
                     case "OTHER":
                         holder.button.setBackgroundResource(catBackgroundFull[8]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
-
                         break;
                 }
+                //TODO: CHANGE THIS SWITCH TO ONE FUNCTION
                 //TODO: CANCEL MARK IN SHORT CLICK
                 holder.button.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
