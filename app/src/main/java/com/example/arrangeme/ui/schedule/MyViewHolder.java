@@ -14,6 +14,7 @@ class MyViewHolder extends RecyclerView.ViewHolder {
     Button anchorOrTask;
     Button button;
     TextView timeText;
+
     public MyViewHolder(View v) {
         super(v);
         button=itemView.findViewById(R.id.buttonsche);
