@@ -3,6 +3,7 @@ package com.example.arrangeme.ui.dashboard;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,8 @@ import com.example.arrangeme.ChooseTasks;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.calendar.CalendarViewModel;
+
+import static com.example.arrangeme.R.id.calenderBtn;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
@@ -57,6 +60,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
         chooseTasksBtn.setOnClickListener(this);
         addTaskBtn.setOnClickListener(this);
+        calenderBtn.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -65,6 +69,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         Intent ct;
         switch (v.getId()) {
             case (R.id.calenderBtn):
+                ct = new Intent(getActivity(), Homepage.class);
+                ct.putExtra("FromHomepage", "2");
+                getActivity().startActivity(ct);
                 break;
             case (R.id.addTaskBtn):
                  ct= new Intent(getActivity(), AddTasks.class);

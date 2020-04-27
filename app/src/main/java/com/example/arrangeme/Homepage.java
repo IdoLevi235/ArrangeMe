@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arrangeme.ui.calendar.CalendarFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -57,7 +58,13 @@ private Toolbar toolbar;
             fragmentTransaction.replace(R.id.nav_host_fragment, new TasksFragment());
             fragmentTransaction.commitNow();
             navView.setSelectedItemId(R.id.navigation_tasks);
-
+        }
+        else if(data != null && data.contentEquals("2")){
+            Log.d("getIntent", "onClick: getIntent-calenderBtn");
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment, new CalendarFragment());
+            fragmentTransaction.commitNow();
+            navView.setSelectedItemId(R.id.navigation_calendar);
         }
     }
 
