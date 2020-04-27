@@ -243,6 +243,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                                                             dataSnapshot.child(secondKey).child("location").getRef().setValue(secondTaskLocation);
                                                         }
                                                     }).show();
+                                            //TODO: add msg in the snackbar after the undo
                                             longPressCount[0]=0;
                                             longPressKeys[0]=-1;longPressKeys[1]=-1;
                                             longPressPositions[0]=-1;longPressPositions[1]=-1;
