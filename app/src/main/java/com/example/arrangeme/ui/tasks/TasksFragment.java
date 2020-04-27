@@ -164,6 +164,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 }
                 holder.button.setOnClickListener(v -> {
 //todo:task page with edit/view
+
                     startActivity(new Intent(getActivity(),TaskPagePopup.class));
                 });
 

@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment {
+    private int dir;
     private ScheduleViewModel scheduleViewModel;
     private TextView noScheduleYet;
     private TextView quesMessage;
@@ -70,11 +71,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         noScheduleYet= view.findViewById(R.id.quesMessage);
         recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
         recyclerSchedule.setHasFixedSize(true);
-
         //TODO: function that checks if there is a schedule, it means if the user chose tasks for today & fill the questionnaire(personality vector is ful), if not, visible the texts that I did.
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
+        final int[] dir = new int[1];
         //RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         //recyclerSchedule.addItemDecoration(divider);
 
@@ -177,7 +178,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
             @Override
             public int getDragDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                final String key = fbAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
-               final int[] dir = {0};
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -186,7 +186,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                             dir[0]=0;
                         }
                         else if(type.equals("TASK")) {
-                            dir[0] = 1;
+                            dir[0]=1;
                         }
                     }
                     @Override
@@ -207,8 +207,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 DatabaseReference secondItemRef = fbAdapter.getRef(target.getAdapterPosition());
                 DatabaseReference tempRef;
                 fbAdapter.notifyItemMoved(position_dragged, position_target);
-               final String firstKey = firstItemRef.getKey();
-               final String secondKey = secondItemRef.getKey();
+                final String firstKey = firstItemRef.getKey();
+                final String secondKey = secondItemRef.getKey();
 
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
