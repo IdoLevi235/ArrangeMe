@@ -49,7 +49,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
         return root;
     }
 

@@ -20,14 +20,11 @@ public class MyProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        myProfileViewModel =
-                ViewModelProviders.of(this).get(MyProfileViewModel.class);
+        myProfileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_myprofile, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
         myProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
             }
         });
         return root;
