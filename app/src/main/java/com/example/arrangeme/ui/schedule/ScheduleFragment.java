@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private TextView chooseMessage;
     private Button chooseTaskBtn;
     private Button questionnaireBtn;
+    private ProgressBar spinner;
     private RecyclerView recyclerSchedule;
     private RecyclerView.LayoutManager layoutManager;
     private String[] myDataset;
@@ -72,6 +74,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.VISIBLE);
         questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
         chooseTaskBtn = view.findViewById(R.id.chooseTaskBtn);
         chooseMessage = view.findViewById(R.id.chooseMessage);
@@ -277,6 +281,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                         return true;
                     }
                 });
+                spinner.setVisibility(View.GONE);
+
             }
 
             @NonNull
@@ -312,5 +318,3 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 }
 
 
-//TODO: while schedule is loading put something that spins with "loading schedule...."
-//TODO: category text in the button will be bold, description will not be bold

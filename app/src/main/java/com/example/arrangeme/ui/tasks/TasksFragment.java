@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private String deletedLocation;
     private String deletedKey;
     private FloatingActionButton addTasks;
+    private ProgressBar spinner;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +87,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        spinner = (ProgressBar)view.findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         addTasks = (FloatingActionButton)view.findViewById(R.id.add);
@@ -168,6 +173,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                     startActivity(new Intent(getActivity(),TaskPagePopup.class));
                     getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                 });
+                spinner.setVisibility(View.GONE);
 
             }
 

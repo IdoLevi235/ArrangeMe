@@ -283,6 +283,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 }
 //TODO: CHANGE THE EDIT TEXT BOXES
 //TODO: ERASE THE FACEBOOK CONNECTION + FIX THE SIGNOUT BUTTON
-//TODO actionDONE + singleline for EditTexts here and in signup (and anywhere else that has edit texts)
 
 
