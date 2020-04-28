@@ -23,31 +23,32 @@
         android:layout_width="234dp"
         android:layout_height="229dp"
         android:background="@drawable/circle_choose_tasks"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.119" />
 
     <Button
         android:id="@+id/AvatarCircle"
         android:layout_width="126dp"
         android:layout_height="127dp"
         android:background="@drawable/circle_choose_tasks"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.209"
+        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintVertical_bias="0.279" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="243dp"
         android:layout_height="43dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="384dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="PROFILE NAME"
@@ -55,20 +56,19 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pictureCircle"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.438" />
 
     <RelativeLayout
-        android:layout_width="402dp"
-        android:layout_height="361dp"
+        android:layout_width="393dp"
+        android:layout_height="338dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977">
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.32">
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
@@ -78,9 +78,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="318dp">
+            android:layout_marginBottom="293dp">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

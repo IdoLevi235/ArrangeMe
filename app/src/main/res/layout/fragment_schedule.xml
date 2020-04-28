@@ -146,30 +146,30 @@
         android:id="@+id/textViewPleaseChooseAdd"
         android:layout_width="377dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="This is the schedule that the system chose for you. You can switch the task's order by dragging them. The Anchors will stay fixed."
         android:textColor="#4E4E4E"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/view4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MyScheduleHeadline"
-        app:layout_constraintVertical_bias="0.282" />
+        app:layout_constraintVertical_bias="0.00999999" />
 
     <View
         android:id="@+id/view4"
         android:layout_width="369dp"
         android:layout_height="495dp"
-        android:elevation="1.5dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_rec_pink"
+        android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
+        app:layout_constraintVertical_bias="0.01999998" />
 
     <RelativeLayout
         android:id="@+id/scheduleExistsLayout"
