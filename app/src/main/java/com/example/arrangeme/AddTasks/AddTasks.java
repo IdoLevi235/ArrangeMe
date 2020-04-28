@@ -165,8 +165,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         /* Recycler View Stuff End*/
 
         /*description stuff*/
-        //desc.addTextChangedListener(filterTextWatcher);
-        //todo: when text typed change pencil to green
         /*description stuff end*/
 
         /* Right and Left click listenrs */
@@ -450,4 +448,3 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
 //TODO: rounded corners at the photo
 //TODO: stretched photo
 //TODO: toolbar items
-// todo: better EditTexts

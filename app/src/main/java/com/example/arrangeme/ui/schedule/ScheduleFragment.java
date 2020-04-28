@@ -85,7 +85,14 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         longPressKeys[0]=-1;longPressKeys[1]=-1;
         longPressPositions[0]=-1;longPressPositions[1]=-1;
 
-        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white,R.drawable.friends_white, R.drawable.nutrition_white, R.drawable.family_white_frame, R.drawable.chores_white, R.drawable.relax_white, 0};
+        Integer[] catIcon = {R.drawable.study_white,
+                R.drawable.sport_white,
+                R.drawable.work_white,
+                 R.drawable.nutrition_white,
+                R.drawable.family_white_frame,
+                R.drawable.chores_white,
+                R.drawable.relax_white,
+                R.drawable.friends_white, 0};
 
         Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
                 R.drawable.category_btn_work,R.drawable.category_btn_friends, R.drawable.category_btn_nutrition,
@@ -123,53 +130,41 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                 }
                 else if (model.getType().equals("TASK"))
                     holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                holder.button.setBackgroundResource
+                        (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                holder.button.setCompoundDrawablesWithIntrinsicBounds
+                        (0,0,catIcon[TaskCategory.fromStringToInt(model.getCategory())],0);
 
-                switch (model.getCategory()){
-                    case "STUDY":
-                        holder.button.setBackgroundResource(catBackgroundFull[0]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[0],0);
-                        break;
-                    case "SPORT":
-                        holder.button.setBackgroundResource(catBackgroundFull[1]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[1],0);
-                        break;
-                    case "WORK":
-                        holder.button.setBackgroundResource(catBackgroundFull[2]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
-                        break;
-                    case "NUTRITION":
-                        holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
-                        break;
-                    case "FAMILY":
-                        holder.button.setBackgroundResource(catBackgroundFull[4]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
-                        break;
-                    case "CHORES":
-                        holder.button.setBackgroundResource(catBackgroundFull[5]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
-                        break;
-                    case "RELAX":
-                        holder.button.setBackgroundResource(catBackgroundFull[6]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
-                        break;
-                    case "FRIENDS":
-                        holder.button.setBackgroundResource(catBackgroundFull[7]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
-                        break;
-                    case "OTHER":
-                        holder.button.setBackgroundResource(catBackgroundFull[8]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
-                        break;
-                }
-                //TODO: CHANGE THIS SWITCH TO ONE FUNCTION
-                //TODO: CANCEL MARK IN SHORT CLICK
+                holder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String key = fbAdapter.getRef(position).getKey();
+                                int x = Integer.parseInt(key);
+                                if (longPressCount[0] == 1) {//1 long presses until now
+                                    if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
+                                        longPressKeys[0] = -1;
+                                        String cat = (String) dataSnapshot.child(key).child("category").getValue();
+                                        holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
+                                        longPressPositions[0] = -1;
+                                        longPressCount[0]--;
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
                 holder.button.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        Log.d("TAG", "onLongClick: COUNT=" + longPressCount[0] + " KEYS=" +
-                                longPressKeys[0]+ " " + longPressKeys[1] + " POSITIONS=" +
-                                longPressPositions[0]+ " " + longPressPositions[1]);
                         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -260,7 +255,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
                             }
                         });
-                        return false;
+                        return true;
                     }
                 });
             }
@@ -299,3 +294,4 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
 
 //TODO: while schedule is loading put something that spins with "loading schedule...."
+//TODO: category text in the button will be bold, description will not be bold
