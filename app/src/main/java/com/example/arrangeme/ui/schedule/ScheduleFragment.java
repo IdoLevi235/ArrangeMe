@@ -2,6 +2,7 @@ package com.example.arrangeme.ui.schedule;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -194,6 +195,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                                             longPressPositions[0]=-1;
                                             longPressCount[0]--;
                                         } else {
+                                            Handler handler = new Handler();
+
                                             longPressCount[0]++;//count=2;
                                             if (longPressKeys[0] == -1)
                                                 longPressKeys[0] = Integer.parseInt(key);//get first key
@@ -206,44 +209,50 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                                             holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
                                             //SWAPPING HERE
 
-                                            Log.d("TAG", "onLongClick: positions = " + longPressPositions[0] + " " + longPressPositions[1]);
-                                            String firstKey = String.valueOf(longPressKeys[0]);
-                                            String secondKey = String.valueOf(longPressKeys[1]);
-                                            String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
-                                            String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
-                                            String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
-                                            String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
-                                            String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
-                                            String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    // Actions to do after 5 seconds
+                                                    Log.d("TAG", "onLongClick: positions = " + longPressPositions[0] + " " + longPressPositions[1]);
+                                                    String firstKey = String.valueOf(longPressKeys[0]);
+                                                    String secondKey = String.valueOf(longPressKeys[1]);
+                                                    String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
+                                                    String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
+                                                    String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
+                                                    String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
+                                                    String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
+                                                    String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
 
-                                            dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
-                                            dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
-                                            dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
+                                                    dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
+                                                    dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
+                                                    dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
 
-                                            dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
-                                            dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
-                                            dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
+                                                    dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
+                                                    dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
+                                                    dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
 
-                                            fbAdapter.notifyItemChanged(longPressPositions[0], longPressPositions[1]);
-                                            Snackbar.make(recyclerSchedule,"You swapped between " + firstTaskDescription
-                                                    +" and " + secondTaskDescription ,Snackbar.LENGTH_LONG)
-                                                    .setAction("Undo", new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            dataSnapshot.child(firstKey).child("category").getRef().setValue(firstTaskCategory);
-                                                            dataSnapshot.child(firstKey).child("description").getRef().setValue(firstTaskDescription);
-                                                            dataSnapshot.child(firstKey).child("location").getRef().setValue(firstTaskLocation);
+                                                    fbAdapter.notifyItemChanged(longPressPositions[0], longPressPositions[1]);
+                                                    Snackbar.make(recyclerSchedule,"You swapped between " + firstTaskDescription
+                                                            +" and " + secondTaskDescription ,Snackbar.LENGTH_LONG)
+                                                            .setAction("Undo", new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    dataSnapshot.child(firstKey).child("category").getRef().setValue(firstTaskCategory);
+                                                                    dataSnapshot.child(firstKey).child("description").getRef().setValue(firstTaskDescription);
+                                                                    dataSnapshot.child(firstKey).child("location").getRef().setValue(firstTaskLocation);
 
-                                                            dataSnapshot.child(secondKey).child("category").getRef().setValue(secondTaskCategory);
-                                                            dataSnapshot.child(secondKey).child("description").getRef().setValue(secondTaskDescription);
-                                                            dataSnapshot.child(secondKey).child("location").getRef().setValue(secondTaskLocation);
-                                                        }
-                                                    }).show();
-                                            //TODO: add msg in the snackbar after the undo
-                                            longPressCount[0]=0;
-                                            longPressKeys[0]=-1;longPressKeys[1]=-1;
-                                            longPressPositions[0]=-1;longPressPositions[1]=-1;
+                                                                    dataSnapshot.child(secondKey).child("category").getRef().setValue(secondTaskCategory);
+                                                                    dataSnapshot.child(secondKey).child("description").getRef().setValue(secondTaskDescription);
+                                                                    dataSnapshot.child(secondKey).child("location").getRef().setValue(secondTaskLocation);
+                                                                }
+                                                            }).show();
+                                                    longPressCount[0]=0;
+                                                    longPressKeys[0]=-1;longPressKeys[1]=-1;
+                                                    longPressPositions[0]=-1;longPressPositions[1]=-1;
 
+
+
+                                                }
+                                            }, 850);
 
                                         }
                                     }
