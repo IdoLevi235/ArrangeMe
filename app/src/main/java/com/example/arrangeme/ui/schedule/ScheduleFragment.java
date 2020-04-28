@@ -1,8 +1,12 @@
 package com.example.arrangeme.ui.schedule;
 
 import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -122,7 +126,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                 holder.timeText.setText(" "+model.getTime());
-                holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+               holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+                SpannableStringBuilder str = new SpannableStringBuilder
+                        ("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+                str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length()+1, 0);
+                holder.button.setText(str);
+
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
