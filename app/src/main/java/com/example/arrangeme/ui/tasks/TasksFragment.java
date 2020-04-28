@@ -166,6 +166,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
 //todo:task page with edit/view
 
                     startActivity(new Intent(getActivity(),TaskPagePopup.class));
+                    getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                 });
 
             }
@@ -192,7 +193,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 int position=viewHolder.getAdapterPosition();
                 switch(direction){
                     case ItemTouchHelper.LEFT:
-                        //todo: UNDO stuff here
                         deletedKey = fbAdapter.getRef(position).getKey();
                         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -251,6 +251,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.add:
                 startActivity(new Intent(getActivity(), AddTasks.class));
+
         }
     }
 }
