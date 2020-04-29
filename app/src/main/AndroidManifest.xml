@@ -18,6 +18,9 @@
         <activity android:name=".ui.tasks.TaskPagePopup"
             android:theme="@style/AppTheme.CustomTheme"/>
 
+        <activity android:name=".ui.myprofile.AvatarsPopup"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
 
         <activity
             android:name=".AddTasks.AddTasks"

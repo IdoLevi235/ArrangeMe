@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/colorWhite"/>
+            <stroke android:width="3px" android:color="#8F8F8F" />        </shape>
+    </item>
+    <item> <inset android:drawable="@drawable/profilepicturemale"
 
-    <solid
-        android:color="#FFF4F4F4"/>
-
-    <size
-        android:width="120dp"
-        android:height="120dp"/>
-
-    <stroke
-        android:width="8px"
-        android:color="@color/gray" />
-</shape>
+        android:gravity= "center"/> </item>
+</layer-list>

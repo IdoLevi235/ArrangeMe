@@ -24,6 +24,12 @@
         android:layout_height="229dp"
         android:background="@drawable/circle_choose_tasks"
         android:elevation="2dp"
+        android:fontFamily="sans-serif"
+        android:gravity="bottom|center"
+        android:paddingBottom="20dp"
+        android:text="Add A profile Picture"
+        android:textColor="#494848"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.593"
@@ -33,16 +39,17 @@
 
     <Button
         android:id="@+id/AvatarCircle"
-        android:layout_width="126dp"
-        android:layout_height="127dp"
-        android:background="@drawable/circle_choose_tasks"
+        android:layout_width="98dp"
+        android:layout_height="93dp"
+        android:background="@drawable/avatar_empty"
         android:elevation="2dp"
+        android:scaleY="-1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.275" />
 
     <TextView
         android:id="@+id/textView8"
@@ -81,11 +88,6 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="293dp">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Notifications" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
