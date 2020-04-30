@@ -150,4 +150,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
+    //TODO: change the days to english
 }

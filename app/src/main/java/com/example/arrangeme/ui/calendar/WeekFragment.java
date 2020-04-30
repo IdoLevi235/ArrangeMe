@@ -1,6 +1,7 @@
 package com.example.arrangeme.ui.calendar;
 
 import android.app.Activity;
+import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,21 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.alamkanak.weekview.DateTimeInterpreter;
+import com.alamkanak.weekview.OnEmptyViewClickListener;
+import com.alamkanak.weekview.OnEventClickListener;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewDisplayable;
+import com.alamkanak.weekview.WeekViewEvent.Style.Builder;
+
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.R;
 
-public class WeekFragment extends Fragment implements View.OnClickListener, WeekViewDisplayable {
+import java.util.Calendar;
+import java.util.List;
+
+public class WeekFragment extends Fragment implements View.OnClickListener, WeekViewDisplayable<TaskEntity> {
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -57,6 +67,39 @@ public class WeekFragment extends Fragment implements View.OnClickListener, Week
         eventsRecyclerView.setOnClickListener(this);
         switchCat.setOnClickListener(this);
         weekCalendar.setOnClickListener(this);
+        weekCalendar.setEmptyViewClickListener(new OnEmptyViewClickListener() {
+            @Override
+            public void onEmptyViewClicked(Calendar calendar) {
+                //TODO: insert a popup "do you want to create an Event? choose:" Anchor , task
+            }
+        });
+
+        weekCalendar.setOnEventClickListener(new OnEventClickListener() {
+            @Override
+            public void onEventClick(Object o, RectF rectF) {
+
+            }
+        });
+
+        weekCalendar.setDateTimeInterpreter(new DateTimeInterpreter() {
+            @Override
+            public void onSetNumberOfDays(int i) {
+            i=7;
+            }
+
+            @Override
+            public String interpretDate(Calendar calendar) {
+
+                return null;
+            }
+
+            @Override
+            public String interpretTime(int i) {
+                return null;
+            }
+        });
+
+
     }
 
     @Override
@@ -83,6 +126,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, Week
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
 
     @Override
     public WeekViewEvent toWeekViewEvent() {

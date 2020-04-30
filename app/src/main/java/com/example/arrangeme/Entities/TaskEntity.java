@@ -4,8 +4,12 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TaskEntity {
     TaskCategory category;
@@ -75,5 +79,10 @@ public class TaskEntity {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
+
+
+
+
 }
 
