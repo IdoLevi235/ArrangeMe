@@ -62,10 +62,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -111,7 +114,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         //photo=findViewById(R.id.photo);
         //photo.setVisibility(View.INVISIBLE);
         taskEntityToAdd =new TaskEntity();
-
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         Integer[] catIcon = {R.drawable.study, R.drawable.study,  R.drawable.work, R.drawable.study,
@@ -309,10 +312,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         taskEntityToAdd.setReminderType(chosenReminder);
                         taskEntityToAdd.setPhoto(selectedImage);
                         taskEntityToAdd.setLocation(location);
+                        taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
-
-
-
                     }
 
                     @Override
