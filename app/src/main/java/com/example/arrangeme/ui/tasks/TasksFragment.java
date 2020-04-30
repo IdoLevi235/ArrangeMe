@@ -40,6 +40,7 @@ import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.AddTasks.MainAdapter;
 import com.example.arrangeme.AddTasks.MainModel;
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
@@ -58,6 +59,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 
@@ -256,7 +258,23 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add:
-                startActivity(new Intent(getActivity(), AddTasks.class));
+                SweetAlertDialog ad;
+                ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE)
+                        .setContentText(("Do you want to add a task or an anchor?"));
+                ad.setConfirmText("Task");
+                ad.setCancelText("Anchor");
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        startActivity(new Intent(getActivity(), AddTasks.class));
+                    }
+                });
+                ad.show();
+                //Button btn1 = (Button) ad.findViewById(R.id.confirm_button);
+               // btn1.setBackgroundResource(R.drawable.rounded_rec);
+
+
+
 
         }
     }

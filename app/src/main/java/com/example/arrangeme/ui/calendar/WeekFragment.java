@@ -71,14 +71,15 @@ public class WeekFragment extends Fragment implements View.OnClickListener, Week
             @Override
             public void onEmptyViewClicked(Calendar calendar) {
                 //TODO: insert a popup "do you want to create an Event? choose:" Anchor , task
+
             }
         });
 
-        weekCalendar.setOnEventClickListener(new OnEventClickListener() {
-            @Override
+       weekCalendar.setOnEventClickListener(new OnEventClickListener() {
+           @Override
             public void onEventClick(Object o, RectF rectF) {
 
-            }
+           }
         });
 
         weekCalendar.setDateTimeInterpreter(new DateTimeInterpreter() {
