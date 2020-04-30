@@ -49,7 +49,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         //Default Schedule is Week View
         WeekFragment weekfragment = new WeekFragment();
         openCalendarFragment(weekfragment);
-        Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
+
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
 
@@ -73,7 +73,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         DayBtn.setOnClickListener(this);
         WeekBtn.setOnClickListener(this);
         MonthBtn.setOnClickListener(this);
-
+        Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
     }
 
     @SuppressLint("WrongConstant")
