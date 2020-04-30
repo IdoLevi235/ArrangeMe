@@ -90,7 +90,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         final int[] longPressCount = new int[1];
         final int[] longPressKeys = new int[2];
         final int[] longPressPositions = new int[2];
-
         longPressKeys[0]=-1;longPressKeys[1]=-1;
         longPressPositions[0]=-1;longPressPositions[1]=-1;
 
@@ -122,10 +121,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
-
-
-
-
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
@@ -158,15 +153,16 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String key = fbAdapter.getRef(position).getKey();
                                 int x = Integer.parseInt(key);
-                                if (longPressCount[0] == 1) {//1 long presses until now
-                                    if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
-                                        longPressKeys[0] = -1;
-                                        String cat = (String) dataSnapshot.child(key).child("category").getValue();
-                                        holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
-                                        longPressPositions[0] = -1;
-                                        longPressCount[0]--;
+                                if (dataSnapshot.child(key).child("type").getValue().equals("TASK")) {
+                                    if (longPressCount[0] == 1) {//1 long presses until now
+                                        if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
+                                            longPressKeys[0] = -1;
+                                            String cat = (String) dataSnapshot.child(key).child("category").getValue();
+                                            holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
+                                            longPressPositions[0] = -1;
+                                            longPressCount[0]--;
+                                        }
                                     }
-
                                 }
                             }
 
