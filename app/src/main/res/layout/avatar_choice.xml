@@ -37,77 +37,78 @@
         app:layout_constraintTop_toBottomOf="@+id/avatar"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle1"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/avatar_defaultfemale"
+        android:elevation="2dp"
+        android:src="@drawable/avatar12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/AvatarCircle2"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/avatar_defaultmale"
         android:elevation="2dp"
-        android:scaleY="-1"
+        android:src="@drawable/firstravatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AvatarCircle1"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/AvatarCircle1"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/avatar_defaultfemale"
-        android:elevation="2dp"
-        android:scaleY="-1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/AvatarCircle3"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/avatar_female2"
-        android:elevation="2dp"
-        android:scaleY="-1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/AvatarCircle4"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/avatar_male1"
         android:elevation="2dp"
-        android:scaleY="-1"
+        android:src="@drawable/avatar4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AvatarCircle3"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle3"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/avatar_female2"
+        android:elevation="2dp"
+        android:src="@drawable/avatar2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/AvatarCircle5"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/avatar_male2"
         android:elevation="2dp"
-        android:scaleY="-1"
+        android:src="@drawable/avatar5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -115,14 +116,14 @@
         app:layout_constraintTop_toBottomOf="@+id/AvatarCircle6"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/AvatarCircle6"
-        android:layout_width="112dp"
-        android:layout_height="107dp"
+    <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/AvatarCircle6"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/avatar_female1"
         android:elevation="2dp"
-        android:scaleY="-1"
+        android:src="@drawable/avatar9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -131,10 +132,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/ok"
+        android:id="@+id/apply_avatar"
         android:layout_width="182dp"
         android:layout_height="40dp"
-        android:layout_marginTop="296dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/btn_rounded"
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
@@ -143,9 +144,9 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle5"
         app:layout_constraintVertical_bias="0.0" />
 
 

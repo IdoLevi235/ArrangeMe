@@ -6,10 +6,10 @@
             <size android:width="100dp" android:height="100dp"/>
             <stroke android:width="3px" android:color="#FFC107" />        </shape>
     </item>
-    <item> <inset android:drawable="@drawable/firstravatar"
+   <!-- <item> <inset android:drawable="@drawable/firstravatar"
         android:insetRight="90dp"
         android:insetTop="90dp"
         android:insetLeft="90dp"
         android:insetBottom="90dp"
-        android:gravity= "center"/> </item>
+        android:gravity= "center"/> </item> -->
 </layer-list>

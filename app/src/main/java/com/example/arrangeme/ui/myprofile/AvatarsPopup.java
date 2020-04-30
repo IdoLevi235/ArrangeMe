@@ -5,15 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 
-public class AvatarsPopup extends Activity {
+public class AvatarsPopup extends Activity implements View.OnClickListener {
 
     Button AvatarCircle1;
     Button AvatarCircle6;
@@ -21,6 +24,7 @@ public class AvatarsPopup extends Activity {
     Button AvatarCircle2;
     Button AvatarCircle5;
     Button AvatarCircle4;
+    Button apply_avatar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class AvatarsPopup extends Activity {
         params.x = 0;
         params.y = -20;
         getWindow().setAttributes(params);
+        apply_avatar = (Button)findViewById(R.id.apply_avatar);
+        apply_avatar.setOnClickListener(this);
         this.setFinishOnTouchOutside(false);
         //TODO: FADE FROM THE CENTER
 
@@ -52,4 +58,16 @@ public class AvatarsPopup extends Activity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.apply_avatar:
+                chooseAvatar();
+                onBackPressed();
+        }
+    }
+
+    private void chooseAvatar() {
+        return;
+    }
 }

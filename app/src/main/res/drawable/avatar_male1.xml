@@ -5,10 +5,4 @@
             <solid android:color="@color/nutrition"/>
             <size android:width="100dp" android:height="100dp"/></shape>
     </item>
-    <item> <inset android:drawable="@drawable/avatar4"
-        android:insetRight="100dp"
-        android:insetTop="100dp"
-        android:insetLeft="100dp"
-        android:insetBottom="100dp"
-        android:gravity= "center"/> </item>
 </layer-list>
