@@ -67,41 +67,12 @@ public class WeekFragment extends Fragment implements View.OnClickListener, Week
         eventsRecyclerView.setOnClickListener(this);
         switchCat.setOnClickListener(this);
         weekCalendar.setOnClickListener(this);
-        weekCalendar.setEmptyViewClickListener(new OnEmptyViewClickListener() {
-            @Override
-            public void onEmptyViewClicked(Calendar calendar) {
-                //TODO: insert a popup "do you want to create an Event? choose:" Anchor , task
+        //weekCalendar.setEmptyViewClickListener(new OnEmptyViewClickListener() {
+       //     @Override
+       //     public void onEmptyViewClicked(Calendar calendar) {
+       //         //TODO: insert a popup "do you want to create an Event? choose:" Anchor , task
             }
-        });
-
-        weekCalendar.setOnEventClickListener(new OnEventClickListener() {
-            @Override
-            public void onEventClick(Object o, RectF rectF) {
-
-            }
-        });
-
-        weekCalendar.setDateTimeInterpreter(new DateTimeInterpreter() {
-            @Override
-            public void onSetNumberOfDays(int i) {
-            i=7;
-            }
-
-            @Override
-            public String interpretDate(Calendar calendar) {
-
-                return null;
-            }
-
-            @Override
-            public String interpretTime(int i) {
-                return null;
-            }
-        });
-
-
-    }
-
+       // });
     @Override
     public void onClick(View v) {
 
@@ -122,6 +93,10 @@ public class WeekFragment extends Fragment implements View.OnClickListener, Week
                 }
             }
             break;
+            case (R.id.weekView):
+                
+
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
