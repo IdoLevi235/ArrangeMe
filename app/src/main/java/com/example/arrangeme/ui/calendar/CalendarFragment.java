@@ -59,7 +59,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         });
 
         setHasOptionsMenu(true);
-
         return root;
     }
 
