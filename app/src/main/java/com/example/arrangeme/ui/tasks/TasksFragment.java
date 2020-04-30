@@ -269,6 +269,13 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                         startActivity(new Intent(getActivity(), AddTasks.class));
                     }
                 });
+                ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        Toast.makeText(getContext(),"Achor pressed", Toast.LENGTH_LONG).show();
+                    }
+
+                });
                 ad.show();
                 //Button btn1 = (Button) ad.findViewById(R.id.confirm_button);
                // btn1.setBackgroundResource(R.drawable.rounded_rec);
