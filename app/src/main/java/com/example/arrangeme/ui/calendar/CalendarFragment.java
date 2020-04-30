@@ -1,8 +1,5 @@
 package com.example.arrangeme.ui.calendar;
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,35 +9,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import com.alamkanak.weekview.WeekView;
-import com.example.arrangeme.AddTasks.AddTasks;
-import com.example.arrangeme.ChooseTasks;
-import com.example.arrangeme.ForgotPass;
+
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Random;
+import com.example.arrangeme.ui.calendar.month.MonthFragment;
 
 public class CalendarFragment extends Fragment implements View.OnClickListener{
 
