@@ -30,7 +30,7 @@ public class AvatarsPopup extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width*0.90), (int) (height *0.65));
+        getWindow().setLayout((int) (width*0.90 ), (int) (height *0.65));
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
