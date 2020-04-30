@@ -19,9 +19,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewDisplayable;
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.R;
 
-public class WeekFragment extends Fragment implements View.OnClickListener{
+public class WeekFragment extends Fragment implements View.OnClickListener, WeekViewDisplayable {
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -34,8 +36,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_week, container, false);
-        weekCalendar = view.findViewById(R.id.weekView);
+        weekCalendar = (WeekView) view.findViewById(R.id.weekView);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
+        // Set an action when any event is clicked.
         // Inflate the layout for this fragment
 
         setHasOptionsMenu(true);
@@ -81,4 +84,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    @Override
+    public WeekViewEvent toWeekViewEvent() {
+
+        return null;
+    }
 }

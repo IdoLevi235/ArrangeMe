@@ -65,7 +65,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         //Default Schedule is Week View
         WeekFragment weekfragment = new WeekFragment();
         openCalendarFragment(weekfragment);
-
+        Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
         calendarViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
 
@@ -98,19 +98,16 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.DayBtn):
-                Log.d("TAG", "onClick: DayBtn");
                 Globals.setFocus2(WeekBtn,MonthBtn ,DayBtn);
                 DayFragment dayfragment = new DayFragment();
                 openCalendarFragment(dayfragment);
                 break;
             case (R.id.WeekBtn):
-                Log.d("TAG2", "onClick: WeekBtn");
                 Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
                 WeekFragment weekfragment = new WeekFragment();
                 openCalendarFragment(weekfragment);
                 break;
             case (R.id.MonthBtn):
-                Log.d("TAG3", "onClick: MonthBtn");
                 Globals.setFocus2(WeekBtn,DayBtn ,MonthBtn);
                 MonthFragment monthFragment = new MonthFragment();
                 openCalendarFragment(monthFragment);
@@ -169,5 +166,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     }
 
 
+    //TODO: Google Synchronization with the calendar
 }
 
