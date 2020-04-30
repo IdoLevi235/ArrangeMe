@@ -68,6 +68,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         super.onViewCreated(view, savedInstanceState);
         switchCat = view.findViewById(R.id.switchCat);
         relativeLayout = view.findViewById(R.id.relativeLayout);
+        relativeLayout.setVisibility(View.GONE);
         eventsName = view.findViewById(R.id.eventsName);
         switchCat.setOnClickListener(this);
         monthCalendar.setOnClickListener(this);

@@ -21,6 +21,7 @@
         android:id="@+id/switchCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="99dp"
         android:fontFamily="@font/montserrat"
         android:text="Show Events   "
         app:layout_constraintBottom_toBottomOf="parent"
