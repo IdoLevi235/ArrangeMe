@@ -123,7 +123,7 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Schedule For Today"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/work"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

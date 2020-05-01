@@ -32,10 +32,12 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev20200315-1.30.9'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
     def nav_version = "2.3.0-alpha04"
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation 'com.github.thellmund.Android-Week-View:core:4.0.1'
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.lifecycle:viewmodel:1.1.0"

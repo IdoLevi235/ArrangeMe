@@ -2,7 +2,6 @@ package com.example.arrangeme.ui.calendar;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.calendar.month.MonthFragment;
+import com.example.arrangeme.ui.calendar.week.WeekFragment;
 
 public class CalendarFragment extends Fragment implements View.OnClickListener{
 
