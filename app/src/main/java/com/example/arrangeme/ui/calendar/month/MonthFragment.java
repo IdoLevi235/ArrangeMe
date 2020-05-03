@@ -91,10 +91,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         noItemsText.setText("No tasks/anchors to show");
         noItemsText.setVisibility(View.VISIBLE);
         monthCalendar=view.findViewById(R.id.monthCalendar);
-        spinner = view.findViewById(R.id.progressBar55);
-        spinner.setVisibility(View.GONE);
-        relativeLayout = view.findViewById(R.id.relativeLayout);
-        relativeLayout.setVisibility(View.VISIBLE);
+        //spinner = view.findViewById(R.id.progressBar55);
+        //spinner.setVisibility(View.GONE);
+        //relativeLayout = view.findViewById(R.id.relativeLayout);
+        //relativeLayout.setVisibility(View.VISIBLE);
         eventsName = view.findViewById(R.id.eventsName);
         mRecycler = view.findViewById(R.id.eventsRecyclerView);
         mRecycler.setHasFixedSize(true);
@@ -116,14 +116,28 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                         R.drawable.rounded_rec_other_nostroke};
 
+        StringBuilder dateString = new StringBuilder();
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 //spinner.setVisibility(View.VISIBLE);
                 noItemsText.setVisibility(View.VISIBLE);
-                String dateString=date.toString();
-                
+                dateString.setLength(0);
+                int dayOfMonth = date.getDay();
+                int month = date.getMonth();
+                int year = date.getYear();
+                if(dayOfMonth<10) {
+                    dateString.append(0);
+                }
+                dateString.append(dayOfMonth);
+                dateString.append("-");
+                if(month+1<10) {
+                    dateString.append(0);
+                }
+                dateString.append(month+1);
+                dateString.append("-");
+                dateString.append(year);
                 /* Recycler Stuff */
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
                 Query query = mDatabase.orderByChild("createDate").equalTo(dateString.toString());
@@ -140,7 +154,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length() + 1, 0);
                         holder.button.setText(str);
-                        holder.button.setLayoutParams(new LinearLayout.LayoutParams(820, ViewGroup.LayoutParams.MATCH_PARENT));
+                        holder.button.setLayoutParams(new LinearLayout.LayoutParams(520, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                         if (model.getType().equals("ANCHOR")) {
@@ -169,7 +183,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 mRecycler.setAdapter(fbAdapter);
                 /* Recycler Stuff End*/
 
-                spinner.setVisibility(View.GONE);
 
 
             };
