@@ -154,7 +154,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length() + 1, 0);
                         holder.button.setText(str);
-                        holder.button.setLayoutParams(new LinearLayout.LayoutParams(520, ViewGroup.LayoutParams.MATCH_PARENT));
+                        holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                         if (model.getType().equals("ANCHOR")) {
