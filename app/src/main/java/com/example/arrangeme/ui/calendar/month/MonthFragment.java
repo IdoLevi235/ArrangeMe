@@ -153,4 +153,5 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     }
 
     //TODO: change the days to english
+    //todo: add task/anchor when pressing the +
 }
