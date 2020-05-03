@@ -21,4 +21,6 @@ class MyViewHolder extends RecyclerView.ViewHolder {
          timeText = itemView.findViewById(R.id.timeTextMonth);
          anchorOrTask = itemView.findViewById(R.id.anchor_task_month);
     }
+
+
 }
