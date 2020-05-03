@@ -5,13 +5,17 @@ public class MainModelMonth {
     private String description;
     private String time;
     private String type;
+    private String createDate;
 
 
-    public MainModelMonth(String category, String description, String time, String type) {
+
+
+    public MainModelMonth(String category, String description, String time, String type, String creteDate) {
         this.category = category;
         this.description = description;
         this.time = time;
         this.type = type;
+        this.createDate=creteDate;
     }
 
     public MainModelMonth() {
@@ -48,4 +52,15 @@ public class MainModelMonth {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+
 }
+
