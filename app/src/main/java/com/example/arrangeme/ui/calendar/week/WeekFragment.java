@@ -43,7 +43,7 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class WeekFragment extends Fragment implements WeekView.OnTouchListener, WeekView.OnClickListener, OnMonthChangeListener<WeekViewEvent>  {
+public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekView.OnClickListener  {
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -77,10 +77,10 @@ public class WeekFragment extends Fragment implements WeekView.OnTouchListener, 
         switchCat.setOnClickListener(this);
         weekCalendar.setOnClickListener(this);
         weekCalendar.setEmptyViewClickListener(new OnEmptyViewClickListener() {
-         @Override
-         public void onEmptyViewClicked(Calendar calendar) {
-           popupTaskorAnchor();
-         }
+            @Override
+            public void onEmptyViewClicked(Calendar calendar) {
+                popupTaskorAnchor();
+            }
         });
         setupDateTimeInterpreter(false);
     }
@@ -93,24 +93,24 @@ public class WeekFragment extends Fragment implements WeekView.OnTouchListener, 
             }
 
             @Override
-                public String interpretDate(Calendar date) {
-                    SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
-                    String weekday = weekdayNameFormat.format(date.getTime());
-                    SimpleDateFormat format = new SimpleDateFormat(" M/d", Locale.getDefault());
+            public String interpretDate(Calendar date) {
+                SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+                String weekday = weekdayNameFormat.format(date.getTime());
+                SimpleDateFormat format = new SimpleDateFormat(" M/d", Locale.getDefault());
 
-                    // All android api level do not have a standard way of getting the first letter of
-                    // the week day name. Hence we get the first char programmatically.
-                    // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
-                    if (shortDate)
-                        weekday = String.valueOf(weekday.charAt(0));
-                    return weekday.toUpperCase() + format.format(date.getTime());
-                }
+                // All android api level do not have a standard way of getting the first letter of
+                // the week day name. Hence we get the first char programmatically.
+                // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
+                if (shortDate)
+                    weekday = String.valueOf(weekday.charAt(0));
+                return weekday.toUpperCase() + format.format(date.getTime());
+            }
 
-                @Override
-                public String interpretTime(int hour) {
-                    return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
-                }
-            });
+            @Override
+            public String interpretTime(int hour) {
+                return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
+            }
+        });
 
 
     }
@@ -167,16 +167,10 @@ public class WeekFragment extends Fragment implements WeekView.OnTouchListener, 
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public WeekViewEvent toWeekViewEvent() {
 
-        return false;
+        return null;
     }
-
-    @Override
-    public List<WeekViewDisplayable<WeekViewEvent>> onMonthChange(Calendar newYear, Calendar newMonth) {
-        final List events = new ArrayList();
-        return events;
-    }
-    }
+}
 
 

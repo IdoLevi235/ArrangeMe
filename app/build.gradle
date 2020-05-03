@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 android {
     compileSdkVersion 29
@@ -80,4 +82,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions:19.0.2'
     implementation 'com.firebaseui:firebase-ui-database:6.2.1'
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.2'
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
