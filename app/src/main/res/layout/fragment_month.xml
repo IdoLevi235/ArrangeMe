@@ -11,17 +11,18 @@
         android:id="@+id/noItemsText"
         android:layout_width="110dp"
         android:layout_height="29dp"
-        android:layout_marginBottom="187dp"
+        android:layout_marginBottom="136dp"
         android:gravity="center|start"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/eventsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
-        android:layout_width="287dp"
-        android:layout_height="179dp"
+        android:layout_width="331dp"
+        android:layout_height="181dp"
         android:elevation="1.5dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
