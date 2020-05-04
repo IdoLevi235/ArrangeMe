@@ -103,7 +103,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         final HashSet<String> datesWithAnchors = new HashSet<>();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
-
         Query query_anchors = mDatabase.orderByChild("type").equalTo("ANCHOR");
         query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
