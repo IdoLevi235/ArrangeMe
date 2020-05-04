@@ -2,6 +2,8 @@ package com.example.arrangeme.Entities;
 
 import android.net.Uri;
 
+import com.alamkanak.weekview.WeekViewEvent;
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 
@@ -18,7 +20,8 @@ public class AnchorEntity {
     Calendar endDate;
 
 
-    public AnchorEntity(String category, String description, Uri photo, ReminderType reminderType, String location, String createDate, Calendar startDate, Calendar endDate) {
+
+    public AnchorEntity(String category, String description, Uri photo, ReminderType reminderType,String location, String createDate, Calendar startDate, Calendar endDate) {
         this.category = category;
         this.description = description;
         this.photo = photo;
@@ -61,13 +64,6 @@ public class AnchorEntity {
         this.reminderType = reminderType;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getCreateDate() {
         return createDate;
