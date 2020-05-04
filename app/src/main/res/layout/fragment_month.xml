@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/noItemsText"
-        android:layout_width="110dp"
-        android:layout_height="29dp"
+        android:layout_width="152dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="136dp"
         android:gravity="center|start"
         android:textSize="11sp"
@@ -27,6 +27,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthCalendar"
         app:layout_constraintVertical_bias="0.866">
@@ -43,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:mcv_selectionColor="#00F"
+        app:mcv_selectionColor="@color/arrangeMeMain"
         app:mcv_showOtherDates="all" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -59,7 +60,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/monthCalendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="@+id/monthCalendar"
         app:layout_constraintTop_toTopOf="@+id/monthCalendar"
         app:layout_constraintVertical_bias="0.377"

@@ -117,8 +117,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
-        Integer[] catIcon = {R.drawable.study, R.drawable.study,  R.drawable.work, R.drawable.study,
-                R.drawable.familycat, R.drawable.chores, R.drawable.study, R.drawable.friends_cat, 0};
+        Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
+                R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
         String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
         Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
                 R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
