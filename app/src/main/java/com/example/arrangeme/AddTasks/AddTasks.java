@@ -63,6 +63,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -296,9 +297,13 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
 
               else {
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-                mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child("Year").child("Month").child("Day");
-                Query lastQuery = mDatabase.orderByKey().limitToLast(1);
+                LocalDateTime now = LocalDateTime.now();
+                String year = Integer.toString(now.getYear());
+                String month = Integer.toString(now.getMonthValue());
+                String day = Integer.toString(now.getDayOfMonth());
 
+                mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child(year).child(month).child(day);
+                Query lastQuery = mDatabase.orderByKey().limitToLast(1);
                 lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -316,7 +321,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         taskEntityToAdd.setLocation(location);
                         taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
-                        mDatabase2.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
+                        mDatabase2.push().setValue(taskEntityToAdd);
                     }
 
                     @Override
