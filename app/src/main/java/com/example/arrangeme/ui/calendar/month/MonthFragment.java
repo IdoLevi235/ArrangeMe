@@ -1,12 +1,14 @@
 package com.example.arrangeme.ui.calendar.month;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,14 +46,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import org.w3c.dom.Text;
 
 import java.security.AlgorithmParameters;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidParameterSpecException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -84,13 +93,90 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final long[] numOfItems = new long[1];
         addTasks=view.findViewById(R.id.addTasksFloater);
         addTasks.setOnClickListener(this);
         noItemsText=view.findViewById(R.id.noItemsText);
         noItemsText.setText("No tasks/anchors to show");
         noItemsText.setVisibility(View.VISIBLE);
         monthCalendar=view.findViewById(R.id.monthCalendar);
+        final HashSet<String> datesWithTasks = new HashSet<>();
+        final HashSet<String> datesWithAnchors = new HashSet<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
+
+        Query query_anchors = mDatabase.orderByChild("type").equalTo("ANCHOR");
+        query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    datesWithAnchors.add((String) ds.child("createDate").getValue());
+                }
+                /* decorator start */
+                monthCalendar.addDecorator(new DayViewDecorator() {
+                    @Override
+                    public boolean shouldDecorate(CalendarDay day) {
+                        Log.d("TAG", "shouldDecorate: anchors = " + datesWithAnchors);
+                        StringBuilder dateSB = getSBfromCalendarDay(day);
+                        String date = dateSB.toString();
+                        if (datesWithAnchors.contains(date))
+                            return true;
+                        else
+                            return false;
+                    }
+
+                    @Override
+                    public void decorate(DayViewFacade view) {
+                        view.addSpan(new DotSpan(5, Color.RED));
+                    }
+
+                });
+                /* decorator end */
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        query_tasks.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    datesWithTasks.add((String) ds.child("createDate").getValue());
+                }
+                /* decorator start */
+                monthCalendar.addDecorator(new DayViewDecorator() {
+                    @Override
+                    public boolean shouldDecorate(CalendarDay day) {
+                        Log.d("TAG", "shouldDecorate: tasks = " + datesWithTasks);
+                        StringBuilder dateSB = getSBfromCalendarDay(day);
+                        String date = dateSB.toString();
+                        if (datesWithTasks.contains(date))
+                            return true;
+                        else
+                            return false;
+                    }
+
+                    @Override
+                    public void decorate(DayViewFacade view) {
+                        view.addSpan(new DotSpan(5, Color.GREEN));
+                    }
+
+                });
+                /* decorator end */
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         //spinner = view.findViewById(R.id.progressBar55);
         //spinner.setVisibility(View.GONE);
         //relativeLayout = view.findViewById(R.id.relativeLayout);
@@ -115,13 +201,13 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
                         R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                         R.drawable.rounded_rec_other_nostroke};
-
         StringBuilder dateString = new StringBuilder();
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 //spinner.setVisibility(View.VISIBLE);
+                monthCalendar.setSelectionColor(ContextCompat.getColor(getContext(), R.color.arrangeMeMain));
                 noItemsText.setVisibility(View.VISIBLE);
                 dateString.setLength(0);
                 int dayOfMonth = date.getDay();
@@ -219,9 +305,26 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
-
+    public StringBuilder getSBfromCalendarDay (CalendarDay date) {
+        StringBuilder dateString = new StringBuilder();
+        dateString.setLength(0);
+        int dayOfMonth = date.getDay();
+        int month = date.getMonth();
+        int year = date.getYear();
+        if (dayOfMonth < 10) {
+            dateString.append(0);
+        }
+        dateString.append(dayOfMonth);
+        dateString.append("-");
+        if (month + 1 < 10) {
+            dateString.append(0);
+        }
+        dateString.append(month + 1);
+        dateString.append("-");
+        dateString.append(year);
+        return dateString;
+    }
     //TODO: change the days to english
-    //todo: add task/anchor when pressing the +
     //todo: spinner?!?!?12/#?!@$?#@!QR$?@#W
     //todo: background to the focused day if there is task/anchor/none/both
 }
