@@ -27,12 +27,14 @@ import com.alamkanak.weekview.WeekViewDisplayable;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Entities.TaskEntity;
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +44,6 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-//OnMonthChangeListener
 public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekView.OnClickListener{
 
     private WeekView weekCalendar;
@@ -178,12 +179,34 @@ public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekV
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
     }
 
-//    @Override
- //   public List<WeekViewDisplayable> onMonthChange(Calendar newYear, Calendar newMonth) {
-//TODO: here we suppose load the events from the calendar
-      //  List<WeekViewEvent> events = getEvents(newYear, newMonth);
-       // return events;
-    //}
+    /* @Override
+    public List<WeekViewDisplayable> onMonthChange(Calendar newYear, Calendar newMonth) {
+    //TODO: here we suppose load the events from the calendar
+    //child of pending tasks that they are tasks
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+    Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
+    Query query_anchors = mDatabase.orderByChild("type").equalTo("ANCHOR");
+    //List<WeekViewEvent> events = getEvents(newYear, newMonth);
+
+        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+        Calendar startTime = Calendar.getInstance();
+        startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 5);
+        startTime.set(Calendar.MINUTE, 30);
+        startTime.set(Calendar.MONTH, newMonth-1);
+        startTime.set(Calendar.YEAR, newYear);
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR_OF_DAY, 2);
+        endTime.set(Calendar.MONTH, newMonth-1);
+        WeekViewEvent.Style style = new WeekViewEvent.Style();
+        event = new WeekViewEvent(1,"FirstEvent",startTime,endTime,"here",true,style, new Anchor());
+        //event = new WeekViewEvent(2, getEventTitle(startTime), startTime, endTime);
+        event.setColor(getResources().getColor(R.color.event_color_02));
+        events.add(event);
+
+    return events;
+    } */
 
     public WeekView getWeekCalendar() {
         return weekCalendar;

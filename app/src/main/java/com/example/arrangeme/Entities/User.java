@@ -34,7 +34,6 @@ public class User {
             this.personality_vector.add(i,0);
         }
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child("Year").child("Month").child("Day");
-
     }
 
 
