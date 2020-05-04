@@ -10,7 +10,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+    <style name="SCBSwitch" parent="Base.Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">#75C1C9</item>
 

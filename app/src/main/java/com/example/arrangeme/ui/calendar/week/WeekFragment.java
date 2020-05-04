@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
-import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 
 import com.alamkanak.weekview.WeekViewEvent;
@@ -44,7 +43,7 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class WeekFragment extends Fragment implements WeekView.OnClickListener, MonthLoader.MonthChangeListener{
+public class WeekFragment extends Fragment implements WeekView.OnClickListener{
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -136,10 +135,6 @@ public class WeekFragment extends Fragment implements WeekView.OnClickListener, 
         return weekCalendar;
     }
 
-    @Override
-    public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        return null;
-    }
 }
 
 

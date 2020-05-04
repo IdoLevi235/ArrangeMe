@@ -8,7 +8,7 @@
     tools:context=".ui.calendar.DayFragment">
 
 
-    <!--<com.alamkanak.weekview.WeekView
+    <com.alamkanak.weekview.WeekView
         android:id="@+id/dayView"
         android:layout_width="408dp"
         android:layout_height="570dp"
@@ -17,13 +17,10 @@
         android:visibility="visible"
         app:columnGap="1dp"
         app:dayBackgroundColor="#FFF4F4F4"
-        app:defaultEventColor="@color/arrangeMeMain"
         app:eventTextColor="@color/colorWhite"
         app:firstDayOfWeek="sunday"
         app:headerRowBackgroundColor="#FFF4F4F4"
-        app:headerRowBottomLineWidth="1dp"
         app:headerRowPadding="12dp"
-        app:headerRowTextSize="12sp"
         app:hourHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,40 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:nowLineStrokeWidth="1dp"
-        app:numberOfVisibleDays="1"
-        app:restoreNumberOfVisibleDays="false"
-        app:showCompleteDay="false"
-        app:showCurrentTimeFirst="true"
-        app:showDaySeparator="true"
-        app:showFirstDayOfWeekFirst="true"
-        app:showHeaderRowBottomLine="true"
-        app:showTimeColumnSeparator="true"
-        app:timeColumnBackgroundColor="#FFF4F4F4"
-        app:timeColumnPadding="4dp"
-        app:timeColumnSeparatorColor="@color/colorPrimary"
-        app:timeColumnSeparatorStrokeWidth="1dp"
-        app:timeColumnTextColor="@color/colorPrimary"
-        app:timeColumnTextSize="10sp"
         app:todayBackgroundColor="#FFF4F4F4"
-        app:todayHeaderTextColor="@color/colorProjectBlue" />-->
-
-    <com.alamkanak.weekview.WeekView
-        android:id="@+id/weekView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:eventTextColor="@android:color/white"
-        app:textSize="12sp"
-        app:hourHeight="60dp"
-        app:headerColumnPadding="8dp"
-        app:headerColumnTextColor="#8f000000"
-        app:headerRowPadding="12dp"
-        app:columnGap="8dp"
-        app:noOfVisibleDays="3"
-        app:headerRowBackgroundColor="#ffefefef"
-        app:dayBackgroundColor="#05000000"
-        app:todayBackgroundColor="#1848adff"
-        app:headerColumnBackground="#ffffffff"/>
+        app:todayHeaderTextColor="@color/colorProjectBlue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
