@@ -39,11 +39,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekView.OnClickListener  {
+
+//OnMonthChangeListener
+public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekView.OnClickListener{
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -52,6 +52,7 @@ public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekV
     private TextView eventsName;
     private RecyclerView eventsRecyclerView;
     private ArrayList<WeekViewEvent> mNewEvents;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekV
         });
         setupDateTimeInterpreter(false);
     }
+
 
     private void setupDateTimeInterpreter(final boolean shortDate) {
         weekCalendar.setDateTimeInterpreter(new DateTimeInterpreter() {
@@ -170,6 +172,21 @@ public class WeekFragment extends Fragment implements WeekViewDisplayable, WeekV
     public WeekViewEvent toWeekViewEvent() {
 
         return null;
+    }
+
+    protected String getEventTitle(Calendar time) {
+        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
+    }
+
+//    @Override
+ //   public List<WeekViewDisplayable> onMonthChange(Calendar newYear, Calendar newMonth) {
+//TODO: here we suppose load the events from the calendar
+      //  List<WeekViewEvent> events = getEvents(newYear, newMonth);
+       // return events;
+    //}
+
+    public WeekView getWeekCalendar() {
+        return weekCalendar;
     }
 }
 

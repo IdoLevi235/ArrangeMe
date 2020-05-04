@@ -95,6 +95,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private ReminderType chosenReminder;
     private Uri selectedImage;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase2;
 
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
@@ -295,6 +296,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
 
               else {
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+                mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child("Year").child("Month").child("Day");
                 Query lastQuery = mDatabase.orderByKey().limitToLast(1);
 
                 lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -314,6 +316,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         taskEntityToAdd.setLocation(location);
                         taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
+                        mDatabase2.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
                     }
 
                     @Override
