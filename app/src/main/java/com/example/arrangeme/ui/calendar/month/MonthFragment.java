@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
+import com.example.arrangeme.AddAnchor;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
@@ -294,7 +295,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
                 @Override
                 public void onClick(SweetAlertDialog sDialog) {
-                    Toast.makeText(getContext(),"Achor pressed", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getActivity(), AddAnchor.class));
                 }
 
             });

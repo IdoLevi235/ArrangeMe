@@ -71,7 +71,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AddTasks extends AppCompatActivity implements View.OnClickListener {
     private FirebaseFunctions mFunctions;
