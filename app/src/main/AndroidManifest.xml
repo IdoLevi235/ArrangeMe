@@ -19,6 +19,7 @@
         <activity
             android:name=".ui.tasks.TaskPagePopup"
             android:theme="@style/AppTheme.CustomTheme2" />
+            <!--android:theme="@style/Theme.AppCompat.Dialog"-->
         <activity
             android:name=".ui.myprofile.AvatarsPopup"
             android:theme="@style/AppTheme.CustomTheme" />
