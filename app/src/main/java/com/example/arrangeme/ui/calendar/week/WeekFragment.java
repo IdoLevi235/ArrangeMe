@@ -1,6 +1,7 @@
 package com.example.arrangeme.ui.calendar.week;
 
 import android.content.Intent;
+import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,27 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
+import com.alamkanak.weekview.OnEmptyViewLongClickListener;
+import com.alamkanak.weekview.OnLoadMoreListener;
+import com.alamkanak.weekview.OnMonthChangeListener;
 import com.alamkanak.weekview.WeekView;
 
+import com.alamkanak.weekview.WeekViewDisplayable;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Entities.AnchorEntity;
+import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.Entities.TaskEntity;
+import com.example.arrangeme.ForgotPass;
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Login;
 import com.example.arrangeme.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,33 +43,33 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import org.jetbrains.annotations.NotNull;
+import com.alamkanak.weekview.OnEventClickListener;
+import com.alamkanak.weekview.OnEventLongClickListener;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class WeekFragment extends Fragment implements WeekView.OnClickListener{
+public class WeekFragment extends Fragment implements View.OnClickListener {
 
-    private WeekView weekCalendar;
+    private WeekView<Event> weekCalendar;
     private Switch switchCat;
     private ConstraintLayout.LayoutParams parms;
-    private RelativeLayout relativeLayout;
-    private TextView eventsName;
-    private RecyclerView eventsRecyclerView;
-    private ArrayList<WeekViewEvent> mNewEvents;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_week, container, false);
-        weekCalendar = (WeekView) view.findViewById(R.id.weekView);
+        weekCalendar = (WeekView<Event>) view.findViewById(R.id.weekView);
+
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
-        // Set an action when any event is clicked.
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true);
         return view;
     }
@@ -69,15 +78,10 @@ public class WeekFragment extends Fragment implements WeekView.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         switchCat =  view.findViewById(R.id.switchCat);
-        relativeLayout =  view.findViewById(R.id.relativeLayout);
-        eventsName =  view.findViewById(R.id.eventsName);
-        eventsRecyclerView =  view.findViewById(R.id.eventsRecyclerView);
-        eventsRecyclerView.setOnClickListener(this);
         switchCat.setOnClickListener(this);
-        weekCalendar.setOnClickListener(this);
-
+        Button button2= view.findViewById(R.id.button2);
+        button2.setOnClickListener(this);
     }
 
 
@@ -85,55 +89,16 @@ public class WeekFragment extends Fragment implements WeekView.OnClickListener{
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case (R.id.switchCat):
+            case (R.id.button2):
             {
-                if(switchCat.isChecked()) {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    parms.height= (int) ((parms.height)*(0.64));
-                    weekCalendar.setLayoutParams(parms);
-
-                }
-                else{
-                    relativeLayout.setVisibility(View.GONE);
-                    parms.height= (int) ((parms.height)*(1.5625));
-                    weekCalendar.setLayoutParams(parms);
-
-                }
+                startActivity(new Intent(getActivity(), Main2Activity.class));
             }
             break;
-            case (R.id.weekView):
-
-
-                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
 
-    //pop up to ask if the user want to create task/anchor
-    private void popupTaskorAnchor() {
-        SweetAlertDialog ad;
-        ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE).setContentText(("Do you want to add a task or an anchor?"));
-        ad.setConfirmText("Task");
-        ad.setCancelText("Anchor");
-        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                startActivity(new Intent(getActivity(), AddTasks.class));
-            }
-        });
-        ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                Toast.makeText(getContext(), "Achor pressed", Toast.LENGTH_LONG).show();
-            }
-        });
-        ad.show();
-    }
-
-    public WeekView getWeekCalendar() {
-        return weekCalendar;
-    }
 
 }
 

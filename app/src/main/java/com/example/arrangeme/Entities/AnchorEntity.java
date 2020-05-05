@@ -13,21 +13,19 @@ public class AnchorEntity {
     String category;
     String description;
     Uri photo;
-    ReminderType reminderType;
+    String reminderType;
     String location;
-    String createDate;
     Calendar startDate;
     Calendar endDate;
 
 
 
-    public AnchorEntity(String category, String description, Uri photo, ReminderType reminderType,String location, String createDate, Calendar startDate, Calendar endDate) {
+    public AnchorEntity(String category, String description, Uri photo, String reminderType,String location, Calendar startDate, Calendar endDate) {
         this.category = category;
         this.description = description;
         this.photo = photo;
         this.reminderType = reminderType;
         this.location = location;
-        this.createDate=createDate;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -56,21 +54,12 @@ public class AnchorEntity {
         this.photo = photo;
     }
 
-    public ReminderType getReminderType() {
+    public String getReminderType() {
         return reminderType;
     }
 
-    public void setReminderType(ReminderType reminderType) {
+    public void setReminderType(String reminderType) {
         this.reminderType = reminderType;
-    }
-
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 
     public Calendar getStartDate() {
