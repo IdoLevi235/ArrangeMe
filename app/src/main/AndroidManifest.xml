@@ -25,6 +25,11 @@
         <activity
             android:name=".AddTasks.AddTasks"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddAnchor"
+            android:windowSoftInputMode="adjustPan"
+            />
+
         <activity android:name=".ChooseTasks" />
         <activity
             android:name=".Homepage"
