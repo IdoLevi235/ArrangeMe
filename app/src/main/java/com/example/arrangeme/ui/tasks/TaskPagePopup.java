@@ -29,7 +29,7 @@ public class TaskPagePopup extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width ), (int) (height ));
+        getWindow().setLayout((int) (width *0.8 ), (int) (height *0.7));
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
