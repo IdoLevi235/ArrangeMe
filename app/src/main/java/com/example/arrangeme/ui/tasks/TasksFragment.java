@@ -170,10 +170,29 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                         break;
                 }
                 holder.button.setOnClickListener(v -> {
-//todo:task page with edit/view
+                //todo:task page with edit/view
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        //This method gets the task key from the database and pass it to the next activity with a bundle
+                        @Override
 
-                    startActivity(new Intent(getActivity(),TaskPagePopup.class));
-                    getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //TODO: receive the id of the
+                          //String taskKey = dataSnapshot.getKey();
+                            String taskKey = fbAdapter.getRef(position).getKey();
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("TaskKey", taskKey);
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 });
                 spinner.setVisibility(View.GONE);
 

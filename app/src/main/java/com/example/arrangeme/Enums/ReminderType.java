@@ -20,6 +20,29 @@ public enum ReminderType {
                 break;
             default:
                 t=null;
+                break;
+        }
+        return t;
+    }
+
+    public static int fromStringToInt (String s){
+        int t;
+        switch (s){
+            case "FIVE_MIN":
+                t=0;
+                break;
+            case "FIFTEEN_MIN":
+                t=1;
+                break;
+            case "ONE_HOUR":
+                t=2;
+                break;
+            case "ONE_DAY":
+                t=3;
+                break;
+            default:
+                t=-1;
+                break;
         }
         return t;
     }

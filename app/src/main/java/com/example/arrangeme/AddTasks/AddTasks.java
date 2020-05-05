@@ -421,17 +421,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    //data.getData returns the content URI for the selected Image
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
-                    //addPhoto.setText("Photo selected!");
-                    //addPhoto.setTextColor(Color.parseColor("#3b9453"));
-                    //addPhoto.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.greencheckmark24, 0);
                     Uri selectedImage = data.getData();
-                    //ImageView photo=findViewById(R.id.photo);
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
-                        //d.set
                         addPhoto.setHint("");
                         addPhoto.setCompoundDrawables(null,null,null,null);
                         addPhoto.setBackground(d);
@@ -440,12 +434,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
                         addPhoto.setBackground(d);
                     }
-
-                    //photo.requestLayout();
-                    //photo.getLayoutParams().height = 75;
-                    //photo.getLayoutParams().width = 75;
-                    //photo.setScaleType(ImageView.ScaleType.FIT_XY);
-                    //photo.setVisibility(View.VISIBLE);
                     break;
             }
 
