@@ -130,7 +130,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
                         break;
                     case "FAMILY":
-
                         holder.button.setBackgroundResource(catBackgroundFull[4]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
                         break;
@@ -158,7 +157,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 }
                 holder.button.setOnClickListener(v -> {
                 //todo:task page with edit/view
-                    mDatabase.addValueEventListener(new ValueEventListener() {
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         //This method gets the task key from the database and pass it to the next activity with a bundle
                         @Override
 

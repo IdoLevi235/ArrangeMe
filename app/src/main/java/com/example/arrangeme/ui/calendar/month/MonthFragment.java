@@ -36,6 +36,7 @@ import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.schedule.MainModelSchedule;
+import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseArray;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -203,6 +204,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                         R.drawable.rounded_rec_other_nostroke};
         StringBuilder dateString = new StringBuilder();
+
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -295,8 +297,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
                 @Override
                 public void onClick(SweetAlertDialog sDialog) {
-                    startActivity(new Intent(getActivity(), AddAnchor.class));
-                }
+                    Intent intent = new Intent(getActivity(), AddAnchor.class);
+                    Bundle b = new Bundle();
+                    b.putString("date", "");
+                    intent.putExtras(b);
+                    startActivity(intent);
+           }
 
             });
             ad.show();

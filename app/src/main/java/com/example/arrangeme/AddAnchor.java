@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -44,7 +45,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private DatabaseReference mDatabase;
     private TextView textViewHelloAdd;
     private AnchorEntity anchorToAdd;
-
+    private DatePicker datePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         anchorToAdd = new AnchorEntity();
         textViewHelloAdd = findViewById(R.id.textViewHelloAddanchor);
         textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
-
+        datePicker = findViewById(R.id.datePicker);
         /* spinner stuff */
         final Spinner spinner = (Spinner) findViewById(R.id.spinner_reminder);
         spinner.setVisibility(View.INVISIBLE);
