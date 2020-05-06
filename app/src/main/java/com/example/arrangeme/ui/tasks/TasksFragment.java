@@ -99,19 +99,12 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white,R.drawable.friends_white, R.drawable.nutrition_white, R.drawable.family_white_frame, R.drawable.chores_white, R.drawable.relax_white, 0};
-        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
-                R.drawable.category_btn_work,R.drawable.category_btn_friends, R.drawable.category_btn_nutrition,
-                R.drawable.category_btn_family, R.drawable.category_btn_chores,
-                R.drawable.category_btn_relax, R.drawable.category_btn_other};
+        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white, R.drawable.nutrition_white, R.drawable.family_white,R.drawable.chores_white, R.drawable.relax_white,R.drawable.friends_white,  0};
+        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport, R.drawable.category_btn_work, R.drawable.category_btn_nutrition, R.drawable.category_btn_family, R.drawable.category_btn_chores, R.drawable.category_btn_relax,R.drawable.category_btn_friends, R.drawable.category_btn_other};
         Integer[] catBackgroundFull =
-                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                        R.drawable.rounded_rec_work_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                        R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_other_nostroke};
-        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
-                R.color.family,R.color.friends, R.color.chores, R.color.relax, R.color.other};
-        String[] catName = {"Study", "Sport", "Work", "Friends" ,"Nutrition", "Family", "Chores", "Relax", "Other"};
+                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke, R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke, R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke, R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family,R.color.chores, R.color.relax,R.color.friends,  R.color.other};
+        String[] catName = {"Study", "Sport", "Work","Nutrition", "Family","Chores", "Relax","Friends" , "Other"};
         options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase,MainModelTasks.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
@@ -122,41 +115,35 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 switch (model.getCategory()){
                     case "STUDY":
                         holder.button.setBackgroundResource(catBackgroundFull[0]);
-                        //holder.button.setBackgroundResource(catBackground[0]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[0],0);
                         break;
                     case "SPORT":
                         holder.button.setBackgroundResource(catBackgroundFull[1]);
-                        //holder.button.setBackgroundResource(catBackground[1]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[1],0);
                         break;
                     case "WORK":
                         holder.button.setBackgroundResource(catBackgroundFull[2]);
-                        //holder.button.setBackgroundResource(catBackground[2]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
                         break;
-                    case "FRIENDS":
+                    case "NUTRITION":
                         holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        //holder.button.setBackgroundResource(catBackground[3]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
                         break;
-                    case "NUTRITION":
+                    case "FAMILY":
 
                         holder.button.setBackgroundResource(catBackgroundFull[4]);
-                        //holder.button.setBackgroundResource(catBackground[4]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
                         break;
-                    case "FAMILY":
-                        //holder.button.setBackgroundResource(catBackground[5]);
+                    case "CHORES":
                         holder.button.setBackgroundResource(catBackgroundFull[5]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
                         break;
-                    case "CHORES":
+                    case "RELAX":
                         holder.button.setBackgroundResource(catBackgroundFull[6]);
                         //holder.button.setBackgroundResource(catBackground[6]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
                         break;
-                    case "RELAX":
+                    case "FRIENDS":
                         holder.button.setBackgroundResource(catBackgroundFull[7]);
                         //holder.button.setBackgroundResource(catBackground[7]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
