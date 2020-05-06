@@ -98,25 +98,28 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     private void showTaskDetails() {
         showImage();
         TaskEntity taskEntityToAdd =new TaskEntity();
-        Log.d("TAG1", "mDatabase: "+mDatabase);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-        Log.d("TAG2", "mDatabase: "+mDatabase);
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("TAG3", "mDatabase: "+mDatabase);
                 //description
                 taskToPresent.setDescription((String) dataSnapshot.child(taskKey).child("description").getValue());
+                Log.d("TAG", "onDataChange: "+taskToPresent.getDescription());
                 //category
-                String category= (String) dataSnapshot.child(taskKey).child("category").getValue();
-                taskCategory.fromStringToInt(category);
-                taskToPresent.setCategory(taskCategory);
+                String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
                 //location
                 taskToPresent.setLocation((String) dataSnapshot.child(taskKey).child("location").getValue());
-                //reminder
-                String reminder = ((String) dataSnapshot.child(taskKey).child("reminderType").getValue());
-                reminderType.fromStringToInt(reminder);
-                taskToPresent.setReminderType(reminderType);
+
+                locationText.setText(taskToPresent.getLocation());
+                descriptionText.setText(taskToPresent.getDescription());
+                Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
+                String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends", "Other"};
+                for (int i = 0; i < catName.length; i++) {
+                    if (category.toString().compareTo(catName[i]) == 1) {
+                        textCategory.setText(catName[i]);
+                        textCategory.setTextColor(catColor[i]);
+                    }
+                }
             }
 
             @Override
@@ -125,32 +128,8 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             }
         });
 
-        //shows the task's details in the activity layout
-        if(taskToPresent.getLocation()!=null) {
-            locationText.setText(taskToPresent.getLocation());
-        }
-        else {
-            locationText.setText("");
-        }
-
-        if(taskToPresent.getDescription()!=null) {
-            descriptionText.setText(taskToPresent.getDescription());
-        }
-        else {
-            descriptionText.setText("");
-        }
-
-        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
-        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
-
-        for(int i=0;i<catName.length;i++){
-            if (taskToPresent.getCategory().toString().compareTo(catName[i])==1){
-                textCategory.setText(catName[i]);
-                textCategory.setTextColor(catColor[i]);
-            }
-        }
     }
-
+        //shows the task's details in the activity layout
 
 
     private void showImage(){
