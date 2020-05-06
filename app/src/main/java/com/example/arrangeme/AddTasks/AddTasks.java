@@ -105,17 +105,15 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
         mFunctions = FirebaseFunctions.getInstance();
         setSupportActionBar(toolbar);
-        leftScrl=findViewById(R.id.btnLeftScrl);
-        rightScrl=findViewById(R.id.btnRightScrl);
-        confirmBtn=findViewById(R.id.sumbitBtn11);
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
         addLocation=(EditText)findViewById(R.id.locationBtn);
-        //photo=findViewById(R.id.photo);
-        //photo.setVisibility(View.INVISIBLE);
+        leftScrl=findViewById(R.id.btnLeftScrl);
+        rightScrl=findViewById(R.id.btnRightScrl);
         taskEntityToAdd =new TaskEntity();
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
         setRecyclerView(recyclerView);
@@ -143,7 +141,37 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                 "1 hour before",
                 "1 day before"
         };
-        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
+        setSpinner(spinner,reminderItems);
+        /* spinner stuff end */
+
+
+        /* Toggle stuff */
+        show_spinner = (Switch)findViewById(R.id.reminder_switch);
+        show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    spinner.setVisibility(View.VISIBLE);
+                }
+                else {
+                    spinner.setVisibility(View.INVISIBLE);
+
+                }
+            }
+        });
+        /* Toggle stuff End*/
+
+
+
+        /* confirm button click listener */
+        confirmBtn=findViewById(R.id.sumbitBtn11);
+        confirmBtn.setOnClickListener(this);
+        /* confirm button click listener end*/
+
+    }
+
+    private void setSpinner(Spinner spinner, String[] items) {
+        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(items));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this,R.layout.item_spinner,reminderItemsList){
             @Override
@@ -188,30 +216,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        /* spinner stuff end */
-
-
-        /* Toggle stuff */
-        show_spinner = (Switch)findViewById(R.id.reminder_switch);
-        show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    spinner.setVisibility(View.VISIBLE);
-                }
-                else {
-                    spinner.setVisibility(View.INVISIBLE);
-
-                }
-            }
-        });
-        /* Toggle stuff End*/
-
-
-
-        /* confirm button click listener */
-        confirmBtn.setOnClickListener(this);
-        /* confirm button click listener end*/
 
     }
 
