@@ -61,7 +61,7 @@
         android:background="#75C1C9"
         android:fontFamily="sans-serif-light"
         android:shadowColor="#05FFFFFF"
-        android:text="Add New Task"
+        android:text="Add New Anchor"
         android:textAllCaps="true"
         android:textColor="#535353"
         android:textSize="18sp"
@@ -156,7 +156,7 @@
             android:textSize="14sp"></Button>
 
         <EditText
-            android:id="@+id/locationBtn"
+            android:id="@+id/locationAnc11"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_below="@id/to_edittext"
@@ -185,7 +185,7 @@
             android:id="@+id/reminder_switch"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@id/add_photo"
+            android:layout_below="@id/spinner_cat"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -218,7 +218,7 @@
             android:datePickerMode="spinner" />
 
         <Button
-            android:id="@+id/add_photo"
+            android:id="@+id/add_photo1"
             android:layout_width="wrap_content"
             android:layout_height="98dp"
             android:layout_below="@id/spinner_cat"

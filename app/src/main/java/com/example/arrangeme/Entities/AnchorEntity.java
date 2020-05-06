@@ -18,6 +18,9 @@ public class AnchorEntity {
     Calendar startDate;
     Calendar endDate;
 
+    public AnchorEntity() {
+
+    }
 
 
     public AnchorEntity(String category, String description, Uri photo, String reminderType,String location, Calendar startDate, Calendar endDate) {
@@ -29,6 +32,7 @@ public class AnchorEntity {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
 
     public String getCategory() {
         return category;
