@@ -10,35 +10,36 @@ import com.example.arrangeme.Enums.TaskCategory;
 import java.util.Calendar;
 
 public class AnchorEntity {
-    String category;
+    TaskCategory category;
     String description;
     Uri photo;
-    String reminderType;
+    ReminderType reminderType;
     String location;
-    Calendar startDate;
-    Calendar endDate;
+    String date;
+    String timeStart;
+    String timeEnd;
 
     public AnchorEntity() {
 
     }
 
-
-    public AnchorEntity(String category, String description, Uri photo, String reminderType,String location, Calendar startDate, Calendar endDate) {
+    public AnchorEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location, String date, String startTime, String endTime) {
         this.category = category;
         this.description = description;
         this.photo = photo;
         this.reminderType = reminderType;
         this.location = location;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date = date;
+        this.timeStart = startTime;
+        this.timeEnd = endTime;
     }
 
 
-    public String getCategory() {
+    public TaskCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(TaskCategory category) {
         this.category = category;
     }
 
@@ -58,30 +59,44 @@ public class AnchorEntity {
         this.photo = photo;
     }
 
-    public String getReminderType() {
+    public ReminderType getReminderType() {
         return reminderType;
     }
 
-    public void setReminderType(String reminderType) {
+    public void setReminderType(ReminderType reminderType) {
         this.reminderType = reminderType;
     }
 
-    public Calendar getStartDate() {
-        return startDate;
+
+    public String getLocation() {
+        return location;
     }
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public Calendar getEndDate() {
-        return endDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setEndDate(Calendar endDate) {
-        this.endDate = endDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
+    public String getStartTime() {
+        return timeStart;
+    }
 
+    public void setStartTime(String startTime) {
+        this.timeStart = startTime;
+    }
 
+    public String getEndTime() {
+        return timeEnd;
+    }
+
+    public void setEndTime(String endTime) {
+        this.timeEnd = endTime;
+    }
 }
