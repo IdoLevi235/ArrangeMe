@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
@@ -97,7 +98,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     //shows the task details
     private void showTaskDetails() {
         showImage();
-        TaskEntity taskEntityToAdd =new TaskEntity();
+        TaskEntity taskToPresent =new TaskEntity();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -107,19 +108,18 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 Log.d("TAG", "onDataChange: "+taskToPresent.getDescription());
                 //category
                 String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
+                int x= taskCategory.fromStringToInt(category);
+                taskToPresent.setCategory(taskCategory);
                 //location
                 taskToPresent.setLocation((String) dataSnapshot.child(taskKey).child("location").getValue());
-
                 locationText.setText(taskToPresent.getLocation());
                 descriptionText.setText(taskToPresent.getDescription());
+                Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
                 Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
-                String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends", "Other"};
-                for (int i = 0; i < catName.length; i++) {
-                    if (category.toString().compareTo(catName[i]) == 1) {
-                        textCategory.setText(catName[i]);
-                        textCategory.setTextColor(catColor[i]);
-                    }
-                }
+                textCategory.setText(category);
+                textCategory.setTextColor(ContextCompat.getColor(getApplicationContext(), catColor[x]));
+                textCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,catIcon[x],0);
+                textCategory.setPadding(0,0,90,0);
             }
 
             @Override
