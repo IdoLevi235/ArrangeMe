@@ -79,6 +79,17 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private ProgressBar spinner;
     private TextView tv;
     private LinearLayoutManager layoutManager;
+    Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
+            R.drawable.work_white, R.drawable.nutrition_white,
+            R.drawable.family_white,R.drawable.chores_white,
+            R.drawable.relax_white,R.drawable.friends_white,  0};
+    Integer[] catBackgroundFull =
+            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                    R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke,
+                    R.drawable.rounded_rec_other_nostroke};
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         tasksViewModel = ViewModelProviders.of(this).get(TasksViewModel.class);
@@ -172,29 +183,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white, R.drawable.nutrition_white, R.drawable.family_white,R.drawable.chores_white, R.drawable.relax_white,R.drawable.friends_white,  0};
-        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport, R.drawable.category_btn_work, R.drawable.category_btn_nutrition, R.drawable.category_btn_family, R.drawable.category_btn_chores, R.drawable.category_btn_relax,R.drawable.category_btn_friends, R.drawable.category_btn_other};
-        Integer[] catBackgroundFull =
-                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke, R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke, R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke, R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
-        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family,R.color.chores, R.color.relax,R.color.friends,  R.color.other};
-        String[] catName = {"Study", "Sport", "Work","Nutrition", "Family","Chores", "Relax","Friends" , "Other"};
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase,MainModelTasks.class).build();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()==0) {
-                    tv.setText("You have no pending tasks");
-                    tv.setVisibility(View.VISIBLE);
-                    spinner.setVisibility(View.GONE);
-                }
-            }
+        checkIfThereArePendingTasks(mDatabase);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        /* Fire base UI stuff */
         fbAdapter=new FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
@@ -242,7 +235,26 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
+        /* Fire base UI stuff End */
 
+    }
+
+    private void checkIfThereArePendingTasks(DatabaseReference mDatabase) {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()==0) {
+                    tv.setText("You have no pending tasks");
+                    tv.setVisibility(View.VISIBLE);
+                    spinner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
