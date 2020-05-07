@@ -66,11 +66,9 @@ private Toolbar toolbar;
             navView.setSelectedItemId(R.id.navigation_tasks);
         }
         else if(data != null && data.contentEquals("2")){
-            Log.d("getIntent", "onClick: getIntent-calenderBtn");
             navView.setSelectedItemId(R.id.navigation_calendar);
         }
         else if(data != null && data.contentEquals("5")){
-            Log.d("getIntent", "onClick: getIntent-calenderBtn");
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
     }

@@ -306,6 +306,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     Log.d("TAGAG", "onClick: " + dateStringSentToAddAnchor[0]);
                     intent.putExtra("date", dateStringSentToAddAnchor[0]);
                     startActivity(intent);
+
            }
 
             });

@@ -217,30 +217,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.add:
                 SweetAlertDialog ad;
-                ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                        .setContentText(("Do you want to add a task or an anchor?"));
-                ad.setConfirmText("Task");
-                ad.setCancelText("Anchor");
-                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        startActivity(new Intent(getActivity(), AddTasks.class));
-                    }
-                });
-                ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        Toast.makeText(getContext(),"Achor pressed", Toast.LENGTH_LONG).show();
-                    }
-
-                });
-                ad.show();
-                //Button btn1 = (Button) ad.findViewById(R.id.confirm_button);
-               // btn1.setBackgroundResource(R.drawable.rounded_rec);
-
-
-
-
+                startActivity(new Intent(getActivity(), AddTasks.class));
         }
     }
 }

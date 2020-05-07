@@ -2,6 +2,8 @@ package com.example.arrangeme;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -388,8 +390,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                //TODO: go back to month fragment
-            startActivity(intent);
+              intent.putExtra("FromHomepage", "2");
+              startActivity(intent);
+
             }
         });
 
