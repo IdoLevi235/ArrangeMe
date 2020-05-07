@@ -83,27 +83,6 @@
 
 
         <Button
-            android:id="@+id/chooseTaskBtn"
-            android:layout_width="281dp"
-            android:layout_height="41dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="174dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/btn_rounded"
-            android:elevation="1.5dp"
-            android:fontFamily="sans-serif-medium"
-            android:shadowColor="#535353"
-            android:text="Choose Tasks For Today"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <Button
             android:id="@+id/questionnaireBtn"
             android:layout_width="281dp"
             android:layout_height="41dp"
@@ -120,6 +99,27 @@
             android:fontFamily="sans-serif-medium"
             android:shadowColor="#535353"
             android:text="Continue Fill The Questionnaire"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/chooseTaskBtn"
+            android:layout_width="281dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="174dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#535353"
+            android:text="Choose Tasks For Today"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:visibility="gone" />
