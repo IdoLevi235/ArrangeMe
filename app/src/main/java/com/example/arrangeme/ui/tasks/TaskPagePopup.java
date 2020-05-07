@@ -16,14 +16,20 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +49,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
@@ -51,6 +60,8 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     private TextView  descriptionText;
     private TextView  locationText;
     private TextView textCategory;
+    private Spinner spinnerReminder;
+    private Switch reminder_switch;
     private Uri image;
     private DatabaseReference mDatabase;
     private ReminderType chosenReminder;
@@ -59,6 +70,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     private TaskEntity taskToPresent;
     private TaskCategory taskCategory;
     private ReminderType reminderType;
+    private int reminderInt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,7 +104,85 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         locationText =findViewById(R.id.locationText);
         textCategory= findViewById(R.id.textCategory);
 
+        spinnerReminder = (Spinner) findViewById(R.id.spinner);
+        reminder_switch = (Switch) findViewById(R.id.reminder_switch);
+
+
+
         showTaskDetails();
+
+    }
+
+    private void defineSpinner() {
+        Log.d("reminderInt", "defineSpinner: "+reminderInt);
+        if(reminderInt==-1) {
+            spinnerReminder.setVisibility(View.INVISIBLE);
+            reminder_switch.setChecked(false);
+        }
+        else  {
+            spinnerReminder.setVisibility(View.VISIBLE);
+            reminder_switch.setChecked(true);}
+
+        // Initializing a String Array
+        String[] reminderItems = new String[]{
+                "Select Reminder",
+                "5 minutes before",
+                "15 minutes before",
+                "1 hour before",
+                "1 day before"
+        };
+
+        spinnerReminder.setClickable(false);
+        spinnerReminder.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
+
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.item_spinner,reminderItemsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(locationText.getHintTextColors());
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        spinnerReminder.setAdapter(spinnerArrayAdapter);
+        spinnerReminder.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                chosenReminder = ReminderType.fromInt(reminderInt);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     //shows the task details
@@ -119,7 +209,16 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 textCategory.setText(category);
                 textCategory.setTextColor(ContextCompat.getColor(getApplicationContext(), catColor[x]));
                 textCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,catIcon[x],0);
-                textCategory.setPadding(0,0,90,0);
+                textCategory.setPadding(0,0,120,0);
+
+                //reminder
+                String reminder=(String)dataSnapshot.child(taskKey).child("reminderType").getValue();
+                Log.d("reminder", "onDataChange: "+reminder);
+                if(reminder!=null) {
+                    reminderInt = reminderType.fromStringToInt(reminder);
+                }
+                else {reminderInt=-1;}
+                defineSpinner();
             }
 
             @Override
@@ -139,9 +238,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, Homepage.class);
-        intent.putExtra("FromHomepage", "1");
-        startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
