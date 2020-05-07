@@ -3,7 +3,6 @@ package com.example.arrangeme.ui.dashboard;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,24 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.arrangeme.AddTasks.AddTasks;
-import com.example.arrangeme.ChooseTasks;
+import com.example.arrangeme.ChooseTasks.ChooseTasks;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.calendar.CalendarViewModel;
-
-import static com.example.arrangeme.R.id.calenderBtn;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 

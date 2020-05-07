@@ -75,13 +75,13 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         spinner = (ProgressBar)view.findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         addTasks = (FloatingActionButton)view.findViewById(R.id.add);
         addTasks.setOnClickListener(this);
         tv = view.findViewById(R.id.textView7);
         tv.setVisibility(View.GONE);
 
         /* Recycler view stuff */
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler= view.findViewById(R.id.recyclerTasks);
         setRecycler(mRecycler);
         /* Recycler view stuff End*/
@@ -170,13 +170,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 holder.button.setBackgroundResource(catBackgroundFull[x]);
                 holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[x],0);
                 holder.button.setOnClickListener(v -> {
-                    //todo:task page with edit/view
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         //This method gets the task key from the database and pass it to the next activity with a bundle
                         @Override
 
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //TODO: receive the id of the
                             //String taskKey = dataSnapshot.getKey();
                             String taskKey = fbAdapter.getRef(position).getKey();
                             Intent intent = new Intent(getActivity(), TaskPagePopup.class);
@@ -212,21 +210,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     }
 
     private void checkIfThereArePendingTasks(DatabaseReference mDatabase) {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()==0) {
-                    tv.setText("You have no pending tasks");
-                    tv.setVisibility(View.VISIBLE);
-                    spinner.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override

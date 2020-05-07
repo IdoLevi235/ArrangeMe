@@ -31,7 +31,7 @@
             android:windowSoftInputMode="adjustPan"
             />
 
-        <activity android:name=".ChooseTasks" />
+        <activity android:name=".ChooseTasks.ChooseTasks" />
         <activity
             android:name=".Homepage"
             android:label="@string/title_activity_homepage"

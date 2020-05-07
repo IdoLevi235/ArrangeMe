@@ -465,5 +465,4 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
 }
 
-//todo: form verifications - number of characters + must fill date,hours (start before end)
 

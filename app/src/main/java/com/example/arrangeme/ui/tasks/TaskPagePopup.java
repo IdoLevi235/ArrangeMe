@@ -80,7 +80,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         if(b != null)
             taskKey = b.getString("TaskKey");
 
-        //TODO: FADE FROM THE CENTER
 
         applyBtn=findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(this);

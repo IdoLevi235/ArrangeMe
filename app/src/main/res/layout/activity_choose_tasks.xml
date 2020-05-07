@@ -6,8 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF4F4F4"
-    tools:context=".ChooseTasks">
+    tools:context=".ChooseTasks.ChooseTasks">
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylcler_choosetasks"
+        android:layout_width="316dp"
+        android:layout_height="199dp"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_chooseTasks"
@@ -32,7 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.014">
+
+
+    </View>
 
     <TextView
         android:id="@+id/textViewHello"
@@ -92,7 +105,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43"/>
+        app:layout_constraintVertical_bias="0.43" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -145,33 +158,6 @@
         app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout4" />
 
-    <ScrollView
-        android:id="@+id/tasksScrollView"
-        android:layout_width="346dp"
-        android:layout_height="224dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginBottom="18dp"
-        android:background="#FAFAFA"
-        android:elevation="2dp"
-        android:fadingEdge="vertical"
-        android:outlineAmbientShadowColor="#00FFFFFF"
-        android:outlineSpotShadowColor="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.816">
-
-        <LinearLayout
-            android:id="@+id/tasksLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:fontFamily="@font/montserrat"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <Button
         android:id="@+id/confirmTasksBtn"
         android:layout_width="match_parent"
@@ -191,6 +177,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:elevation="4dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="67dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recylcler_choosetasks"
+        app:layout_constraintEnd_toEndOf="@+id/recylcler_choosetasks"
+        app:layout_constraintStart_toStartOf="@+id/recylcler_choosetasks"
+        app:layout_constraintTop_toTopOf="@+id/recylcler_choosetasks" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

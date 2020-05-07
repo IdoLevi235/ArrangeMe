@@ -337,5 +337,4 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     }
     //TODO: change the days to english
     //todo: spinner?!?!?12/#?!@$?#@!QR$?@#W
-    //todo: background to the focused day if there is task/anchor/none/both
 }
