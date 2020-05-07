@@ -9,6 +9,31 @@
     tools:context=".ChooseTasks.ChooseTasks">
 
 
+    <Button
+        android:id="@+id/chooseDate"
+        android:layout_width="126dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/add_task_round"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:hint="Set date "
+        android:imeOptions="actionNext"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:singleLine="true"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewExplanation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"></Button>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcler_choosetasks"
         android:layout_width="316dp"
@@ -33,16 +58,15 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="369dp"
-        android:layout_height="244dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="343dp"
+        android:layout_height="233dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="0.014">
+        app:layout_constraintVertical_bias="0.0">
 
 
     </View>
@@ -65,10 +89,10 @@
     <TextView
         android:id="@+id/textViewPleaseChoose"
         android:layout_width="352dp"
-        android:layout_height="26dp"
+        android:layout_height="33dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Please choose which tasks you would like to do today!"
+        android:text="Please choose a day and which tasks you would like to do in this day!"
         android:textColor="#4E4E4E"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,26 +110,13 @@
         android:layout_marginBottom="145dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="According to your anchors, today you have  4 free-time windows. You have to choose 4 tasks."
         android:textColor="@color/colorPrimary"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/relativeLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"
-        app:layout_constraintVertical_bias="0.88" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout4"
-        android:layout_width="282dp"
-        android:layout_height="138dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -121,6 +132,17 @@
         app:layout_constraintTop_toTopOf="@+id/relativeLayout4"
         app:layout_constraintVertical_bias="0.277"
         app:srcCompat="@drawable/basket" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="282dp"
+        android:layout_height="138dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 
     <TextView
         android:id="@+id/textViewNumbersRed"
@@ -190,7 +212,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:id="@+id/progressBar3"

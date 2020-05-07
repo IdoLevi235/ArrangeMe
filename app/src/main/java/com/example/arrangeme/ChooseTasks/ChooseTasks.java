@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +29,6 @@ import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.tasks.MainModelTasks;
-import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +36,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -50,12 +50,16 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private TextView helloTxt;
     private Button confirm;
     private RecyclerView mRecycler;
+    private RelativeLayout rl;
+    private View view;
     private LinearLayoutManager layoutManager;
     private DatabaseReference mDatabase;
     private FirebaseRecyclerOptions<MainModel> options;
     private FirebaseRecyclerAdapter<MainModel, MyViewHolder> fbAdapter;
     private TextView tv;
+    private TextView tv2;
     private ProgressBar spinner;
+    private Button setDate;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
             R.drawable.work_white, R.drawable.nutrition_white,
             R.drawable.family_white, R.drawable.chores_white,
@@ -81,6 +85,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         tv = findViewById(R.id.textView16);
         tv.setVisibility(View.GONE);
 
+        tv2=findViewById(R.id.textViewExplanation);
+        tv2.setVisibility(View.INVISIBLE);
+
         numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
         numberTextView.setText(Integer.toString(count));
         numberTextView.setBackgroundResource(R.drawable.red_textview);
@@ -95,6 +102,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
         confirm = (Button) findViewById(R.id.confirmTasksBtn);
         confirm.setOnClickListener(this);
+
+        setDate = (Button)findViewById(R.id.chooseDate);
+        setDate.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
         mRecycler = findViewById(R.id.recylcler_choosetasks);
@@ -115,7 +125,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModel model) {
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
-                holder.button.setLayoutParams(new LinearLayout.LayoutParams(730, 200));
+                holder.button.setLayoutParams(new LinearLayout.LayoutParams(800, 180));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
                 holder.button.setBackgroundResource(catBackgroundFull[x]);
                 holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
@@ -230,16 +240,45 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmTasksBtn:
-                if (count < numOfTasksToChoose)
-                    chooseTaskFailed();
+              if (setDate.getText().length()==0){
+                  String str = "You must choose a date!";
+                  chooseTaskFailed(str);
+
+              }
+                else if (count < numOfTasksToChoose) {
+                String str = "You must choose " + numOfTasksToChoose + " tasks!";
+                chooseTaskFailed(str);
+            }
                 else
                     chooseTaskSuccess();
                 break;
+
+            case R.id.chooseDate:
+                DatePickerDialog datePickerDialog = createDatePickerDialog();
+                datePickerDialog.show();
+
             default:
                 break;
         }//end of switch
 
     } //end of onclick
+
+    private void chooseTaskFailedMustPickDate() {
+    }
+
+    private DatePickerDialog createDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
+                setDate.setText(date);
+                tv2.setVisibility(View.VISIBLE);
+                tv2.setText("According to your anchors, in " +date+" you have 4 free-time windows. You have to choose 4 tasks.");
+            }
+
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        return dpd;
+    }
 
     private void chooseTaskSuccess() {
         SweetAlertDialog ad;
@@ -259,11 +298,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void chooseTaskFailed() {
+    private void chooseTaskFailed(String str) {
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE);
         ad.setTitleText("Error");
-        ad.setContentText("You must choose " + numOfTasksToChoose + " tasks!");
+        ad.setContentText(str);
         ad.show();
         Button btn = (Button) ad.findViewById(R.id.confirm_button);
         btn.setBackgroundResource(R.drawable.rounded_rec);
