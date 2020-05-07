@@ -1,23 +1,10 @@
 package com.example.arrangeme.AddTasks;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.Fragment;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,23 +23,17 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
-import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
-import com.example.arrangeme.MainActivity;
-import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.schedule.ScheduleFragment;
-import com.example.arrangeme.ui.tasks.TasksFragment;
-import com.google.android.material.circularreveal.CircularRevealWidget;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,21 +41,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AddTasks extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private FirebaseFunctions mFunctions;
-
     private static final int GALLERY_REQUEST_CODE = 1;
     private RecyclerView recyclerView;
     private ArrayList<MainModel> mainModels;
