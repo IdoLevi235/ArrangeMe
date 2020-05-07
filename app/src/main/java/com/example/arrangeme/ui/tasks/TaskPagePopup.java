@@ -227,7 +227,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                     reminder_switch.setChecked(false);
                 } else {
                     SpinnerShow.setVisibility(View.VISIBLE);
-                    SpinnerShow.setText(reminderType.toString());
+                    SpinnerShow.setText(reminder);
                     reminder_switch.setChecked(true);
 
                 }
@@ -275,10 +275,10 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
     //turn on the edit mode
     private void editMode() {
-        SpinnerShow.setVisibility(View.GONE);
         editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
         editModeBtn.setBackgroundResource(R.drawable.avatar_female2);
 
+        SpinnerShow.setVisibility(View.GONE);
         //set description editable
         descriptionText.setEnabled(true);
         descriptionText.setClickable(true);
@@ -290,6 +290,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         //set location editable
         reminder_switch.setEnabled(true);
         reminder_switch.setClickable(true);
+
+        if(reminder_switch.isChecked()==true)
+        {
+            spinnerReminder.setVisibility(View.VISIBLE);
+            defineSpinner();
+        }
         reminder_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
