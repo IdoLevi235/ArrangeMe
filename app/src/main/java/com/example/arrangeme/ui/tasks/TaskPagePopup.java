@@ -323,7 +323,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                SweetAlertDialog delete;
                delete =  new SweetAlertDialog( TaskPagePopup.this, SweetAlertDialog.WARNING_TYPE)
                        .setContentText(("Are you sure that you want to delete this task?"));
-               delete.setConfirmText("Delete");
+               delete.setConfirmText("I'm Sure");
                delete.setCancelText("Cancel");
                delete.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                    @Override
@@ -335,13 +335,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                delete.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
                    @Override
                    public void onClick(SweetAlertDialog sDialog) {
-                       TaskEntity editedTaskToChange = new TaskEntity();
-                       editedTaskToChange.setDescription(descriptionText.getText().toString());
-                       editedTaskToChange.setDescription(locationText.getText().toString());
-                       editedTaskToChange.setReminderType(chosenReminderEdited);
-                       editedTaskToChange.setCategory(taskCategory);
-                       addTaskToDB(editedTaskToChange);
-                       //TODO: update task in db
+                    finish();
                    }
 
                });
@@ -352,16 +346,21 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TaskEntity editedTaskToChange = new TaskEntity();
+                editedTaskToChange.setDescription(descriptionText.getText().toString());
+                editedTaskToChange.setLocation(locationText.getText().toString());
+                addTaskToDB(editedTaskToChange);
+
                 SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
-                ad.setTitleText("Confirm");
-                ad.setContentText("Task details has been edited");
+                ad.setTitleText("Great");
+                ad.setContentText("You edited the task");
                 ad.show();
                 Button btn = (Button) ad.findViewById(R.id.confirm_button);
                 btn.setBackgroundResource(R.drawable.rounded_rec);
                 ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                      onBackPressed();
+                  finish();
                     }
                 });
             }
@@ -383,17 +382,20 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
         else {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-            LocalDateTime now = LocalDateTime.now();
-            String year = Integer.toString(now.getYear());
-            String month = Integer.toString(now.getMonthValue());
-            String day = Integer.toString(now.getDayOfMonth());
-
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                    mDatabase.child(taskKey).child("description").setValue(editedTaskToChange.getDescription());
                    mDatabase.child(taskKey).child("location").setValue(editedTaskToChange.getLocation());
-                   mDatabase.child(taskKey).child("reminderType").setValue(editedTaskToChange.getReminderType().toString());
+                    if(reminder_switch.isChecked()) {
+                        mDatabase.child(taskKey).child("reminderType").setValue(chosenReminderEdited);
+                    }
+                    else
+                    {
+                        mDatabase.child(taskKey).child("reminderType").setValue(null);
+                    }
+
+
                     //TODO: change photo in DB here
                 }
 
@@ -402,25 +404,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
                 }
             });
-
-            SweetAlertDialog changesTask = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
-            changesTask.setTitleText("Great!");
-            changesTask.setContentText("You edited a task!");
-            changesTask.show();
-            Button btn = (Button) changesTask.findViewById(R.id.confirm_button);
-            btn.setBackgroundResource(R.drawable.rounded_rec);
-            Intent intent = new Intent(this, Homepage.class);
-            changesTask.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sDialog) {
-                   finish();
-                }
-            });
         }
     }
 
     private void deleteTaskFromDB() {
-
+        mDatabase.child(taskKey).setValue(null);
+        finish();
 
     }
 

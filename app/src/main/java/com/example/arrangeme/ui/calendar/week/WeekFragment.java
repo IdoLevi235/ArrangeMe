@@ -69,6 +69,29 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
         View view= inflater.inflate(R.layout.fragment_week, container, false);
         weekCalendar = (WeekView<Event>) view.findViewById(R.id.weekView);
 
+        weekCalendar.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NotNull Calendar calendar, @NotNull Calendar calendar1) {
+                Calendar cal = Calendar.getInstance();
+                Calendar cal2 =cal;
+                cal2.add(Calendar.HOUR_OF_DAY, 1);
+                Log.d("cal", "onload"+cal.toString());
+                Log.d("cal", "onload"+cal2.toString());
+                Event event = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
+                cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, 1);
+                cal2 =cal;
+                cal2.add(Calendar.DATE, 2);
+                Log.d("cal", "onload"+cal.toString());
+                Log.d("cal", "onload"+cal2.toString());
+                Event event2 = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
+
+                List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
+                list.add(event);
+                list.add(event2);
+                weekCalendar.submit(list);
+            }
+        });
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         setHasOptionsMenu(true);
         return view;
@@ -97,6 +120,30 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
+    }
+
+    public List<WeekViewDisplayable<Event>> onMonthChange(@NonNull Calendar startDate, @NonNull Calendar endDate) {
+
+        //check if it loads event
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 =cal;
+        cal2.add(Calendar.HOUR_OF_DAY, 1);
+        Event event = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
+
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        cal2 =cal;
+        cal2.add(Calendar.DATE, 2);
+        Event event2 = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
+
+        List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
+        list.add(event);
+        list.add(event2);
+
+        return list;
+        //weekCalendar.submit(list);
+
+        // return database.getEventsInRange(startDate, endDate);
     }
 
 
