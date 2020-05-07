@@ -131,6 +131,8 @@
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
+
+
             <Switch
                 android:id="@+id/reminder_switch"
                 android:layout_width="wrap_content"
@@ -149,7 +151,7 @@
                 android:drawableTint="#616161"
                 android:fontFamily="@font/montserrat"
                 android:paddingStart="8dp"
-                android:paddingEnd="30dp"
+                android:paddingEnd="32dp"
                 android:text="Reminder"
                 android:textColor="#616161"
                 android:textSize="14sp" />

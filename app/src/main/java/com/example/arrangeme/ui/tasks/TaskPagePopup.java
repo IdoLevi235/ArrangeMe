@@ -282,6 +282,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         //set description editable
         descriptionText.setEnabled(true);
         descriptionText.setClickable(true);
+        descriptionText.setCursorVisible(true);
 
         //set location editable
         locationText.setEnabled(true);
