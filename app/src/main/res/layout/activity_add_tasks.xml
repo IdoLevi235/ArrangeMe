@@ -124,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewHelloAdd"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.82" />
 
     <Button
         android:id="@+id/sumbitBtn11"

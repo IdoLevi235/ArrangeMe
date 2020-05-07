@@ -34,16 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"></Button>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recylcler_choosetasks"
-        android:layout_width="316dp"
-        android:layout_height="199dp"
-        android:elevation="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_chooseTasks"
         android:layout_width="match_parent"
@@ -56,9 +46,19 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="102dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylcler_choosetasks"
+        android:layout_width="316dp"
+        android:layout_height="199dp"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4" />
+
     <View
         android:id="@+id/view4"
-        android:layout_width="343dp"
+        android:layout_width="339dp"
         android:layout_height="233dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"

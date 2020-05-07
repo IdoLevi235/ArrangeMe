@@ -80,8 +80,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         switchCat =  view.findViewById(R.id.switchCat);
         switchCat.setOnClickListener(this);
-        Button button2= view.findViewById(R.id.button2);
-        button2.setOnClickListener(this);
     }
 
 
@@ -89,9 +87,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case (R.id.button2):
+            case (R.id.switchCat):
             {
-                startActivity(new Intent(getActivity(), Main2Activity.class));
+
             }
             break;
             default:

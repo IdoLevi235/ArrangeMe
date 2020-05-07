@@ -9,18 +9,22 @@
 
 
     <com.alamkanak.weekview.WeekView
+
         android:id="@+id/dayView"
         android:layout_width="408dp"
         android:layout_height="570dp"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:visibility="visible"
         app:columnGap="1dp"
         app:dayBackgroundColor="#FFF4F4F4"
+        app:daySeparatorStrokeWidth="1dp"
+        app:defaultEventColor="@color/arrangeMeMain"
         app:eventTextColor="@color/colorWhite"
         app:firstDayOfWeek="sunday"
         app:headerRowBackgroundColor="#FFF4F4F4"
+        app:headerRowBottomLineWidth="1dp"
         app:headerRowPadding="12dp"
+        app:headerRowTextSize="12sp"
         app:hourHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +32,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:todayBackgroundColor="#FFF4F4F4"
+        app:nowLineStrokeWidth="1dp"
+        app:numberOfVisibleDays="1"
+        app:restoreNumberOfVisibleDays="false"
+        app:showCompleteDay="false"
+        app:showCurrentTimeFirst="true"
+        app:showDaySeparator="true"
+        app:showFirstDayOfWeekFirst="true"
+        app:showHeaderRowBottomLine="true"
+        app:showTimeColumnSeparator="true"
+        app:timeColumnBackgroundColor="#FFF4F4F4"
+        app:timeColumnPadding="4dp"
+        app:timeColumnSeparatorColor="@color/colorPrimary"
+        app:timeColumnSeparatorStrokeWidth="1dp"
+        app:timeColumnTextColor="@color/colorPrimary"
+        app:timeColumnTextSize="10sp"
+        app:todayBackgroundColor="@color/arrangeMeMain"
         app:todayHeaderTextColor="@color/colorProjectBlue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

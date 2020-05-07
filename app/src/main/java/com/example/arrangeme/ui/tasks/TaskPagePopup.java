@@ -49,10 +49,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,6 +74,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     private Uri image;
     private DatabaseReference mDatabase;
     private ReminderType chosenReminder;
+    private ReminderType chosenReminderEdited;
     private TaskEntity task;
     private String taskKey;
     private TaskEntity taskToPresent;
@@ -154,6 +157,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 }
                 else
                 {
+
                     return true;
                 }
             }
@@ -178,7 +182,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                chosenReminder = ReminderType.fromInt(reminderInt);
+                if(position>0) {
+                    chosenReminderEdited = ReminderType.fromInt(position);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -197,7 +203,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //description
                 taskToPresent.setDescription((String) dataSnapshot.child(taskKey).child("description").getValue());
-                Log.d("TAG", "onDataChange: " + taskToPresent.getDescription());
                 //category
                 String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
                 int x = taskCategory.fromStringToInt(category);
@@ -267,7 +272,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         locationText.setEnabled(false);
         locationText.setClickable(false);
 
-        reminder_switch.setEnabled(false);
         reminder_switch.setClickable(false);
 
     }
@@ -282,6 +286,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         //set description editable
         descriptionText.setEnabled(true);
         descriptionText.setClickable(true);
+        descriptionText.requestFocus();
         descriptionText.setCursorVisible(true);
 
         //set location editable
@@ -323,13 +328,20 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                delete.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                    @Override
                    public void onClick(SweetAlertDialog sDialog) {
+                       deleteTaskFromDB();
                        //TODO: delete task from db
                    }
                });
                delete.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
                    @Override
                    public void onClick(SweetAlertDialog sDialog) {
-                     finish();
+                       TaskEntity editedTaskToChange = new TaskEntity();
+                       editedTaskToChange.setDescription(descriptionText.getText().toString());
+                       editedTaskToChange.setDescription(locationText.getText().toString());
+                       editedTaskToChange.setReminderType(chosenReminderEdited);
+                       editedTaskToChange.setCategory(taskCategory);
+                       addTaskToDB(editedTaskToChange);
+                       //TODO: update task in db
                    }
 
                });
@@ -342,7 +354,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             public void onClick(View v) {
                 SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
                 ad.setTitleText("Confirm");
-                ad.setContentText("Task details has been edited.");
+                ad.setContentText("Task details has been edited");
                 ad.show();
                 Button btn = (Button) ad.findViewById(R.id.confirm_button);
                 btn.setBackgroundResource(R.drawable.rounded_rec);
@@ -356,6 +368,59 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         });
 
                 //TODO: edit the photo (add/choose another photo).
+
+    }
+
+    private void addTaskToDB(TaskEntity editedTaskToChange) {
+        if (descriptionText.length() == 0){
+            SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+            ad.setTitleText("Error");
+            ad.setContentText("You must enter task description!");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+        }
+
+        else {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+            LocalDateTime now = LocalDateTime.now();
+            String year = Integer.toString(now.getYear());
+            String month = Integer.toString(now.getMonthValue());
+            String day = Integer.toString(now.getDayOfMonth());
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                   mDatabase.child(taskKey).child("description").setValue(editedTaskToChange.getDescription());
+                   mDatabase.child(taskKey).child("location").setValue(editedTaskToChange.getLocation());
+                   mDatabase.child(taskKey).child("reminderType").setValue(editedTaskToChange.getReminderType().toString());
+                    //TODO: change photo in DB here
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            SweetAlertDialog changesTask = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
+            changesTask.setTitleText("Great!");
+            changesTask.setContentText("You edited a task!");
+            changesTask.show();
+            Button btn = (Button) changesTask.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+            Intent intent = new Intent(this, Homepage.class);
+            changesTask.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                   finish();
+                }
+            });
+        }
+    }
+
+    private void deleteTaskFromDB() {
+
 
     }
 

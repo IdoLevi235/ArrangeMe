@@ -127,6 +127,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
+                android:imeOptions="actionNext"
                 android:text="Lorem Ipusom Lorem Ipusom Lorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem2 "
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
@@ -151,7 +152,7 @@
                 android:drawableTint="#616161"
                 android:fontFamily="@font/montserrat"
                 android:paddingStart="8dp"
-                android:paddingEnd="32dp"
+                android:paddingEnd="31dp"
                 android:text="Reminder"
                 android:textColor="#616161"
                 android:textSize="14sp" />
@@ -242,6 +243,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
+                android:imeOptions="actionDone"
                 android:text="Lorem Ipusom Lorem Ipusom Lorem"
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
