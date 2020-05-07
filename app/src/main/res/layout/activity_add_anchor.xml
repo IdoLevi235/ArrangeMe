@@ -108,10 +108,10 @@
             tools:visibility="visible" />
 
         <Button
-            android:id="@+id/to_edittext"
+            android:id="@+id/toBtn"
             android:layout_width="369dp"
             android:layout_height="42dp"
-            android:layout_below="@id/from_edittext"
+            android:layout_below="@id/fromBtn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -122,6 +122,7 @@
             android:layout_marginBottom="203dp"
             android:background="@drawable/add_task_round"
             android:elevation="2dp"
+            android:enabled="false"
             android:fontFamily="@font/montserrat"
             android:gravity="center|start"
             android:hint="To"
@@ -132,7 +133,7 @@
             android:textSize="14sp"></Button>
 
         <Button
-            android:id="@+id/from_edittext"
+            android:id="@+id/fromBtn"
             android:layout_width="369dp"
             android:layout_height="45dp"
             android:layout_below="@id/datePicker"
@@ -159,7 +160,7 @@
             android:id="@+id/locationAnc11"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@id/to_edittext"
+            android:layout_below="@id/toBtn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -185,7 +186,7 @@
             android:id="@+id/reminder_switch"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@id/spinner_cat"
+            android:layout_below="@id/add_photo1"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -261,7 +262,7 @@
 
 
         <EditText
-            android:id="@+id/desc_text"
+            android:id="@+id/desc_text_anchor"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_alignParentStart="true"

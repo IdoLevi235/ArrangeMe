@@ -66,6 +66,8 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.content.Intent.getIntent;
+
 
 public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.OnClickListener {
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView monthCalendar;
@@ -78,6 +80,8 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     private FirebaseRecyclerOptions<MainModelMonth> options;
     private FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder> fbAdapter;
     private FloatingActionButton addTasks;
+    final String[] dateStringSentToAddAnchor = new String[1];
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -227,6 +231,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 dateString.append(month+1);
                 dateString.append("-");
                 dateString.append(year);
+                dateStringSentToAddAnchor[0] =dateString.toString();
                 /* Recycler Stuff */
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
                 Query query = mDatabase.orderByChild("createDate").equalTo(dateString.toString());
@@ -294,13 +299,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     startActivity(new Intent(getActivity(), AddTasks.class));
                 }
             });
-            ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
+                Intent intent = new Intent(getActivity(), AddAnchor.class);
+                ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
                 @Override
                 public void onClick(SweetAlertDialog sDialog) {
-                    Intent intent = new Intent(getActivity(), AddAnchor.class);
-                    Bundle b = new Bundle();
-                    b.putString("date", "");
-                    intent.putExtras(b);
+                    Log.d("TAGAG", "onClick: " + dateStringSentToAddAnchor[0]);
+                    intent.putExtra("date", dateStringSentToAddAnchor[0]);
                     startActivity(intent);
            }
 
