@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.AddTasks.MainAdapter;
 import com.example.arrangeme.AddTasks.MainModel;
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.MainActivity;
@@ -76,8 +77,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private String deletedKey;
     private FloatingActionButton addTasks;
     private ProgressBar spinner;
-
-
+    private TextView tv;
+    private LinearLayoutManager layoutManager;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         tasksViewModel = ViewModelProviders.of(this).get(TasksViewModel.class);
@@ -91,110 +92,18 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         spinner = (ProgressBar)view.findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         addTasks = (FloatingActionButton)view.findViewById(R.id.add);
         addTasks.setOnClickListener(this);
+        tv = view.findViewById(R.id.textView7);
+        tv.setVisibility(View.GONE);
+
+        /* Recycler view stuff */
         mRecycler= view.findViewById(R.id.recyclerTasks);
-        mRecycler.setHasFixedSize(true);
-        mRecycler.setLayoutManager(layoutManager);
-        mRecycler.setItemAnimator(new DefaultItemAnimator());
-        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white, R.drawable.nutrition_white, R.drawable.family_white,R.drawable.chores_white, R.drawable.relax_white,R.drawable.friends_white,  0};
-        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport, R.drawable.category_btn_work, R.drawable.category_btn_nutrition, R.drawable.category_btn_family, R.drawable.category_btn_chores, R.drawable.category_btn_relax,R.drawable.category_btn_friends, R.drawable.category_btn_other};
-        Integer[] catBackgroundFull =
-                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke, R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke, R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke, R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
-        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family,R.color.chores, R.color.relax,R.color.friends,  R.color.other};
-        String[] catName = {"Study", "Sport", "Work","Nutrition", "Family","Chores", "Relax","Friends" , "Other"};
-        options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase,MainModelTasks.class).build();
-        fbAdapter=new FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder>(options) {
-            @SuppressLint({"WrongConstant", "SetTextI18n"})
-            @Override
-            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
-                holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-                holder.button.setLayoutParams (new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
-                switch (model.getCategory()){
-                    case "STUDY":
-                        holder.button.setBackgroundResource(catBackgroundFull[0]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[0],0);
-                        break;
-                    case "SPORT":
-                        holder.button.setBackgroundResource(catBackgroundFull[1]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[1],0);
-                        break;
-                    case "WORK":
-                        holder.button.setBackgroundResource(catBackgroundFull[2]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[2],0);
-                        break;
-                    case "NUTRITION":
-                        holder.button.setBackgroundResource(catBackgroundFull[3]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[3],0);
-                        break;
-                    case "FAMILY":
-                        holder.button.setBackgroundResource(catBackgroundFull[4]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[4],0);
-                        break;
-                    case "CHORES":
-                        holder.button.setBackgroundResource(catBackgroundFull[5]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[5],0);
-                        break;
-                    case "RELAX":
-                        holder.button.setBackgroundResource(catBackgroundFull[6]);
-                        //holder.button.setBackgroundResource(catBackground[6]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[6],0);
-                        break;
-                    case "FRIENDS":
-                        holder.button.setBackgroundResource(catBackgroundFull[7]);
-                        //holder.button.setBackgroundResource(catBackground[7]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[7],0);
-                        break;
-                    case "OTHER":
-                        holder.button.setBackgroundResource(catBackgroundFull[8]);
-                        //holder.button.setBackgroundResource(catBackground[8]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[8],0);
-                        break;
-                    default:
-                        break;
-                }
-                holder.button.setOnClickListener(v -> {
-                //todo:task page with edit/view
-                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        //This method gets the task key from the database and pass it to the next activity with a bundle
-                        @Override
+        setRecycler(mRecycler);
+        /* Recycler view stuff End*/
 
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //TODO: receive the id of the
-                          //String taskKey = dataSnapshot.getKey();
-                            String taskKey = fbAdapter.getRef(position).getKey();
-                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                            getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-                            Bundle b = new Bundle();
-                            b.putString("TaskKey", taskKey);
-                            intent.putExtras(b);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                });
-                spinner.setVisibility(View.GONE);
-
-            }
-
-            @NonNull
-            @Override
-            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks_tab,parent,false);
-                return new MyViewHolder(v);
-            }
-        };
-        fbAdapter.startListening();
-        mRecycler.setAdapter(fbAdapter);
-
-
+        /* swipe stuff */
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -256,6 +165,83 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
             }
         });
         helper.attachToRecyclerView(mRecycler);
+        /* swipe stuff end */
+    }
+
+    private void setRecycler(RecyclerView mRecycler) {
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(layoutManager);
+        mRecycler.setItemAnimator(new DefaultItemAnimator());
+        Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,  R.drawable.work_white, R.drawable.nutrition_white, R.drawable.family_white,R.drawable.chores_white, R.drawable.relax_white,R.drawable.friends_white,  0};
+        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport, R.drawable.category_btn_work, R.drawable.category_btn_nutrition, R.drawable.category_btn_family, R.drawable.category_btn_chores, R.drawable.category_btn_relax,R.drawable.category_btn_friends, R.drawable.category_btn_other};
+        Integer[] catBackgroundFull =
+                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke, R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke, R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke, R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family,R.color.chores, R.color.relax,R.color.friends,  R.color.other};
+        String[] catName = {"Study", "Sport", "Work","Nutrition", "Family","Chores", "Relax","Friends" , "Other"};
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase,MainModelTasks.class).build();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()==0) {
+                    tv.setText("You have no pending tasks");
+                    tv.setVisibility(View.VISIBLE);
+                    spinner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        fbAdapter=new FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder>(options) {
+            @SuppressLint({"WrongConstant", "SetTextI18n"})
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
+                holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
+                int x = TaskCategory.fromStringToInt(model.getCategory());
+                holder.button.setBackgroundResource(catBackgroundFull[x]);
+                holder.button.setCompoundDrawablesWithIntrinsicBounds (0,0,catIcon[x],0);
+                holder.button.setOnClickListener(v -> {
+                    //todo:task page with edit/view
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        //This method gets the task key from the database and pass it to the next activity with a bundle
+                        @Override
+
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //TODO: receive the id of the
+                            //String taskKey = dataSnapshot.getKey();
+                            String taskKey = fbAdapter.getRef(position).getKey();
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("TaskKey", taskKey);
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                });
+                spinner.setVisibility(View.GONE);
+
+            }
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tasks_tab,parent,false);
+                return new MyViewHolder(v);
+            }
+        };
+        fbAdapter.startListening();
+        mRecycler.setAdapter(fbAdapter);
 
     }
 
