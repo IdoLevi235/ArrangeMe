@@ -15,10 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.calendar.week.Main2Activity"></activity>
         <activity
             android:name=".ui.tasks.TaskPagePopup"
-            android:theme="@style/AppTheme.CustomTheme2" />
-            <!--android:theme="@style/Theme.AppCompat.Dialog"-->
+            android:theme="@style/AppTheme.CustomTheme2" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
         <activity
             android:name=".ui.myprofile.AvatarsPopup"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -27,9 +27,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddAnchor"
-            android:windowSoftInputMode="adjustPan"
-            />
-
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ChooseTasks.ChooseTasks" />
         <activity
             android:name=".Homepage"
