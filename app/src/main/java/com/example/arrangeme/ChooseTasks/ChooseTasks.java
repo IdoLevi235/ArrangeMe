@@ -310,5 +310,3 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 }
 
 //TODO: toolbar items
-//todo: change to recycler
-//TODO: CHOOSE BY DATE
