@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +24,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -35,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
@@ -53,13 +57,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
     private ImageView applyBtn;
     private ImageView editModeBtn;
-    private TextView  descriptionText;
-    private TextView  locationText;
+    private EditText descriptionText;
+    private EditText  locationText;
     private TextView textCategory;
+    private TextView SpinnerShow;
     private Spinner spinnerReminder;
     private Switch reminder_switch;
     private Uri image;
@@ -92,14 +99,13 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         if(b != null)
             taskKey = b.getString("TaskKey");
 
-        //TODO: FADE FROM THE CENTER
 
         applyBtn=findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(this);
 
         editModeBtn=findViewById(R.id.editModeBtn);
         editModeBtn.setOnClickListener(this);
-
+        SpinnerShow = findViewById(R.id.SpinnerShow);
         descriptionText =findViewById(R.id.descriptionText);
         locationText =findViewById(R.id.locationText);
         textCategory= findViewById(R.id.textCategory);
@@ -107,21 +113,14 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         spinnerReminder = (Spinner) findViewById(R.id.spinner);
         reminder_switch = (Switch) findViewById(R.id.reminder_switch);
 
-
+        disableViews();
 
         showTaskDetails();
 
     }
 
+
     private void defineSpinner() {
-        Log.d("reminderInt", "defineSpinner: "+reminderInt);
-        if(reminderInt==-1) {
-            spinnerReminder.setVisibility(View.INVISIBLE);
-            reminder_switch.setChecked(false);
-        }
-        else  {
-            spinnerReminder.setVisibility(View.VISIBLE);
-            reminder_switch.setChecked(true);}
 
         // Initializing a String Array
         String[] reminderItems = new String[]{
@@ -132,16 +131,18 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 "1 day before"
         };
 
-        spinnerReminder.setClickable(false);
-        spinnerReminder.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-        });
+
+
+        //spinnerReminder.setClickable(false);
+        //spinnerReminder.setOnTouchListener(new View.OnTouchListener() {
+         //   @Override
+         //   public boolean onTouch(View v, MotionEvent event) {
+          //      if (event.getAction() == MotionEvent.ACTION_UP) {
+          //          //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+           //     }
+           //     return true;
+           // }
+       // });
         final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
 
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.item_spinner,reminderItemsList){
@@ -181,6 +182,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -195,31 +197,43 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //description
                 taskToPresent.setDescription((String) dataSnapshot.child(taskKey).child("description").getValue());
-                Log.d("TAG", "onDataChange: "+taskToPresent.getDescription());
+                Log.d("TAG", "onDataChange: " + taskToPresent.getDescription());
                 //category
                 String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
-                int x= taskCategory.fromStringToInt(category);
+                int x = taskCategory.fromStringToInt(category);
                 taskToPresent.setCategory(taskCategory);
                 //location
                 taskToPresent.setLocation((String) dataSnapshot.child(taskKey).child("location").getValue());
                 locationText.setText(taskToPresent.getLocation());
                 descriptionText.setText(taskToPresent.getDescription());
-                Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
+                Integer[] catIcon = {R.drawable.study, R.drawable.sport, R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
                 Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
                 textCategory.setText(category);
                 textCategory.setTextColor(ContextCompat.getColor(getApplicationContext(), catColor[x]));
-                textCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,catIcon[x],0);
-                textCategory.setPadding(0,0,120,0);
+                textCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, catIcon[x], 0);
+                textCategory.setPadding(0, 0, 20, 0);
 
                 //reminder
-                String reminder=(String)dataSnapshot.child(taskKey).child("reminderType").getValue();
-                Log.d("reminder", "onDataChange: "+reminder);
-                if(reminder!=null) {
+                String reminder = (String) dataSnapshot.child(taskKey).child("reminderType").getValue();
+                Log.d("reminder", "onDataChange: " + reminder);
+                if (reminder != null) {
                     reminderInt = reminderType.fromStringToInt(reminder);
+                } else {
+                    reminderInt = -1;
                 }
-                else {reminderInt=-1;}
-                defineSpinner();
+
+                if (reminderInt == -1) {
+                    SpinnerShow.setVisibility(View.GONE);
+                    reminder_switch.setChecked(false);
+                } else {
+                    SpinnerShow.setVisibility(View.VISIBLE);
+                    SpinnerShow.setText(reminderType.toString());
+                    reminder_switch.setChecked(true);
+
+                }
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -241,9 +255,100 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+
+    private void disableViews() {
+        SpinnerShow.setEnabled(false);
+        SpinnerShow.setClickable(false);
+
+        descriptionText.setEnabled(false);
+        descriptionText.setClickable(false);
+
+        //set location editable
+        locationText.setEnabled(false);
+        locationText.setClickable(false);
+
+        reminder_switch.setEnabled(false);
+        reminder_switch.setClickable(false);
+
+    }
+
+
     //turn on the edit mode
     private void editMode() {
+        SpinnerShow.setVisibility(View.GONE);
+        editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
+        editModeBtn.setBackgroundResource(R.drawable.avatar_female2);
 
+        //set description editable
+        descriptionText.setEnabled(true);
+        descriptionText.setClickable(true);
+
+        //set location editable
+        locationText.setEnabled(true);
+        locationText.setClickable(true);
+
+        //set location editable
+        reminder_switch.setEnabled(true);
+        reminder_switch.setClickable(true);
+        reminder_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    spinnerReminder.setVisibility(View.VISIBLE);
+                    defineSpinner();
+                }
+                else {
+                    spinnerReminder.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        textCategory.setOnClickListener(this);
+        //when click on delete the task
+        editModeBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               SweetAlertDialog delete;
+               delete =  new SweetAlertDialog( TaskPagePopup.this, SweetAlertDialog.WARNING_TYPE)
+                       .setContentText(("Are you sure that you want to delete this task?"));
+               delete.setConfirmText("Delete");
+               delete.setCancelText("Cancel");
+               delete.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                   @Override
+                   public void onClick(SweetAlertDialog sDialog) {
+                       //TODO: delete task from db
+                   }
+               });
+               delete.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
+                   @Override
+                   public void onClick(SweetAlertDialog sDialog) {
+                     finish();
+                   }
+
+               });
+               delete.show();
+
+           }
+       });
+        applyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
+                ad.setTitleText("Confirm");
+                ad.setContentText("Task details has been edited.");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                      onBackPressed();
+                    }
+                });
+            }
+        });
+
+                //TODO: edit the photo (add/choose another photo).
 
     }
 
@@ -255,6 +360,15 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 break;
             case (R.id.editModeBtn):
                 editMode();
+                break;
+
+            case (R.id.textCategory):
+                SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You can't edit a task category. You can delete the task and add it again. ");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
                 break;
             default:
                 onBackPressed();

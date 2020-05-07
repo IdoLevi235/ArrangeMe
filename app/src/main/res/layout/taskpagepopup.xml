@@ -30,7 +30,7 @@
             android:layout_marginTop="26dp"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="548dp"
-            android:background="@drawable/avatar_male1"
+            android:background="@drawable/blue_circle"
             android:clickable="true"
             android:elevation="11dp"
             android:padding="8dp"
@@ -78,14 +78,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="22dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="78dp"
                 android:layout_marginEnd="191dp"
                 android:layout_marginBottom="417dp"
+                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawablePadding="2dp"
+                android:drawableTint="#616161"
                 android:fontFamily="@font/montserrat"
                 android:text="Description"
                 android:textColor="#616161"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textCategory"
@@ -105,7 +108,7 @@
                 android:textColor="@color/family"
                 android:textSize="24sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/descriptionText"
                 android:layout_width="299dp"
                 android:layout_height="104dp"
@@ -113,9 +116,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="107dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="313dp"
                 android:background="@drawable/add_task_round"
                 android:elevation="2dp"
@@ -136,18 +139,20 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginLeft="-194dp"
                 android:layout_marginTop="223dp"
                 android:layout_marginEnd="153dp"
                 android:layout_marginBottom="265dp"
-                android:clickable="false"
+                android:drawableLeft="@drawable/ic_notifications_black_24dp"
+                android:drawablePadding="2dp"
+                android:drawableTint="#616161"
                 android:fontFamily="@font/montserrat"
                 android:paddingStart="8dp"
-                android:paddingEnd="32dp"
+                android:paddingEnd="30dp"
                 android:text="Reminder"
                 android:textColor="#616161"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -157,21 +162,41 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="148dp"
+                android:layout_marginStart="154dp"
                 android:layout_marginTop="217dp"
-                android:layout_marginEnd="26dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="252dp"
                 android:background="@drawable/add_task_round"
-                android:clickable="false"
-                android:contextClickable="false"
                 android:elevation="2dp"
                 android:foreground="@drawable/downarrowspinner"
                 android:foregroundGravity="center|right|center_horizontal"
-                android:longClickable="false"
                 android:paddingStart="4dp"
                 android:popupBackground="@drawable/add_task_round"
-                android:visibility="visible"
-                tools:visibility="visible" />
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/SpinnerShow"
+                android:layout_width="169dp"
+                android:layout_height="55dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="154dp"
+                android:layout_marginTop="217dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="252dp"
+                android:background="@drawable/add_task_round"
+                android:drawableEnd="@drawable/downarrowspinner"
+                android:elevation="2dp"
+                android:fontFamily="sans-serif-light"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                android:text=""
+                android:textColor="@color/darkgray"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/location"
@@ -181,16 +206,22 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="22dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="264dp"
                 android:layout_marginEnd="191dp"
                 android:layout_marginBottom="227dp"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="2dp"
+                android:drawableTint="#616161"
                 android:fontFamily="@font/montserrat"
                 android:text="Location"
                 android:textColor="#616161"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
-            <TextView
+
+
+
+            <EditText
                 android:id="@+id/locationText"
                 android:layout_width="302dp"
                 android:layout_height="44dp"
@@ -198,9 +229,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="293dp"
-                android:layout_marginEnd="19dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="184dp"
                 android:background="@drawable/add_task_round"
                 android:elevation="2dp"
@@ -221,12 +252,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="22dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="346dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/add_task_round"
-                android:clickable="false"
                 android:fontFamily="@font/montserrat"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
@@ -239,7 +269,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="27dp"
                 android:layout_marginEnd="272dp"
                 android:layout_marginBottom="445dp"
