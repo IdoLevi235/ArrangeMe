@@ -1,7 +1,7 @@
 package com.example.arrangeme.Enums;
 
 public enum ReminderType {
-    FIVE_MIN,FIFTEEN_MIN,ONE_HOUR,ONE_DAY;
+    FIVE_MIN,FIFTEEN_MIN,ONE_HOUR,ONE_DAY,NONE;
 
     public static ReminderType fromInt(int x){
         ReminderType t;
@@ -18,6 +18,8 @@ public enum ReminderType {
             case 3:
                 t=ONE_DAY;
                 break;
+            case 4:
+                t=NONE;
             default:
                 t=null;
                 break;
@@ -40,6 +42,8 @@ public enum ReminderType {
             case "ONE_DAY":
                 t=3;
                 break;
+            case "NONE":
+                t=4;
             default:
                 t=-1;
                 break;

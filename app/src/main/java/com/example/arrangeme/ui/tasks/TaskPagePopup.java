@@ -86,6 +86,36 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskpagepopup);
+
+        //this function define the size of this window
+        definePopUpSize();
+
+        //task key is the key for the task that the user touched
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            taskKey = b.getString("TaskKey");
+
+        //define buttons
+        applyBtn=findViewById(R.id.applyBtn);
+        applyBtn.setOnClickListener(this);
+        editModeBtn=findViewById(R.id.editModeBtn);
+        editModeBtn.setOnClickListener(this);
+        SpinnerShow = findViewById(R.id.SpinnerShow);
+        descriptionText =findViewById(R.id.descriptionText);
+        locationText =findViewById(R.id.locationText);
+        textCategory= findViewById(R.id.textCategory);
+        spinnerReminder = (Spinner) findViewById(R.id.spinner);
+        reminder_switch = (Switch) findViewById(R.id.reminder_switch);
+
+        //disable all views
+        disableViews();
+
+        //set data for the view from the DB
+        showTaskDetails();
+
+    }
+
+    private void definePopUpSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -98,119 +128,43 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         getWindow().setAttributes(params);
         this.setFinishOnTouchOutside(false);
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            taskKey = b.getString("TaskKey");
-
-
-        applyBtn=findViewById(R.id.applyBtn);
-        applyBtn.setOnClickListener(this);
-
-        editModeBtn=findViewById(R.id.editModeBtn);
-        editModeBtn.setOnClickListener(this);
-        SpinnerShow = findViewById(R.id.SpinnerShow);
-        descriptionText =findViewById(R.id.descriptionText);
-        locationText =findViewById(R.id.locationText);
-        textCategory= findViewById(R.id.textCategory);
-
-        spinnerReminder = (Spinner) findViewById(R.id.spinner);
-        reminder_switch = (Switch) findViewById(R.id.reminder_switch);
-
-        disableViews();
-
-        showTaskDetails();
-
     }
 
 
-    private void defineSpinner() {
+    private void disableViews() {
+        SpinnerShow.setEnabled(false);
+        SpinnerShow.setClickable(false);
 
-        // Initializing a String Array
-        String[] reminderItems = new String[]{
-                "Select Reminder",
-                "5 minutes before",
-                "15 minutes before",
-                "1 hour before",
-                "1 day before"
-        };
+        descriptionText.setEnabled(false);
+        descriptionText.setClickable(false);
 
+        locationText.setEnabled(false);
+        locationText.setClickable(false);
 
-
-        //spinnerReminder.setClickable(false);
-        //spinnerReminder.setOnTouchListener(new View.OnTouchListener() {
-         //   @Override
-         //   public boolean onTouch(View v, MotionEvent event) {
-          //      if (event.getAction() == MotionEvent.ACTION_UP) {
-          //          //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-           //     }
-           //     return true;
-           // }
-       // });
-        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
-
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.item_spinner,reminderItemsList){
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    return false;
-                }
-                else
-                {
-
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(locationText.getHintTextColors());
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
-        spinnerReminder.setAdapter(spinnerArrayAdapter);
-        spinnerReminder.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                if(position>0) {
-                    chosenReminderEdited = ReminderType.fromInt(position);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        reminder_switch.setClickable(false);
     }
 
-    //shows the task details
+    //set data to the views from the DB
     private void showTaskDetails() {
         showImage();
+
         TaskEntity taskToPresent =new TaskEntity();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //description
                 taskToPresent.setDescription((String) dataSnapshot.child(taskKey).child("description").getValue());
-                //category
-                String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
-                int x = taskCategory.fromStringToInt(category);
-                taskToPresent.setCategory(taskCategory);
+                descriptionText.setText(taskToPresent.getDescription());
+
                 //location
                 taskToPresent.setLocation((String) dataSnapshot.child(taskKey).child("location").getValue());
                 locationText.setText(taskToPresent.getLocation());
-                descriptionText.setText(taskToPresent.getDescription());
+
+                //category
+                String category = (String) dataSnapshot.child(taskKey).child("category").getValue();
+                int x = taskCategory.fromStringToInt(category);
                 Integer[] catIcon = {R.drawable.study, R.drawable.sport, R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
                 Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
                 textCategory.setText(category);
@@ -234,18 +188,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                     SpinnerShow.setVisibility(View.VISIBLE);
                     SpinnerShow.setText(reminder);
                     reminder_switch.setChecked(true);
-
                 }
-
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
         //shows the task's details in the activity layout
 
@@ -253,36 +201,15 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     private void showImage(){
         //TODO: shows the image from DB - add the photo to the DB
    }
-    //return o task tab
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-    }
-
-
-    private void disableViews() {
-        SpinnerShow.setEnabled(false);
-        SpinnerShow.setClickable(false);
-
-        descriptionText.setEnabled(false);
-        descriptionText.setClickable(false);
-
-        //set location editable
-        locationText.setEnabled(false);
-        locationText.setClickable(false);
-
-        reminder_switch.setClickable(false);
-
-    }
-
 
     //turn on the edit mode
     private void editMode() {
+        //change the icon view from edit to delete
         editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
         editModeBtn.setBackgroundResource(R.drawable.avatar_female2);
 
         SpinnerShow.setVisibility(View.GONE);
+
         //set description editable
         descriptionText.setEnabled(true);
         descriptionText.setClickable(true);
@@ -293,9 +220,10 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         locationText.setEnabled(true);
         locationText.setClickable(true);
 
-        //set location editable
+        //set reminder editable
         reminder_switch.setEnabled(true);
         reminder_switch.setClickable(true);
+
 
         if(reminder_switch.isChecked()==true)
         {
@@ -340,47 +268,105 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
                });
                delete.show();
-
            }
        });
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskEntity editedTaskToChange = new TaskEntity();
-                editedTaskToChange.setDescription(descriptionText.getText().toString());
-                editedTaskToChange.setLocation(locationText.getText().toString());
-                addTaskToDB(editedTaskToChange);
+                if (descriptionText.length() == 0) {
+                    SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+                    ad.setTitleText("Error");
+                    ad.setContentText("You must enter task description!");
+                    ad.show();
+                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                    btn.setBackgroundResource(R.drawable.rounded_rec);
+                } else {
+                    TaskEntity editedTaskToChange = new TaskEntity();
+                    editedTaskToChange.setDescription(descriptionText.getText().toString());
+                    editedTaskToChange.setLocation(locationText.getText().toString());
+                    addTaskToDB(editedTaskToChange);
 
-                SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
-                ad.setTitleText("Great");
-                ad.setContentText("You edited the task");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                  finish();
-                    }
-                });
+                    SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
+                    ad.setTitleText("Great Job");
+                    ad.setContentText("The task has been edited");
+                    ad.show();
+                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                    btn.setBackgroundResource(R.drawable.rounded_rec);
+                    ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            finish();
+                        }
+                    });
+                }
             }
         });
 
-                //TODO: edit the photo (add/choose another photo).
+//TODO: edit the photo (add/choose another photo).
+    }
 
+
+    private void defineSpinner() {
+        // Initializing a String Array
+        String[] reminderItems = new String[]{
+                "Select Reminder",
+                "5 minutes before",
+                "15 minutes before",
+                "1 hour before",
+                "1 day before"
+        };
+        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.item_spinner,reminderItemsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    return false;
+                }
+                else
+                {
+
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(locationText.getHintTextColors());
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.item_spinner);
+        spinnerReminder.setAdapter(spinnerArrayAdapter);
+        spinnerReminder.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                if(position>0) {
+                    chosenReminderEdited = ReminderType.fromInt(position);
+                }
+                else if (position==0 && reminderInt==-1 )
+                {
+                    chosenReminderEdited=null;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void addTaskToDB(TaskEntity editedTaskToChange) {
-        if (descriptionText.length() == 0){
-            SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
-            ad.setTitleText("Error");
-            ad.setContentText("You must enter task description!");
-            ad.show();
-            Button btn = (Button) ad.findViewById(R.id.confirm_button);
-            btn.setBackgroundResource(R.drawable.rounded_rec);
-        }
 
-        else {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -388,7 +374,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                    mDatabase.child(taskKey).child("description").setValue(editedTaskToChange.getDescription());
                    mDatabase.child(taskKey).child("location").setValue(editedTaskToChange.getLocation());
                     if(reminder_switch.isChecked()) {
-                        mDatabase.child(taskKey).child("reminderType").setValue(chosenReminderEdited);
+                        if(chosenReminderEdited!=null) {
+                            mDatabase.child(taskKey).child("reminderType").setValue(chosenReminderEdited);
+                        }
                     }
                     else
                     {
@@ -405,14 +393,23 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 }
             });
         }
-    }
+
 
     private void deleteTaskFromDB() {
         mDatabase.child(taskKey).setValue(null);
         finish();
-
+        //TODO: add "undo" delete like in tab tasks?
     }
 
+
+    //return o task tab
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    //onclick for the show task popup
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -422,7 +419,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
             case (R.id.editModeBtn):
                 editMode();
                 break;
-
             case (R.id.textCategory):
                 SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
                 ad.setTitleText("Error");
