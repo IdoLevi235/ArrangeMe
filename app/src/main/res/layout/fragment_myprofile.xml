@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.myprofile.MyProfileFragment">
 
+
+
     <View
         android:id="@+id/viewUpBtn"
         android:layout_width="match_parent"
         android:layout_height="234dp"
-        android:background="@drawable/dash_back2"
+        android:background="@drawable/dash_back23"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -20,8 +22,8 @@
 
     <Button
         android:id="@+id/pictureCircle"
-        android:layout_width="234dp"
-        android:layout_height="229dp"
+        android:layout_width="199dp"
+        android:layout_height="199dp"
         android:background="@drawable/circle_choose_tasks"
         android:elevation="2dp"
         android:fontFamily="sans-serif"
@@ -32,25 +34,24 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.18" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/AvatarCircle"
         android:layout_width="98dp"
         android:layout_height="93dp"
-        android:elevation="2dp"
         android:background="@drawable/avatar_empty"
+        android:elevation="2dp"
+        android:src="@drawable/firstravatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275"
-        android:src="@drawable/firstravatar" />
-    
+        app:layout_constraintVertical_bias="0.293" />
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="243dp"
@@ -65,11 +66,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
+        app:layout_constraintVertical_bias="0.432" />
 
     <RelativeLayout
-        android:layout_width="393dp"
-        android:layout_height="338dp"
+        android:layout_width="394dp"
+        android:layout_height="351dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
@@ -87,7 +88,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="293dp">
+            android:layout_marginBottom="305dp">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

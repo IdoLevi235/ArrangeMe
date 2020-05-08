@@ -136,7 +136,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
         transaction.addToBackStack(null);
         transaction.add(R.id.filter_container, filterFragment,"Blank").commit();
-
     }
 
 
@@ -149,6 +148,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     }
 
 
+    //TODO: When press back in the phone itself there is a problem, the calender vanished..
     //TODO: Google Synchronization with the calendar
 }
 

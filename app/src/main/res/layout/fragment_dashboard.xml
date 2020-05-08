@@ -11,7 +11,7 @@
         android:id="@+id/viewUpBtn"
         android:layout_width="match_parent"
         android:layout_height="234dp"
-        android:background="@drawable/dash_back2"
+        android:background="@drawable/dash_back23"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -49,7 +49,7 @@
         android:text="Add Tasks"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:drawablePadding="-5dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,11 +66,11 @@
         android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/choosetaskbtn"
         android:fontFamily="@font/montserrat"
-        android:text="Choose Tasks"
+        android:text="Build Schedule"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        android:drawablePadding="-6dp"
+        android:textSize="15sp"
+        android:drawablePadding="-8dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.945"
@@ -90,7 +90,7 @@
         android:text="Calendar"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.054"
@@ -98,22 +98,6 @@
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
         app:layout_constraintVertical_bias="0.542" />
 
-
-    <TextView
-        android:id="@+id/Hello"
-        android:layout_width="325dp"
-        android:layout_height="25dp"
-        android:elevation="2dp"
-        android:fontFamily="sans-serif-light"
-        android:text="This is your suggested schedule for today:"
-        android:textColor="#4E4E4E"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -127,10 +111,26 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintVertical_bias="0.452" />
+
+    <TextView
+        android:id="@+id/Hello"
+        android:layout_width="325dp"
+        android:layout_height="25dp"
+        android:elevation="2dp"
+        android:fontFamily="sans-serif-light"
+        android:text="This is your suggested schedule for today:"
+        android:textColor="#4E4E4E"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
+        app:layout_constraintVertical_bias="0.002" />
 
     <ScrollView
         android:layout_width="357dp"
@@ -282,7 +282,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="200"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/work"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toEndOf="@+id/view9"
@@ -338,7 +338,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="30"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/work"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view10"
         app:layout_constraintEnd_toEndOf="@+id/view10"
