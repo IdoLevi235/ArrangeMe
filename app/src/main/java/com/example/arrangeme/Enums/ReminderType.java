@@ -6,19 +6,19 @@ public enum ReminderType {
     public static ReminderType fromInt(int x){
         ReminderType t;
         switch(x){
-            case 0:
+            case 1:
                 t=FIVE_MIN;
                 break;
-            case 1:
+            case 2:
                 t=FIFTEEN_MIN;
                 break;
-            case 2:
+            case 3:
                 t=ONE_HOUR;
                 break;
-            case 3:
+            case 4:
                 t=ONE_DAY;
                 break;
-            case 4:
+            case 0:
                 t=NONE;
             default:
                 t=null;
@@ -31,23 +31,49 @@ public enum ReminderType {
         int t;
         switch (s){
             case "FIVE_MIN":
-                t=0;
-                break;
-            case "FIFTEEN_MIN":
                 t=1;
                 break;
-            case "ONE_HOUR":
+            case "FIFTEEN_MIN":
                 t=2;
                 break;
-            case "ONE_DAY":
+            case "ONE_HOUR":
                 t=3;
                 break;
-            case "NONE":
+            case "ONE_DAY":
                 t=4;
+                break;
+            case "NONE":
+                t=0;
             default:
                 t=-1;
                 break;
         }
         return t;
+    }
+
+
+    public static String betterString(String s) {
+            String t;
+            switch (s){
+            case "FIVE_MIN":
+                t="5 min before";
+                break;
+            case "FIFTEEN_MIN":
+                t="15 min before";
+                break;
+            case "ONE_HOUR":
+                t="1 hour before";
+                break;
+            case "ONE_DAY":
+                t="1 day before";
+                break;
+            case "NONE":
+                t="None";
+            default:
+                t="";
+                break;
+        }
+        return t;
+
     }
 }

@@ -12,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,6 +106,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
         setDate = (Button)findViewById(R.id.chooseDate);
         setDate.setOnClickListener(this);
+        Intent i = getIntent();
+        String date = i.getStringExtra("date");
+        Log.d("TAG3", "onCreate: " + date);
+        if (date!=null) {
+            setDate.setText(date);
+        }
 
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
         mRecycler = findViewById(R.id.recylcler_choosetasks);

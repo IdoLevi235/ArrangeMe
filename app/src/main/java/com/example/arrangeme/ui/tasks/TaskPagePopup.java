@@ -176,7 +176,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 String reminder = (String) dataSnapshot.child(taskKey).child("reminderType").getValue();
                 Log.d("reminder", "onDataChange: " + reminder);
                 if (reminder != null) {
-                    reminderInt = reminderType.fromStringToInt(reminder);
+                    reminderInt = ReminderType.fromStringToInt(reminder);
                 } else {
                     reminderInt = -1;
                 }
@@ -186,7 +186,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                     reminder_switch.setChecked(false);
                 } else {
                     SpinnerShow.setVisibility(View.VISIBLE);
-                    SpinnerShow.setText(reminder);
+                    SpinnerShow.setText(ReminderType.betterString(reminder));
                     reminder_switch.setChecked(true);
                 }
             }
