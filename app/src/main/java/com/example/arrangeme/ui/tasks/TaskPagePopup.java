@@ -285,7 +285,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                     editedTaskToChange.setDescription(descriptionText.getText().toString());
                     editedTaskToChange.setLocation(locationText.getText().toString());
                     addTaskToDB(editedTaskToChange);
-
                     SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
                     ad.setTitleText("Great Job");
                     ad.setContentText("The task has been edited");
@@ -397,7 +396,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
 
     private void deleteTaskFromDB() {
         mDatabase.child(taskKey).setValue(null);
-        finish();
+        Intent intent = new Intent(TaskPagePopup.this, Homepage.class);
+        intent.putExtra("FromHomepage", "1");
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+
         //TODO: add "undo" delete like in tab tasks?
     }
 
@@ -407,6 +411,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
     }
 
     //onclick for the show task popup

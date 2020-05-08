@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -37,6 +39,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class TasksFragment extends Fragment implements View.OnClickListener{
+    public static boolean reloadNeeded;
     private RecyclerView mRecycler;
     private ArrayList<MainModelTasks> mainModels;
     private DatabaseReference mDatabase;
@@ -152,6 +155,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     }
 
     private void setRecycler(RecyclerView mRecycler) {
+
+
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -164,6 +169,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
+                Log.d("TAG6", "onViewCreated: KAKI PIPI ");
+
                 holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
@@ -220,4 +227,5 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                 startActivity(new Intent(getActivity(), AddTasks.class));
         }
     }
+
 }
