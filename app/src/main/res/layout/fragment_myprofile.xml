@@ -61,14 +61,14 @@
         app:layout_constraintVertical_bias="0.438" />
 
     <RelativeLayout
-        android:layout_width="393dp"
-        android:layout_height="338dp"
+        android:layout_width="355dp"
+        android:layout_height="318dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.32">
+        app:layout_constraintVertical_bias="0.55">
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
@@ -80,12 +80,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="293dp">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Notifications" />
+            android:layout_marginBottom="272dp">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
