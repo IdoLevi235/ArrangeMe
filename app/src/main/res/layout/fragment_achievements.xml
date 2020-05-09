@@ -102,7 +102,7 @@
             android:elevation="2dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:text="Tasks Until \nNext Level"
+            android:text="Points Until \nNext Level"
             android:textSize="18sp" />
 
         <TextView
@@ -135,7 +135,7 @@
             android:layout_marginEnd="112dp"
             android:layout_marginBottom="24dp"
             android:elevation="2dp"
-            app:cpb_background_progressbar_color="@color/colorTransparentWhite"
+            app:cpb_background_progressbar_color="#DADADA"
             app:cpb_background_progressbar_width="13dp"
             app:cpb_progress="70"
             app:cpb_progress_direction="to_right"
