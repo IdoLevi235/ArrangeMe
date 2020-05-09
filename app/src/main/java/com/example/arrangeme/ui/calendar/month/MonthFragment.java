@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.alamkanak.weekview.WeekView;
 import com.example.arrangeme.AddAnchor;
 import com.example.arrangeme.AddTasks.AddTasks;
+import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
@@ -261,7 +262,38 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         holder.button.setCompoundDrawablesWithIntrinsicBounds
                                 (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
                         // spinner.setVisibility(View.GONE);
+                        holder.button.setOnClickListener(v -> { //goto anchor/task popup
+                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String taskKey = fbAdapter.getRef(position).getKey();
+                                    if (model.getType().equals("TASK")) {
+                                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        Bundle b = new Bundle();
+                                        b.putString("TaskKey", taskKey);
+                                        intent.putExtras(b);
+                                        startActivity(intent);
+                                    }
+                                    else if (model.getType().equals("ANCHOR")){
+                                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        Bundle b = new Bundle();
+                                        b.putString("AnchorKey", taskKey);
+                                        intent.putExtras(b);
+                                        startActivity(intent);
 
+                                    }
+
+                                //TODO: after DB finished, go to anchor/task in a different way maybe
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        });
                     }
 
 

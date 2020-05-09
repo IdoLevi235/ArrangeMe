@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.calendar.week.Main2Activity"></activity>
+        <activity android:name=".AnchorPagePopup"></activity>
+        <activity android:name=".ui.calendar.week.Main2Activity" />
         <activity
             android:name=".ui.tasks.TaskPagePopup"
             android:theme="@style/AppTheme.CustomTheme2" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
