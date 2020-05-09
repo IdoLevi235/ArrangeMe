@@ -1,6 +1,7 @@
 package com.example.arrangeme;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,8 +72,14 @@ private Toolbar toolbar;
         else if(data != null && data.contentEquals("5")){
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
+        contextOfApplication = getApplicationContext();
     }
 
+    public static Context contextOfApplication;
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -17,7 +17,7 @@ import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Popup;
 import com.example.arrangeme.R;
 
-public class AvatarsPopup extends Activity implements View.OnClickListener, Popup {
+public class AvatarsPopup extends Activity implements View.OnClickListener{
 
     Button AvatarCircle1;
     Button AvatarCircle6;
@@ -31,20 +31,11 @@ public class AvatarsPopup extends Activity implements View.OnClickListener, Popu
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avatar_choice);
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        getWindow().setLayout((int) (width*0.90 ), (int) (height *0.65));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -20;
-        getWindow().setAttributes(params);
+
         apply_avatar = (Button)findViewById(R.id.apply_avatar);
         apply_avatar.setOnClickListener(this);
         this.setFinishOnTouchOutside(false);
-        //TODO: FADE FROM THE CENTER
+        definePopUpSize();
 
     }
 
@@ -55,8 +46,6 @@ public class AvatarsPopup extends Activity implements View.OnClickListener, Popu
         intent.putExtra("FromHomepage", "5");
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-
     }
 
     @Override
@@ -72,28 +61,18 @@ public class AvatarsPopup extends Activity implements View.OnClickListener, Popu
         return;
     }
 
-    @Override
+
     public void definePopUpSize() {
-
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width*0.90 ), (int) (height *0.65));
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.x = 0;
+        params.y = -20;
+        getWindow().setAttributes(params);
     }
 
-    @Override
-    public void disableViews() {
-
-    }
-
-    @Override
-    public void showDetails() {
-
-    }
-
-    @Override
-    public void showImage() {
-
-    }
-
-    @Override
-    public void editMode() {
-
-    }
 }
