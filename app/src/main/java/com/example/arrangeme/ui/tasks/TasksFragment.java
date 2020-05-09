@@ -234,7 +234,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
                     spinner.setVisibility(View.GONE);
                     rlNotasks.setVisibility(View.VISIBLE);
                     noTask.setVisibility(View.VISIBLE);
-                    noTask.setText("You have currently no tasks. \n Press the Plus button below to add some new tasks.");
+                    noTask.setText("You have currently no tasks. \n\n Press the Plus button below to add some new tasks.");
                     addTasks.setElevation(99);
                 }
             }
