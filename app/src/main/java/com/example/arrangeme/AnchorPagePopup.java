@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,11 +22,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Entities.TaskEntity;
@@ -38,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -85,11 +91,8 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         spinnerReminder = (Spinner) findViewById(R.id.spinner);
         reminder_switch = (Switch) findViewById(R.id.reminder_switch);
         date = findViewById(R.id.showDate);
-        date.setOnClickListener(this);
         sTime=findViewById(R.id.showFrom);
-        sTime.setOnClickListener(this);
         eTime=findViewById(R.id.showTo);
-        eTime.setOnClickListener(this);
 
         //disable all views
         this.disableViews();
@@ -267,37 +270,144 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                     Button btn = (Button) ad.findViewById(R.id.confirm_button);
                     btn.setBackgroundResource(R.drawable.rounded_rec);
                 } else {
-                    TaskEntity editedTaskToChange = new TaskEntity();
-                    editedTaskToChange.setDescription(descriptionText.getText().toString());
-                    editedTaskToChange.setLocation(locationText.getText().toString());
-                    editAnchorInDB(editedTaskToChange);
-                    SweetAlertDialog ad = new SweetAlertDialog(AnchorPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
-                    ad.setTitleText("Great Job");
-                    ad.setContentText("The anchor has been edited");
-                    ad.show();
-                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                    btn.setBackgroundResource(R.drawable.rounded_rec);
-                    ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            finish();
-                        }
-                    });
+                    AnchorEntity anchorToChange = new AnchorEntity();
+                    anchorToChange.setDescription(descriptionText.getText().toString());
+                    anchorToChange.setLocation(locationText.getText().toString());
+                    anchorToChange.setDate(date.getText().toString());
+                    anchorToChange.setStartTime(sTime.getText().toString());
+                    anchorToChange.setEndTime(eTime.getText().toString());
+
+                    if (checkStartEndTime(anchorToChange)){
+                        editAnchorInDB(anchorToChange);
+                        SweetAlertDialog ad = new SweetAlertDialog(AnchorPagePopup.this, SweetAlertDialog.SUCCESS_TYPE);
+                        ad.setTitleText("Great Job");
+                        ad.setContentText("The anchor has been edited");
+                        ad.show();
+                        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                        btn.setBackgroundResource(R.drawable.rounded_rec);
+                        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                finish();
+                            }
+                        });
+                    }
+
                 }
             }
         });
+
+        date.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            DatePickerDialog dpd = new DatePickerDialog(AnchorPagePopup.this, (view, year, month, dayOfMonth) -> {
+                String d = dayOfMonth<10 ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String m = month+1<10 ? "0" + String.valueOf(month+1) : String.valueOf(month+1);
+                String str = d+"-"+m+"-"+year;
+                date.setText(str);
+            }
+                    ,c.get(Calendar.YEAR),c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            dpd.show();
+      });
+
+        sTime.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
+            // Get Current Time
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            String min = minute>30? "30" : "00";
+                            sTime.setText(hourOfDay + ":" + min);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+
+        });
+
+        eTime.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
+            // Get Current Time
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            String min = minute>30? "30" : "00";
+                            eTime.setText(hourOfDay + ":" + min);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+
+        });
+
 
 //TODO: edit the photo (add/choose another photo).
 
     }
 
-    private void editAnchorInDB(TaskEntity editedTaskToChange) {
+    private boolean checkStartEndTime(AnchorEntity anchorToChange) {
+        String startTime = anchorToChange.getStartTime();
+        String[] startArr = startTime.split(":");
+        int startHour = Integer.parseInt(startArr[0]);
+        int startMin = Integer.parseInt(startArr[1]);
+        String endTime = anchorToChange.getEndTime();
+        String[] endArr = endTime.split(":");
+        int endHour = Integer.parseInt(endArr[0]);
+        int endMin = Integer.parseInt(endArr[1]);
+        if (startTime.trim().length() == 0) {
+            SweetAlertDialog ad = new SweetAlertDialog(AnchorPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+            ad.setTitleText("Error");
+            ad.setContentText("You must enter start time!");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+            return false;
+        }
+
+        if (endTime.trim().length() == 0) {
+            SweetAlertDialog ad = new SweetAlertDialog(AnchorPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+            ad.setTitleText("Error");
+            ad.setContentText("You must enter end time!");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+            return false;
+        }
+
+        if (endHour < startHour || (endHour == startHour && endMin < startMin)) {
+            SweetAlertDialog ad = new SweetAlertDialog(AnchorPagePopup.this, SweetAlertDialog.ERROR_TYPE);
+            ad.setTitleText("Error");
+            ad.setContentText("Start time must be before end time!");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+            return false;
+        }
+        return true;
+    }
+
+    private void editAnchorInDB(AnchorEntity anchorToChange) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mDatabase.child(anchorKey).child("description").setValue(editedTaskToChange.getDescription());
-                mDatabase.child(anchorKey).child("location").setValue(editedTaskToChange.getLocation());
+                mDatabase.child(anchorKey).child("description").setValue(anchorToChange.getDescription());
+                mDatabase.child(anchorKey).child("location").setValue(anchorToChange.getLocation());
+                mDatabase.child(anchorKey).child("createDate").setValue(anchorToChange.getDate());
+                mDatabase.child(anchorKey).child("startTime").setValue(anchorToChange.getStartTime());
+                mDatabase.child(anchorKey).child("endTime").setValue(anchorToChange.getEndTime());
+
                 if(reminder_switch.isChecked()) {
                     if(chosenReminderEdited!=null) {
                         mDatabase.child(anchorKey).child("reminderType").setValue(chosenReminderEdited);
