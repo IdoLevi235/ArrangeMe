@@ -1,67 +1,51 @@
 package com.example.arrangeme.ui.tasks;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
+import com.example.arrangeme.Popup;
 import com.example.arrangeme.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class TaskPagePopup extends Activity  implements View.OnClickListener{
+public class TaskPagePopup extends Activity  implements View.OnClickListener, Popup {
 
     private ImageView applyBtn;
     private ImageView editModeBtn;
@@ -88,7 +72,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         setContentView(R.layout.taskpagepopup);
 
         //this function define the size of this window
-        definePopUpSize();
+        this.definePopUpSize();
 
         //task key is the key for the task that the user touched
         Bundle b = getIntent().getExtras();
@@ -108,48 +92,20 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         reminder_switch = (Switch) findViewById(R.id.reminder_switch);
 
         //disable all views
-        disableViews();
+        this.disableViews();
 
         //set data for the view from the DB
-        showTaskDetails();
+        this.showDetails();
 
     }
 
-    private void definePopUpSize() {
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -15;
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        getWindow().setAttributes(params);
-        this.setFinishOnTouchOutside(false);
-    }
 
 
-    private void disableViews() {
-        SpinnerShow.setEnabled(false);
-        SpinnerShow.setClickable(false);
-
-        descriptionText.setEnabled(false);
-        descriptionText.setClickable(false);
-
-        locationText.setEnabled(false);
-        locationText.setClickable(false);
-
-        reminder_switch.setClickable(false);
-    }
 
     //set data to the views from the DB
-    private void showTaskDetails() {
-        showImage();
-
+    public void showDetails() {
+        this.showImage();
         TaskEntity taskToPresent =new TaskEntity();
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -198,12 +154,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         //shows the task's details in the activity layout
 
 
-    private void showImage(){
+    public void showImage(){
         //TODO: shows the image from DB - add the photo to the DB
    }
 
     //turn on the edit mode
-    private void editMode() {
+    public void editMode() {
         //change the icon view from edit to delete
         editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
         editModeBtn.setBackgroundResource(R.drawable.avatar_female2);
@@ -422,7 +378,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                 onBackPressed();
                 break;
             case (R.id.editModeBtn):
-                editMode();
+                this.editMode();
                 break;
             case (R.id.textCategory):
                 SweetAlertDialog ad = new SweetAlertDialog(TaskPagePopup.this, SweetAlertDialog.ERROR_TYPE);
@@ -438,4 +394,34 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void definePopUpSize() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.x = 0;
+        params.y = -15;
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        getWindow().setAttributes(params);
+        this.setFinishOnTouchOutside(false);
+    }
+
+    @Override
+    public void disableViews() {
+        SpinnerShow.setEnabled(false);
+        SpinnerShow.setClickable(false);
+
+        descriptionText.setEnabled(false);
+        descriptionText.setClickable(false);
+
+        locationText.setEnabled(false);
+        locationText.setClickable(false);
+
+        reminder_switch.setClickable(false);
+
+    }
 }

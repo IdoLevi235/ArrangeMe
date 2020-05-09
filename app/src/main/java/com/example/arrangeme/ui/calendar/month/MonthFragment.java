@@ -122,7 +122,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 monthCalendar.addDecorator(new DayViewDecorator() {
                     @Override
                     public boolean shouldDecorate(CalendarDay day) {
-                        Log.d("TAG", "shouldDecorate: anchors = " + datesWithAnchors);
                         StringBuilder dateSB = getSBfromCalendarDay(day);
                         String date = dateSB.toString();
                         if (datesWithAnchors.contains(date))
@@ -158,7 +157,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 monthCalendar.addDecorator(new DayViewDecorator() {
                     @Override
                     public boolean shouldDecorate(CalendarDay day) {
-                        Log.d("TAG", "shouldDecorate: tasks = " + datesWithTasks);
                         StringBuilder dateSB = getSBfromCalendarDay(day);
                         String date = dateSB.toString();
                         if (datesWithTasks.contains(date))
