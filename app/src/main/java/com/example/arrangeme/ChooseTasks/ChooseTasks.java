@@ -38,7 +38,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -111,6 +114,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         Log.d("TAG3", "onCreate: " + date);
         if (date!=null) {
             setDate.setText(date);
+        }
+        else {
+            String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+            setDate.setText(currentDate);
+
         }
 
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
