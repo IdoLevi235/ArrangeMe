@@ -124,11 +124,9 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
                     }
                 }
                 if (!q_answers.contains(0)) {
-                    System.out.println("GOOD");
                     alertQfinish();
                 }
                 else {
-                    System.out.println("KAKA");
                     alertQnotFinish();
                 }
 

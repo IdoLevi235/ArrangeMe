@@ -1,23 +1,10 @@
 package com.example.arrangeme.AddTasks;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.Fragment;
-
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,23 +23,17 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
-import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
-import com.example.arrangeme.MainActivity;
-import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.schedule.ScheduleFragment;
-import com.example.arrangeme.ui.tasks.TasksFragment;
-import com.google.android.material.circularreveal.CircularRevealWidget;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,18 +41,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-public class AddTasks extends AppCompatActivity implements View.OnClickListener {
+public class AddTasks extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private FirebaseFunctions mFunctions;
-
     private static final int GALLERY_REQUEST_CODE = 1;
     private RecyclerView recyclerView;
     private ArrayList<MainModel> mainModels;
@@ -92,7 +75,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
     private ReminderType chosenReminder;
     private Uri selectedImage;
     private DatabaseReference mDatabase;
-
+    private DatabaseReference mDatabase2;
+    private String currentDate;
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,93 +85,28 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
         mFunctions = FirebaseFunctions.getInstance();
         setSupportActionBar(toolbar);
-        leftScrl=findViewById(R.id.btnLeftScrl);
-        rightScrl=findViewById(R.id.btnRightScrl);
-        confirmBtn=findViewById(R.id.sumbitBtn11);
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
         addLocation=(EditText)findViewById(R.id.locationBtn);
-        //photo=findViewById(R.id.photo);
-        //photo.setVisibility(View.INVISIBLE);
+        leftScrl=findViewById(R.id.btnLeftScrl);
+        rightScrl=findViewById(R.id.btnRightScrl);
         taskEntityToAdd =new TaskEntity();
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         /* Recycler View Stuff */
         recyclerView = findViewById(R.id.recycler_view);
-        Integer[] catIcon = {R.drawable.study, R.drawable.study,  R.drawable.work, R.drawable.study,
-                R.drawable.familycat, R.drawable.chores, R.drawable.study, R.drawable.friends_cat, 0};
-        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
-        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
-                R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
-                R.drawable.category_btn_family, R.drawable.category_btn_chores,
-                R.drawable.category_btn_relax, R.drawable.category_btn_friends, R.drawable.category_btn_other};
-        Integer[] catBackgroundFull =
-                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
-        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
-                R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
-        mainModels = new ArrayList<>();
-        for (int i = 0; i < catIcon.length; i++) {
-            MainModel model = new MainModel(catIcon[i], catName[i], catBackground[i],catColor[i],catBackgroundFull[i]);
-            Log.d("TAG", "onCreate: " + catIcon[i]);
-            mainModels.add(model);
-        }
-
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(AddTasks.this,
-                LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mainAdapter = new MainAdapter(AddTasks.this, mainModels);
-        recyclerView.setAdapter(mainAdapter);
-        leftScrl.setVisibility(View.INVISIBLE);
-        rightScrl.setVisibility(View.VISIBLE);
-        rightScrl.setBackgroundResource(0);
-        leftScrl.setBackgroundResource(0);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    currentPosition = ((LinearLayoutManager)recyclerView.getLayoutManager())
-                            .findFirstVisibleItemPosition();
-                   //onPageChanged(position);
-                    SwitchArrows();
-                }
-                else if (newState==RecyclerView.SCROLL_STATE_DRAGGING) {
-                    SwitchArrows();
-                }
-                System.err.println(currentPosition);
-            }
-            });
-
+        setRecyclerView(recyclerView);
         /* Recycler View Stuff End*/
 
         /*description stuff*/
         /*description stuff end*/
 
         /* Right and Left click listenrs */
-        rightScrl.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                recyclerView.smoothScrollBy(300, 0);
-                rightScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                rightScrl.setBackgroundResource(0);
-            }
-            return true;
-        });
-
-        leftScrl.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                recyclerView.smoothScrollBy(-300, 0);
-                leftScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                leftScrl.setBackgroundResource(0);
-            }
-            return true;
-        });
+        rightScrl.setOnTouchListener(this);
+        leftScrl.setOnTouchListener(this);
         /* Right and Left click listenrs end*/
+
         textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
         textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
 
@@ -202,7 +121,37 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                 "1 hour before",
                 "1 day before"
         };
-        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(reminderItems));
+        setSpinner(spinner,reminderItems);
+        /* spinner stuff end */
+
+
+        /* Toggle stuff */
+        show_spinner = (Switch)findViewById(R.id.reminder_switch);
+        show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    spinner.setVisibility(View.VISIBLE);
+                }
+                else {
+                    spinner.setVisibility(View.INVISIBLE);
+
+                }
+            }
+        });
+        /* Toggle stuff End*/
+
+
+
+        /* confirm button click listener */
+        confirmBtn=findViewById(R.id.sumbitBtn11);
+        confirmBtn.setOnClickListener(this);
+        /* confirm button click listener end*/
+
+    }
+
+    private void setSpinner(Spinner spinner, String[] items) {
+        final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(items));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this,R.layout.item_spinner,reminderItemsList){
             @Override
@@ -247,101 +196,60 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        /* spinner stuff end */
-
-
-        /* Toggle stuff */
-        show_spinner = (Switch)findViewById(R.id.reminder_switch);
-        show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                {
-                    spinner.setVisibility(View.VISIBLE);
-                }
-                else {
-                    spinner.setVisibility(View.INVISIBLE);
-
-                }
-            }
-        });
-        /* Toggle stuff End*/
-
-
-
-        /* confirm button click listener */
-        confirmBtn.setOnClickListener(v -> {
-            String description = desc.getText().toString();
-            String location = addLocation.getText().toString();
-            if(mainAdapter.getCurrentCategory()==null) { //if no category picked
-                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
-                ad.setTitleText("Error");
-                ad.setContentText("You must choose a category!");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-            }
-
-            if (description.trim().length() == 0){
-                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
-                ad.setTitleText("Error");
-                ad.setContentText("You must enter task description!");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-            }
-
-              else {
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-                Query lastQuery = mDatabase.orderByKey().limitToLast(1);
-
-                lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String biggestKey=null;
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                             biggestKey = ds.getKey();
-                        }
-                        int newKey;
-                        if (biggestKey==null) newKey=0;
-                        else newKey = Integer.parseInt(biggestKey) + 1;
-                        taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
-                        taskEntityToAdd.setDescription(description);
-                        taskEntityToAdd.setReminderType(chosenReminder);
-                        taskEntityToAdd.setPhoto(selectedImage);
-                        taskEntityToAdd.setLocation(location);
-                        mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.SUCCESS_TYPE);
-                ad.setTitleText("Great!");
-                ad.setContentText("You added new task!");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-                Intent intent = new Intent(this, Homepage.class);
-                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        intent.putExtra("FromHomepage", "1");
-                        startActivity(intent);
-                    }
-                });
-              }
-        });
-        /* confirm button click listener end*/
 
     }
 
+    private void setRecyclerView(RecyclerView recyclerView) {
+        Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
+                R.drawable.familycat, R.drawable.chores, R.drawable.relax,R.drawable.friends_cat, 0};
+        String[] catName = {"Study", "Sport", "Work", "Nutrition", "Family", "Chores", "Relax", "Friends","Other"};
+        Integer[] catBackground = {R.drawable.category_btn_study, R.drawable.category_btn_sport,
+                R.drawable.category_btn_work, R.drawable.category_btn_nutrition,
+                R.drawable.category_btn_family,R.drawable.category_btn_chores,
+                R.drawable.category_btn_relax, R.drawable.category_btn_friends, R.drawable.category_btn_other};
+        Integer[] catBackgroundFull =
+                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                        R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                        R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                        R.drawable.rounded_rec_relax_nostroke,R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+        Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+                R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
+        mainModels = new ArrayList<>();
+        for (int i = 0; i < catIcon.length; i++) {
+            MainModel model = new MainModel(catIcon[i], catName[i], catBackground[i],catColor[i],catBackgroundFull[i]);
+            Log.d("TAG", "onCreate: " + catIcon[i]);
+            mainModels.add(model);
+        }
 
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(AddTasks.this,
+                LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mainAdapter = new MainAdapter(AddTasks.this, mainModels);
+        recyclerView.setAdapter(mainAdapter);
+        leftScrl.setVisibility(View.INVISIBLE);
+        rightScrl.setVisibility(View.VISIBLE);
+        rightScrl.setBackgroundResource(0);
+        leftScrl.setBackgroundResource(0);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    currentPosition = ((LinearLayoutManager)recyclerView.getLayoutManager())
+                            .findFirstVisibleItemPosition();
+                    //onPageChanged(position);
+                    SwitchArrows();
+                }
+                else if (newState==RecyclerView.SCROLL_STATE_DRAGGING) {
+                    SwitchArrows();
+                }
+                System.err.println(currentPosition);
+            }
+        });
+
+
+    }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -390,9 +298,86 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
             case (R.id.add_photo):
                 pickFromGallery();
                 break;
+            case(R.id.sumbitBtn11):
+                addTaskToDB();
             default:
                 break;
         }
+    }
+
+    private void addTaskToDB() {
+            String description = desc.getText().toString();
+            String location = addLocation.getText().toString();
+            Log.d("TAG5", "onCreate: " + mainAdapter.getCurrentCategory());
+            if(mainAdapter.getCurrentCategory()==null) { //if no category picked
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must choose a category!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+
+            else if (description.trim().length() == 0){
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
+                ad.setTitleText("Error");
+                ad.setContentText("You must enter task description!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+            }
+
+            else {
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+                LocalDateTime now = LocalDateTime.now();
+                String year = Integer.toString(now.getYear());
+                String month = Integer.toString(now.getMonthValue());
+                String day = Integer.toString(now.getDayOfMonth());
+
+                mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child(year).child(month).child(day);
+                Query lastQuery = mDatabase.orderByKey().limitToLast(1);
+                lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String biggestKey=null;
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            biggestKey = ds.getKey();
+                        }
+                        int newKey;
+                        if (biggestKey==null) newKey=0;
+                        else newKey = Integer.parseInt(biggestKey) + 1;
+                        taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
+                        taskEntityToAdd.setDescription(description);
+                        taskEntityToAdd.setReminderType(chosenReminder);
+                        taskEntityToAdd.setPhoto(selectedImage);
+                        taskEntityToAdd.setLocation(location);
+                        taskEntityToAdd.setCreateDate(currentDate);
+                        mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
+                        mDatabase2.push().setValue(taskEntityToAdd);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.SUCCESS_TYPE);
+                ad.setTitleText("Great!");
+                ad.setContentText("You added new task!");
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+                Intent intent = new Intent(this, Homepage.class);
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        intent.putExtra("FromHomepage", "1");
+                        startActivity(intent);
+                    }
+                });
+            }
+
     }
 
     private void pickFromGallery() {
@@ -413,17 +398,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    //data.getData returns the content URI for the selected Image
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
-                    //addPhoto.setText("Photo selected!");
-                    //addPhoto.setTextColor(Color.parseColor("#3b9453"));
-                    //addPhoto.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.greencheckmark24, 0);
                     Uri selectedImage = data.getData();
-                    //ImageView photo=findViewById(R.id.photo);
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
-                        //d.set
                         addPhoto.setHint("");
                         addPhoto.setCompoundDrawables(null,null,null,null);
                         addPhoto.setBackground(d);
@@ -432,17 +411,39 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener 
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
                         addPhoto.setBackground(d);
                     }
-
-                    //photo.requestLayout();
-                    //photo.getLayoutParams().height = 75;
-                    //photo.getLayoutParams().width = 75;
-                    //photo.setScaleType(ImageView.ScaleType.FIT_XY);
-                    //photo.setVisibility(View.VISIBLE);
                     break;
             }
 
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        switch(v.getId()){
+            case (R.id.btnRightScrl):
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    recyclerView.smoothScrollBy(300, 0);
+                    rightScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    rightScrl.setBackgroundResource(0);
+                }
+                return true;
+
+            case (R.id.btnLeftScrl):
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    recyclerView.smoothScrollBy(-300, 0);
+                    leftScrl.setBackgroundResource(R.drawable.rounded_rec_gray);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    leftScrl.setBackgroundResource(0);
+                }
+                return true;
+
+            default:
+                break;
+
+        }
+        return false;
+    }
 }
 
 //TODO: rounded corners at the photo

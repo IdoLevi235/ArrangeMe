@@ -4,8 +4,12 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TaskEntity {
     TaskCategory category;
@@ -13,14 +17,16 @@ public class TaskEntity {
     Uri photo;
     ReminderType reminderType;
     String location;
+    String createDate;
 
 
-    public TaskEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location) {
+    public TaskEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location, String createDate) {
         this.category = category;
         this.description = description;
         this.photo = photo;
         this.reminderType = reminderType;
         this.location = location;
+        this.createDate=createDate;
     }
 
     public TaskEntity() {
@@ -66,6 +72,17 @@ public class TaskEntity {
     public void setLocation(String location) {
         this.location = location;
     }
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+
+
+
 
 }
 

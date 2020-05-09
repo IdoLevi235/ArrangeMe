@@ -119,6 +119,3 @@ public class MainActivity extends AppCompatActivity{
 
 
 }
-//TODO: night mode option
-//TODO: change the "description"!!!!!!!!!!!
-//TODO: slide left right option

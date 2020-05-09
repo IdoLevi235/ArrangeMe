@@ -66,8 +66,10 @@ private Toolbar toolbar;
             navView.setSelectedItemId(R.id.navigation_tasks);
         }
         else if(data != null && data.contentEquals("2")){
-            Log.d("getIntent", "onClick: getIntent-calenderBtn");
             navView.setSelectedItemId(R.id.navigation_calendar);
+        }
+        else if(data != null && data.contentEquals("5")){
+            navView.setSelectedItemId(R.id.navigation_myprofile);
         }
     }
 
@@ -89,7 +91,6 @@ private Toolbar toolbar;
         int id = item.getItemId();
         System.err.println();
 
-        //TODO: IF WE WOULD LIKE- THIS IS THE PLACE TO PUT AN ITEM LIKE SETTINGS FOR ALL THE FRAGMENTS - I think we don't need it for now.
         //if (id == R.id.action_settings) {
             //Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
             //return true;

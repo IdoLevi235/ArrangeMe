@@ -9,12 +9,12 @@
 
 
     <com.alamkanak.weekview.WeekView
+
         android:id="@+id/dayView"
         android:layout_width="408dp"
         android:layout_height="570dp"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:visibility="visible"
         app:columnGap="1dp"
         app:dayBackgroundColor="#FFF4F4F4"
         app:daySeparatorStrokeWidth="1dp"
@@ -47,7 +47,7 @@
         app:timeColumnSeparatorStrokeWidth="1dp"
         app:timeColumnTextColor="@color/colorPrimary"
         app:timeColumnTextSize="10sp"
-        app:todayBackgroundColor="#FFF4F4F4"
+        app:todayBackgroundColor="@color/arrangeMeMain"
         app:todayHeaderTextColor="@color/colorProjectBlue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="2dp"
+    android:outlineAmbientShadowColor="@color/gray">
+
+
+    <TextView
+        android:id="@+id/avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="Choose an Avatar"
+        android:textColor="@color/arrangeMeMain"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.059" />
+
+    <TextView
+        android:id="@+id/avatar2"
+        android:layout_width="357dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="You can choose any avatar that you want, when you will get more points you will earn more avatars."
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle1"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/avatar_defaultfemale"
+        android:elevation="2dp"
+        android:src="@drawable/avatar12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle2"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/avatar_defaultmale"
+        android:elevation="2dp"
+        android:src="@drawable/firstravatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle4"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/avatar_male1"
+        android:elevation="2dp"
+        android:src="@drawable/avatar4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle3"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/avatar_female2"
+        android:elevation="2dp"
+        android:src="@drawable/avatar2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/AvatarCircle5"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/avatar_male2"
+        android:elevation="2dp"
+        android:src="@drawable/avatar5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/AvatarCircle6"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/avatar_female1"
+        android:elevation="2dp"
+        android:src="@drawable/avatar9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/apply_avatar"
+        android:layout_width="182dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_rounded"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:scaleY="-1"
+        android:text="OK"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle5"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

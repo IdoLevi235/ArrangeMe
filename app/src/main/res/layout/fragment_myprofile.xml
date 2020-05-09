@@ -6,90 +6,190 @@
     android:layout_height="match_parent"
     tools:context=".ui.myprofile.MyProfileFragment">
 
+
     <View
         android:id="@+id/viewUpBtn"
         android:layout_width="match_parent"
         android:layout_height="234dp"
-        android:background="@drawable/dash_back2"
+        android:background="@drawable/dash_back23"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/pictureCircle"
-        android:layout_width="234dp"
-        android:layout_height="229dp"
+        android:layout_width="199dp"
+        android:layout_height="199dp"
         android:background="@drawable/circle_choose_tasks"
         android:elevation="2dp"
+        android:fontFamily="sans-serif"
+        android:gravity="bottom|center"
+        android:paddingBottom="20dp"
+        android:text="Add A profile Picture"
+        android:textColor="#494848"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.139" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/AvatarCircle"
-        android:layout_width="126dp"
-        android:layout_height="127dp"
-        android:background="@drawable/circle_choose_tasks"
-        android:elevation="2dp"
+        android:layout_width="98dp"
+        android:layout_height="93dp"
+        android:background="@drawable/avatar_empty"
+        android:elevation="3dp"
+        android:src="@drawable/firstravatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.258" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="243dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="PROFILE NAME"
-        android:textColor="@color/arrangeMeMain"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
 
     <RelativeLayout
-        android:layout_width="355dp"
-        android:layout_height="318dp"
+        android:id="@+id/relativeLayout7"
+        android:layout_width="423dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="158dp"
+            android:layout_marginBottom="79dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="left"
+            android:text="PROFILE NAME"
+            android:textColor="@color/arrangeMeMain"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar5"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="29dp"
+            android:progress="70" />
+
+
+        <TextView
+            android:id="@+id/levelNum"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginEnd="155dp"
+            android:layout_marginBottom="53dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="left"
+            android:text="Master Of Schedules"
+            android:textColor="@color/darkgray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/howManyPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="227dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right"
+            android:text="1000 Points to go"
+            android:textAllCaps="true"
+            android:textColor="@color/darkgray"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="419dp"
+        android:layout_height="417dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.55">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout7"
+        app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.tabs.TabLayout
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="355dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="62dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="272dp">
+            android:layout_marginBottom="0dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="358dp"
+            app:tabIndicatorColor="@color/arrangeMeMain"
+            app:tabSelectedTextColor="@color/arrangeMeMain">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/achievementsTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Achievements" />
+                android:icon="@drawable/flagachive"
+                android:overScrollMode="ifContentScrolls"
+                android:text="My Achievements"
+                app:tint="@color/arrangeMeMain" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/infoTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:icon="@drawable/profiledetails"
                 android:text="Basic Info" />
         </com.google.android.material.tabs.TabLayout>
 
