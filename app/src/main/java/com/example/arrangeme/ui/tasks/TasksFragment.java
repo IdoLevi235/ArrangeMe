@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -53,6 +55,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     private FloatingActionButton addTasks;
     private ProgressBar spinner;
     private TextView tv;
+    private RelativeLayout rlNotasks;
+    private TextView noTask;
     private LinearLayoutManager layoutManager;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
             R.drawable.work_white, R.drawable.nutrition_white,
@@ -82,6 +86,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
         addTasks.setOnClickListener(this);
         tv = view.findViewById(R.id.textView7);
         tv.setVisibility(View.GONE);
+        rlNotasks = view.findViewById(R.id.noTasksLayout);
+        rlNotasks.setVisibility(View.GONE);
+        noTask = view.findViewById(R.id.noTasks);
+        noTask.setVisibility(View.GONE);
+
 
         /* Recycler view stuff */
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -217,6 +226,24 @@ public class TasksFragment extends Fragment implements View.OnClickListener{
     }
 
     private void checkIfThereArePendingTasks(DatabaseReference mDatabase) {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()==0)
+                {
+                    spinner.setVisibility(View.GONE);
+                    rlNotasks.setVisibility(View.VISIBLE);
+                    noTask.setVisibility(View.VISIBLE);
+                    noTask.setText("You have currently no tasks. \n Press the Plus button below to add some new tasks.");
+                    addTasks.setElevation(99);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
