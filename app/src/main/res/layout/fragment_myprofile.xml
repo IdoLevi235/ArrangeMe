@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:scrollbars="vertical"
     tools:context=".ui.myprofile.MyProfileFragment">
 
 
@@ -54,62 +56,61 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout7"
-        android:layout_width="wrap_content"
-        android:layout_height="132dp"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.17000002">
+        app:layout_constraintVertical_bias="0.116">
 
 
         <TextView
             android:id="@+id/profileName"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
+            android:layout_width="184dp"
+            android:layout_height="26dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="158dp"
-            android:layout_marginBottom="97dp"
+            android:layout_marginEnd="207dp"
+            android:layout_marginBottom="72dp"
             android:fontFamily="@font/montserrat"
             android:gravity="left"
             android:text="PROFILE NAME"
             android:textColor="@color/arrangeMeMain"
             android:textSize="20sp" />
 
-
         <ProgressBar
             android:id="@+id/progressBar5"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
-            android:layout_height="27dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="62dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginBottom="43dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="33dp"
             android:progress="70" />
 
         <TextView
             android:id="@+id/levelNum"
-            android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_width="162dp"
+            android:layout_height="18dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="155dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="229dp"
+            android:layout_marginBottom="54dp"
             android:fontFamily="@font/montserrat"
             android:gravity="left"
             android:text="Master Of Schedules"
@@ -119,44 +120,44 @@
         <TextView
             android:id="@+id/howManyPoints"
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="227dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="222dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="17dp"
             android:fontFamily="sans-serif-light"
             android:gravity="right"
-            android:text="1000 Points to go"
+            android:text="1000 Points"
             android:textAllCaps="true"
             android:textColor="@color/darkgray"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="419dp"
-        android:layout_height="417dp"
+        android:layout_width="418dp"
+        android:layout_height="438dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout7"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.00999999">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="355dp"
+            android:layout_height="379dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="59dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp" />
 
@@ -171,7 +172,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="358dp"
+            android:layout_marginBottom="379dp"
             app:tabIndicatorColor="@color/arrangeMeMain"
             app:tabSelectedTextColor="@color/arrangeMeMain">
 

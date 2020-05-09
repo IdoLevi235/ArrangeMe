@@ -123,11 +123,12 @@
                 android:background="@drawable/add_task_round"
                 android:elevation="2dp"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/descriptionText"
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
-                android:imeOptions="actionNext"
                 android:text="Lorem Ipusom Lorem Ipusom Lorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem2 "
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
@@ -222,8 +223,6 @@
                 android:textSize="14sp" />
 
 
-
-
             <EditText
                 android:id="@+id/locationText"
                 android:layout_width="302dp"
@@ -239,11 +238,12 @@
                 android:background="@drawable/add_task_round"
                 android:elevation="2dp"
                 android:fontFamily="sans-serif-light"
+                android:imeOptions="actionDone"
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
-                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:text="Lorem Ipusom Lorem Ipusom Lorem"
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />

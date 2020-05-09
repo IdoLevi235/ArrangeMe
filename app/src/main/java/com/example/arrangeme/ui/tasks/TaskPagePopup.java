@@ -257,7 +257,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener{
                    @Override
                    public void onClick(SweetAlertDialog sDialog) {
                        deleteTaskFromDB();
-                       //TODO: delete task from db
                    }
                });
                delete.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
