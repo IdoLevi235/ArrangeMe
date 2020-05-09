@@ -111,10 +111,10 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.452" />
+        app:layout_constraintVertical_bias="0.431" />
 
     <TextView
         android:id="@+id/Hello"
@@ -134,7 +134,7 @@
 
     <ScrollView
         android:layout_width="357dp"
-        android:layout_height="230dp"
+        android:layout_height="292dp"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="28dp"
         android:elevation="2dp"
@@ -143,83 +143,7 @@
         app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="@+id/view11"
         app:layout_constraintTop_toTopOf="@+id/view11"
-        app:layout_constraintVertical_bias="0.71000004">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/task1"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/unchecked2"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Clean The Room"
-                android:textSize="21sp" />
-
-            <TextView
-                android:id="@+id/task2"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/checked2"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Do Dishes"
-                android:textSize="21sp" />
-
-            <CheckBox
-                android:id="@+id/task3"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Do Dishes"
-                android:textSize="21sp" />
-
-            <CheckBox
-                android:id="@+id/task4"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Do Dishes"
-                android:textSize="21sp" />
-
-            <TextView
-                android:id="@+id/task5"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/checked2"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Do Dishes"
-                android:textSize="21sp" />
-
-            <TextView
-                android:id="@+id/task6"
-                android:fontFamily="@font/montserrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/checked2"
-                android:elevation="2dp"
-                android:padding="6dp"
-                android:text="  Do Dishes"
-                android:textSize="21sp" />
-
-
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintVertical_bias="0.71000004" />
 
     <View
         android:id="@+id/view9"
@@ -239,17 +163,16 @@
 
     <View
         android:id="@+id/view11"
-        android:layout_width="380dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="49dp"
+        android:layout_width="375dp"
+        android:layout_height="326dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.90999997" />
+        app:layout_constraintTop_toBottomOf="@+id/Hello"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/Taskcompleted"

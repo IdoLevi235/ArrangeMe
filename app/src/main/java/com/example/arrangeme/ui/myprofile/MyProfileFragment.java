@@ -37,9 +37,15 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private Button pictureCircle;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         myProfileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_myprofile, container, false);
+        myProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+            }
+        });
         return root;
     }
 
@@ -48,7 +54,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
         avatarBtn = view.findViewById(R.id.AvatarCircle);
         avatarBtn.setOnClickListener(this);
-
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.viewPager);
 
         pictureCircle = view.findViewById(R.id.pictureCircle);
         pictureCircle.setOnClickListener(this);
@@ -81,5 +88,4 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    //TODO: problem- when come back from another tab the that won't open the Tabs properly
 }

@@ -140,7 +140,7 @@
             android:elevation="1.5dp"
             android:fontFamily="sans-serif-medium"
             android:shadowColor="#535353"
-            android:text="Choose Tasks For Today"
+            android:text="Build a Schedule"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:visibility="gone" />

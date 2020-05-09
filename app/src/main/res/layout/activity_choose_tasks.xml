@@ -187,7 +187,7 @@
         android:background="#75C1C9"
         android:fontFamily="sans-serif-light"
         android:shadowColor="#05FFFFFF"
-        android:text="Confirm"
+        android:text="Build Your Schedule"
         android:textAllCaps="true"
         android:textColor="#535353"
         android:textSize="18sp"

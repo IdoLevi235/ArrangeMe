@@ -14,9 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.example.arrangeme.Homepage;
+import com.example.arrangeme.Popup;
 import com.example.arrangeme.R;
 
-public class AvatarsPopup extends Activity implements View.OnClickListener {
+public class AvatarsPopup extends Activity implements View.OnClickListener, Popup {
 
     Button AvatarCircle1;
     Button AvatarCircle6;
@@ -69,5 +70,30 @@ public class AvatarsPopup extends Activity implements View.OnClickListener {
 
     private void chooseAvatar() {
         return;
+    }
+
+    @Override
+    public void definePopUpSize() {
+
+    }
+
+    @Override
+    public void disableViews() {
+
+    }
+
+    @Override
+    public void showDetails() {
+
+    }
+
+    @Override
+    public void showImage() {
+
+    }
+
+    @Override
+    public void editMode() {
+
     }
 }
