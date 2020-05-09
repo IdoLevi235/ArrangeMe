@@ -353,6 +353,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                         taskEntityToAdd.setLocation(location);
                         taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
+                        mDatabase.child(String.valueOf(newKey)).child("type").setValue("TASK");
+
                         mDatabase2.push().setValue(taskEntityToAdd);
                     }
 

@@ -65,8 +65,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private DatePicker datePicker;
     private Spinner spinnerRem;
     private Spinner spinnerCat;
-    private Button startTime;
-    private Button endTime;
+    private Button time_start;
+    private Button time_end;
 
 
     @Override
@@ -129,10 +129,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         /* Date Picker End*/
 
         /* Time picker stuff */
-        startTime = (Button)findViewById(R.id.fromBtn);
-        endTime = (Button)findViewById(R.id.toBtn);
-        startTime.setOnClickListener(this);
-        endTime.setOnClickListener(this);
+        time_start = (Button)findViewById(R.id.fromBtn);
+        time_end = (Button)findViewById(R.id.toBtn);
+        time_start.setOnClickListener(this);
+        time_end.setOnClickListener(this);
         /* Time picker stuff end */
 
         /* Submit button stuff */
@@ -288,11 +288,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 pickFromGallery();
                 break;
             case (R.id.fromBtn):
-                showTimePickerDialog(startTime);
-                endTime.setEnabled(true);
+                showTimePickerDialog(time_start);
+                time_end.setEnabled(true);
                 break;
             case (R.id.toBtn):
-                showTimePickerDialog(endTime);
+                showTimePickerDialog(time_end);
                 break;
             case(R.id.sumbitBtn11):
                 anchorToAdd = new AnchorEntity();
@@ -301,9 +301,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 anchorToAdd.setCategory(chosenCat);
                 String date = generateDateStringFromDatepicker(datePicker);
                 anchorToAdd.setDate(date);
-                anchorToAdd.setStartTime((String) startTime.getText());
+                anchorToAdd.setStartTime((String) time_start.getText());
                 anchorToAdd.setLocation(addLocation.getText().toString());
-                anchorToAdd.setEndTime((String) endTime.getText());
+                anchorToAdd.setEndTime((String) time_end.getText());
                 if (validateForm(anchorToAdd)) {
                     addAnchorToDB(anchorToAdd);
                     showSuccessAlert();

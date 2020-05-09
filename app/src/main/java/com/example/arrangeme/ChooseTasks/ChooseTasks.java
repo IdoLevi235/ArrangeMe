@@ -263,7 +263,6 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             case R.id.chooseDate:
                 DatePickerDialog datePickerDialog = createDatePickerDialog();
                 datePickerDialog.show();
-
             default:
                 break;
         }//end of switch
