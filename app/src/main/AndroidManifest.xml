@@ -38,7 +38,8 @@
         <activity
             android:name=".Homepage"
             android:label="@string/title_activity_homepage"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Adminzone" />
 
         <receiver android:name=".NewAppWidget">

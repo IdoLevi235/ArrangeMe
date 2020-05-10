@@ -22,6 +22,20 @@
         app:layout_constraintVertical_bias="0.492" />
 
 
+    <EditText
+        android:id="@+id/passwordText2"
+        android:layout_width="30dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.834"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="282dp"
@@ -194,7 +208,7 @@
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="285dp"
+        android:layout_width="265dp"
         android:layout_height="41dp"
         android:ems="10"
         android:hint="Password"
@@ -203,7 +217,7 @@
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 

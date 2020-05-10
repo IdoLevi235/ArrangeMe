@@ -218,6 +218,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 if (dataSnapshot.getChildrenCount() == 0) {
                     tv.setText("You have no pending tasks");
                     tv.setVisibility(View.VISIBLE);
+                    howMuchMore.setVisibility(View.INVISIBLE);
                     spinner.setVisibility(View.GONE);
                 }
             }
