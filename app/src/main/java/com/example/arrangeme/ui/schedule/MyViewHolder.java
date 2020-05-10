@@ -11,9 +11,9 @@ import com.example.arrangeme.R;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
     //Elements of the recycler
-    Button anchorOrTask;
-    Button button;
-    TextView timeText;
+    public Button anchorOrTask;
+    public Button button;
+    public TextView timeText;
 
     public MyViewHolder(View v) {
         super(v);

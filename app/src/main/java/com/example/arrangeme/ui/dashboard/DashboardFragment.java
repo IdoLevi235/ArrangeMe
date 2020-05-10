@@ -2,8 +2,12 @@ package com.example.arrangeme.ui.dashboard;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +27,13 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.ChooseTasks.ChooseTasks;
+import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Questionnaire.Questionnaire;
@@ -56,30 +64,40 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private Button chooseTasksBtn;
     private Button questionnaireBtn;
     private DatabaseReference mDatabase;
-    private FirebaseRecyclerOptions<MainModelDashboard> options;
-    private FirebaseRecyclerAdapter<MainModelDashboard, MyViewHolderDashboard> fbAdapter;
+    private RecyclerView mRecycler;
+    private FirebaseRecyclerOptions<MainModelSchedule> options;
+    private FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder> fbAdapter;
     private RelativeLayout noSchRelative;
     private TextView noScheduleYet;
     private TextView quesMessage;
-    private RecyclerView mRecycler;
+    private TextView welcome;
+    Integer[] catIcon = {R.drawable.study_white,
+            R.drawable.sport_white,
+            R.drawable.work_white,
+            R.drawable.nutrition_white,
+            R.drawable.family_white_frame,
+            R.drawable.chores_white,
+            R.drawable.relax_white,
+            R.drawable.friends_white, 0};
+    Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
+            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //Here we need to change the text view of the name and more staff to change
-            }
-        });
-        setHasOptionsMenu(true);
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        welcome=view.findViewById(R.id.welcomText);
+        welcome.setText("Welcome " + Globals.currentUsername +"!");
         calenderBtn = view.findViewById(R.id.calenderBtn);
         addTaskBtn = view.findViewById(R.id.addTaskBtn);
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
@@ -93,31 +111,65 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         questionnaireBtn = view.findViewById(R.id.questionnaireBtn);
         questionnaireBtn.setOnClickListener(this);
         mRecycler=view.findViewById(R.id.recyclerDash);
+        mRecycler.setHasFixedSize(true);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.checkIfPersonalityVectorFilled();
+        mRecycler.setLayoutManager(layoutManager);
+        mRecycler.setItemAnimator(new DefaultItemAnimator());
         ScheduleFragment sf = new ScheduleFragment();
         String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-        Query query = mDatabase.orderByChild("createDate").equalTo(today);
-        options = new FirebaseRecyclerOptions.Builder<MainModelDashboard>().setQuery(query, MainModelDashboard.class).build();
-        fbAdapter = new FirebaseRecyclerAdapter<MainModelDashboard, MyViewHolderDashboard>(options) {
+       // Query query = mDatabase.orderByChild("createDate").equalTo(today);
+        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
+        fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
+                Log.d("TAG7", "onBindViewHolder: ");
+                sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(600, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(90, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
+
+            }
+
 
             @NonNull
             @Override
-            public MyViewHolderDashboard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 Log.d("TAG7", "onCreateViewHolder: ");
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
-                return new MyViewHolderDashboard(v);
+                return new MyViewHolder(v);
             }
 
-            @SuppressLint({"WrongConstant", "SetTextI18n"})
-            @Override
-            protected void onBindViewHolder(@NonNull MyViewHolderDashboard holder, int position, @NonNull MainModelDashboard model) {
-                Log.d("TAG7", "onBindViewHolder: ");
-            }
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
         }
+
+   /* public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
+        Log.d("TAG7", "InitItemOfSchedule: ");
+        holder.timeText.setText(" "+model.getTime());
+        holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+        SpannableStringBuilder str = new SpannableStringBuilder
+                ("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
+        str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length()+1, 0);
+        holder.button.setText(str);
+        holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
+        holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+        holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
+        if(model.getType().equals("ANCHOR")) {
+            holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+        }
+        else if (model.getType().equals("TASK"))
+            holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+        holder.button.setBackgroundResource
+                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+        holder.button.setCompoundDrawablesWithIntrinsicBounds
+                (0,0,catIcon[TaskCategory.fromStringToInt(model.getCategory())],0);
+
+    }*/
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)

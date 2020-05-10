@@ -277,7 +277,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
     }
 
-    private void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
+    public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
         holder.timeText.setText(" "+model.getTime());
         holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
         SpannableStringBuilder str = new SpannableStringBuilder
