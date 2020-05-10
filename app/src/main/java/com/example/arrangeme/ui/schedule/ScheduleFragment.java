@@ -1,8 +1,6 @@
 package com.example.arrangeme.ui.schedule;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,12 +25,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.arrangeme.ChooseTasks.ChooseTasks;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
-import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
-import com.example.arrangeme.schedule;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,26 +38,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener{
+public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private ScheduleViewModel scheduleViewModel;
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView chooseMessage;
     private Button chooseTaskBtn;
-    private TextView tv2;
     private Button questionnaireBtn;
-    private RelativeLayout noSchRelative;
-    private RelativeLayout existSchRelative;
     private ProgressBar spinner;
     private RecyclerView recyclerSchedule;
     private RecyclerView.LayoutManager layoutManager;
+    private String[] myDataset;
     private ArrayList<MainModelSchedule> mainModels;
     private DatabaseReference mDatabase;
     private FirebaseRecyclerOptions<MainModelSchedule> options;
     private FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder> fbAdapter;
-    private Button pickDate;
     final int[] longPressCount = new int[1];
     final int[] longPressKeys = new int[2];
     final int[] longPressPositions = new int[2];
@@ -101,110 +90,44 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-        spinner = (ProgressBar) view.findViewById(R.id.progressBar2);
+        spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
-
-        tv2 = view.findViewById(R.id.textViewPleaseChooseAdd);
-        tv2.setVisibility(View.INVISIBLE);
-
-        pickDate = view.findViewById(R.id.chooseDate2);
-        pickDate.setVisibility(View.INVISIBLE);
-        pickDate.setOnClickListener(this);
-
-        questionnaireBtn = view.findViewById(R.id.questionnaireBtn);
-        questionnaireBtn.setOnClickListener(this);
-
+        questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
         chooseTaskBtn = view.findViewById(R.id.chooseTaskBtn);
         chooseMessage = view.findViewById(R.id.chooseMessage);
         quesMessage = view.findViewById(R.id.quesMessage);
-        noScheduleYet = view.findViewById(R.id.noScheduleYet);
-        noSchRelative = view.findViewById(R.id.noScheduleLayout);
-        existSchRelative = view.findViewById(R.id.scheduleExistsLayout);
-        recyclerSchedule = view.findViewById(R.id.recyclerSchedule);
-
-        existSchRelative.setVisibility(View.GONE);
-        noSchRelative.setVisibility(View.GONE);
-
+        noScheduleYet= view.findViewById(R.id.quesMessage);
+        recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
         recyclerSchedule.setHasFixedSize(true);
+        //TODO: function that checks if there is a schedule, it means if the user chose tasks for today & fill the questionnaire(personality vector is ful), if not, visible the texts that I did.
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
-        longPressKeys[0] = -1;
-        longPressKeys[1] = -1;
-        longPressPositions[0] = -1;
-        longPressPositions[1] = -1;
-
-        /* check pv and if there is schedule */
-        checkPersonalityVector();//didnt fill questionnaire (first priority)
-
-        /* end */
-            options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
+        longPressKeys[0]=-1;longPressKeys[1]=-1;
+        longPressPositions[0]=-1;longPressPositions[1]=-1;
+        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
 
         /*Fire base UI stuff */
-        fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+        fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                InitItemOfSchedule(holder, position, model); // Init each item in schedule
-                setClickListenerToItem(holder, position); // Short click --> cancel pick
-                setLongClickListenerToItem(holder, position); // Long clicks
+                InitItemOfSchedule(holder,position,model); // Init each item in schedule
+                setClickListenerToItem(holder,position); // Short click --> cancel pick
+                setLongClickListenerToItem(holder,position); // Long clicks
                 spinner.setVisibility(View.GONE);
             }
 
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
+                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule,parent,false);
                 return new MyViewHolder(v);
             }
         };
 
         fbAdapter.startListening();
         recyclerSchedule.setAdapter(fbAdapter);
-        }
-
-    private boolean checkIfScheduleExistForToday() {
-    noScheduleYet.setVisibility(View.VISIBLE);
-    return true;
-    }
-
-    private void checkPersonalityVector() {
-        final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personality_vector");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (!(data.getKey().equals("0"))) { // ignore children 0 of "Personality vector" (doesn't exist (null), only 1-->25)
-                        q_answers.add(Integer.parseInt(data.getValue().toString()));
-                    }
-                }
-                if (q_answers.contains(0)) {
-                    noSchRelative.setVisibility(View.VISIBLE);
-                    noScheduleYet.setVisibility(View.VISIBLE);
-                    noScheduleYet.setText("You don't have schedule for XX-XX-XXXX");
-                    quesMessage.setVisibility(View.VISIBLE);
-                    quesMessage.setText("You need to complete the questionnaire in order to receive schedules!");
-                    questionnaireBtn.setVisibility(View.VISIBLE);
-                    pickDate.setVisibility(View.INVISIBLE);
-                    tv2.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    pickDate.setVisibility(View.VISIBLE);
-                    pickDate.setEnabled(true); // there is PV, so he can pick date.
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private boolean checkIfThereIsSchedule() {
-        //todo : change here when DB is done
-        return false;
     }
 
     private void setLongClickListenerToItem(MyViewHolder holder, int position) {
@@ -380,13 +303,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case (R.id.questionnaireBtn):
-                Intent intent = new Intent(getActivity(), Questionnaire.class);
-                startActivity(intent);
+            case (R.id.DayBtn):
+
                 break;
-            case (R.id.chooseDate2):
-                DatePickerDialog datePickerDialog = createDatePickerDialog();
-                datePickerDialog.show();
+            case (R.id.WeekBtn):
+
+                break;
+            case (R.id.MonthBtn):
 
                 break;
             default:
@@ -394,41 +317,5 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
-    private DatePickerDialog createDatePickerDialog() {
-        final Calendar c = Calendar.getInstance();
-        DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
-                pickDate.setText(date);
-                if (!checkIfThereIsSchedule()) {
-                    noSchRelative.setVisibility(View.VISIBLE);
-                    noScheduleYet.setVisibility(View.VISIBLE);
-                    noScheduleYet.setText("You don't have schedule for " + date);
-                    chooseMessage.setVisibility(View.VISIBLE);
-                    chooseMessage.setText("You need to choose tasks for this day!");
-                    chooseTaskBtn.setVisibility(View.VISIBLE);
-                    chooseTaskBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(getActivity(), ChooseTasks.class);
-                            i.putExtra("date", date);
-                            Log.d("TAG3", "onClick: " + date);
-                            startActivity(i);
-                        }
-                    });
-                }
-            else {
-                    tv2.setVisibility(View.VISIBLE);
-                    tv2.setText("This is your calculated schedule for "+date+". You can switch the task's order with long press on 2 tasks. The Anchors will stay fixed.");
-                }
-            }
-
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        return dpd;
-
-    }
-
 }
 
-
-//TODO: check if there is schedule for today - after DB is ready with schedules (for now its random)
