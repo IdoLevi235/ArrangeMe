@@ -7,7 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +52,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button signUpWithGoogleBtn;
     private Button getSignUpWithFacebookBtn;
     private TextView forgotPass;
-
+    private boolean hidePass=true;
     //private Button getSignUpWithFacebookBtn;
 
     private SignInButton sign_in_google; //google try
@@ -96,6 +100,34 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         mStatusTextView = findViewById(R.id.status);
+
+        passwordText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passwordText.getRight() - passwordText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        {
+                            if (hidePass) {
+                                passwordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                                hidePass=false;
+                            }
+                            else if (!hidePass){
+                                passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                hidePass=true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
