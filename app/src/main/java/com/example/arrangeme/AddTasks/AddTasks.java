@@ -82,9 +82,17 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tasks);
-        Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
-        mFunctions = FirebaseFunctions.getInstance();
+        toolbar = findViewById(R.id.toolbar_addTasks);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        mFunctions = FirebaseFunctions.getInstance();
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
