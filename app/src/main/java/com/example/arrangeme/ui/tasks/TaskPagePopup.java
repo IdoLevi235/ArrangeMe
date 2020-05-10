@@ -366,7 +366,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
     }
 
     //onclick for the show task popup

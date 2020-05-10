@@ -124,7 +124,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        startActivity(new Intent(Signup.this, Questionnaire.class));
+                        Intent intent = new Intent(Signup.this, Homepage.class);
+                        Bundle b = new Bundle();
+                        b.putInt("isFromGoogle", 0); //Your id
+                        intent.putExtras(b); //Put your id to your next Intent
+                        startActivity(intent);
+                        finish();
+
                     }
                 });
         ad.show();
@@ -136,8 +142,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     private void createAccount( final String email, final String password, final String fname, final String lname) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

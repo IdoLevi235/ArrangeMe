@@ -8,6 +8,33 @@
     android:outlineAmbientShadowColor="@color/gray">
 
 
+    <RelativeLayout
+        android:layout_width="404dp"
+        android:layout_height="493dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027">>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout6"
+            android:layout_width="380dp"
+            android:layout_height="460dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/themecorners"
+            android:elevation="10dp"></RelativeLayout>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/avatar"
         android:layout_width="wrap_content"

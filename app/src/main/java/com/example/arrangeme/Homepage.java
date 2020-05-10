@@ -30,6 +30,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class Homepage extends AppCompatActivity {
 private Toolbar toolbar;
+private int value;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,18 @@ private Toolbar toolbar;
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
         contextOfApplication = getApplicationContext();
+
+        Bundle b = getIntent().getExtras();
+        if(b != null)
+            value = b.getInt("isFromGoogle");
+        if(value==1)
+        {
+            Globals.isFromGoogle=true;
+        }
+        else if(value==0)
+        {
+            Globals.isFromGoogle=false;
+        }
     }
 
     public static Context contextOfApplication;
@@ -105,6 +118,20 @@ private Toolbar toolbar;
         //}
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
     }
 
 
