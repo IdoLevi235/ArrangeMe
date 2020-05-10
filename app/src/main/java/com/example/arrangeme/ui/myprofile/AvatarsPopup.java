@@ -2,6 +2,7 @@ package com.example.arrangeme.ui.myprofile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -54,6 +55,7 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
             case R.id.apply_avatar:
                 chooseAvatar();
                 onBackPressed();
+                break;
         }
     }
 
@@ -72,6 +74,7 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = -20;
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         getWindow().setAttributes(params);
     }
 
