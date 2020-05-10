@@ -226,11 +226,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(0);
                 /* addNewUserToDB end */
 
-                startActivity(new Intent(Login.this, Questionnaire.class));
+                Intent intent = new Intent(this, Questionnaire.class);
+                Bundle b = new Bundle();
+                b.putInt("isFromGoogle", 1); //Your id
+                intent.putExtras(b); //Put your id to your next Intent
+                startActivity(intent);
+                finish();
             }
             else {
-                startActivity(new Intent(Login.this, Homepage.class));
-
+                Intent intent = new Intent(this, Homepage.class);
+                Bundle b = new Bundle();
+                b.putInt("isFromGoogle", 1); //Your id
+                intent.putExtras(b); //Put your id to your next Intent
+                startActivity(intent);
+                finish();
             }
         }
     }
@@ -250,7 +259,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.currentUsername = user.getDisplayName();
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
-                                startActivity(new Intent(Login.this, Homepage.class));
+
+                                Intent intent = new Intent(Login.this, Homepage.class);
+                                Bundle b = new Bundle();
+                                b.putInt("isFromGoogle", 0); //Your id
+                                intent.putExtras(b); //Put your id to your next Intent
+                                startActivity(intent);
+                                finish();
+
+
+
                             } else {
                                 try {
                                     throw task.getException();

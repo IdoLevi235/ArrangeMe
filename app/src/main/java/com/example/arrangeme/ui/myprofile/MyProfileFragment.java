@@ -43,7 +43,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private ViewPager viewPager;
     private Button pictureCircle;
     private Uri profileImage;
-    private int[] tabIcons = { R.drawable.flagachive,  R.drawable.profiledetails};
+    private int[] tabIcons = { R.drawable.flagachive1,  R.drawable.card1};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

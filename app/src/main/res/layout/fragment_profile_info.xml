@@ -55,7 +55,7 @@
             android:fontFamily="sans-serif-light"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-            android:nextFocusForward="@+id/passwordText"
+            android:nextFocusForward="@+id/firstName"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
@@ -66,7 +66,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/firstName"
+            android:id="@+id/lastName"
             android:layout_width="168dp"
             android:layout_height="38dp"
             android:layout_alignParentStart="true"
@@ -82,7 +82,7 @@
             android:fontFamily="sans-serif-light"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
-            android:nextFocusForward="@+id/lastName"
+            android:nextFocusForward="@+id/passwordText"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
@@ -93,7 +93,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/first"
+            android:id="@+id/last"
             android:layout_width="104dp"
             android:layout_height="22dp"
             android:layout_alignParentStart="true"
@@ -108,12 +108,12 @@
             android:drawablePadding="2dp"
             android:drawableTint="#616161"
             android:fontFamily="@font/montserrat"
-            android:text="First Name"
+            android:text="Last Name"
             android:textColor="#616161"
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/lastName"
+            android:id="@+id/passwordText"
             android:layout_width="168dp"
             android:layout_height="38dp"
             android:layout_alignParentStart="true"
@@ -127,8 +127,8 @@
             android:background="@drawable/add_task_round"
             android:elevation="2dp"
             android:fontFamily="sans-serif-light"
-            android:imeOptions="actionDone|actionNext"
-            android:inputType="textPersonName"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
@@ -139,7 +139,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/last"
+            android:id="@+id/password"
             android:layout_width="103dp"
             android:layout_height="21dp"
             android:layout_alignParentStart="true"
@@ -150,16 +150,16 @@
             android:layout_marginTop="183dp"
             android:layout_marginEnd="264dp"
             android:layout_marginBottom="20dp"
-            android:drawableLeft="@drawable/name"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
             android:drawablePadding="2dp"
             android:drawableTint="#616161"
             android:fontFamily="@font/montserrat"
-            android:text="Last Name"
+            android:text="Password"
             android:textColor="#616161"
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/passwordText"
+            android:id="@+id/firstName"
             android:layout_width="225dp"
             android:layout_height="38dp"
             android:layout_alignParentStart="true"
@@ -174,8 +174,8 @@
             android:elevation="2dp"
             android:fontFamily="sans-serif-light"
             android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            android:nextFocusForward="@+id/firstName"
+            android:inputType="textPersonName"
+            android:nextFocusForward="@+id/lastName"
             android:paddingStart="119dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
@@ -186,7 +186,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/password"
+            android:id="@+id/first"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_alignParentStart="true"
@@ -197,11 +197,11 @@
             android:layout_marginTop="94dp"
             android:layout_marginEnd="266dp"
             android:layout_marginBottom="108dp"
-            android:drawableLeft="@drawable/ic_lock_black_24dp"
+            android:drawableLeft="@drawable/name"
             android:drawablePadding="2dp"
             android:drawableTint="#616161"
             android:fontFamily="@font/montserrat"
-            android:text="Password"
+            android:text="First Name"
             android:textColor="#616161"
             android:textSize="12sp" />
 
@@ -226,7 +226,7 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/profileImage"
             android:layout_width="82dp"
             android:layout_height="79dp"
             android:layout_alignParentStart="true"

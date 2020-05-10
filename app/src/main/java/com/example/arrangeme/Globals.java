@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Globals {
     public static String UID;
+    public static Boolean isFromGoogle;
     public static String currentEmail;
     private  Button btn_unfocus2;
     private  Button btn_focus;
