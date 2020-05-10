@@ -114,10 +114,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         {
                             if (hidePass) {
                                 passwordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyexx,0);
                                 hidePass=false;
                             }
                             else if (!hidePass){
                                 passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
                                 hidePass=true;
                             }
                             return false;
