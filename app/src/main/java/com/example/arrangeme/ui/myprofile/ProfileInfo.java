@@ -214,9 +214,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mDatabase.child("lname").setValue(last);
-                mDatabase.child("fname").setValue(first);
-                mDatabase.child("password").setValue(password);
+                dataSnapshot.child("lname").getRef().setValue(last);
+                dataSnapshot.child("fname").getRef().setValue(first);
+                dataSnapshot.child("password").getRef().setValue(password);
             }
 
             @Override
