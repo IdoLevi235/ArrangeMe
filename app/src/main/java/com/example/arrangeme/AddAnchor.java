@@ -67,14 +67,22 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private Spinner spinnerCat;
     private Button time_start;
     private Button time_end;
-
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_anchor);
-        Toolbar toolbar = findViewById(R.id.toolbar_addTasks);
+        toolbar = findViewById(R.id.toolbar_addAnchor);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Intent i =  getIntent();
         String pickedDate = i.getStringExtra("date");

@@ -89,6 +89,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                onBackPressed();
             }
         });
 
