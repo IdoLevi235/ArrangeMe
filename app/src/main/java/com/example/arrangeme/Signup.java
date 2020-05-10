@@ -124,7 +124,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        Intent intent = new Intent(Signup.this, Homepage.class);
+                        Intent intent = new Intent(Signup.this, Questionnaire.class);
                         Bundle b = new Bundle();
                         b.putInt("isFromGoogle", 0); //Your id
                         intent.putExtras(b); //Put your id to your next Intent
