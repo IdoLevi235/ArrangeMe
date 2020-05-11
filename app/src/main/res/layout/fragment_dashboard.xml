@@ -187,10 +187,10 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view10"
-        app:layout_constraintVertical_bias="0.06999999" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <TextView
         android:id="@+id/Hello"
@@ -203,10 +203,10 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view9"
@@ -226,7 +226,7 @@
 
     <View
         android:id="@+id/view11"
-        android:layout_width="337dp"
+        android:layout_width="381dp"
         android:layout_height="248dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
@@ -334,8 +334,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDash"
-        android:layout_width="317dp"
-        android:layout_height="228dp"
+        android:layout_width="360dp"
+        android:layout_height="220dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/view11"
         app:layout_constraintEnd_toEndOf="@+id/view11"

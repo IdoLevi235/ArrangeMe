@@ -24,6 +24,13 @@ import com.example.arrangeme.Entities.User;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +55,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     TextView last;
     TextView password;
     ImageView profileImage;
+    private FirebaseUser user;
     private DatabaseReference mDatabase;
 
     public ProfileInfo() {
@@ -206,19 +214,33 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
     public void EditUserInDB(String email, String password, String first, String last) {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.child("lname").getRef().setValue(last);
-                dataSnapshot.child("fname").getRef().setValue(first);
-                dataSnapshot.child("password").getRef().setValue(password);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String newPassword = password;
 
-            }
-        });
+        user.updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    dataSnapshot.child("lname").getRef().setValue(last);
+                                    dataSnapshot.child("fname").getRef().setValue(first);
+                                    dataSnapshot.child("password").getRef().setValue(password);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
     }
 
     //Apply the editing changes
@@ -246,7 +268,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
             applyBtn.setVisibility(View.GONE);
             editModeBtn.setVisibility(View.VISIBLE);
+            disableViews();
             //TODO: REFRESH LIKE WE ARE GOING TO ANOTHER TAB AND COME BACK FROM IT
+
         }
     }
 
@@ -270,4 +294,5 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
                     break;
             }
         }
+
 }

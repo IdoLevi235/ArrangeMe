@@ -33,7 +33,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
+    }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return super.getItemPosition(object);
     }
 
     @Override
@@ -51,4 +55,5 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragmentList.add(fragment);
         FragmentListTitles.add(title);
     }
+
 }

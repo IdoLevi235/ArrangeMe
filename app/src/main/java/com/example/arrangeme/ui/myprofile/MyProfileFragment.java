@@ -184,6 +184,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
 
 
 }
