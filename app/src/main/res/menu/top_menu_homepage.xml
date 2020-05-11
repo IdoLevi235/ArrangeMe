@@ -4,12 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Homepage">
 
-    <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="2"
-        android:title="User"
-        android:icon="@drawable/logout"
-        app:showAsAction="always">
-    </item>
 
 </menu>
