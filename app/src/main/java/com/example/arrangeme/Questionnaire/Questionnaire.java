@@ -19,18 +19,6 @@ public class Questionnaire extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
-
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            value = b.getInt("isFromGoogle");
-        if(value==1)
-        {
-            Globals.isFromGoogle=true;
-        }
-        else if(value==0)
-        {
-            Globals.isFromGoogle=false;
-        }
     }
 
 

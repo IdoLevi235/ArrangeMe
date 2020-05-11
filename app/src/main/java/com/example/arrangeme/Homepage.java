@@ -16,6 +16,7 @@ import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,18 +76,6 @@ private int value;
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
         contextOfApplication = getApplicationContext();
-
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            value = b.getInt("isFromGoogle");
-        if(value==1)
-        {
-            Globals.isFromGoogle=true;
-        }
-        else if(value==0)
-        {
-            Globals.isFromGoogle=false;
-        }
     }
 
     public static Context contextOfApplication;
@@ -110,25 +99,32 @@ private int value;
         // as you specify a parent activity in AndroidManifest.xml.
 
         int id = item.getItemId();
-        System.err.println();
 
-        //if (id == R.id.action_settings) {
-            //Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
-            //return true;
-        //}
+        if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(Homepage.this, MainActivity.class);
+            startActivity(intent);
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
-            super.onBackPressed();
-            //additional code
+            if (navView.getSelectedItemId()!=R.id.navigation_dashboard) {
+                super.onBackPressed();
+            }
+            else {
+                //do nothing for now
+            }
+
         } else {
+            Log.d("TAG3", "onBackPressed: POP");
             getSupportFragmentManager().popBackStack();
         }
 

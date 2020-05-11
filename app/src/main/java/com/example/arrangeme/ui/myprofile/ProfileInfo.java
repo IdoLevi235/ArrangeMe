@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -67,6 +68,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         editModeBtn = (ImageView) view.findViewById(R.id.editModeBtn);
         editModeBtn.setOnClickListener(this);
         emailText = view.findViewById(R.id.emailText);
@@ -79,7 +81,6 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         last = view.findViewById(R.id.last);
         password = view.findViewById(R.id.password);
         profileImage = (ImageView) view.findViewById(R.id.profileImage);
-
         emailText.setVisibility(View.GONE);
         passwordText.setVisibility(View.GONE);
         firstName.setVisibility(View.GONE);
@@ -88,20 +89,63 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         first.setVisibility(View.GONE);
         last.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
-        editModeBtn.setVisibility(View.GONE);
         profileImage.setVisibility(View.GONE);
-
-
-        showDetails();
-        super.onViewCreated(view, savedInstanceState);
+        checkIfFromGoogle();
     }
 
-    public void showDetails() {
+    private void checkIfFromGoogle() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("password");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()==null){ //google user
+                    showDetailsGoogle();
+                }
+                else { //regular user
+                    showDetailsRegularUser();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void showDetailsGoogle() {
+        Log.d("TAG4", "onDataChange: INSIDE GOOGLE FUNCTION");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!Globals.isFromGoogle) {
+                emailText.setVisibility(View.VISIBLE);
+                email.setVisibility(View.VISIBLE);
+                first.setVisibility(View.VISIBLE);
+                firstName.setVisibility(View.VISIBLE);
+                profileImage.setVisibility(View.VISIBLE);
+                disableViews();
+                firstName.setX(65);
+                emailText.setX(65);
+                firstName.setText((String) dataSnapshot.child("fname").getValue());
+                emailText.setText((String) dataSnapshot.child("email").getValue());
+                editModeBtn.setVisibility(View.GONE);
+                Log.d("TAG4", "onDataChange: HELLO");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void showDetailsRegularUser() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     emailText.setVisibility(View.VISIBLE);
                     passwordText.setVisibility(View.VISIBLE);
                     firstName.setVisibility(View.VISIBLE);
@@ -112,28 +156,11 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
                     password.setVisibility(View.VISIBLE);
                     editModeBtn.setVisibility(View.VISIBLE);
                     profileImage.setVisibility(View.VISIBLE);
-
-
                     disableViews();
-
                     emailText.setText((String) dataSnapshot.child("email").getValue());
                     passwordText.setText((String) dataSnapshot.child("password").getValue());
                     firstName.setText((String) dataSnapshot.child("fname").getValue());
                     lastName.setText((String) dataSnapshot.child("lname").getValue());
-                } else {
-
-                    emailText.setVisibility(View.VISIBLE);
-                    email.setVisibility(View.VISIBLE);
-                    first.setVisibility(View.VISIBLE);
-                    firstName.setVisibility(View.VISIBLE);
-                    profileImage.setVisibility(View.VISIBLE);
-                    disableViews();
-
-                    firstName.setX(65);
-                    emailText.setX(65);
-                    firstName.setText((String) dataSnapshot.child("fname").getValue());
-                    emailText.setText((String) dataSnapshot.child("email").getValue());
-                }
             }
 
             @Override
