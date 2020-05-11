@@ -8,8 +8,6 @@ import android.os.Build;
 import android.widget.Button;
 import androidx.annotation.RequiresApi;
 
-import java.util.ArrayList;
-
 public class Globals {
     public static String UID;
     public static String currentEmail;
@@ -65,15 +63,15 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
 
     //This function acting like a "radio group" like with buttons with one parameter for the Button unfocused
     //use: in the fragments of the questionnaire
-    public static Button setFocusAvatars(Button btn_unfocus, Button btn_focus, int drawable){
+    public static Button setFocusAvatars(Button btn_unfocus, Button btn_focus, Integer hash){
 
         //define the colors of the button that is unfocused
 
-        btn_unfocus.setBackgroundResource(drawable);
+       btn_unfocus.setBackgroundResource(hash);
+        //btn_unfocus.setBackgroundResource(hash.get(btn_unfocus));
 
         //define the colors of the button that is focused
-        btn_focus.setBackgroundResource(R.drawable.blue_circle);
-
+        btn_focus.setBackgroundResource(R.drawable.avatar_choose);
         //return the button that is focused
         return btn_focus;
     }

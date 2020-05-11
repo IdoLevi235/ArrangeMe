@@ -5,20 +5,21 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
-import com.example.arrangeme.Popup;
 import com.example.arrangeme.R;
+
+import java.util.Dictionary;
+import java.util.HashMap;
 
 public class AvatarsPopup extends Activity implements View.OnClickListener{
 
@@ -32,7 +33,11 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
     int ChosenAvatar=0;
     private Button btn_unfocus;
     private Button[] btn = new Button[6];
+    HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+
     private int[] btn_id = {R.id.AvatarCircle1, R.id.AvatarCircle6, R.id.AvatarCircle3, R.id.AvatarCircle2, R.id.AvatarCircle5, R.id.AvatarCircle4};
+    private int[] drawable = {R.drawable.avatar_defaultfemale, R.drawable.avatar_female1, R.drawable.avatar_female2, R.drawable.avatar_defaultmale, R.drawable.avatar_male2, R.drawable.avatar_male1};
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         for(int i = 0; i < btn.length; i++){
             btn[i] = (Button)findViewById(btn_id[i]);
             btn[i].setOnClickListener(this);
+            hash.put(btn_id[i],drawable[i]);
         }
 
         btn_unfocus = btn[0];
@@ -71,34 +77,33 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
                 break;
             case R.id.AvatarCircle1:
                 ChosenAvatar=1;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[0],R.drawable.avatar_defaultfemale);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[0],hash.get(btn_unfocus.getId()));
                 break;
             case R.id.AvatarCircle6:
                 ChosenAvatar=6;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[1],R.drawable.avatar_female1);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[1],hash.get(btn_unfocus.getId()));
                 break;
             case R.id.AvatarCircle3:
                 ChosenAvatar=3;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[2],R.drawable.avatar_female2);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[2], hash.get(btn_unfocus.getId()));
                 break;
             case R.id.AvatarCircle2:
                 ChosenAvatar=2;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[3],R.drawable.avatar_defaultmale);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[3],hash.get(btn_unfocus.getId()));
                 break;
             case R.id.AvatarCircle5:
                 ChosenAvatar=5;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[4],R.drawable.avatar_male2);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[4], hash.get(btn_unfocus.getId()));
                 break;
             case R.id.AvatarCircle4:
                 ChosenAvatar=4;
-                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[5],R.drawable.avatar_male1);
+                btn_unfocus=Globals.setFocusAvatars(btn_unfocus,btn[5],hash.get(btn_unfocus.getId()));
                 break;
         }
     }
 
     private void updateAvatar() {
-
-
+        //TODO: UPDATE AVATAR IN user db + set the profile avatar picture to be the new avatar.
         onBackPressed();
         return;
     }
