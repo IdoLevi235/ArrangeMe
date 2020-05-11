@@ -36,11 +36,10 @@ public class MainActivity extends AppCompatActivity{
         adminBtn = (Button) findViewById(R.id.adminBtn);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d("TAG6", "onCreate: " + user);
         if (user != null) {
-                Toast.makeText(MainActivity.this,"logged",Toast.LENGTH_LONG).show();
         } else {
             // User is signed out
-            Toast.makeText(MainActivity.this,"not logged",Toast.LENGTH_LONG).show();
         }
 
 
