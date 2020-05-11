@@ -261,9 +261,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 /* addNewUserToDB end */
 
                 Intent intent = new Intent(this, Questionnaire.class);
-                Bundle b = new Bundle();
-                b.putInt("isFromGoogle", 1); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
                 startActivity(intent);
                 finish();
             }
@@ -295,9 +292,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.UID = user.getUid();
 
                                 Intent intent = new Intent(Login.this, Homepage.class);
-                                Bundle b = new Bundle();
-                                b.putInt("isFromGoogle", 0); //Your id
-                                intent.putExtras(b); //Put your id to your next Intent
                                 startActivity(intent);
                                 finish();
 

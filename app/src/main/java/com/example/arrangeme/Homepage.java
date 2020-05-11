@@ -75,18 +75,6 @@ private int value;
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
         contextOfApplication = getApplicationContext();
-
-        Bundle b = getIntent().getExtras();
-        if(b != null)
-            value = b.getInt("isFromGoogle");
-        if(value==1)
-        {
-            Globals.isFromGoogle=true;
-        }
-        else if(value==0)
-        {
-            Globals.isFromGoogle=false;
-        }
     }
 
     public static Context contextOfApplication;

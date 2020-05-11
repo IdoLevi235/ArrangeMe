@@ -35,12 +35,20 @@ public class MainActivity extends AppCompatActivity{
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
         adminBtn = (Button) findViewById(R.id.adminBtn);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+                Toast.makeText(MainActivity.this,"logged",Toast.LENGTH_LONG).show();
+        } else {
+            // User is signed out
+            Toast.makeText(MainActivity.this,"not logged",Toast.LENGTH_LONG).show();
+        }
+
+
 //Login button onClick
         loginBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v==loginBtn){
-                    Log.d("login", "login Btn Activated");
                     Intent intent = new Intent(MainActivity.this, Login.class);//
                     startActivity(intent);
                 }
