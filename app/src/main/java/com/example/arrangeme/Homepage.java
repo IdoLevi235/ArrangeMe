@@ -55,6 +55,7 @@ private int value;
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -119,11 +120,9 @@ private int value;
                 super.onBackPressed();
             }
             else {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(Homepage.this, MainActivity.class);
-                startActivity(intent);
-
+                //do nothing for now
             }
+
         } else {
             Log.d("TAG3", "onBackPressed: POP");
             getSupportFragmentManager().popBackStack();
