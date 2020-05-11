@@ -126,14 +126,14 @@
 
     <Button
         android:id="@+id/sumbitBtn11"
-        android:layout_width="101dp"
-        android:layout_height="59dp"
+        android:layout_width="116dp"
+        android:layout_height="57dp"
         android:layout_marginStart="310dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-light"
-        android:text="Add"
+        android:text="Add task"
         android:textAllCaps="true"
-        android:textColor="#535353"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="serif"
@@ -142,7 +142,27 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/toolbar_addTasks"
         app:layout_constraintTop_toTopOf="@+id/toolbar_addTasks"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="101dp"
+        android:layout_height="59dp"
+        android:background="#00FFFFFF"
+        android:drawableLeft="@drawable/ic_keyboard_arrow_left_white_40"
+        android:fontFamily="sans-serif-light"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/toolbar_addTasks"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_settings"
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <RelativeLayout
         android:id="@+id/relativeLayout5"

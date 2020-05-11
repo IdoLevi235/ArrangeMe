@@ -157,6 +157,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         //noinspection SimplifiableIfStatement
         if (id==R.id.settingsIcon){
             Intent ct= new Intent(getActivity(), AddTasks.class);
+            getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             getActivity().startActivity(ct);
         }
         return super.onOptionsItemSelected(item);
