@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -34,6 +35,8 @@ import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +44,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -73,10 +79,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private ImageView photo;
     private TaskEntity taskEntityToAdd;
     private ReminderType chosenReminder;
-    private Uri selectedImage;
+    private Uri selectedImage2;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase2;
     private String currentDate;
+    private StorageReference mStorageRef;
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +99,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                 onBackPressed();
             }
         });
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         mFunctions = FirebaseFunctions.getInstance();
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
@@ -309,15 +316,31 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                 break;
             case(R.id.sumbitBtn11):
                 addTaskToDB();
+                sendImage(selectedImage2);
             default:
                 break;
         }
     }
 
+    private void sendImage(Uri selectedImage2) {
+        StorageReference imgRef = mStorageRef.child("images/test.jpg");
+        imgRef.putFile(selectedImage2)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("TAG8", "onSuccess: PHOTO UPLOADED" );
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                    }
+                });
+    }
+
     private void addTaskToDB() {
             String description = desc.getText().toString();
             String location = addLocation.getText().toString();
-            Log.d("TAG5", "onCreate: " + mainAdapter.getCurrentCategory());
             if(mainAdapter.getCurrentCategory()==null) { //if no category picked
                 SweetAlertDialog ad = new SweetAlertDialog(AddTasks.this, SweetAlertDialog.ERROR_TYPE);
                 ad.setTitleText("Error");
@@ -358,7 +381,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                         taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
                         taskEntityToAdd.setDescription(description);
                         taskEntityToAdd.setReminderType(chosenReminder);
-                        taskEntityToAdd.setPhoto(selectedImage);
+                       // taskEntityToAdd.setPhoto(selectedImage);
                         taskEntityToAdd.setLocation(location);
                         taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
@@ -411,6 +434,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                 case GALLERY_REQUEST_CODE:
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
                     Uri selectedImage = data.getData();
+                    selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
