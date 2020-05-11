@@ -1,5 +1,6 @@
 package com.example.arrangeme.ui.myprofile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +8,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -19,6 +22,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -26,6 +31,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabItem;
@@ -42,13 +48,16 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Button pictureCircle;
+    private FrameLayout containerFilter;
     private Uri profileImage;
     private int[] tabIcons = { R.drawable.flagachive1,  R.drawable.card1};
+    int flag=0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         myProfileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_myprofile, container, false);
+        containerFilter = root.findViewById(R.id.filter_container);
         myProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -128,6 +137,39 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         // Launching the Intent
         startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
+
+
+    @SuppressLint("ResourceType")
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id==R.id.settingsIcon){
+            if (flag==0)
+                openFilterFragment();
+            else if(flag==1){
+                closeFilterFragment();
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void closeFilterFragment() {
+        flag = 0;
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void openFilterFragment() {
+        flag=1;
+        FilterFragment filterFragment = new FilterFragment();
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        transaction.addToBackStack(null);
+        transaction.add(R.id.filter_container, filterFragment,"Blank").commit();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -140,6 +182,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 break;
         }
 
+    }
+
+    public ViewPager getViewPager() {
+        return viewPager;
     }
 
 

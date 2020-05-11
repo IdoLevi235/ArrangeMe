@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public int getItemPosition(@NonNull Object object) {
+        return super.getItemPosition(object);
+    }
+
+    @Override
     public int getCount() {
         return FragmentListTitles.size();
     }
@@ -49,4 +55,5 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragmentList.add(fragment);
         FragmentListTitles.add(title);
     }
+
 }
