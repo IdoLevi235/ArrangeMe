@@ -1,5 +1,6 @@
 package com.example.arrangeme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -34,12 +35,18 @@ import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.ui.calendar.month.MonthFragment;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -47,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -68,6 +76,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private Button time_start;
     private Button time_end;
     private Toolbar toolbar;
+    private StorageReference mStorageRef;
+    private Uri selectedImage2;
+    private int currKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +98,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         Intent i =  getIntent();
         String pickedDate = i.getStringExtra("date");
 
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         desc = findViewById(R.id.desc_text_anchor);
         addPhoto = findViewById(R.id.add_photo1);
         addPhoto.setOnClickListener(this);
@@ -252,6 +264,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 case GALLERY_REQUEST_CODE:
                     Button addPhoto = (Button) findViewById(R.id.add_photo1);
                     Uri selectedImage = data.getData();
+                    selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
@@ -314,12 +327,54 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 anchorToAdd.setEndTime((String) time_end.getText());
                 if (validateForm(anchorToAdd)) {
                     addAnchorToDB(anchorToAdd);
+                    sendImage(selectedImage2);
                     showSuccessAlert();
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void sendImage(Uri selectedImage2) {
+        String uniqueID = UUID.randomUUID().toString();
+        StorageReference imgRef = mStorageRef.child("images/anchors/"+Globals.UID+"/"+uniqueID+".jpg");
+        try {
+            UploadTask uploadTask = imgRef.putFile(selectedImage2);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return imgRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        addPhotoUriToDB(downloadUri);
+                        Log.d("TAG8", "onComplete: down: " + downloadUri);
+                    } else {
+                        Log.d("TAG8", "onComplete: Download link generation failed");
+                    }
+                }
+            });
+        }    catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void addPhotoUriToDB(Uri downloadUri) {
+        Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
+                child(Globals.UID).child("Anchors").child(String.valueOf(currKey));
+        mDatabase.child("photoUri").setValue(downloadUri.toString());
     }
 
     private boolean validateForm(AnchorEntity anchorToAdd) {
@@ -419,6 +474,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 int newKey;
                 if (biggestKey==null) newKey=0;
                 else newKey = Integer.parseInt(biggestKey) + 1;
+                currKey=newKey;
                 mDatabase.child(String.valueOf(newKey)).setValue(anchorToAdd);
             }
 
