@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.arrangeme.Entities.User;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +34,11 @@ import com.google.firebase.database.ValueEventListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class ProfileInfo extends Fragment implements View.OnClickListener{
+public class ProfileInfo extends Fragment implements View.OnClickListener {
 
 
     ImageView editModeBtn;
+    ImageView applyBtn;
     EditText emailText;
     EditText passwordText;
     EditText firstName;
@@ -63,7 +65,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-     return inflater.inflate(R.layout.fragment_profile_info, container, false);
+        return inflater.inflate(R.layout.fragment_profile_info, container, false);
     }
 
     @Override
@@ -71,6 +73,8 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         editModeBtn = (ImageView) view.findViewById(R.id.editModeBtn);
         editModeBtn.setOnClickListener(this);
+        applyBtn = (ImageView) view.findViewById(R.id.applyBtn);
+        applyBtn.setOnClickListener(this);
         emailText = view.findViewById(R.id.emailText);
         emailText.setOnClickListener(this);
         passwordText = view.findViewById(R.id.passwordText);
@@ -98,10 +102,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue()==null){ //google user
+                if (dataSnapshot.getValue() == null) { //google user
                     showDetailsGoogle();
-                }
-                else { //regular user
+                } else { //regular user
                     showDetailsRegularUser();
                 }
             }
@@ -141,26 +144,41 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
 
     }
 
+
+    public void disableViews() {
+        emailText.setEnabled(false);
+        emailText.setClickable(false);
+
+        passwordText.setEnabled(false);
+        passwordText.setClickable(false);
+
+        firstName.setEnabled(false);
+        firstName.setClickable(false);
+
+        lastName.setEnabled(false);
+        lastName.setClickable(false);
+    }
+
     public void showDetailsRegularUser() {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    emailText.setVisibility(View.VISIBLE);
-                    passwordText.setVisibility(View.VISIBLE);
-                    firstName.setVisibility(View.VISIBLE);
-                    lastName.setVisibility(View.VISIBLE);
-                    email.setVisibility(View.VISIBLE);
-                    first.setVisibility(View.VISIBLE);
-                    last.setVisibility(View.VISIBLE);
-                    password.setVisibility(View.VISIBLE);
-                    editModeBtn.setVisibility(View.VISIBLE);
-                    profileImage.setVisibility(View.VISIBLE);
-                    disableViews();
-                    emailText.setText((String) dataSnapshot.child("email").getValue());
-                    passwordText.setText((String) dataSnapshot.child("password").getValue());
-                    firstName.setText((String) dataSnapshot.child("fname").getValue());
-                    lastName.setText((String) dataSnapshot.child("lname").getValue());
+                emailText.setVisibility(View.VISIBLE);
+                passwordText.setVisibility(View.VISIBLE);
+                firstName.setVisibility(View.VISIBLE);
+                lastName.setVisibility(View.VISIBLE);
+                email.setVisibility(View.VISIBLE);
+                first.setVisibility(View.VISIBLE);
+                last.setVisibility(View.VISIBLE);
+                password.setVisibility(View.VISIBLE);
+                editModeBtn.setVisibility(View.VISIBLE);
+                profileImage.setVisibility(View.VISIBLE);
+                disableViews();
+                emailText.setText((String) dataSnapshot.child("email").getValue());
+                passwordText.setText((String) dataSnapshot.child("password").getValue());
+                firstName.setText((String) dataSnapshot.child("fname").getValue());
+                lastName.setText((String) dataSnapshot.child("lname").getValue());
             }
 
             @Override
@@ -170,20 +188,10 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.editModeBtn:
-                editMode();
-                break;
-        }
-    }
-
+    //transform to edit mode
     public void editMode() {
-
-        editModeBtn.setImageResource(R.drawable.ic_check_black_24dp);
-        editModeBtn.setBackgroundResource(R.drawable.blue_circle);
-
+        editModeBtn.setVisibility(View.GONE);
+        applyBtn.setVisibility(View.VISIBLE);
         firstName.setEnabled(true);
         firstName.setClickable(true);
         firstName.requestFocus();
@@ -194,51 +202,6 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
 
         lastName.setEnabled(true);
         lastName.setClickable(true);
-
-        emailText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-                ad.setTitleText("Error");
-                ad.setContentText("Sorry, You can't edit your mail.");
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-            }
-        });
-
-        //apply after edit
-        editModeBtn.setOnClickListener(new View.OnClickListener(){
-
-            //TODO: change the name in globals
-            @Override
-            public void onClick(View v) {
-                //change the details in DB.
-                if (passwordText.length() == 0) {
-                    SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-                    ad.setTitleText("Error");
-                    ad.setContentText("You must insert a password");
-                    ad.show();
-                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                    btn.setBackgroundResource(R.drawable.rounded_rec);
-                } else {
-                    String email = emailText.getText().toString();
-                    String password = passwordText.getText().toString();
-                    String first = firstName.getText().toString();
-                    String last = lastName.getText().toString();
-                    User userToEdit = new User(email,password,first,last);
-                    EditUserInDB(email,password,first, last);
-                    SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
-                    ad.setTitleText("Great Job");
-                    ad.setContentText("Your profile has been edited");
-                    ad.show();
-                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                    btn.setBackgroundResource(R.drawable.rounded_rec);
-
-
-                }
-            }
-        });
     }
 
     public void EditUserInDB(String email, String password, String first, String last) {
@@ -258,21 +221,53 @@ public class ProfileInfo extends Fragment implements View.OnClickListener{
         });
     }
 
+    //Apply the editing changes
+    public void applyMode() {
+        //change the details in DB.
+        if (passwordText.length() == 0) {
+            SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
+            ad.setTitleText("Error");
+            ad.setContentText("You must insert a password");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
+        } else {
+            String email = emailText.getText().toString();
+            String password = passwordText.getText().toString();
+            String first = firstName.getText().toString();
+            String last = lastName.getText().toString();
+            EditUserInDB(email, password, first, last);
+            SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
+            ad.setTitleText("Great Job");
+            ad.setContentText("Your profile has been edited");
+            ad.show();
+            Button btn = (Button) ad.findViewById(R.id.confirm_button);
+            btn.setBackgroundResource(R.drawable.rounded_rec);
 
-    public void disableViews() {
-        emailText.setEnabled(false);
-        emailText.setClickable(false);
-
-        passwordText.setEnabled(false);
-        passwordText.setClickable(false);
-
-        firstName.setEnabled(false);
-        firstName.setClickable(false);
-
-        lastName.setEnabled(false);
-        lastName.setClickable(false);
+            applyBtn.setVisibility(View.GONE);
+            editModeBtn.setVisibility(View.VISIBLE);
+            //TODO: REFRESH LIKE WE ARE GOING TO ANOTHER TAB AND COME BACK FROM IT
+        }
     }
 
 
-    //TODO: when editing keyboard is on top of the text fields.
+        @Override
+        public void onClick (View v){
+            switch (v.getId()) {
+                case R.id.editModeBtn:
+                    editMode();
+                    break;
+                case R.id.applyBtn:
+                    applyMode();
+                    break;
+                case (R.id.emailText):
+                    SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
+                    ad.setTitleText("Error");
+                    ad.setContentText("Sorry, you can't edit your mail.");
+                    ad.show();
+                    Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                    btn.setBackgroundResource(R.drawable.rounded_rec);
+                    break;
+            }
+        }
 }
