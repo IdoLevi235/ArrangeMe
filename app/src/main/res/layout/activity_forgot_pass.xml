@@ -35,23 +35,23 @@
         app:srcCompat="@drawable/logo_arrange_me2" />
 
 
+
     <TextView
-        android:id="@+id/signupText"
-        android:layout_width="327dp"
-        android:layout_height="41dp"
+        android:id="@+id/forgetp"
+        android:layout_width="300dp"
+        android:layout_height="43dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:text="Forgot Your Password?"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="26sp"
-        android:textStyle="bold"
         app:fontFamily="@font/montserrat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintVertical_bias="0.23000002" />
 
     <EditText
         android:id="@+id/emailText1"
@@ -80,34 +80,48 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="102dp" />
 
+
     <Button
         android:id="@+id/submitforgotpass"
-        android:layout_width="155dp"
-        android:layout_height="44dp"
+        android:layout_width="180dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="172dp"
         android:background="@drawable/btn_rounded"
-        android:capitalize="none"
-        android:fontFamily="sans-serif-medium"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
         android:text="Reset my password"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintTop_toBottomOf="@+id/recylcler_choosetasks"
+        app:layout_constraintVertical_bias="0.56" />
 
     <Button
         android:id="@+id/backtologin"
-        android:layout_width="155dp"
-        android:layout_height="44dp"
+        android:layout_width="180dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="172dp"
         android:background="@drawable/btn_rounded"
-        android:fontFamily="sans-serif-medium"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
         android:text="Back to login"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintTop_toBottomOf="@+id/recylcler_choosetasks"
+        app:layout_constraintVertical_bias="0.56" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

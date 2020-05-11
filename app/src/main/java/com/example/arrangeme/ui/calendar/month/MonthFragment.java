@@ -73,7 +73,7 @@ import static android.content.Intent.getIntent;
 public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.OnClickListener {
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView monthCalendar;
     private RelativeLayout relativeLayout;
-    private TextView eventsName;
+   // private TextView eventsName;
     private TextView noItemsText;
     private RecyclerView mRecycler;
     private DatabaseReference mDatabase;
@@ -186,7 +186,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         //spinner.setVisibility(View.GONE);
         //relativeLayout = view.findViewById(R.id.relativeLayout);
         //relativeLayout.setVisibility(View.VISIBLE);
-        eventsName = view.findViewById(R.id.eventsName);
+        //eventsName = view.findViewById(R.id.eventsName);
         mRecycler = view.findViewById(R.id.eventsRecyclerView);
         mRecycler.setHasFixedSize(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

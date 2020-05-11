@@ -33,6 +33,7 @@ import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.Entities.TaskEntity;
+import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.ForgotPass;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Login;
@@ -59,7 +60,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class WeekFragment extends Fragment implements View.OnClickListener {
 
-    private WeekView<Event> weekCalendar;
+    private WeekView weekCalendar;
     private Switch switchCat;
     private ConstraintLayout.LayoutParams parms;
 
@@ -67,31 +68,25 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_week, container, false);
-        weekCalendar = (WeekView<Event>) view.findViewById(R.id.weekView);
+        weekCalendar = (WeekView) view.findViewById(R.id.weekView);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR_OF_DAY,1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.add(Calendar.HOUR_OF_DAY,2);
 
-        weekCalendar.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NotNull Calendar calendar, @NotNull Calendar calendar1) {
-                Calendar cal = Calendar.getInstance();
-                Calendar cal2 =cal;
-                cal2.add(Calendar.HOUR_OF_DAY, 1);
-                Log.d("cal", "onload"+cal.toString());
-                Log.d("cal", "onload"+cal2.toString());
-                Event event = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
-                cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, 1);
-                cal2 =cal;
-                cal2.add(Calendar.DATE, 2);
-                Log.d("cal", "onload"+cal.toString());
-                Log.d("cal", "onload"+cal2.toString());
-                Event event2 = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
+        Event event2 = new Event(
+                523,
+                "Family",
+                cal,
+                cal2,
+                "here",
+                R.color.family,
+                false,
+                false);
 
-                List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
-                list.add(event);
-                list.add(event2);
-                weekCalendar.submit(list);
-            }
-        });
+        List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
+        list.add(event2);
+        weekCalendar.submit(list);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
         setHasOptionsMenu(true);
         return view;
@@ -101,10 +96,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        switchCat =  view.findViewById(R.id.switchCat);
-        switchCat.setOnClickListener(this);
-        Button button2= view.findViewById(R.id.button2);
-        button2.setOnClickListener(this);
     }
 
 
@@ -112,38 +103,10 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case (R.id.button2):
-            {
-                startActivity(new Intent(getActivity(), Main2Activity.class));
-            }
-            break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
-    }
-
-    public List<WeekViewDisplayable<Event>> onMonthChange(@NonNull Calendar startDate, @NonNull Calendar endDate) {
-
-        //check if it loads event
-        Calendar cal = Calendar.getInstance();
-        Calendar cal2 =cal;
-        cal2.add(Calendar.HOUR_OF_DAY, 1);
-        Event event = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
-
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
-        cal2 =cal;
-        cal2.add(Calendar.DATE, 2);
-        Event event2 = new Event(523,"Family",cal,cal2,"here",R.color.com_facebook_blue,true,false);
-
-        List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
-        list.add(event);
-        list.add(event2);
-
-        return list;
-        //weekCalendar.submit(list);
-
-        // return database.getEventsInRange(startDate, endDate);
     }
 
 
