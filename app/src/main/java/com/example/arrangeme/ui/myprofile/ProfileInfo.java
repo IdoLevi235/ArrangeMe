@@ -1,9 +1,12 @@
 package com.example.arrangeme.ui.myprofile;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class ProfileInfo extends Fragment implements View.OnClickListener {
+public class ProfileInfo extends Fragment implements View.OnClickListener{
 
 
     ImageView editModeBtn;
@@ -66,8 +69,8 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         editModeBtn = (ImageView) view.findViewById(R.id.editModeBtn);
         editModeBtn.setOnClickListener(this);
-
         emailText = view.findViewById(R.id.emailText);
+        emailText.setOnClickListener(this);
         passwordText = view.findViewById(R.id.passwordText);
         firstName = view.findViewById(R.id.firstName);
         lastName = view.findViewById(R.id.lastName);
@@ -179,12 +182,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
         //apply after edit
         editModeBtn.setOnClickListener(new View.OnClickListener(){
-            String email = emailText.getText().toString();
-            String password = passwordText.getText().toString();
-            String first = firstName.getText().toString();
-            String last = lastName.getText().toString();
 
-            User userToEdit = new User(email,password,first,last);
             //TODO: change the name in globals
             @Override
             public void onClick(View v) {
@@ -197,6 +195,11 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
                     Button btn = (Button) ad.findViewById(R.id.confirm_button);
                     btn.setBackgroundResource(R.drawable.rounded_rec);
                 } else {
+                    String email = emailText.getText().toString();
+                    String password = passwordText.getText().toString();
+                    String first = firstName.getText().toString();
+                    String last = lastName.getText().toString();
+                    User userToEdit = new User(email,password,first,last);
                     EditUserInDB(email,password,first, last);
                     SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE);
                     ad.setTitleText("Great Job");
@@ -204,6 +207,8 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
                     ad.show();
                     Button btn = (Button) ad.findViewById(R.id.confirm_button);
                     btn.setBackgroundResource(R.drawable.rounded_rec);
+
+
                 }
             }
         });
@@ -240,6 +245,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         lastName.setEnabled(false);
         lastName.setClickable(false);
     }
+
 
     //TODO: when editing keyboard is on top of the text fields.
 }

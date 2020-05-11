@@ -119,7 +119,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
             }
 
         }
-
         return super.onOptionsItemSelected(item);
     }
 
