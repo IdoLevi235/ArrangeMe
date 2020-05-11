@@ -33,49 +33,60 @@
 
 
     <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="155dp"
-        android:layout_height="44dp"
+        android:id="@+id/loginBtnMain"
+        android:layout_width="180dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/btn_rounded"
-        android:fontFamily="sans-serif-medium"
-        android:shadowColor="#05FFFFFF"
-        android:text="SIGN UP"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:text="LOGIN"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
-
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="0.977" />
 
     <Button
-        android:id="@+id/loginBtnMain"
-        android:layout_width="155dp"
-        android:layout_height="44dp"
+        android:id="@+id/signUpBtn"
+        android:layout_width="180dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/btn_rounded"
-        android:fontFamily="sans-serif-medium"
-        android:shadowColor="#05FFFFFF"
-        android:text="LOGIN"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="0.977" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="342dp"
-        android:layout_height="47dp"
-        android:fontFamily="@font/arsenal"
-        android:text="Welcome To "
-        android:textSize="30sp"
+        android:layout_width="157dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Welcome To"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintVertical_bias="0.584" />
 
     <TextView
         android:id="@+id/textView3"
@@ -113,18 +124,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
-
-    <Button
-        android:id="@+id/homepageBtn"
-        android:layout_width="118dp"
-        android:layout_height="51dp"
-        android:text="Homepage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.101" />

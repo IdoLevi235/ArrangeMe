@@ -70,11 +70,17 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
         View view= inflater.inflate(R.layout.fragment_week, container, false);
         weekCalendar = (WeekView) view.findViewById(R.id.weekView);
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.HOUR_OF_DAY,1);
-        Calendar cal2 = Calendar.getInstance();
-        cal2.add(Calendar.HOUR_OF_DAY,2);
+        Calendar cal2 =Calendar.getInstance();
+        Calendar cal3 =Calendar.getInstance();
+        Calendar cal4=Calendar.getInstance();
 
-        Event event2 = new Event(
+        cal.add(Calendar.HOUR_OF_DAY,6);
+        cal2.add(Calendar.HOUR_OF_DAY,9);
+
+        cal3.set(2020,5,13,1,0);
+        cal4.set(2020,5,13,2,0);
+
+        Event event1 = new Event(
                 523,
                 "Family",
                 cal,
@@ -84,7 +90,19 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
                 false,
                 false);
 
+        Event event2 = new Event(
+                523,
+                "Sport",
+                cal3,
+                cal4,
+                "here",
+                R.color.sport,
+                false,
+                false);
+
+
         List<WeekViewDisplayable<Event>> list = new ArrayList<WeekViewDisplayable<Event>>();
+        list.add(event1);
         list.add(event2);
         weekCalendar.submit(list);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();

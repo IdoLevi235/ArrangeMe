@@ -54,8 +54,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private TextView forgotPass;
     private boolean hidePass=true;
     //private Button getSignUpWithFacebookBtn;
-
-    private SignInButton sign_in_google; //google try
+    private Button sign_in_google; //google try
+    //private SignInButton sign_in_google; //google try
     private Button sign_out_button;
     private static final int RC_SIGN_IN =1;
     private static final String TAG = "SignInActivity";

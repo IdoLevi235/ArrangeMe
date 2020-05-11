@@ -26,6 +26,7 @@
         app:headerRowPadding="12dp"
         app:headerRowTextSize="12sp"
         app:hourHeight="60dp"
+        app:hourSeparatorStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
@@ -40,6 +41,9 @@
         app:showDaySeparator="true"
         app:showFirstDayOfWeekFirst="true"
         app:showHeaderRowBottomLine="true"
+        app:showHourSeparator="false"
+        app:showMidnightHour="false"
+        app:showTimeColumnHourSeparator="false"
         app:showTimeColumnSeparator="true"
         app:timeColumnBackgroundColor="#FFF4F4F4"
         app:timeColumnPadding="4dp"
@@ -47,7 +51,7 @@
         app:timeColumnSeparatorStrokeWidth="1dp"
         app:timeColumnTextColor="@color/colorPrimary"
         app:timeColumnTextSize="10sp"
-        app:todayBackgroundColor="@color/arrangeMeMain"
+        app:todayBackgroundColor="#FFF4F4F4"
         app:todayHeaderTextColor="@color/colorProjectBlue" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
