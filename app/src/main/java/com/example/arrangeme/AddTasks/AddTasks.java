@@ -35,8 +35,11 @@ import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +60,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AddTasks extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
@@ -80,10 +84,15 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private TaskEntity taskEntityToAdd;
     private ReminderType chosenReminder;
     private Uri selectedImage2;
+    private final int[] newKey2 = new int[1];
+
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase2;
     private String currentDate;
     private StorageReference mStorageRef;
+    private Uri downloadUri2;
+    private int currKey;
+
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -323,19 +332,44 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void sendImage(Uri selectedImage2) {
-        StorageReference imgRef = mStorageRef.child("images/test.jpg");
-        imgRef.putFile(selectedImage2)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("TAG8", "onSuccess: PHOTO UPLOADED" );
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                    }
-                });
+        String uniqueID = UUID.randomUUID().toString();
+        StorageReference imgRef = mStorageRef.child("images/tasks/"+Globals.UID+"/"+uniqueID+".jpg");
+try {
+    UploadTask uploadTask = imgRef.putFile(selectedImage2);
+    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+        @Override
+        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+            if (!task.isSuccessful()) {
+                throw task.getException();
+            }
+
+            // Continue with the task to get the download URL
+            return imgRef.getDownloadUrl();
+        }
+    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+        @Override
+        public void onComplete(@NonNull Task<Uri> task) {
+            if (task.isSuccessful()) {
+                Uri downloadUri = task.getResult();
+                addPhotoUriToDB(downloadUri);
+                Log.d("TAG8", "onComplete: down: " + downloadUri);
+            } else {
+                Log.d("TAG8", "onComplete: Download link generation failed");
+            }
+        }
+    });
+} catch (Exception e) {
+    e.printStackTrace();
+}
+    }
+
+    private void addPhotoUriToDB(Uri downloadUri) {
+        Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
+                child(Globals.UID).child("Pending_tasks").child(String.valueOf(currKey));
+        mDatabase.child("photoUri").setValue(downloadUri.toString());
+
     }
 
     private void addTaskToDB() {
@@ -378,16 +412,15 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                         int newKey;
                         if (biggestKey==null) newKey=0;
                         else newKey = Integer.parseInt(biggestKey) + 1;
+
+                        currKey = newKey;
                         taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
                         taskEntityToAdd.setDescription(description);
                         taskEntityToAdd.setReminderType(chosenReminder);
-                       // taskEntityToAdd.setPhoto(selectedImage);
                         taskEntityToAdd.setLocation(location);
                         taskEntityToAdd.setCreateDate(currentDate);
                         mDatabase.child(String.valueOf(newKey)).setValue(taskEntityToAdd);
                         mDatabase.child(String.valueOf(newKey)).child("type").setValue("TASK");
-
-                        mDatabase2.push().setValue(taskEntityToAdd);
                     }
 
                     @Override
@@ -434,6 +467,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                 case GALLERY_REQUEST_CODE:
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
                     Uri selectedImage = data.getData();
+                    Log.d("TAG0", "onActivityResult: addtask" + selectedImage);
                     selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);

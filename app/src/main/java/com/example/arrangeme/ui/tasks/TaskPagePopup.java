@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -38,7 +39,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +73,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private TaskCategory taskCategory;
     private ReminderType reminderType;
     private int reminderInt;
-
+    private ImageView photoHere;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +98,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         textCategory= findViewById(R.id.textCategory);
         spinnerReminder = (Spinner) findViewById(R.id.spinner);
         reminder_switch = (Switch) findViewById(R.id.reminder_switch);
+        photoHere=findViewById(R.id.photo_here);
 
         //disable all views
         this.disableViews();
@@ -155,8 +164,26 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
 
     public void showImage(){
-        //TODO: shows the image from DB - add the photo to the DB
-   }
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
+                child(Globals.UID).child("Pending_tasks").child(taskKey).child("photoUri");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String imageURL = (String) dataSnapshot.getValue();
+                Picasso.get().load(imageURL).resize(220,150).centerCrop().into(photoHere);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
 
     //turn on the edit mode
     public void editMode() {
