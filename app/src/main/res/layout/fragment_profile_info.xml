@@ -35,7 +35,8 @@
             android:clickable="true"
             android:elevation="7dp"
             android:padding="8dp"
-            android:src="@drawable/ic_mode_edit_black_24dp" />
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            android:visibility="visible" />
 
 
         <EditText

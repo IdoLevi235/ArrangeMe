@@ -40,6 +40,7 @@
             android:label="@string/title_activity_homepage"
             android:theme="@style/AppTheme.CustomTheme"
             android:windowSoftInputMode="adjustPan"/>
+
         <activity android:name=".Adminzone" />
 
         <receiver android:name=".NewAppWidget">
@@ -61,7 +62,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

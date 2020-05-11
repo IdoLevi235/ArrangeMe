@@ -1,7 +1,9 @@
 package com.example.arrangeme;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.View;
 
@@ -23,7 +25,6 @@ public class MainActivity extends AppCompatActivity{
     Button adminBtn;
     Button homepageBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +36,17 @@ public class MainActivity extends AppCompatActivity{
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
         adminBtn = (Button) findViewById(R.id.adminBtn);
 
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d("TAG6", "onCreate: " + user);
-        if (user != null) {
-        } else {
-            // User is signed out
+        if (user != null) { // The user is already logged in , send him directly to homepage
+            Globals.currentUsername = user.getDisplayName();
+            Globals.currentEmail = user.getEmail();
+            Globals.UID = user.getUid();
+            Intent intent = new Intent(MainActivity.this, Homepage.class);
+            startActivity(intent);
+
         }
+
 
 
 //Login button onClick

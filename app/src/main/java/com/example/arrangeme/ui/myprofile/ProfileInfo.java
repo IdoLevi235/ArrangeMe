@@ -85,21 +85,23 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         first.setVisibility(View.GONE);
         last.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
-        editModeBtn.setVisibility(View.GONE);
         profileImage.setVisibility(View.GONE);
         checkIfFromGoogle();
     }
 
     private void checkIfFromGoogle() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
-        Query query = mDatabase.orderByChild("password");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("password");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount()==0){ //google user
+                    Log.d("TAG4", "checkIfFromGoogle: google" + dataSnapshot);
+                    Log.d("TAG4", "onDataChange: FROM GOOGLE LOGIN");
                     showDetailsGoogle();
                 }
                 else { //regular user
+                    Log.d("TAG4", "checkIfFromGoogle: regular" + dataSnapshot);
+                    Log.d("TAG4", "onDataChange: regular LOGIN");
                     showDetailsRegularUser();
                 }
             }
@@ -112,6 +114,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
     public void showDetailsGoogle() {
+        Log.d("TAG4", "onDataChange: INSIDE GOOGLE FUNCTION");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,12 +125,12 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
                 firstName.setVisibility(View.VISIBLE);
                 profileImage.setVisibility(View.VISIBLE);
                 disableViews();
-
                 firstName.setX(65);
                 emailText.setX(65);
                 firstName.setText((String) dataSnapshot.child("fname").getValue());
                 emailText.setText((String) dataSnapshot.child("email").getValue());
-
+                editModeBtn.setVisibility(View.GONE);
+                Log.d("TAG4", "onDataChange: HELLO");
             }
 
             @Override
