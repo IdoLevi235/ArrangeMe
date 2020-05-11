@@ -90,6 +90,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        setHasOptionsMenu(true);
+
         return root;
     }
 
@@ -247,6 +249,4 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             }
         });
     }
-
-
 }
