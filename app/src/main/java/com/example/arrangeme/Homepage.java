@@ -111,13 +111,21 @@ private int value;
 
     @Override
     public void onBackPressed() {
-
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
-            super.onBackPressed();
-            //additional code
+            if (navView.getSelectedItemId()!=R.id.navigation_dashboard) {
+                super.onBackPressed();
+            }
+            else {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(Homepage.this, MainActivity.class);
+                startActivity(intent);
+
+            }
         } else {
+            Log.d("TAG3", "onBackPressed: POP");
             getSupportFragmentManager().popBackStack();
         }
 
