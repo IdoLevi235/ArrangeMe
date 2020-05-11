@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +65,17 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             public void onChanged(@Nullable String s) {
             }
         });
+        setHasOptionsMenu(true);
         return root;
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.profile_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -145,30 +156,12 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id==R.id.settingsIcon){
-            if (flag==0)
-                openFilterFragment();
-            else if(flag==1){
-                closeFilterFragment();
-            }
-
+            Intent ct= new Intent(getActivity(), AddTasks.class);
+            getActivity().startActivity(ct);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void closeFilterFragment() {
-        flag = 0;
-        getActivity().getSupportFragmentManager().popBackStack();
-    }
-
-    private void openFilterFragment() {
-        flag=1;
-        FilterFragment filterFragment = new FilterFragment();
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
-        transaction.addToBackStack(null);
-        transaction.add(R.id.filter_container, filterFragment,"Blank").commit();
-    }
 
     @Override
     public void onClick(View v) {

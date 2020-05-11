@@ -82,7 +82,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addTasks"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="59dp"
         android:background="#75C1C9"
         android:minHeight="?attr/actionBarSize"

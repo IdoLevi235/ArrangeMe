@@ -17,52 +17,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".AnchorPagePopup"
-            android:theme="@style/AppTheme.CustomTheme2"
+        <activity android:name=".ui.myprofile.Settings"></activity>
+        <activity
+            android:name=".AnchorPagePopup"
             android:screenOrientation="portrait"
-            />
-
-
-
-
-        <activity android:name=".ui.calendar.week.Main2Activity"
-            android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.CustomTheme2" />
+        <activity
+            android:name=".ui.calendar.week.Main2Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.tasks.TaskPagePopup"
-            android:theme="@style/AppTheme.CustomTheme2"
             android:screenOrientation="portrait"
-            /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
+            android:theme="@style/AppTheme.CustomTheme2" /> <!-- android:theme="@style/Theme.AppCompat.Dialog" -->
         <activity
             android:name=".ui.myprofile.AvatarsPopup"
-            android:theme="@style/AppTheme.CustomTheme"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".AddTasks.AddTasks"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AddAnchor"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ChooseTasks.ChooseTasks"
-            android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChooseTasks.ChooseTasks"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Homepage"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_homepage"
-            android:theme="@style/AppTheme.CustomTheme"
-            android:windowSoftInputMode="adjustPan"
-             />
-
-        <activity android:name=".Adminzone"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Adminzone"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".NewAppWidget">
             <intent-filter>
@@ -74,25 +64,25 @@
                 android:resource="@xml/new_app_widget_info" />
         </receiver>
 
-        <activity android:name=".ForgotPass"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Questionnaire.Questionnaire"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Signup"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ForgotPass"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Questionnaire.Questionnaire"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

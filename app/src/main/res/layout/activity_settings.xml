@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF4F4F4"
+    tools:context=".ui.myprofile.Settings">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_settings"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="#75C1C9"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/settingHeadline"
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Settings"
+        android:textColor="@color/arrangeMeMain"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503" />
+
+    <TextView
+        android:id="@+id/notifications"
+        android:layout_width="183dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Notifications"
+        android:textColor="#787878"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingHeadline" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout9"
+        android:layout_width="362dp"
+        android:layout_height="265dp"
+        android:background="@drawable/add_task_round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.317">
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/notifications"
+        android:layout_width="183dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Notifications"
+        android:textColor="#787878"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingHeadline" />
+
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="324dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="428dp"
+        android:background="@drawable/rounded_rec_blueborder"
+        android:drawableRight="@drawable/logout"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:paddingEnd="10dp"
+        android:text="Logout From your account"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/monthName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="182dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_rounded"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat"
+        android:scaleY="-1"
+        android:text="OK"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AvatarCircle5"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.503" />
 
     <TextView
         android:id="@+id/catText"
@@ -30,14 +30,14 @@
         android:layout_height="28dp"
         android:fontFamily="@font/montserrat"
         android:text="Choose Category:"
-        android:textColor="@color/darkgray"
-        android:textSize="20sp"
+        android:textColor="#787878"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
+        app:layout_constraintVertical_bias="0.944" />
 
     <CheckBox
         android:id="@+id/checkBoxAll"
@@ -53,10 +53,10 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -356,14 +356,14 @@
         android:layout_marginTop="2dp"
         android:fontFamily="@font/montserrat"
         android:text="Sort By"
-        android:textColor="@color/darkgray"
-        android:textSize="20sp"
+        android:textColor="#787878"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintVertical_bias="0.086" />
 
     <TextView
         android:id="@+id/chooseText"
@@ -372,14 +372,14 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat"
         android:text="Show Only"
-        android:textColor="@color/darkgray"
-        android:textSize="20sp"
+        android:textColor="#787878"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.008" />
 
     <RadioGroup
         android:layout_width="155dp"
@@ -432,7 +432,6 @@
             android:layout_marginTop="52dp"
             android:layout_marginEnd="92dp"
             android:layout_marginBottom="8dp"
-            android:drawableRight="@drawable/ic_anchor"
             android:fontFamily="@font/montserrat"
             android:text="  Anchors"
             android:textSize="14sp" />
@@ -449,7 +448,6 @@
             android:layout_marginTop="11dp"
             android:layout_marginEnd="93dp"
             android:layout_marginBottom="49dp"
-            android:drawableRight="@drawable/ic_checkbox"
             android:fontFamily="@font/montserrat"
             android:text="  Tasks"
             android:textSize="14sp" />
