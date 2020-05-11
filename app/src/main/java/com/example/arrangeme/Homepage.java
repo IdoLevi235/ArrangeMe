@@ -16,6 +16,7 @@ import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +55,6 @@ private int value;
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                onBackPressed();
             }
         });
 
@@ -98,12 +98,13 @@ private int value;
         // as you specify a parent activity in AndroidManifest.xml.
 
         int id = item.getItemId();
-        System.err.println();
 
-        //if (id == R.id.action_settings) {
-            //Toast.makeText(Homepage.this, "Settings clicked homepage", Toast.LENGTH_LONG).show();
-            //return true;
-        //}
+        if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(Homepage.this, MainActivity.class);
+            startActivity(intent);
+
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -94,15 +94,10 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("TAG4", "onDataChange: " + dataSnapshot.getValue());
                 if (dataSnapshot.getValue()==null){ //google user
-                    Log.d("TAG4", "checkIfFromGoogle: google" + dataSnapshot);
-                    Log.d("TAG4", "onDataChange: FROM GOOGLE LOGIN");
                     showDetailsGoogle();
                 }
                 else { //regular user
-                    Log.d("TAG4", "checkIfFromGoogle: regular" + dataSnapshot);
-                    Log.d("TAG4", "onDataChange: regular LOGIN");
                     showDetailsRegularUser();
                 }
             }
