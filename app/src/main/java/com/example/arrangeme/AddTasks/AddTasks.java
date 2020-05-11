@@ -334,7 +334,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private void sendImage(Uri selectedImage2) {
         String uniqueID = UUID.randomUUID().toString();
         StorageReference imgRef = mStorageRef.child("images/tasks/"+Globals.UID+"/"+uniqueID+".jpg");
-try {
+    try {
     UploadTask uploadTask = imgRef.putFile(selectedImage2);
     Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
         @Override
@@ -358,7 +358,7 @@ try {
             }
         }
     });
-} catch (Exception e) {
+    }    catch (Exception e) {
     e.printStackTrace();
 }
     }
@@ -467,7 +467,6 @@ try {
                 case GALLERY_REQUEST_CODE:
                     Button addPhoto = (Button)findViewById(R.id.add_photo);
                     Uri selectedImage = data.getData();
-                    Log.d("TAG0", "onActivityResult: addtask" + selectedImage);
                     selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);

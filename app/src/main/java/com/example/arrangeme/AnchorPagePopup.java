@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +48,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AnchorPagePopup extends AppCompatActivity implements Popup, View.OnClickListener{
     private ImageView applyBtn;
@@ -69,6 +71,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private AnchorEntity anchorToPresent;
     private ReminderType reminderType;
     private int reminderInt;
+    private CircleImageView photoHere;
 
 
     @Override
@@ -93,7 +96,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         date = findViewById(R.id.showDate);
         sTime=findViewById(R.id.showFrom);
         eTime=findViewById(R.id.showTo);
-
+        photoHere=findViewById(R.id.photo_here);
         //disable all views
         this.disableViews();
         //set data for the view from the DB
@@ -136,6 +139,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     public void showDetails() {
+        this.showImage();
         anchorToPresent = new AnchorEntity();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -190,7 +194,26 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     public void showImage() {
-        //todo in the future
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
+                child(Globals.UID).child("Pending_tasks").child(anchorKey).child("photoUri");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String imageURL = (String) dataSnapshot.getValue();
+                try {
+                    Log.d("TAG9", "onDataChange: " + anchorKey + " " + imageURL);
+                    Picasso.get().load(imageURL).resize(220, 150).centerCrop().into(photoHere);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

@@ -377,7 +377,7 @@
                 android:textSize="14sp" />
 
 
-            <Button
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photo_here"
                 android:layout_width="291dp"
                 android:layout_height="95dp"
@@ -389,7 +389,6 @@
                 android:layout_marginTop="402dp"
                 android:layout_marginEnd="26dp"
                 android:layout_marginBottom="25dp"
-                android:background="@drawable/add_task_round"
                 android:fontFamily="@font/montserrat"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
