@@ -32,6 +32,7 @@ import androidx.navigation.ui.NavigationUI;
 public class Homepage extends AppCompatActivity {
 private Toolbar toolbar;
 private int value;
+public static String filter;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ private int value;
         String data = i.getStringExtra("FromHomepage");
         if (data != null && data.contentEquals("1")) {
             navView.setSelectedItemId(R.id.navigation_tasks);
+
         }
         else if(data != null && data.contentEquals("2")){
             navView.setSelectedItemId(R.id.navigation_calendar);
@@ -124,7 +126,6 @@ private int value;
             }
 
         } else {
-            Log.d("TAG3", "onBackPressed: POP");
             getSupportFragmentManager().popBackStack();
         }
 

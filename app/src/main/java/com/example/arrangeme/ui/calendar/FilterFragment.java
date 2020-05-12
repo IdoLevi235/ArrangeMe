@@ -34,7 +34,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     private Button choresBtn;
     private Button otherBtn;
     private CheckBox checkBoxAll;
-    private Set<String> Category_Set = new HashSet<String>();
+    protected Set<String> Category_Set = new HashSet<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +40,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private TextView alreadyHave;
+    private boolean hidePass=true;
+    private boolean hidePass1=true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,66 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         alreadyHave = (TextView)findViewById(R.id.alreadyHave);
         sumbitBtn.setOnClickListener(this);
         alreadyHave.setOnClickListener(this);
+
+        passwordText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passwordText.getRight() - passwordText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        {
+                            if (hidePass) {
+                                passwordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyexx,0);
+                                hidePass=false;
+                            }
+                            else if (!hidePass){
+                                passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
+                                hidePass=true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        confPassText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passwordText.getRight() - confPassText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        {
+                            if (hidePass1) {
+                                confPassText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                                confPassText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyexx,0);
+                                hidePass1=false;
+                            }
+                            else if (!hidePass1){
+                                confPassText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                confPassText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
+                                hidePass1=true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+
     }
 
 
