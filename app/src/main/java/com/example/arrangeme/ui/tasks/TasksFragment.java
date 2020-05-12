@@ -176,7 +176,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         /* swipe stuff end */
     }
 
-    private void setRecycler(RecyclerView mRecycler) {
+    public void setRecycler(RecyclerView mRecycler) {
         Log.d("TAG8", "FILTER: " + TasksFragment.filter);
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
@@ -300,6 +300,4 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         transaction.addToBackStack(null);
         transaction.add(R.id.filter_container, filterFragmentTask, "Blank").commit();
     }
-
-
 }

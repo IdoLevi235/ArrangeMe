@@ -55,6 +55,7 @@ public class FilterFragmentTask extends FilterFragment {
         switch (v.getId()){
             case (R.id.buttonApply):
 
+
         }
     }
 }
