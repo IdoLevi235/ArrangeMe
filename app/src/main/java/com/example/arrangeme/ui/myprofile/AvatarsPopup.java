@@ -34,7 +34,6 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
     private Button btn_unfocus;
     private Button[] btn = new Button[6];
     HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
-
     private int[] btn_id = {R.id.AvatarCircle1, R.id.AvatarCircle6, R.id.AvatarCircle3, R.id.AvatarCircle2, R.id.AvatarCircle5, R.id.AvatarCircle4};
     private int[] drawable = {R.drawable.avatar_defaultfemale, R.drawable.avatar_female1, R.drawable.avatar_female2, R.drawable.avatar_defaultmale, R.drawable.avatar_male2, R.drawable.avatar_male1};
 

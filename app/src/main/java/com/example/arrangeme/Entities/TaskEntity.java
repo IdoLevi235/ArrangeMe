@@ -20,6 +20,7 @@ public class TaskEntity {
     String createDate;
     String categoryS;
     String reminderTypeS;
+    String id;
 
 
     public TaskEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location, String createDate) {
@@ -29,18 +30,29 @@ public class TaskEntity {
         this.reminderType = reminderType;
         this.location = location;
         this.createDate=createDate;
+
     }
 
 
-    public TaskEntity(String categoryS, String description, Uri photo, String reminderTypeS, String location, String createDate) {
+    public TaskEntity(String categoryS, String description, Uri photo, String reminderTypeS, String location, String createDate, String id) {
         this.categoryS = categoryS;
         this.description = description;
         this.photo = photo;
         this.reminderTypeS = reminderTypeS;
         this.location = location;
         this.createDate=createDate;
+        this.id=id;
     }
 
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
     public String getCategoryS() {

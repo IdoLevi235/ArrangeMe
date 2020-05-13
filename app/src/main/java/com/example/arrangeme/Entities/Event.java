@@ -13,7 +13,7 @@ import kotlin.Metadata;
 import kotlin.jvm.internal.Intrinsics;
 
 public class Event implements WeekViewDisplayable<Event> {
-    private final long id;
+    private final String id;
     @NotNull
     private final String title;
     private final Calendar startTime;
@@ -23,7 +23,7 @@ public class Event implements WeekViewDisplayable<Event> {
     private final boolean isAllDay;
     private final boolean isCanceled;
 
-    public Event(long id, @NotNull String title, @NotNull Calendar startTime, @NotNull Calendar endTime, @NotNull String location, int color, boolean isAllDay, boolean isCanceled) {
+    public Event(String id, @NotNull String title, @NotNull Calendar startTime, @NotNull Calendar endTime, @NotNull String location, int color, boolean isAllDay, boolean isCanceled) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -41,12 +41,12 @@ public class Event implements WeekViewDisplayable<Event> {
         int backgroundColor = !this.isCanceled ? this.color : -1;
         int textColor = !this.isCanceled ? -1 : this.color;
         int borderWidthResId = !this.isCanceled ? R.dimen.border_width : R.dimen.border_width;
-        WeekViewEvent.Style style = (new WeekViewEvent.Style.Builder()).setTextColor(textColor).setBackgroundColor(backgroundColor).setTextStrikeThrough(this.isCanceled).setBorderWidthResource(borderWidthResId).setBorderColor(this.color).build();
-        return (new WeekViewEvent.Builder(this)).setId(this.id).setTitle((CharSequence)this.title).setStartTime(this.startTime).setEndTime(this.endTime).setLocation((CharSequence)this.location).setAllDay(this.isAllDay).setStyle(style).build();
+        WeekViewEvent.Style style = (new WeekViewEvent.Style.Builder()).setTextColor(textColor).setBackgroundColor(backgroundColor).setTextStrikeThrough(this.isCanceled).setBorderWidthResource(borderWidthResId).setBorderColor(this.color-10).build();
+        return (new WeekViewEvent.Builder(this)).setId(Long.parseLong(this.id)).setTitle((CharSequence)this.title).setStartTime(this.startTime).setEndTime(this.endTime).setLocation((CharSequence)this.location).setAllDay(this.isAllDay).setStyle(style).build();
 
     }
 
-    public final long getId() {
+    public final String getId() {
         return this.id;
     }
 

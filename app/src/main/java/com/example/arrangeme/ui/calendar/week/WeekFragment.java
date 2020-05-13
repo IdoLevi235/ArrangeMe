@@ -1,22 +1,33 @@
 package com.example.arrangeme.ui.calendar.week;
+import android.content.Intent;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.alamkanak.weekview.OnEmptyViewClickListener;
+import com.alamkanak.weekview.OnEventClickListener;
 import com.alamkanak.weekview.OnMonthChangeListener;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewDisplayable;
+import com.example.arrangeme.AddAnchor;
+import com.example.arrangeme.AddTasks.AddTasks;
+import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.tasks.TaskPagePopup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +37,10 @@ import org.jetbrains.annotations.NotNull;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class WeekFragment extends Fragment implements View.OnClickListener, OnMonthChangeListener {
@@ -34,13 +48,23 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     private WeekView weekCalendar;
     TaskEntity task = new TaskEntity();
     List <TaskEntity> tasksFromDB = new ArrayList();
+
+    HashMap<String, Integer> hash = new HashMap<String, Integer>();
     Integer[] catIcon = {R.drawable.study, R.drawable.sport, R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
     Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
+    String[] cat = {"study", "sport", "work", "nutrition","family", "chores", "relax", "friends", "other"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_week, container, false);
+        View view = inflater.inflate(R.layout.fragment_week, container, false);
+        FloatingActionButton floatingActionButton =view.findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(this);
         weekCalendar = (WeekView) view.findViewById(R.id.weekView);
+        weekCalendar.setOnClickListener(this);
+
+        for (int i = 0; i < catColor.length; i++) {
+            hash.put(cat[i], catColor[i]);
+        }
 
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
@@ -55,6 +79,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                     task.setCategoryS((String) ds.child("category").getValue());
                     task.setCreateDate((String) ds.child("createDate").getValue());
                     task.setReminderTypeS((String) ds.child("reminderType").getValue());
+                    task.setId(ds.getKey());
                     tasksFromDB.add(task);
                     for (int i = 0; i < tasksFromDB.size(); i++) {
                         Calendar cal = Calendar.getInstance();
@@ -62,27 +87,69 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         try {
                             cal = DateStringToCalendar(tasksFromDB.get(i).getCreateDate());
                             cal3 = DateStringToCalendar(tasksFromDB.get(i).getCreateDate());
-                            Log.d("cal", "onDataChange: "+cal);
+                            Log.d("cal", "onDataChange: " + cal);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        cal3.add(Calendar.HOUR,1);
-                        Log.d("cal3", "onDataChange: "+cal3);
-                        Event event = new Event(1, task.getCategoryS(), cal, cal3, task.getDescription(),ContextCompat.getColor(getActivity(), R.color.sport), false, false);
-                        Log.d("event", "onDataChange: "+event);
+                        //TODO: change the cal3- for the finish date
+                        cal3.add(Calendar.HOUR, 3);
+                        Event event = new Event(task.getId(), task.getCategoryS(), cal, cal3, task.getDescription(), ContextCompat.getColor(getActivity(), hash.get(task.getCategoryS().toLowerCase())), false, false);
                         listOfEvents.add(event);
                     }
                 }
                 weekCalendar.submit(listOfEvents);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+        weekCalendar.setOnEventClickListener(new OnEventClickListener() {
+            @Override
+            public void onEventClick(Object o, @NotNull RectF rectF) {
+            String id = ((Event)o).getId();
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks").child(id);
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.d("weekCalendar", "onDataChange:1 "+dataSnapshot.toString());
+                        if (dataSnapshot.child("type").equals("TASK")) {
+                            Log.d("weekCalendar", "onDataChange:2 "+((Event)o).getId());
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("taskKey", ((Event)o).getId());
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+                        else if (dataSnapshot.child("type").equals("ANCHOR")){
+                            Log.d("weekCalendar", "onDataChange: "+((Event)o).getId());
+                            Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("AnchorKey", ((Event)o).getId());
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            }
+        });
+        weekCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
+            @Override
+            public void onEmptyViewClicked(@NotNull Calendar calendar) {
+
+            }
+        });
 
         setHasOptionsMenu(true);
         return view;
+
+
     }
 
 
@@ -95,7 +162,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 13);
         calendar.set(Calendar.HOUR, 7);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.set(Calendar.AM_PM, Calendar.PM);
         calendar.set(Calendar.MONTH,Integer.parseInt(arr[1])-1);
         calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(arr[0]));
         calendar.set(Calendar.YEAR, Integer.parseInt(arr[2]));
@@ -113,7 +180,26 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     public void onClick(View v) {
 
         switch (v.getId()) {
-
+            case R.id.floatingActionButton:
+            SweetAlertDialog ad=  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE).setContentText(("Do you want to add a task or an anchor?"));
+            ad.setConfirmText("Task");
+            ad.setCancelText("Anchor");
+            ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sDialog) {
+                    startActivity(new Intent(getActivity(), AddTasks.class));
+                }
+            });
+            Intent intent = new Intent(getActivity(), AddAnchor.class);
+                ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        //TODO: add the same date as the square, don't know if possible
+                        startActivity(new Intent(getActivity(), AddAnchor.class));
+                    }
+                });
+                ad.show();
+            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
