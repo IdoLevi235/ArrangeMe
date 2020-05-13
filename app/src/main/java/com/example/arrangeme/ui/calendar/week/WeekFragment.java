@@ -50,7 +50,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     List <TaskEntity> tasksFromDB = new ArrayList();
 
     HashMap<String, Integer> hash = new HashMap<String, Integer>();
-    Integer[] catIcon = {R.drawable.study, R.drawable.sport, R.drawable.work, R.drawable.nutrition, R.drawable.familycat, R.drawable.chores, R.drawable.relax, R.drawable.friends_cat, 0};
     Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
     String[] cat = {"study", "sport", "work", "nutrition","family", "chores", "relax", "friends", "other"};
 
@@ -93,7 +92,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         }
                         //TODO: change the cal3- for the finish date
                         cal3.add(Calendar.HOUR, 3);
-                        Event event = new Event(task.getId(), task.getCategoryS(), cal, cal3, task.getDescription(), ContextCompat.getColor(getActivity(), hash.get(task.getCategoryS().toLowerCase())), false, false);
+                        Event event = new Event(task.getId(), task.getDescription(), cal, cal3,task.getCategoryS() , ContextCompat.getColor(getActivity(), hash.get(task.getCategoryS().toLowerCase())), false, false);
                         listOfEvents.add(event);
                     }
                 }
@@ -113,17 +112,15 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Log.d("weekCalendar", "onDataChange:1 "+dataSnapshot.toString());
-                        if (dataSnapshot.child("type").equals("TASK")) {
-                            Log.d("weekCalendar", "onDataChange:2 "+((Event)o).getId());
+                        if (dataSnapshot.child("type").getValue().equals("TASK")) {
                             Intent intent = new Intent(getActivity(), TaskPagePopup.class);
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
-                            b.putString("taskKey", ((Event)o).getId());
+                            b.putString("TaskKey", ((Event)o).getId());
                             intent.putExtras(b);
                             startActivity(intent);
                         }
-                        else if (dataSnapshot.child("type").equals("ANCHOR")){
-                            Log.d("weekCalendar", "onDataChange: "+((Event)o).getId());
+                        else if (dataSnapshot.child("type").getValue().equals("ANCHOR")){
                             Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
@@ -142,7 +139,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         weekCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
             @Override
             public void onEmptyViewClicked(@NotNull Calendar calendar) {
-
+                floatingActionButton.setEnabled(true);
             }
         });
 
