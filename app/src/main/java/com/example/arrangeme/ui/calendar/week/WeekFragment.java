@@ -79,7 +79,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
 
         cal3.set(2020,5,13,1,0);
         cal4.set(2020,5,13,2,0);
-        
+
 
         Event event1 = new Event(
                 523,
