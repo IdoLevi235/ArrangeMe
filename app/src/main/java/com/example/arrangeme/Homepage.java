@@ -14,9 +14,13 @@ import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.ui.calendar.CalendarFragment;
 import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +32,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class Homepage extends AppCompatActivity {
 private Toolbar toolbar;
@@ -78,6 +85,25 @@ public static String filter;
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
         contextOfApplication = getApplicationContext();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Log.d("token", "onComplete: " + token);
+
+
+                    }
+                });
+
+
     }
 
     public static Context contextOfApplication;
