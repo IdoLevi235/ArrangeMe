@@ -1,7 +1,13 @@
 package com.example.arrangeme;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -21,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity{
 
     Button loginBtn;
@@ -31,10 +39,13 @@ public class MainActivity extends AppCompatActivity{
     Button homepageBtn;
     private TextView tv;
     private ProgressBar pb;
+    Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         loginBtn = (Button) findViewById(R.id.loginBtnMain);
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
@@ -113,9 +124,13 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
+
+
+
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
 
     private void updateUI(FirebaseUser currentUser) {

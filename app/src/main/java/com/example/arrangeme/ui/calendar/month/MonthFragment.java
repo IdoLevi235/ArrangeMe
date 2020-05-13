@@ -266,6 +266,13 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     String taskKey = fbAdapter.getRef(position).getKey();
                                     if (model.getType().equals("TASK")) {
+                                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        Bundle b = new Bundle();
+                                        b.putString("TaskKey", taskKey);
+                                        intent.putExtras(b);
+                                        startActivity(intent);
+
                                     }
                                     else if (model.getType().equals("ANCHOR")){
                                         Intent intent = new Intent(getActivity(), AnchorPagePopup.class);

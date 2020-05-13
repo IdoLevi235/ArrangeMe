@@ -1,8 +1,13 @@
 package com.example.arrangeme;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.arrangeme.AddTasks.AddTasks;
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.ui.calendar.CalendarFragment;
 import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
@@ -21,10 +27,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,6 +44,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 
 public class Homepage extends AppCompatActivity {
 private Toolbar toolbar;
@@ -86,22 +96,19 @@ public static String filter;
         }
         contextOfApplication = getApplicationContext();
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("TAG", "getInstanceId failed", task.getException());
-                            return;
-                        }
+        // Notifications stuff //
+        String id = "notifyQUes";
+        CharSequence name = "QuestionnaireNotfilledNotification";
+        String description = "Channel to notify on unfilled questionnaires";
+        createNotificationChannel(id,name,description);
+        Calendar calendar = Calendar.getInstance();
 
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-                        Log.d("token", "onComplete: " + token);
+        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+        // Notifications stuff end //
 
-
-                    }
-                });
 
 
     }
@@ -110,6 +117,14 @@ public static String filter;
     public static Context getContextOfApplication()
     {
         return contextOfApplication;
+    }
+
+    private void createNotificationChannel(String id, CharSequence name, String description) {
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(id,name,importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 
     @Override
