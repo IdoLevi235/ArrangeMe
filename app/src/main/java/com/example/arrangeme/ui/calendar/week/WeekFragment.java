@@ -58,7 +58,7 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class WeekFragment extends Fragment implements View.OnClickListener {
+public class WeekFragment extends Fragment implements View.OnClickListener, OnMonthChangeListener {
 
     private WeekView weekCalendar;
     private Switch switchCat;
@@ -107,6 +107,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
         list.add(event2);
         weekCalendar.submit(list);
         parms = (ConstraintLayout.LayoutParams) weekCalendar.getLayoutParams();
+
         setHasOptionsMenu(true);
         return view;
     }
@@ -129,6 +130,13 @@ public class WeekFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    @NotNull
+    @Override
+    public List<WeekViewDisplayable> onMonthChange(@NotNull Calendar calendar, @NotNull Calendar calendar1) {
+
+
+        return null;
+    }
 }
 
 
