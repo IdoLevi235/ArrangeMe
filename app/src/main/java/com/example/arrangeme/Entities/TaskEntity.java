@@ -18,6 +18,8 @@ public class TaskEntity {
     ReminderType reminderType;
     String location;
     String createDate;
+    String categoryS;
+    String reminderTypeS;
 
 
     public TaskEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location, String createDate) {
@@ -27,6 +29,34 @@ public class TaskEntity {
         this.reminderType = reminderType;
         this.location = location;
         this.createDate=createDate;
+    }
+
+
+    public TaskEntity(String categoryS, String description, Uri photo, String reminderTypeS, String location, String createDate) {
+        this.categoryS = categoryS;
+        this.description = description;
+        this.photo = photo;
+        this.reminderTypeS = reminderTypeS;
+        this.location = location;
+        this.createDate=createDate;
+    }
+
+
+
+    public String getCategoryS() {
+        return categoryS;
+    }
+
+    public void setCategoryS(String categoryS) {
+        this.categoryS = categoryS;
+    }
+
+    public String getReminderTypeS() {
+        return reminderTypeS;
+    }
+
+    public void setReminderTypeS(String reminderTypeS) {
+        this.reminderTypeS = reminderTypeS;
     }
 
     public TaskEntity() {
