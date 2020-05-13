@@ -110,6 +110,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 final int DRAWABLE_LEFT = 0;
                 final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
@@ -192,6 +193,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         emailText.setEnabled(false);
         emailText.setClickable(false);
 
+        passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
         passwordText.setEnabled(false);
         passwordText.setClickable(false);
 
@@ -240,6 +242,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         firstName.requestFocus();
         firstName.setCursorVisible(true);
 
+        passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
         passwordText.setEnabled(true);
         passwordText.setClickable(true);
 
