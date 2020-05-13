@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //private Button getSignUpWithFacebookBtn;
     private Button sign_in_google; //google try
     //private SignInButton sign_in_google; //google try
-    private Button sign_out_button;
+ //   private Button sign_out_button;
     private static final int RC_SIGN_IN =1;
     private static final String TAG = "SignInActivity";
     private GoogleSignInClient mGoogleSignInClient;
@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
         sign_in_google = findViewById(R.id.sign_in_button);
-        sign_out_button = findViewById(R.id.sign_out_button);
+      //  sign_out_button = findViewById(R.id.sign_out_button);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
+     //   findViewById(R.id.sign_out_button).setOnClickListener(this);
         mStatusTextView = findViewById(R.id.status);
 
         passwordText.setOnTouchListener(new View.OnTouchListener() {
@@ -147,10 +147,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Log.d("google", "google Btn Activated");
                 signInWithGoogle();
                 break;
-           case R.id.sign_out_button:
-                Log.d("google", "google Btn Activated");
-                signOutWithGoogle();
-                break;
+         //  case R.id.sign_out_button:
+         //       Log.d("google", "google Btn Activated");
+         //       signOutWithGoogle();
+                //break;
             case R.id.forgetPass:
                 startActivity(new Intent(Login.this, ForgotPass.class));
             default:
@@ -160,9 +160,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void signOutWithGoogle() {
-        mGoogleSignInClient.signOut();
+        //mGoogleSignInClient.signOut();
         Toast.makeText(Login.this,"You Are Logged Out", Toast.LENGTH_SHORT).show();
-        sign_out_button.setVisibility(View.INVISIBLE);
+        //sign_out_button.setVisibility(View.INVISIBLE);
     }
 
     //google sign-in method
@@ -245,7 +245,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     private void updateUI(FirebaseUser fUser, boolean isNewUser){
-        sign_out_button.setVisibility(View.VISIBLE);
+        //sign_out_button.setVisibility(View.VISIBLE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
             Globals.currentUsername=account.getGivenName(); //update user's name
