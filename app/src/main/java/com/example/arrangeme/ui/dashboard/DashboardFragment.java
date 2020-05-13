@@ -30,8 +30,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.ChooseTasks.ChooseTasks;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
@@ -59,8 +57,6 @@ import java.util.Locale;
 public class DashboardFragment extends Fragment implements View.OnClickListener, PersonalityVectorValidate {
 
     private DashboardViewModel dashboardViewModel;
-    private Button calenderBtn;
-    private Button addTaskBtn;
     private Button chooseTasksBtn;
     private Button questionnaireBtn;
     private DatabaseReference mDatabase;
@@ -100,12 +96,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         super.onViewCreated(view, savedInstanceState);
         welcome=view.findViewById(R.id.welcomText);
         welcome.setText("Welcome " + Globals.currentUsername +"!");
-        calenderBtn = view.findViewById(R.id.calenderBtn);
-        addTaskBtn = view.findViewById(R.id.addTaskBtn);
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
         chooseTasksBtn.setOnClickListener(this);
-        addTaskBtn.setOnClickListener(this);
-        calenderBtn.setOnClickListener(this);
         quesMessage = view.findViewById(R.id.quesMessage);
         noScheduleYet = view.findViewById(R.id.noScheduleYet);
         noSchRelative = view.findViewById(R.id.noScheduleLayout);
@@ -179,15 +171,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         Intent ct;
         switch (v.getId()) {
-            case (R.id.calenderBtn):
-                ct = new Intent(getActivity(), Homepage.class);
-                ct.putExtra("FromHomepage", "2");
-                getActivity().startActivity(ct);
-                break;
-            case (R.id.addTaskBtn):
-                 ct= new Intent(getActivity(), AddTasks.class);
-                getActivity().startActivity(ct);
-                break;
             case (R.id.chooseTasksBtn):
                  ct= new Intent(getActivity(), ChooseTasks.class);
                 getActivity().startActivity(ct);

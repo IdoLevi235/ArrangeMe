@@ -19,12 +19,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/welcomText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="164dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Welcome Linoy !"
@@ -32,11 +31,10 @@
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
         app:layout_constraintVertical_bias="0.0" />
-
 
     <RelativeLayout
         android:id="@+id/noScheduleLayout"
@@ -113,67 +111,26 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/addTaskBtn"
-        android:layout_width="116dp"
-
-        android:layout_height="116dp"
-        android:background="@drawable/dashboard_topbuttons"
-        android:drawableTop="@drawable/addtaskbtn"
-        android:elevation="2dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Add Tasks"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="15sp"
-        android:drawablePadding="-5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.542" />
 
     <Button
         android:id="@+id/chooseTasksBtn"
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:elevation="2dp"
         android:background="@drawable/dashboard_topbuttons"
         android:drawableTop="@drawable/choosetaskbtn"
+        android:drawablePadding="-8dp"
+        android:elevation="2dp"
         android:fontFamily="@font/montserrat"
         android:text="Build Schedule"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="15sp"
-        android:drawablePadding="-8dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.542" />
-
-    <Button
-        android:id="@+id/calenderBtn"
-        android:layout_width="116dp"
-        android:layout_height="116dp"
-        android:background="@drawable/dashboard_topbuttons"
-        android:drawablePadding="-6dp"
-        android:drawableTop="@drawable/calendarbtn"
-        android:elevation="2dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Calendar"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.542" />
-
+        app:layout_constraintVertical_bias="0.516" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -182,7 +139,7 @@
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Schedule For Today"
+        android:text="Today"
         android:textColor="@color/work"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
