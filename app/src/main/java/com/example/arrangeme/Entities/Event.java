@@ -6,6 +6,7 @@ import com.example.arrangeme.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import kotlin.Metadata;
@@ -32,6 +33,8 @@ public class Event implements WeekViewDisplayable<Event> {
         this.isAllDay = isAllDay;
         this.isCanceled = isCanceled;
     }
+
+
     @NotNull
     @Override
     public WeekViewEvent toWeekViewEvent() {
