@@ -327,7 +327,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 }
-//TODO: CHANGE THE EDIT TEXT BOXES
-//TODO: ERASE THE FACEBOOK CONNECTION + FIX THE SIGNOUT BUTTON
 
 

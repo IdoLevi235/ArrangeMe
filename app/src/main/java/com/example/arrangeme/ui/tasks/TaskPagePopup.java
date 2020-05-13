@@ -283,7 +283,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             }
         });
 
-//TODO: edit the photo (add/choose another photo).
     }
 
 
@@ -365,7 +364,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
                     }
 
 
-                    //TODO: change photo in DB here
                 }
 
                 @Override

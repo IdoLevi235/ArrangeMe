@@ -269,7 +269,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         deleteTaskFromDB();
-                        //TODO: delete task from db
                     }
                 });
                 delete.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
@@ -375,7 +374,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         });
 
 
-//TODO: edit the photo (add/choose another photo).
 
     }
 
@@ -442,7 +440,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                 }
 
 
-                //TODO: change photo in DB here
             }
 
             @Override
