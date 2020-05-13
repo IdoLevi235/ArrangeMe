@@ -99,7 +99,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         noScheduleYet= view.findViewById(R.id.quesMessage);
         recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
         recyclerSchedule.setHasFixedSize(true);
-        //TODO: function that checks if there is a schedule, it means if the user chose tasks for today & fill the questionnaire(personality vector is ful), if not, visible the texts that I did.
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());

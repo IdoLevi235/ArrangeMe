@@ -51,6 +51,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class TasksFragment extends Fragment implements View.OnClickListener {
     public static String[] filter;
+    ArrayList<String> keys;
     private FrameLayout containerFilter;
     private RecyclerView mRecycler;
     private ArrayList<MainModelTasks> mainModels;
@@ -178,13 +179,13 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 
     public void setRecycler(RecyclerView mRecycler) {
         Log.d("TAG8", "FILTER: " + TasksFragment.filter);
+        keys = new ArrayList<>();
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase, MainModelTasks.class).build();
         checkIfThereArePendingTasks(mDatabase);
-
         /* Fire base UI stuff */
         fbAdapter = new FirebaseRecyclerAdapter<MainModelTasks, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})

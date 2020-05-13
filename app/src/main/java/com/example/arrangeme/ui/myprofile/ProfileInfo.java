@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -43,7 +46,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ProfileInfo extends Fragment implements View.OnClickListener {
 
-
+    private boolean hidePass=true;
     ImageView editModeBtn;
     ImageView applyBtn;
     EditText emailText;
@@ -103,6 +106,38 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         password.setVisibility(View.GONE);
         profileImage.setVisibility(View.GONE);
         checkIfFromGoogle();
+        passwordText.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+                Log.d("TAG5", "onTouch: start");
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (passwordText.getRight() - passwordText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        {
+                            if (hidePass) {
+                                Log.d("TAG5", "onTouch: HIDEPASS=TRUE");
+                                passwordText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyexx,0);
+                                hidePass=false;
+                            }
+                            else if (!hidePass){
+                                Log.d("TAG5", "onTouch: HIDEPASS=FALSE");
+                                passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
+                                hidePass=true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
     }
 
     private void checkIfFromGoogle() {

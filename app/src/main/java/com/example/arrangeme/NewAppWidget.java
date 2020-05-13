@@ -40,4 +40,3 @@ public class NewAppWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 }
-//todo לעשות עם זה משהו
