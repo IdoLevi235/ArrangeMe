@@ -116,13 +116,15 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
             Calendar cal = null;
             try {
                 cal = DateStringToCalendar(tasksFromDB.get(i).getCreateDate());
+                Log.d("cal", "onCreateView: "+cal.toString());
+                Log.d("cal", "onCreateView: "+tasksFromDB.get(i).getCreateDate().toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             Calendar cal3 = cal;
 
             cal3.add(Calendar.HOUR, 1);
-            
+
             Event event = new Event(1,tasksFromDB.get(i).getCategoryS(),cal,cal3,tasksFromDB.get(i).getLocation(),R.color.sport,false,false);
             List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
             listOfEvents.add(event);
@@ -137,11 +139,13 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     }
 
     public Calendar DateStringToCalendar (String date1) throws ParseException {
+        Log.d("DateStringToCalendar", "onCreateView: "+date1.toString());
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date = df.parse(date1);
         Calendar cal = Calendar.getInstance();
         //or Calendar cal = new GregorianCalendar();
         cal.setTime(date);
+        Log.d("DateStringToCalendar", "onCreateView: "+cal.toString());
         return cal;
     }
 
