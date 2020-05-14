@@ -6,20 +6,16 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 
-exports.addMessage = functions.https.onCall((data, context) => {
-// Saving the new message to the Realtime Database.
-
-var ref = admin.database().ref("users/46rozrdHUmbQ7ZDOu0G8fY1brVg2");
-ref.once("value") .then(function(snapshot) {
-    var q = snapshot.child("personality_vector").val(); // "Ada"
-    return q;
-
-  });
-
+// this function gets all the PVs from the database using firebase cloud functions
+exports.getAllPersonalityVectors = functions.https.onCall((data, context) => {
+var vectors = [];
+var ref = admin.database().ref("users").orderByKey();
+    return ref.once("value") .then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+        vectors.push(childSnapshot.child("personality_vector").val());
+            });
+        return vectors;
+    });
 
 });
 
-
-
-
-// Test for the existence of certain keys within a DataSnapshot

@@ -32,7 +32,6 @@ import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -298,7 +297,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 datePickerDialog.show();
                 break;
             case R.id.nodeBtn:
-                Task<String> result = addMessage("koosemek");
+                Task<HttpsCallableResult> result = addMessage("koosemek");
 
                 /*FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
                         .getHttpsCallable("addMessage")
@@ -323,7 +322,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     } //end of onclick
 
-    private Task<String> addMessage(String text) {
+    private Task<HttpsCallableResult> addMessage(String text) {
         // Create the arguments to the callable function.
         Log.d("KOOSEMEK", "addMessage: ");
         Map<String, Object> data = new HashMap<>();
@@ -331,14 +330,19 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         data.put("push", true);
 
         return mFunctions
-                .getHttpsCallable("addMessage")
+                .getHttpsCallable("getAllPersonalityVectors")
                 .call(data)
-                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                     @Override
-                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
-                        String result = (String) task.getResult().getData();
-                        Log.d("KOOSEMEK", "then: " + result);
-                        return result;
+                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        Log.d("KOOSEMEK", "onSuccess: " + httpsCallableResult.getData());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("KOOSEMEK", "onFailure: " + e );
+
                     }
                 });
     }
