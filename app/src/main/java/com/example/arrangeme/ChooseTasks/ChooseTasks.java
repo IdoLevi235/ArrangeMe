@@ -298,9 +298,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 datePickerDialog.show();
                 break;
             case R.id.nodeBtn:
-                //Task<String> result = addMessage("koosemek");
-                //Log.d("KOOSEMEK", "onClick: KOOSEMEK");
-                FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
+                Task<String> result = addMessage("koosemek");
+
+                /*FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
                         .getHttpsCallable("addMessage")
                         .call("KOOSEMEK")
                         .addOnFailureListener(new OnFailureListener() {
@@ -315,7 +315,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                                 Log.d("KOOSEMEK", "onSuccess: ");
 
                             }
-                        });
+                        });*/
                     break;
             default:
                 break;

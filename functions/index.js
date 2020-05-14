@@ -5,15 +5,21 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+
 exports.addMessage = functions.https.onCall((data, context) => {
-const text = data;
 // Saving the new message to the Realtime Database.
-return admin.database().ref('/messages').push({
-  text: text
-}).then(() => {
-  console.log('New written');
-  // Returning the sanitized message to the client.
-  return { text: text };
-})
+
+var ref = admin.database().ref("users/46rozrdHUmbQ7ZDOu0G8fY1brVg2");
+ref.once("value") .then(function(snapshot) {
+    var q = snapshot.child("personality_vector").val(); // "Ada"
+    return q;
+
+  });
+
 
 });
+
+
+
+
+// Test for the existence of certain keys within a DataSnapshot
