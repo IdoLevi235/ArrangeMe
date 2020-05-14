@@ -9,7 +9,7 @@ admin.initializeApp();
 // this function gets all the PVs from the database using firebase cloud functions
 exports.getAllPersonalityVectors = functions.https.onCall((data, context) => {
 var vectors = [];
-var ref = admin.database().ref("users").orderByKey();
+var ref = admin.database().ref("simulated_users");
     return ref.once("value") .then(function(snapshot){
         snapshot.forEach(function(childSnapshot){
         vectors.push(childSnapshot.child("personality_vector").val());

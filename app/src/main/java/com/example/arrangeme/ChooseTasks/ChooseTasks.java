@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -298,7 +299,6 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.nodeBtn:
                 Task<HttpsCallableResult> result = addMessage("koosemek");
-
                 /*FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
                         .getHttpsCallable("addMessage")
                         .call("KOOSEMEK")
@@ -335,7 +335,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        List<String> data = (List<String>) httpsCallableResult.getData();
                         Log.d("KOOSEMEK", "onSuccess: " + httpsCallableResult.getData());
+                        Log.d("KOOSEMEK", "onSuccess: " + data.size());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
