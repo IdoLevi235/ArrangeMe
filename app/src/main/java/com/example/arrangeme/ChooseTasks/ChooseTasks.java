@@ -32,20 +32,30 @@ import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ChooseTasks extends AppCompatActivity implements View.OnClickListener {
+    private Button node;
+    private FirebaseFunctions mFunctions;
     private Toolbar toolbar;
     private int numOfTasksToChoose = 4; //needs to be recieved from DB
     private int count;
@@ -80,6 +90,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
+        ////////////////
+        mFunctions = FirebaseFunctions.getInstance();
+        node=findViewById(R.id.nodeBtn);
+        node.setOnClickListener(this);
+        ////////////////
+
         toolbar = findViewById(R.id.toolbar_chooseTasks);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -280,14 +296,53 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             case R.id.chooseDate:
                 DatePickerDialog datePickerDialog = createDatePickerDialog();
                 datePickerDialog.show();
+                break;
+            case R.id.nodeBtn:
+                //Task<String> result = addMessage("koosemek");
+                //Log.d("KOOSEMEK", "onClick: KOOSEMEK");
+                FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
+                        .getHttpsCallable("addMessage")
+                        .call("KOOSEMEK")
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("KOOSEMEK", "onFailure: ");
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                            @Override
+                            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                                Log.d("KOOSEMEK", "onSuccess: ");
+
+                            }
+                        });
+                    break;
             default:
                 break;
         }//end of switch
 
     } //end of onclick
 
-    private void chooseTaskFailedMustPickDate() {
+    private Task<String> addMessage(String text) {
+        // Create the arguments to the callable function.
+        Log.d("KOOSEMEK", "addMessage: ");
+        Map<String, Object> data = new HashMap<>();
+        data.put("text", text);
+        data.put("push", true);
+
+        return mFunctions
+                .getHttpsCallable("addMessage")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        String result = (String) task.getResult().getData();
+                        Log.d("KOOSEMEK", "then: " + result);
+                        return result;
+                    }
+                });
     }
+
 
     private DatePickerDialog createDatePickerDialog() {
         final Calendar c = Calendar.getInstance();

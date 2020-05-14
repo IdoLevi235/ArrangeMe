@@ -1,20 +1,29 @@
 package com.example.arrangeme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Adminzone extends AppCompatActivity implements View.OnClickListener{
@@ -22,11 +31,14 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button deleteDB;
     private Button sim1;
     private Button deleteSim1;
+    private Button node;
+    private FirebaseFunctions mFunctions;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFunctions = FirebaseFunctions.getInstance();
         setContentView(R.layout.activity_adminzone);
         deleteDB = (Button)findViewById(R.id.dDBbtn);
         sim1 = (Button)findViewById(R.id.sim1btn);
@@ -48,13 +60,16 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             case (R.id.sim1btn):
                 simulate1000withPVnoSC();
                 break;
-
             case (R.id.dSim1):
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("simulated_users").removeValue();
-
+                break;
         }
     }
+
+
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void simulate1000withPVnoSC() {

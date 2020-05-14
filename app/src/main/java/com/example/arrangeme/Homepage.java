@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.arrangeme.AddTasks.AddTasks;
@@ -20,11 +21,14 @@ import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.ui.calendar.CalendarFragment;
 import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -45,15 +49,22 @@ import androidx.navigation.ui.NavigationUI;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Homepage extends AppCompatActivity {
+public class Homepage extends AppCompatActivity{
 private Toolbar toolbar;
 private int value;
 public static String filter;
+private Button node ;
+private FirebaseFunctions mFunctions;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFunctions = FirebaseFunctions.getInstance();
+        node=findViewById(R.id.nodeBtn);
         setContentView(R.layout.activity_homepage);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -171,6 +182,7 @@ public static String filter;
         }
 
     }
+
 
 
 }
