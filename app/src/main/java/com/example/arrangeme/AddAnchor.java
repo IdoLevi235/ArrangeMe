@@ -84,7 +84,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private int year;
     private int month;
     private int day;
-    private int currKey2;
+    private static int currKey2;
 
 
     @Override
@@ -326,6 +326,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 anchorToAdd = new AnchorEntity();
                 anchorToAdd.setDescription(desc.getText().toString());
                 anchorToAdd.setReminderType(chosenReminder);
+
                 anchorToAdd.setCategory(chosenCat);
                 String date = generateDateStringFromDatepicker(datePicker);
                 anchorToAdd.setDate(date);
@@ -478,9 +479,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
          day = Integer.parseInt(arr[0]);
          month = Integer.parseInt(arr[1]);
          year = Integer.parseInt(arr[2]);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).
                 child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day));
-        Query lastQuery = mDatabase.orderByKey().limitToLast(1);
+        Query lastQuery = mDatabase2.orderByKey().limitToLast(1);
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -491,8 +492,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 int newKey;
                 if (biggestKey==null) newKey=0;
                 else newKey = Integer.parseInt(biggestKey) + 1;
-                currKey=newKey;
-                mDatabase.child(String.valueOf(newKey)).setValue(anchorToAdd);
+                currKey2=newKey;
+                mDatabase2.child(String.valueOf(newKey)).setValue(anchorToAdd);
             }
 
             @Override
@@ -501,8 +502,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
-        Query lastQuery2 = mDatabase2.orderByKey().limitToLast(1);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        Query lastQuery2 = mDatabase.orderByKey().limitToLast(1);
         lastQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -513,8 +514,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                 int newKey;
                 if (biggestKey==null) newKey=0;
                 else newKey = Integer.parseInt(biggestKey) + 1;
-                currKey2=newKey;
-                mDatabase2.child(String.valueOf(newKey)).setValue(anchorToAdd);
+                currKey=newKey;
+                mDatabase.child(String.valueOf(newKey)).setValue(anchorToAdd);
+                mDatabase2.child(String.valueOf(currKey2)).child("brother").setValue(currKey);
 
             }
 

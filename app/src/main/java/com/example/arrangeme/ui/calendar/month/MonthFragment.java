@@ -77,6 +77,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     private TextView noItemsText;
     private RecyclerView mRecycler;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase2;
     private ProgressBar spinner;
     private FirebaseRecyclerOptions<MainModelMonth> options;
     private FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder> fbAdapter;
@@ -108,15 +109,16 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         monthCalendar=view.findViewById(R.id.monthCalendar);
         final HashSet<String> datesWithTasks = new HashSet<>();
         final HashSet<String> datesWithAnchors = new HashSet<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID); //tasks ref from schedule will be here
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         //child of pending tasks that they are tasks
         Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
-        Query query_anchors = mDatabase.orderByChild("type").equalTo("ANCHOR");
+        Query query_anchors = mDatabase2;
         query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    datesWithAnchors.add((String) ds.child("createDate").getValue());
+                    datesWithAnchors.add((String) ds.child("date").getValue());
                 }
                 /* decorator start */
                 monthCalendar.addDecorator(new DayViewDecorator() {
@@ -232,8 +234,8 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 dateString.append(year);
                 dateStringSentToAddAnchor[0] =dateString.toString();
                 /* Recycler Stuff */
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
-                Query query = mDatabase.orderByChild("createDate").equalTo(dateString.toString());
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+                Query query = mDatabase.orderByChild("date").equalTo(dateString.toString());
                 options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(query, MainModelMonth.class).build();
                 fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
                     @Override
@@ -250,11 +252,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                         holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
                         holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
-                        if (model.getType().equals("ANCHOR")) {
-                            holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-                        } else if (model.getType().equals("TASK")) {
-                            holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-                        }
+                        //if (model.getType().equals("ANCHOR")) {
+                        //    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                        // } else if (model.getType().equals("TASK")) {
+                        //    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                        //}
+                        holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time); //for now it only show anchors
                         holder.button.setBackgroundResource
                                 (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds
@@ -264,27 +267,14 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String taskKey = fbAdapter.getRef(position).getKey();
-                                    if (model.getType().equals("TASK")) {
-                                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                        Bundle b = new Bundle();
-                                        b.putString("TaskKey", taskKey);
-                                        intent.putExtras(b);
-                                        startActivity(intent);
-
-                                    }
-                                    else if (model.getType().equals("ANCHOR")){
-                                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                        Bundle b = new Bundle();
-                                        b.putString("AnchorKey", taskKey);
-                                        intent.putExtras(b);
-                                        startActivity(intent);
-
-                                    }
-
-                                //TODO: after DB finished, go to anchor/task in a different way maybe
+                                    String key = fbAdapter.getRef(position).getKey();
+                                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                    Bundle b = new Bundle();
+                                    b.putString("AnchorKey", key);
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                    //for now, only anchors
                                 }
 
                                 @Override
@@ -321,25 +311,15 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             case (R.id.addTasksFloater):
             SweetAlertDialog ad;
             ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                    .setContentText(("Do you want to add a task or an anchor?"));
-            ad.setConfirmText("Task");
-            ad.setCancelText("Anchor");
-            ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sDialog) {
-                    startActivity(new Intent(getActivity(), AddTasks.class));
-                }
-            });
+                    .setContentText(("Do you want to add a new anchor?"));
+            ad.setConfirmText("Yes!");
                 Intent intent = new Intent(getActivity(), AddAnchor.class);
-                ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sDialog) {
-                    Log.d("TAGAG", "onClick: " + dateStringSentToAddAnchor[0]);
                     intent.putExtra("date", dateStringSentToAddAnchor[0]);
                     startActivity(intent);
-
-           }
-
+                }
             });
             ad.show();
             break;
