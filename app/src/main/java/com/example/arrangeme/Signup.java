@@ -219,7 +219,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             /* addNewUserToDB is now here because of problems with Globals.UID */
                             mDatabase = FirebaseDatabase.getInstance().getReference();
                             User userToAdd = new User(email,password,fname,lname);
-                            mDatabase.child("users").child(Globals.UID).setValue(userToAdd);
+                            mDatabase.child("users").child(Globals.UID).child("personal_info").setValue(userToAdd);
                             mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(0);
 
                             /* addNewUserToDB end */

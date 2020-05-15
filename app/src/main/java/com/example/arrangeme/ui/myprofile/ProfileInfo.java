@@ -142,7 +142,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
     private void checkIfFromGoogle() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("password");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("password");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -162,7 +162,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
     public void showDetailsGoogle() {
         Log.d("TAG4", "onDataChange: INSIDE GOOGLE FUNCTION");
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -205,7 +205,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
     public void showDetailsRegularUser() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -251,7 +251,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
     public void EditUserInDB(String email, String password, String first, String last) {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String newPassword = password;
