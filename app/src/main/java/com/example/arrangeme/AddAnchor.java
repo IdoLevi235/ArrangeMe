@@ -50,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -68,6 +69,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private ReminderType chosenReminder;
     private TaskCategory chosenCat;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase2;
     private TextView textViewHelloAdd;
     private AnchorEntity anchorToAdd;
     private DatePicker datePicker;
@@ -79,6 +81,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private StorageReference mStorageRef;
     private Uri selectedImage2;
     private int currKey;
+    private int year;
+    private int month;
+    private int day;
+    private int currKey2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -373,8 +380,13 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("Anchors").child(String.valueOf(currKey));
+                child(Globals.UID).child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day))
+                .child(String.valueOf(currKey));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(String.valueOf(currKey2));
+        mDatabase2.child("photoUri").setValue((downloadUri.toString()));
+
+
     }
 
     private boolean validateForm(AnchorEntity anchorToAdd) {
@@ -462,7 +474,12 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     }
 
     private void addAnchorToDB(AnchorEntity anchorToAdd) {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        String[] arr = anchorToAdd.getDate().split("-",3);
+         day = Integer.parseInt(arr[0]);
+         month = Integer.parseInt(arr[1]);
+         year = Integer.parseInt(arr[2]);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).
+                child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day));
         Query lastQuery = mDatabase.orderByKey().limitToLast(1);
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -484,7 +501,33 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        Query lastQuery2 = mDatabase2.orderByKey().limitToLast(1);
+        lastQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String biggestKey=null;
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    biggestKey = ds.getKey();
+                }
+                int newKey;
+                if (biggestKey==null) newKey=0;
+                else newKey = Integer.parseInt(biggestKey) + 1;
+                currKey2=newKey;
+                mDatabase2.child(String.valueOf(newKey)).setValue(anchorToAdd);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
+
 
     private String generateDateStringFromDatepicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();

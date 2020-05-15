@@ -155,7 +155,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         options = new FirebaseRecyclerOptions.Builder<MainModel>().setQuery(mDatabase, MainModel.class).build();
         checkIfThereArePendingTasks(mDatabase);
         /* Fire base UI stuff */

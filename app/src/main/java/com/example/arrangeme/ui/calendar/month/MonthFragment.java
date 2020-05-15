@@ -108,7 +108,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         monthCalendar=view.findViewById(R.id.monthCalendar);
         final HashSet<String> datesWithTasks = new HashSet<>();
         final HashSet<String> datesWithAnchors = new HashSet<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID);
         //child of pending tasks that they are tasks
         Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
         Query query_anchors = mDatabase.orderByChild("type").equalTo("ANCHOR");
