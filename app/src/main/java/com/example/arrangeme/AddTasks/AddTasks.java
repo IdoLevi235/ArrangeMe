@@ -367,7 +367,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("Pending_tasks").child(String.valueOf(currKey));
+                child(Globals.UID).child("tasks").child("Pending_tasks").child(String.valueOf(currKey));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
 
     }
@@ -394,7 +394,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
             }
 
             else {
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
                 LocalDateTime now = LocalDateTime.now();
                 String year = Integer.toString(now.getYear());
                 String month = Integer.toString(now.getMonthValue());

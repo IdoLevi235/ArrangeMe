@@ -115,7 +115,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     public void showDetails() {
         this.showImage();
         TaskEntity taskToPresent =new TaskEntity();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -165,7 +165,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     public void showImage(){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("Pending_tasks").child(taskKey).child("photoUri");
+                child(Globals.UID).child("tasks").child("Pending_tasks").child(taskKey).child("photoUri");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -347,7 +347,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     private void addTaskToDB(TaskEntity editedTaskToChange) {
 
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

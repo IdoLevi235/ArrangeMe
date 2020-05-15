@@ -44,25 +44,25 @@
             android:visibility="gone" />
 
         <Button
-        android:id="@+id/questionnaireBtn"
-        android:layout_width="281dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="173dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="31dp"
-        android:background="@drawable/btn_rounded"
-        android:elevation="1.5dp"
-        android:fontFamily="sans-serif-medium"
-        android:shadowColor="#535353"
-        android:text=" Fill The Questionnaire Now!"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:visibility="gone" />
+            android:id="@+id/questionnaireBtn"
+            android:layout_width="281dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="173dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="31dp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#535353"
+            android:text=" Fill The Questionnaire Now!"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
 
     </RelativeLayout>
@@ -71,8 +71,8 @@
         android:id="@+id/view4"
         android:layout_width="369dp"
         android:layout_height="495dp"
-        android:elevation="1.5dp"
         android:background="@drawable/rounded_rec_pink"
+        android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,12 +81,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTasks"
-        android:elevation="1.5dp"
         android:layout_width="338dp"
         android:layout_height="466dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="21dp"
+        android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="@+id/view4"
         app:layout_constraintHorizontal_bias="0.75"
@@ -96,20 +96,18 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="333dp"
-        android:layout_height="47dp"
+        android:layout_width="339dp"
+        android:layout_height="67dp"
         android:layout_marginTop="31dp"
-        android:layout_marginBottom="22dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="These are your pending tasks. Press on a task to open this task's details, and swipe left to delete it."
+        android:text="These are your pending tasks. Press on a task to open this task's details, and swipe left to delete it. Notice: these tasks haven't been assigned to a schedule yet. "
         android:textColor="#4e4e4e"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTasks"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/myTasks" />
 
     <TextView
         android:id="@+id/myTasks"

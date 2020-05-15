@@ -183,7 +183,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         options = new FirebaseRecyclerOptions.Builder<MainModelTasks>().setQuery(mDatabase, MainModelTasks.class).build();
         checkIfThereArePendingTasks(mDatabase);
         /* Fire base UI stuff */
