@@ -21,16 +21,13 @@ var ref = admin.database().ref("simulated_users");
             vecs.push(arr);
         });
         var res = skmeans(vecs, 4);
-    
         for (let i = 0; i < res.idxs.length; i++) {
             var postData = {
                 group: res.idxs[i],
                 personality_vector: vecs[i]
             };
-    
             var updates = {};
             updates['/simulated_users/' + users[i]] = postData;
-    
             admin.database().ref().update(updates);
         }
     });

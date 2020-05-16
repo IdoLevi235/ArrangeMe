@@ -15,7 +15,6 @@ public class Server {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(Globals.UID).child("personality_vector").child(q).setValue(ans);
-
     }
 
 
