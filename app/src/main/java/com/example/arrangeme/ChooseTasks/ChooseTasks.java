@@ -45,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -231,6 +232,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             numberTextView.setBackgroundResource(R.drawable.red_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
+
         }
         else if (count == numOfTasksToChoose - 1)
         { //red--->green
@@ -304,7 +306,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
                 else {
                   chooseTaskSuccess();
-
+                  ArrayList<Integer> frequencyVector = generateFreVec(categoriesChosen);
+                  Log.d("TAG6", "onClick: freqvec= " + frequencyVector);
               }
                 break;
 
@@ -318,7 +321,19 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     } //end of onclick
 
-
+    private ArrayList<Integer> generateFreVec(ArrayList<String> categoriesChosen) {
+        ArrayList<Integer> freqVec = new ArrayList<>();
+        freqVec.add(Collections.frequency(categoriesChosen,"STUDY"));
+        freqVec.add(Collections.frequency(categoriesChosen,"SPORT"));
+        freqVec.add(Collections.frequency(categoriesChosen,"WORK"));
+        freqVec.add(Collections.frequency(categoriesChosen,"NUTRITION"));
+        freqVec.add(Collections.frequency(categoriesChosen,"FAMILY"));
+        freqVec.add(Collections.frequency(categoriesChosen,"CHORES"));
+        freqVec.add(Collections.frequency(categoriesChosen,"RELAX"));
+        freqVec.add(Collections.frequency(categoriesChosen,"FRIENDS"));
+        freqVec.add(Collections.frequency(categoriesChosen,"OTHER"));
+        return freqVec;
+    }
 
 
     private DatePickerDialog createDatePickerDialog() {
