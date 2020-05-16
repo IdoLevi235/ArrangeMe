@@ -64,7 +64,7 @@ private FirebaseFunctions mFunctions;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
-        node=findViewById(R.id.nodeBtn);
+       // node=findViewById(R.id.nodeBtn);
         setContentView(R.layout.activity_homepage);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

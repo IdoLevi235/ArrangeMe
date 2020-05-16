@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -39,14 +40,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -57,7 +61,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     private FirebaseFunctions mFunctions;
     private Toolbar toolbar;
-    private int numOfTasksToChoose = 4; //needs to be recieved from DB
+    private int numOfTasksToChoose; //needs to be recieved from DB
     private int count;
     private TextView numberTextView;
     private TextView howMuchMore;
@@ -113,14 +117,14 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         tv.setVisibility(View.GONE);
 
         tv2=findViewById(R.id.textViewExplanation);
-        tv2.setVisibility(View.INVISIBLE);
+        //tv2.setVisibility(View.INVISIBLE);
 
         numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
         numberTextView.setText(Integer.toString(count));
         numberTextView.setBackgroundResource(R.drawable.red_textview);
 
         howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
-        howMuchMore.setText("You have to choose " + (numOfTasksToChoose - count) + " more tasks");
+        howMuchMore.setText("You can choose " + (numOfTasksToChoose - count) + " more tasks");
 
         helloTxt = (TextView) findViewById(R.id.textViewHello);
         helloTxt.setText("Hello, " + Globals.currentUsername + "!");
@@ -133,6 +137,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         setDate = (Button)findViewById(R.id.chooseDate);
         setDate.setOnClickListener(this);
         Intent i = getIntent();
+
         String date = i.getStringExtra("date");
         Log.d("TAG3", "onCreate: " + date);
         if (date!=null) {
@@ -146,9 +151,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
         mRecycler = findViewById(R.id.recylcler_choosetasks);
+        checkNumberOfFreeHours(setDate.getText().toString());
         setRecycler(mRecycler);
 
     }
+
 
     private void setRecycler(RecyclerView mRecyclerView) {
         mRecycler.setHasFixedSize(true);
@@ -220,15 +227,18 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
             numberTextView.setBackgroundResource(R.drawable.red_textview);
             numberTextView.setText(Integer.toString(count));
-            howMuchMore.setText("(You have to choose " + (numOfTasksToChoose - count) + " more tasks..)");
-        } else if (count == numOfTasksToChoose - 1) { //red--->green
+            howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
+        }
+        else if (count == numOfTasksToChoose - 1)
+        { //red--->green
             count++;
             holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
             numberTextView.setBackgroundResource(R.drawable.green_textview);
             numberTextView.setText(Integer.toString(count));
-            howMuchMore.setText("(You have to choose " + (numOfTasksToChoose - count) + " more tasks..)");
-        } else if (numOfTasksToChoose == count) { //more than numOfTasks, uncheck the last one checked
-            Toast.makeText(getApplicationContext(), "You can choose only " + numOfTasksToChoose + " !", Toast.LENGTH_SHORT).show();
+            howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
+        }
+        else if (numOfTasksToChoose == count) { //more than numOfTasks, uncheck the last one checked
+            Toast.makeText(getApplicationContext(), "You can choose max " + numOfTasksToChoose + " tasks !", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -284,10 +294,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                   chooseTaskFailed(str);
 
               }
-                else if (count < numOfTasksToChoose) {
-                String str = "You must choose " + numOfTasksToChoose + " tasks!";
-                chooseTaskFailed(str);
-            }
+//                else if (count < numOfTasksToChoose) {
+//                String str = "You must choose " + numOfTasksToChoose + " tasks!";
+//                chooseTaskFailed(str);
+//            }
+
                 else
                     chooseTaskSuccess();
                 break;
@@ -307,16 +318,97 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private DatePickerDialog createDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("SetTextI18n")
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
                 setDate.setText(date);
                 tv2.setVisibility(View.VISIBLE);
-                tv2.setText("According to your anchors, in " +date+" you have 4 free-time windows. You have to choose 4 tasks.");
+                checkNumberOfFreeHours(date);
             }
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         return dpd;
     }
+
+    private void checkNumberOfFreeHours(String date_) { // Time windows can be from 06:00 to 24:00
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        Log.d("TAG6", "checkNumberOfFreeHours: date1=" + date_);
+
+        //make the date dd-mm-yyyy
+
+        String[] dateArr = date_.split("-");
+        String y = dateArr[2];
+        String m = dateArr[1];
+        String d = dateArr[0];
+
+        d = d.length()==1? "0"+d : d;
+        m = m.length()==1? "0"+m : m;
+
+        String date = d + '-' + m + '-' + y; // now date is in our DB format..
+
+        Query q = mDatabase.orderByChild("date").equalTo(date);
+        Log.d("TAG6", "checkNumberOfFreeHours: query = " + q);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean flag = false;
+                int count;
+                Map<String, Boolean> hoursMap = new LinkedHashMap<String, Boolean>()
+                {{
+                    put("06:00", false); put("06:30", false); put("07:00", false); put("07:30", false); put("08:00", false); put("08:30", false);
+                    put("09:00", false); put("09:30", false); put("10:00", false); put("10:30", false); put("11:00", false); put("11:30", false);
+                    put("12:00", false); put("12:30", false); put("13:00", false); put("13:30", false); put("14:00", false); put("14:30", false);
+                    put("15:00", false); put("15:30", false); put("16:00", false); put("16:30", false); put("17:00", false); put("17:30", false);
+                    put("18:00", false); put("18:30", false); put("19:00", false); put("19:30", false); put("20:00", false); put("20:30", false);
+                    put("21:00", false); put("21:30", false); put("22:00", false); put("22:30", false); put("23:00", false); put("23:30", false);
+                    put("00:00", false);
+                }};
+                ; // Key = hour, Value = busy/not
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Log.d("TAG6", "onDataChange: inside for" + ds);
+                    String s = (String) ds.child("startTime").getValue();
+                    String e = (String) ds.child("endTime").getValue();
+                    List<String> keyList = new ArrayList<String>(hoursMap.keySet());
+                    for (String key : keyList){
+                        if (key.equals(s)){
+                            flag=true;
+                            hoursMap.replace(key,true);
+                        }
+
+                        else if (key.equals(e)){
+                            flag=false;
+                            hoursMap.replace(key,true);
+                        }
+
+                        else if (flag==true){
+                            hoursMap.replace(key,true);
+                        }
+
+                    }
+                }
+                Log.d("TAG6", "onDataChange: " + hoursMap);
+                count=0;
+                    for (boolean value : hoursMap.values()){
+                        if (value==false) count++; // count all free time
+                    }
+
+                    float numOfFreeHours = (count+1)/2;
+                    tv2.setText("According to your anchors, in "
+                                +date+" you have free " + numOfFreeHours+" hours. You can choose max "
+                                + (int)numOfFreeHours + " tasks to do in this day.");
+                    numOfTasksToChoose=(int)numOfFreeHours;
+            }
+
+            @Override
+
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
 
     private void chooseTaskSuccess() {
         SweetAlertDialog ad;
