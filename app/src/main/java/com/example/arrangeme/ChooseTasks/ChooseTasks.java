@@ -324,20 +324,19 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     private Task<HttpsCallableResult> addMessage(String text) {
         // Create the arguments to the callable function.
-        Log.d("KOOSEMEK", "addMessage: ");
         Map<String, Object> data = new HashMap<>();
         data.put("text", text);
         data.put("push", true);
 
         return mFunctions
-                .getHttpsCallable("getAllPersonalityVectors")
+                .getHttpsCallable("initKmeans")
                 .call(data)
                 .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
                         List<String> data = (List<String>) httpsCallableResult.getData();
-                        Log.d("KOOSEMEK", "onSuccess: " + httpsCallableResult.getData());
-                        Log.d("KOOSEMEK", "onSuccess: " + data.size());
+                        Log.d("KOOSEMEK", "onSuccess: "  );
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
