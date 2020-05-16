@@ -48,6 +48,7 @@ import com.google.firebase.functions.HttpsCallableResult;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -89,7 +90,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                     R.drawable.rounded_rec_other_nostroke};
 
-
+    ArrayList<String> categoriesChosen = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +125,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         numberTextView.setBackgroundResource(R.drawable.red_textview);
 
         howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
-        howMuchMore.setText("You can choose " + (numOfTasksToChoose - count) + " more tasks");
+        //howMuchMore.setText("You can choose " + (numOfTasksToChoose - count) + " more tasks");
 
         helloTxt = (TextView) findViewById(R.id.textViewHello);
         helloTxt.setText("Hello, " + Globals.currentUsername + "!");
@@ -205,8 +206,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         Drawable.ConstantState constantStateDrawableB = dCurr.getConstantState();
         if (!constantStateDrawableA.equals(constantStateDrawableB)) { //Not pressed yet
             chooseTask(holder);
+            categoriesChosen.add(model.getCategory());
         } else { //pressed, unpick
             unChooseTask(holder, model);
+            categoriesChosen.remove(model.getCategory());
         }
     }
 
@@ -218,7 +221,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             numberTextView.setBackgroundResource(R.drawable.red_textview);
         }
         numberTextView.setText(Integer.toString(count));
-        howMuchMore.setText("(You have to choose " + Integer.toString(numOfTasksToChoose - count) + " more tasks..)");
+        howMuchMore.setText("(You can choose " + Integer.toString(numOfTasksToChoose - count) + " more tasks..)");
     }
 
     private void chooseTask(MyViewHolder holder) {
@@ -299,8 +302,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 //                chooseTaskFailed(str);
 //            }
 
-                else
-                    chooseTaskSuccess();
+                else {
+                  chooseTaskSuccess();
+
+              }
                 break;
 
             case R.id.chooseDate:
@@ -312,6 +317,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         }//end of switch
 
     } //end of onclick
+
 
 
 
@@ -392,7 +398,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                         if (value==false) count++; // count all free time
                     }
 
-                    float numOfFreeHours = (count+1)/2;
+                    float numOfFreeHours = (count)/2;
                     tv2.setText("According to your anchors, in "
                                 +date+" you have free " + numOfFreeHours+" hours. You can choose max "
                                 + (int)numOfFreeHours + " tasks to do in this day.");
