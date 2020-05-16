@@ -231,16 +231,4 @@
         app:layout_constraintTop_toBottomOf="@+id/recylcler_choosetasks"
         app:layout_constraintVertical_bias="0.56" />
 
-    <Button
-        android:id="@+id/nodeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Node"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
