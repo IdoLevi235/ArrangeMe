@@ -236,6 +236,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         }
         else if (count == numOfTasksToChoose - 1)
         { //red--->green
+            Log.d("TAG6", "chooseTask: green");
             count++;
             holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
             numberTextView.setBackgroundResource(R.drawable.green_textview);
@@ -344,7 +345,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
                 setDate.setText(date);
                 tv2.setVisibility(View.VISIBLE);
+                numberTextView.setText("0");
                 checkNumberOfFreeHours(date);
+                howMuchMore.setText("");
+                categoriesChosen.clear();
+                count=0;
+                setRecycler(mRecycler);
             }
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
