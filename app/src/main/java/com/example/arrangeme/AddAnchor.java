@@ -382,9 +382,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
                 child(Globals.UID).child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day))
-                .child(String.valueOf(currKey));
+                .child(String.valueOf(currKey2));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
-        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(String.valueOf(currKey2));
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(String.valueOf(currKey));
         mDatabase2.child("photoUri").setValue((downloadUri.toString()));
 
 
