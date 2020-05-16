@@ -54,7 +54,7 @@ import java.util.Map;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ChooseTasks extends AppCompatActivity implements View.OnClickListener {
-    private Button node;
+
     private FirebaseFunctions mFunctions;
     private Toolbar toolbar;
     private int numOfTasksToChoose = 4; //needs to be recieved from DB
@@ -92,8 +92,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_choose_tasks);
         ////////////////
         mFunctions = FirebaseFunctions.getInstance();
-        node=findViewById(R.id.nodeBtn);
-        node.setOnClickListener(this);
+
         ////////////////
 
         toolbar = findViewById(R.id.toolbar_chooseTasks);
@@ -297,56 +296,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 DatePickerDialog datePickerDialog = createDatePickerDialog();
                 datePickerDialog.show();
                 break;
-            case R.id.nodeBtn:
-                Task<HttpsCallableResult> result = addMessage("koosemek");
-                /*FirebaseFunctions.getInstance() // Optional region: .getInstance("europe-west1")
-                        .getHttpsCallable("addMessage")
-                        .call("KOOSEMEK")
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("KOOSEMEK", "onFailure: ");
-                            }
-                        })
-                        .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-                            @Override
-                            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                                Log.d("KOOSEMEK", "onSuccess: ");
-
-                            }
-                        });*/
-                    break;
             default:
                 break;
         }//end of switch
 
     } //end of onclick
 
-    private Task<HttpsCallableResult> addMessage(String text) {
-        // Create the arguments to the callable function.
-        Map<String, Object> data = new HashMap<>();
-        data.put("text", text);
-        data.put("push", true);
-
-        return mFunctions
-                .getHttpsCallable("initKmeans")
-                .call(data)
-                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-                    @Override
-                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                        List<String> data = (List<String>) httpsCallableResult.getData();
-                        Log.d("KOOSEMEK", "onSuccess: "  );
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("KOOSEMEK", "onFailure: " + e );
-
-                    }
-                });
-    }
 
 
     private DatePickerDialog createDatePickerDialog() {

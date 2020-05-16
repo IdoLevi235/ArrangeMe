@@ -9,15 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.google.android.gms.tasks.Continuation;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,18 +29,22 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button deleteDB;
     private Button sim1;
     private Button deleteSim1;
+    private Button kmeansBtn;
     private Button node;
     private FirebaseFunctions mFunctions;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
         setContentView(R.layout.activity_adminzone);
         deleteDB = (Button)findViewById(R.id.dDBbtn);
         sim1 = (Button)findViewById(R.id.sim1btn);
         deleteSim1=(Button)findViewById(R.id.dSim1);
+        kmeansBtn =(Button)findViewById(R.id.kmeansBtn);
+        kmeansBtn.setOnClickListener(this);
         deleteDB.setOnClickListener(this);
         sim1.setOnClickListener(this);
         deleteSim1.setOnClickListener(this);
@@ -64,15 +66,39 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("simulated_users").removeValue();
                 break;
+            case(R.id.kmeansBtn):
+                Task<HttpsCallableResult> result = kmeans("text");
+                break;
         }
     }
 
+    public Task<HttpsCallableResult> kmeans(String text) {
+        // Create the arguments to the callable function.
+        Map<String, Object> data = new HashMap<>();
+        data.put("text", text);
+        data.put("push", true);
+        return mFunctions
+                .getHttpsCallable("initKmeans")
+                .call(data)
+                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                    @Override
+                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        List<String> data = (List<String>) httpsCallableResult.getData();
+                        Log.d("kmeans", "onSuccess: "  );
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("kmeans", "onFailure: " + e );
 
-
+                    }
+                });
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void simulate1000withPVnoSC() {
+    public void simulate1000withPVnoSC() {
         mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users");
         for(int i = 1 ; i<=1000 ; i++){
             String s = Integer.toString(i);
@@ -83,7 +109,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private HashMap<String,Integer> calculate_PV() {
+    public HashMap<String,Integer> calculate_PV() {
         HashMap<String,Integer> pv = new HashMap<String,Integer>();
         ArrayList<Integer> randomValues = getRandomValues();
         for (int i=0 ; i<25 ; i++) {
@@ -93,7 +119,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private ArrayList<Integer> getRandomValues() {
+    public ArrayList<Integer> getRandomValues() {
         int randomNum1 = ThreadLocalRandom.current().nextInt(1, 3 + 1);
         int randomNum2 = ThreadLocalRandom.current().nextInt(1, 4 + 1);
         int randomNum3 = ThreadLocalRandom.current().nextInt(1, 2 + 1);
