@@ -3,7 +3,6 @@ package com.example.arrangeme;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,7 +34,6 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
         setContentView(R.layout.activity_adminzone);
@@ -49,6 +46,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         sim1.setOnClickListener(this);
         deleteSim1.setOnClickListener(this);
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -72,6 +70,12 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Method kmeans- classify the simulated users to their group of people using kmeans function.
+     * this function is activated in "Firebase Functions" and called "initKmeans"
+     *
+     * @return a result if the algorithm Kmeans succeeded ot not
+     */
     public Task<HttpsCallableResult> kmeans(String text) {
         // Create the arguments to the callable function.
         Map<String, Object> data = new HashMap<>();
@@ -96,6 +100,10 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                 });
     }
 
+    /**
+     * Method simulate1000withPVnoSC- simulated 1000 users in the DataBase and create each user a personality vector.
+     *
+     */
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void simulate1000withPVnoSC() {
@@ -108,6 +116,11 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * Method calculate_PV- calculating the personality vector to each simulated user.
+     *
+     * @return HashMap with the key (0,...,25) and the random value for each key
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public HashMap<String,Integer> calculate_PV() {
         HashMap<String,Integer> pv = new HashMap<String,Integer>();
@@ -118,6 +131,11 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         return pv;
     }
 
+    /**
+     * Method getRandomValues- calculating the random values for the personality vector.
+     *
+     * @return ArrayList with the random values
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ArrayList<Integer> getRandomValues() {
         int randomNum1 = ThreadLocalRandom.current().nextInt(1, 3 + 1);
@@ -155,5 +173,3 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     }
 }
-
-//TODO ADD TASKS SIMULATIONS
