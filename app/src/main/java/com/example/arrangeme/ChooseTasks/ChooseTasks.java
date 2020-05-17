@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -175,7 +179,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             if (dataSnapshot.getChildrenCount()>0){//There is already a schedule in this day
-                tv2.append("\nPay attention! You already have schedule for this day.");
+                String txt1="\nPay attention! You already have schedule for this day.";
+                SpannableString txtSpannable= new SpannableString(txt1);
+                StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+                txtSpannable.setSpan(boldSpan, 0, txt1.length()-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tv2.append(txtSpannable);
             }
            }
 
@@ -562,8 +570,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                         if (value==false) count++; // count all free time
                     }
                     float numOfFreeHours = (count)/2;
-                    tv2.setText("According to your anchors, in "
-                                +date+" you have free " + numOfFreeHours+" hours, and you can choose max "
+                    tv2.setText("On "
+                                +date+" you have " + numOfFreeHours+" free hours.\nYou can choose up to "
                                 + (int)numOfFreeHours + " tasks to do in this day.");
                 checkIfThereIsSchedule(date);
                 numOfTasksToChoose=(int)numOfFreeHours;

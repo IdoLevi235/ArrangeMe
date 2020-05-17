@@ -105,8 +105,8 @@
 
     <TextView
         android:id="@+id/textViewExplanation"
-        android:layout_width="356dp"
-        android:layout_height="84dp"
+        android:layout_width="357dp"
+        android:layout_height="87dp"
         android:layout_marginTop="56dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
