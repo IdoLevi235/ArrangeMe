@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -57,6 +58,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     final int[] longPressCount = new int[1];
     final int[] longPressKeys = new int[2];
     final int[] longPressPositions = new int[2];
+    private Button datePicker;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -90,6 +92,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        datePicker = (Button)view.findViewById(R.id.chooseDate2);
+        String date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
+        Log.d("TAG1", "onViewCreated: " + date);
+        datePicker.setText(date);
         spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
         questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
@@ -105,7 +111,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         longPressKeys[0]=-1;longPressKeys[1]=-1;
         longPressPositions[0]=-1;longPressPositions[1]=-1;
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
-
         /*Fire base UI stuff */
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})

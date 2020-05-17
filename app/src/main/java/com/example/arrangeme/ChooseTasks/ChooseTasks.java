@@ -33,9 +33,6 @@ import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,23 +40,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+/**
+ * Choose tasks class - here the user chooses tasks from his pending tasks that he wants to do
+ * in a specific day.
+ */
 
 public class ChooseTasks extends AppCompatActivity implements View.OnClickListener {
+    private final int MORNING = 5; //morning = 06:00-11:00
+    private final int NOON = 6; //noon = 11:00-17:00
+    private final int EVENING = 4;//evening = 17:00-21:00
+    private final int NIGHT = 3; // night = 21:00-24:00
 
     private FirebaseFunctions mFunctions;
     private Toolbar toolbar;
@@ -92,7 +94,15 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     R.drawable.rounded_rec_other_nostroke};
 
     ArrayList<String> categoriesChosen = new ArrayList<>();
+    ArrayList<Integer> positionsMarked = new ArrayList<>();
+    Map<String, Boolean> hoursMap;
     @Override
+
+    /**
+     * onCreate method - set the initial parameters to all of xml components in this page
+     * @params savedInstanceState
+     *
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
@@ -159,6 +169,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
+    /**
+     * set Recycler - initial setup of the recycler view
+     * @param mRecyclerView
+     *
+     */
     private void setRecycler(RecyclerView mRecyclerView) {
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
@@ -174,7 +189,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(800, 180));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
-                holder.button.setBackgroundResource(catBackgroundFull[x]);
+                if (positionsMarked.contains(position)){
+                    holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+                }
+                else {
+                    holder.button.setBackgroundResource(catBackgroundFull[x]);
+                }
                 holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
                 holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -199,6 +219,13 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * itemOnClick - the click listenerfor each of the recycler view elements
+     * @param holder
+     * @param position
+     * @param model
+     *
+     */
     private void itemOnClick(MyViewHolder holder, int position, MainModel model) {
         Drawable dDarkblue = ResourcesCompat.getDrawable(getResources(),
                 R.drawable.rounded_rec_darkblue_nostroke, null);
@@ -208,12 +235,20 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         if (!constantStateDrawableA.equals(constantStateDrawableB)) { //Not pressed yet
             chooseTask(holder);
             categoriesChosen.add(model.getCategory());
+            positionsMarked.add(position);
+
         } else { //pressed, unpick
             unChooseTask(holder, model);
             categoriesChosen.remove(model.getCategory());
+            positionsMarked.remove((Integer)position);
         }
     }
 
+    /**
+     * unChooseTask - click listener in case  that the element is already picked
+     * @param holder
+     * @param model
+     */
     private void unChooseTask(MyViewHolder holder, MainModel model) {
         int x = TaskCategory.fromStringToInt(model.getCategory());
         holder.button.setBackgroundResource(catBackgroundFull[x]);
@@ -225,6 +260,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         howMuchMore.setText("(You can choose " + Integer.toString(numOfTasksToChoose - count) + " more tasks..)");
     }
 
+    /**
+     * chooseTask - click listener in case that the element haven't been picked yet
+     * @param holder
+     */
     private void chooseTask(MyViewHolder holder) {
         if (count < numOfTasksToChoose) { //stay red
             count++;
@@ -250,6 +289,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
+    /**
+     * checkIfThereArePendingTasks - funtion that checks if the user has any pending tasks to show in the recyclerview
+     * @param mDatabase
+     */
     private void checkIfThereArePendingTasks(DatabaseReference mDatabase) {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -270,35 +313,38 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * This function inflates the top toolbar
+     * @param menu
+     * @return true if the toolbar created successfully
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.top_menu_homepage, menu);
         return true;
     }
 
+    /**
+     *   this function handles action bar item clicks
+     *   @param item
+     * @return true if the toolbar created successfully
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        // if (id == R.id.action_settings) {
-        //    Toast.makeText(ChooseTasks.this, "Settings clicked", Toast.LENGTH_LONG).show();
-        //return true;
-        // }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * onClick listener
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirmTasksBtn:
-              if (setDate.getText().length()==0){
+              if (setDate.getText().length()==0){ // choose tasks validation
                   String str = "You must choose a date!";
                   chooseTaskFailed(str);
-
               }
 //                else if (count < numOfTasksToChoose) {
 //                String str = "You must choose " + numOfTasksToChoose + " tasks!";
@@ -306,9 +352,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 //            }
 
                 else {
-                  chooseTaskSuccess();
-                  ArrayList<Integer> frequencyVector = generateFreVec(categoriesChosen);
-                  Log.d("TAG6", "onClick: freqvec= " + frequencyVector);
+                  String date = (String) setDate.getText();
+                  chooseTaskSuccess(date);
               }
                 break;
 
@@ -322,21 +367,89 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     } //end of onclick
 
-    private ArrayList<Integer> generateFreVec(ArrayList<String> categoriesChosen) {
-        ArrayList<Integer> freqVec = new ArrayList<>();
-        freqVec.add(Collections.frequency(categoriesChosen,"STUDY"));
-        freqVec.add(Collections.frequency(categoriesChosen,"SPORT"));
-        freqVec.add(Collections.frequency(categoriesChosen,"WORK"));
-        freqVec.add(Collections.frequency(categoriesChosen,"NUTRITION"));
-        freqVec.add(Collections.frequency(categoriesChosen,"FAMILY"));
-        freqVec.add(Collections.frequency(categoriesChosen,"CHORES"));
-        freqVec.add(Collections.frequency(categoriesChosen,"RELAX"));
-        freqVec.add(Collections.frequency(categoriesChosen,"FRIENDS"));
-        freqVec.add(Collections.frequency(categoriesChosen,"OTHER"));
+    /**
+     * this function adds frequency vector and time vector to the correct pace in DB
+     * @param frequencyVector
+     * @param timeVector
+     * @param date
+     */
+    private void addVectorsToDB(Map<String, Integer> frequencyVector, Map<String, Integer> timeVector, String date) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+        mDatabase.child(date).child("data").child("frequency_vector").setValue(frequencyVector);
+        mDatabase.child(date).child("data").child("time_vector").setValue(timeVector);
+
+
+
+    }
+
+    /**
+     * this function calculates, creates and returns the time vector according to this user's
+     * free time windows in a specific date chosen
+     * @param hoursMap
+     * @return time vector in Map object
+     */
+    private Map<String, Integer> createTimeVector(Map<String, Boolean> hoursMap) {
+        Map<String,Integer> timeVector = new LinkedHashMap<>();
+
+        int morning=0;
+        int noon=0;
+        int evening=0;
+        int night=0;
+        int index=0;
+        for (String key:hoursMap.keySet()){
+            if (index<MORNING*2){
+                if (hoursMap.get(key)==false){
+                    morning++;
+                }
+            }
+            else if (MORNING*2<=index && index < (NOON*2+MORNING*2)){
+                if (hoursMap.get(key)==false){
+                    noon++;
+                }
+            }
+            else if ((NOON*2+MORNING*2)<=index && index<(EVENING*2+NOON*2+MORNING*2)){
+                if (hoursMap.get(key)==false){
+                    evening++;
+                }
+            }
+            else if ((EVENING*2+NOON*2+MORNING*2)<=index && index<=(EVENING*2+NOON*2+MORNING*2+NIGHT*2)){
+                if (hoursMap.get(key)==false){
+                    night++;
+                }
+            }
+            index++;
+        }
+        timeVector.put("Morning",morning/2);
+        timeVector.put("Noon",noon/2);
+        timeVector.put("Evening",evening/2);
+        timeVector.put("Night",night/2);
+        return timeVector;
+    }
+
+    /**
+     * this function calculates, creates and returns the frequency vector according to this user's chosen tasks
+     * @param categoriesChosen
+     * @return frequncy vector in Map object
+     */
+    private Map<String,Integer> createFreVec(ArrayList<String> categoriesChosen) {
+        Map<String,Integer> freqVec = new LinkedHashMap<>();
+        freqVec.put("Study", Collections.frequency(categoriesChosen,"STUDY"));
+        freqVec.put("Sport", Collections.frequency(categoriesChosen,"SPORT"));
+        freqVec.put("Work", Collections.frequency(categoriesChosen,"WORK"));
+        freqVec.put("Nutrition", Collections.frequency(categoriesChosen,"NUTRITION"));
+        freqVec.put("Family", Collections.frequency(categoriesChosen,"FAMILY"));
+        freqVec.put("Chores", Collections.frequency(categoriesChosen,"CHORES"));
+        freqVec.put("Relax", Collections.frequency(categoriesChosen,"RELAX"));
+        freqVec.put("Friends", Collections.frequency(categoriesChosen,"FRIENDS"));
+        freqVec.put("Other", Collections.frequency(categoriesChosen,"OTHER"));
         return freqVec;
     }
 
 
+    /**
+     * this function creates the date picker dialog
+     * @return DatePickerDialog
+     */
     private DatePickerDialog createDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -349,6 +462,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 checkNumberOfFreeHours(date);
                 howMuchMore.setText("");
                 categoriesChosen.clear();
+                positionsMarked.clear();
                 count=0;
                 setRecycler(mRecycler);
             }
@@ -357,6 +471,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         return dpd;
     }
 
+    /**
+     * this functions recieves a date and checks how many free-time windows
+     * the user has in this day. this is helpfull in creating the time vector and frequency vector
+     * @param date_
+     */
     private void checkNumberOfFreeHours(String date_) { // Time windows can be from 06:00 to 24:00
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         Log.d("TAG6", "checkNumberOfFreeHours: date1=" + date_);
@@ -380,7 +499,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean flag = false;
                 int count;
-                Map<String, Boolean> hoursMap = new LinkedHashMap<String, Boolean>()
+                hoursMap = new LinkedHashMap<String, Boolean>()
                 {{
                     put("06:00", false); put("06:30", false); put("07:00", false); put("07:30", false); put("08:00", false); put("08:30", false);
                     put("09:00", false); put("09:30", false); put("10:00", false); put("10:30", false); put("11:00", false); put("11:30", false);
@@ -437,23 +556,53 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void chooseTaskSuccess() {
+    /**
+     * after submiting the tasks, this function gives a success alert box
+     * @param date
+     */
+    private void chooseTaskSuccess(String date) {
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog( ChooseTasks.this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Great!")
-                .setContentText(("The system received your tasks for today and will build you schedule immediately"));
-        ad.setConfirmText("OK");
+                .setTitleText("Good job!")
+                .setContentText(("Are you sure you are done?\n (After pressing yes, the system will build" +
+                        " a schedule for you for " + date + ")"));
+
+        ad.setCancelText("No");
+        ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        });
+
+        ad.setConfirmText("Yes");
+        Intent intent = new Intent(ChooseTasks.this, Homepage.class);
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sDialog) {
-                startActivity(new Intent(ChooseTasks.this, Homepage.class));
+                Map<String,Integer> frequencyVector = createFreVec(categoriesChosen);
+                Log.d("TAG6", "onClick:freq= " + frequencyVector);
+                Map<String, Integer> timeVector = createTimeVector(hoursMap);
+                Log.d("TAG6", "onClick:time= " + timeVector);
+                addVectorsToDB(frequencyVector,timeVector,date);
+                intent.putExtra("FromHomepage", "3");
+                intent.putExtra("date",date);
+                Log.d("TAG1", "onClick in choosetasks: " + date);
+                startActivity(intent);
             }
         });
+
         ad.show();
-        Button btn = (Button) ad.findViewById(R.id.confirm_button);
-        btn.setBackgroundResource(R.drawable.rounded_rec);
+        //Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        //btn.setBackgroundResource(R.drawable.rounded_rec);
+        // Button btn1 = (Button) ad.findViewById(R.id.cancel);
     }
 
+    /**
+     * if there was a problem (not enough tasks picked for example)
+     * this function will show error alertbox
+     * @param str
+     */
 
     private void chooseTaskFailed(String str) {
         SweetAlertDialog ad;
@@ -466,4 +615,3 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 }
 
-//TODO: toolbar items
