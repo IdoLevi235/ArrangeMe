@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -82,6 +83,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private TextView tv2;
     private ProgressBar spinner;
     private Button setDate;
+    private ImageView imv4;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
             R.drawable.work_white, R.drawable.nutrition_white,
             R.drawable.family_white, R.drawable.chores_white,
@@ -106,11 +108,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
-        ////////////////
         mFunctions = FirebaseFunctions.getInstance();
-
-        ////////////////
-
         toolbar = findViewById(R.id.toolbar_chooseTasks);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -121,6 +119,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 onBackPressed();
             }
         });
+
+        imv4 = findViewById(R.id.imageView4);
 
         spinner = findViewById(R.id.progressBar3);
         spinner.setVisibility(View.VISIBLE);
@@ -158,13 +158,54 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         else {
             String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
             setDate.setText(currentDate);
-
         }
 
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
         mRecycler = findViewById(R.id.recylcler_choosetasks);
-        checkNumberOfFreeHours(setDate.getText().toString());
+        String d = setDate.getText().toString();
+        Log.d("TAG2", "onCreate: " + d);
+        checkNumberOfFreeHours(d);
         setRecycler(mRecycler);
+
+    }
+
+    private void checkIfThereIsSchedule(String date) {
+       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(date);
+       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (dataSnapshot.getChildrenCount()>0){
+                tv2.setVisibility(View.GONE);
+                mRecycler.setVisibility(View.GONE);
+                imv4.setVisibility(View.GONE);
+                numberTextView.setVisibility(View.GONE);
+                howMuchMore.setVisibility(View.GONE);
+                SweetAlertDialog ad;
+                ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE);
+                ad.setTitleText("You already have a schedule for "+ date);
+                ad.setContentText("you want to see the schedule again?");
+                ad.setConfirmText("OK!");
+                Intent intent = new Intent(ChooseTasks.this, Homepage.class);
+                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        intent.putExtra("FromHomepage", "3");
+                        intent.putExtra("date",date);
+                        startActivity(intent);
+                    }
+                });
+                ad.show();
+                Button btn = (Button) ad.findViewById(R.id.confirm_button);
+                btn.setBackgroundResource(R.drawable.rounded_rec);
+
+            }
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
 
     }
 
@@ -455,7 +496,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
+                // these two lines in order to make it 01-05-2020 instead of 1-5-2020
+                String day = dayOfMonth<10 ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+                String month = monthOfYear+1<10 ? "0" + String.valueOf(monthOfYear+1) : String.valueOf(monthOfYear+1);
+                //
+
+                String date = day+"-"+(month)+"-"+year;
                 setDate.setText(date);
                 tv2.setVisibility(View.VISIBLE);
                 numberTextView.setText("0");

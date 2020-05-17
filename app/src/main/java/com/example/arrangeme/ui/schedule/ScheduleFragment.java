@@ -38,7 +38,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private ScheduleViewModel scheduleViewModel;
@@ -94,8 +96,14 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
         datePicker = (Button)view.findViewById(R.id.chooseDate2);
         String date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
-        Log.d("TAG1", "onViewCreated: " + date);
-        datePicker.setText(date);
+        if (date!=null) { // came from choosetasks
+            datePicker.setText(date);
+            ((Homepage) getActivity()).setDateToShowInScheduleFragment(null);
+        }
+        else { //didn't come from choose tasks, show today's date
+            String today = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            datePicker.setText(today);
+        }
         spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
         questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
