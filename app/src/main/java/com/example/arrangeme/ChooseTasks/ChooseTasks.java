@@ -174,30 +174,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.getChildrenCount()>0){
-                tv2.setVisibility(View.GONE);
-                mRecycler.setVisibility(View.GONE);
-                imv4.setVisibility(View.GONE);
-                numberTextView.setVisibility(View.GONE);
-                howMuchMore.setVisibility(View.GONE);
-                SweetAlertDialog ad;
-                ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE);
-                ad.setTitleText("You already have a schedule for "+ date);
-                ad.setContentText("you want to see the schedule again?");
-                ad.setConfirmText("OK!");
-                Intent intent = new Intent(ChooseTasks.this, Homepage.class);
-                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        intent.putExtra("FromHomepage", "3");
-                        intent.putExtra("date",date);
-                        startActivity(intent);
-                    }
-                });
-                ad.show();
-                Button btn = (Button) ad.findViewById(R.id.confirm_button);
-                btn.setBackgroundResource(R.drawable.rounded_rec);
-
+            if (dataSnapshot.getChildrenCount()>0){//There is already a schedule in this day
+                tv2.append("\nPay attention! You already have schedule for this day.");
             }
            }
 
@@ -583,12 +561,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     for (boolean value : hoursMap.values()){
                         if (value==false) count++; // count all free time
                     }
-
                     float numOfFreeHours = (count)/2;
                     tv2.setText("According to your anchors, in "
-                                +date+" you have free " + numOfFreeHours+" hours. You can choose max "
+                                +date+" you have free " + numOfFreeHours+" hours, and you can choose max "
                                 + (int)numOfFreeHours + " tasks to do in this day.");
-                    numOfTasksToChoose=(int)numOfFreeHours;
+                checkIfThereIsSchedule(date);
+                numOfTasksToChoose=(int)numOfFreeHours;
             }
 
             @Override

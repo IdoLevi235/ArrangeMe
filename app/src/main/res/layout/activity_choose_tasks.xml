@@ -31,8 +31,10 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewExplanation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"
+        app:layout_constraintVertical_bias="0.0"></Button>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_chooseTasks"
@@ -81,10 +83,9 @@
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <TextView
         android:id="@+id/textViewPleaseChoose"
@@ -100,23 +101,21 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_chooseTasks"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintVertical_bias="0.098" />
 
     <TextView
         android:id="@+id/textViewExplanation"
         android:layout_width="356dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="145dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout4"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"
-        app:layout_constraintVertical_bias="0.979" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -135,8 +134,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
-        android:layout_width="282dp"
-        android:layout_height="138dp"
+        android:layout_width="266dp"
+        android:layout_height="123dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
