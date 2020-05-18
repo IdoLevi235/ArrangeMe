@@ -1,5 +1,8 @@
 package com.example.arrangeme.ChooseTasks;
 
+/**
+ * This class helps get and set the current information from Firebase database using FirebaseUI
+ */
 public class MainModel {
     private String category;
     private String description;

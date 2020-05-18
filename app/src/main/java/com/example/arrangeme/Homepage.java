@@ -20,6 +20,7 @@ import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.ui.calendar.CalendarFragment;
 import com.example.arrangeme.ui.calendar.FilterFragment;
+import com.example.arrangeme.ui.schedule.ScheduleFragment;
 import com.example.arrangeme.ui.tasks.TasksFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,18 +54,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Homepage extends AppCompatActivity{
-private Toolbar toolbar;
-private int value;
-public static String filter;
-private Button node ;
-private FirebaseFunctions mFunctions;
 
+    private Toolbar toolbar;
+    private int value;
+    public static String filter;
+    private Button node ;
+    private FirebaseFunctions mFunctions;
+    private String dateToShowInScheduleFragment;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
-        node=findViewById(R.id.nodeBtn);
+       // node=findViewById(R.id.nodeBtn);
         setContentView(R.layout.activity_homepage);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -95,13 +97,22 @@ private FirebaseFunctions mFunctions;
 
         Intent i = getIntent();
         String data = i.getStringExtra("FromHomepage");
+        String date = i.getStringExtra("date");
+        Log.d("TAG1", "onCreate: in homepage" + date);
         if (data != null && data.contentEquals("1")) {
             navView.setSelectedItemId(R.id.navigation_tasks);
-
         }
         else if(data != null && data.contentEquals("2")){
             navView.setSelectedItemId(R.id.navigation_calendar);
         }
+        else if(data != null && data.contentEquals("3")){
+            if (date!=null)
+                {
+                    dateToShowInScheduleFragment = date;
+                }
+            navView.setSelectedItemId(R.id.navigation_schedule);
+        }
+
         else if(data != null && data.contentEquals("5")){
             navView.setSelectedItemId(R.id.navigation_myprofile);
         }
@@ -184,5 +195,12 @@ private FirebaseFunctions mFunctions;
     }
 
 
+    public String getDateToShowInScheduleFragment() {
+        return dateToShowInScheduleFragment;
+    }
+
+    public void setDateToShowInScheduleFragment(String dateToShowInScheduleFragment) {
+        this.dateToShowInScheduleFragment = dateToShowInScheduleFragment;
+    }
 
 }

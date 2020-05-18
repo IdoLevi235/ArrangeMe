@@ -567,7 +567,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         String min = minute>30? "30" : "00";
-                        btn.setText(hourOfDay + ":" + min);
+                        String hour = hourOfDay<10? "0"+ hourOfDay : String.valueOf(hourOfDay);
+                        btn.setText(hour + ":" + min);
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
