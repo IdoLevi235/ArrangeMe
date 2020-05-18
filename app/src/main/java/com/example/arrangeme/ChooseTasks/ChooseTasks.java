@@ -87,6 +87,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private FirebaseRecyclerAdapter<MainModel, MyViewHolder> fbAdapter;
     private TextView tv;
     private TextView tv2;
+    private View view4;
     private ProgressBar spinner;
     private Button setDate;
     private ImageView imv4;
@@ -125,6 +126,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 onBackPressed();
             }
         });
+
+        view4=findViewById(R.id.view4);
 
         imv4 = findViewById(R.id.imageView4);
 
@@ -329,10 +332,15 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
-                    tv.setText("You have no pending tasks");
+                    tv.setText("You have no pending tasks.\n You can add new tasks in tasks tab");
                     tv.setVisibility(View.VISIBLE);
-                    howMuchMore.setVisibility(View.INVISIBLE);
+                    howMuchMore.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
+                    confirm.setEnabled(false);
+                    view4.setVisibility(View.GONE);
+                    imv4.setVisibility(View.GONE);
+                    tv2.setVisibility(View.GONE);
+                    numberTextView.setVisibility(View.GONE);
                 }
             }
 
