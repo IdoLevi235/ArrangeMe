@@ -101,7 +101,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         toolbar = findViewById(R.id.toolbar_addTasks);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_40);
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -364,12 +364,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void addPhotoUriToDB(Uri downloadUri) {
-        Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
                 child(Globals.UID).child("tasks").child("Pending_tasks").child(String.valueOf(currKey));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
-
     }
 
     private void addTaskToDB() {

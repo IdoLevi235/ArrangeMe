@@ -94,7 +94,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         toolbar = findViewById(R.id.toolbar_addAnchor);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_40);
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
