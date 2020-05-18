@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -183,6 +185,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 SpannableString txtSpannable= new SpannableString(txt1);
                 StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
                 txtSpannable.setSpan(boldSpan, 0, txt1.length()-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                txtSpannable.setSpan(new ForegroundColorSpan(Color.RED), 0, txt1.length()-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
                 tv2.append(txtSpannable);
             }
            }
