@@ -199,8 +199,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     public void showImage() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("Anchors").child(anchorKey).child("photoUri");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(anchorKey).child("photoUri");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -211,7 +210,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override

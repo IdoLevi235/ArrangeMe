@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.arrangeme.CreateSchedule;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.MainActivity;
@@ -45,7 +46,7 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     private Button[] btn = new Button[2];
     private int[] btn_id = {R.id.aloneBtn, R.id.withMyParentsBtn};
     private boolean isReply = false ;
-
+    private boolean isQFinish=false;
     public Screen19Q() {
         // Required empty public constructor
     }
@@ -140,6 +141,7 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     }
 
     private void alertQnotFinish() {
+        isQFinish=false;
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Pay attention!")
@@ -161,10 +163,13 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     }
 
     private void alertQfinish() {
+        isQFinish=true;
+        CreateSchedule ce = new CreateSchedule();
+        ce.classifyUserGroup(Globals.UID);
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Thank you!")
-                .setContentText(("You've completed the questionnaire. You are now taken to homepage.."));
+                .setTitleText("Congratulations!")
+                .setContentText(("You've completed the questionnaire. Homepage is loading..."));
         ad.setConfirmText("OK");
         ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override

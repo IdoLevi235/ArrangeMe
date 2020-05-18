@@ -52,6 +52,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TaskPagePopup extends Activity  implements View.OnClickListener, Popup {
 
@@ -73,7 +74,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private TaskCategory taskCategory;
     private ReminderType reminderType;
     private int reminderInt;
-    private ImageView photoHere;
+    private CircleImageView photoHere;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,8 +108,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         this.showDetails();
 
     }
-
-
 
 
     //set data to the views from the DB
@@ -163,18 +162,20 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         //shows the task's details in the activity layout
 
 
+    @Override
     public void showImage(){
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("tasks").child("Pending_tasks").child(taskKey).child("photoUri");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks").child(taskKey).child("photoUri");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();
-                Picasso.get().load(imageURL).resize(220,150).centerCrop().into(photoHere);
-
-
+                try {
+                    Picasso.get().load(imageURL).resize(220, 150).centerCrop().into(photoHere);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
