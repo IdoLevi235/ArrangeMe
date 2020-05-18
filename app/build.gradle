@@ -41,6 +41,7 @@ android {
 
 
 dependencies {
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.3'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0'
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
@@ -90,7 +91,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.7'
     implementation 'com.google.code.gson:gson:2.8.6'
 

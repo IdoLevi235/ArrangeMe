@@ -377,7 +377,8 @@
                 android:textSize="14sp" />
 
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photo_here"
                 android:layout_width="313dp"
                 android:layout_height="114dp"

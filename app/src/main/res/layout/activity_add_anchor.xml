@@ -207,8 +207,8 @@
                 android:popupBackground="@drawable/add_task_round"
                 tools:visibility="visible" />
 
-            <Button
-                android:id="@+id/add_photo1"
+            <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/add_photo1"
                 android:layout_width="155dp"
                 android:layout_height="93dp"
                 android:layout_alignParentStart="true"
@@ -219,8 +219,8 @@
                 android:layout_marginTop="388dp"
                 android:layout_marginEnd="228dp"
                 android:layout_marginBottom="4dp"
+                android:elevation="2dp"
                 android:background="@drawable/add_task_round"
-                android:capitalize="none"
                 android:drawableRight="@android:drawable/ic_menu_camera"
                 android:fontFamily="@font/montserrat"
                 android:hint="Add photo"
@@ -267,25 +267,6 @@
                 android:popupBackground="@drawable/add_task_round"
                 tools:visibility="visible" />
 
-
-            <!-- <ImageView
-                android:id="@+id/photo"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_below="@id/desc_text"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="197dp"
-                android:layout_marginEnd="212dp"
-                android:layout_marginRight="-169dp"
-                android:layout_marginBottom="6dp"
-                android:layout_toLeftOf="@id/add_photo"
-                android:background="#959090"
-                android:padding="1.5dp"
-                android:src="@drawable/avatar" /> -->
 
         </RelativeLayout>
 

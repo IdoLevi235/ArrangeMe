@@ -41,15 +41,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
-
+import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AnchorPagePopup extends AppCompatActivity implements Popup, View.OnClickListener{
     private ImageView applyBtn;
@@ -72,7 +72,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private AnchorEntity anchorToPresent;
     private ReminderType reminderType;
     private int reminderInt;
-    private ImageView photoHere;
+    private RoundedImageView photoHere;
     private String year;
     private String day;
     private String month;
@@ -205,14 +205,12 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();
                 try {
-                    Log.d("TAG9", "onDataChange: " + anchorKey + " " + imageURL);
-                   // Picasso.get().load(imageURL).resize(12, 15).centerCrop().into(photoHere);
-                    Picasso.get().load(imageURL).fit().centerCrop().placeholder(R.drawable.add_task_round).into(photoHere);
+                    Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
+                    Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(photoHere);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

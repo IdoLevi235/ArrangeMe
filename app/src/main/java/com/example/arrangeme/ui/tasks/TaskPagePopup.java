@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -40,7 +39,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -50,9 +52,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TaskPagePopup extends Activity  implements View.OnClickListener, Popup {
 
@@ -74,7 +74,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private TaskCategory taskCategory;
     private ReminderType reminderType;
     private int reminderInt;
-    private ImageView photoHere;
+    private RoundedImageView photoHere;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +170,8 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();
                 try {
-                    Picasso.get().load(imageURL).resize(400, 150).centerCrop().into(photoHere);
+                    Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
+                    Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(photoHere);
                 }
                 catch (Exception e){
                     e.printStackTrace();

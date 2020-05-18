@@ -47,6 +47,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -64,7 +68,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private Button submit;
     private EditText desc;
     private Switch show_spinner;
-    private Button addPhoto;
+    private RoundedImageView addPhoto;
     private EditText addLocation;
     private ReminderType chosenReminder;
     private TaskCategory chosenCat;
@@ -275,9 +279,13 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
+
+
                         addPhoto.setHint("");
                         addPhoto.setCompoundDrawables(null, null, null, null);
                         addPhoto.setBackground(d);
+                       // Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
+                       // Picasso.get().load(imageURL).transform(transformation).into(photoHere);
 
                     } catch (FileNotFoundException e) {
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
