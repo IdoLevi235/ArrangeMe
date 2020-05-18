@@ -4,6 +4,9 @@ import android.widget.Button;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.arrangeme.R;
 
+/**
+ * View holder of this recycler
+ */
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     //Elements of the recycler
     Button button;
