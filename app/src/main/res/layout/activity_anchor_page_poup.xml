@@ -377,7 +377,7 @@
                 android:textSize="14sp" />
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/photo_here"
                 android:layout_width="313dp"
                 android:layout_height="114dp"

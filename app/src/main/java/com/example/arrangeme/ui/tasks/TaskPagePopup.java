@@ -74,7 +74,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private TaskCategory taskCategory;
     private ReminderType reminderType;
     private int reminderInt;
-    private CircleImageView photoHere;
+    private ImageView photoHere;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +170,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();
                 try {
-                    Picasso.get().load(imageURL).resize(220, 150).centerCrop().into(photoHere);
+                    Picasso.get().load(imageURL).resize(400, 150).centerCrop().into(photoHere);
                 }
                 catch (Exception e){
                     e.printStackTrace();

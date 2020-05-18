@@ -72,7 +72,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private AnchorEntity anchorToPresent;
     private ReminderType reminderType;
     private int reminderInt;
-    private CircleImageView photoHere;
+    private ImageView photoHere;
     private String year;
     private String day;
     private String month;
@@ -206,7 +206,8 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                 String imageURL = (String) dataSnapshot.getValue();
                 try {
                     Log.d("TAG9", "onDataChange: " + anchorKey + " " + imageURL);
-                    Picasso.get().load(imageURL).resize(220, 150).centerCrop().into(photoHere);
+                   // Picasso.get().load(imageURL).resize(12, 15).centerCrop().into(photoHere);
+                    Picasso.get().load(imageURL).fit().centerCrop().placeholder(R.drawable.add_task_round).into(photoHere);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
