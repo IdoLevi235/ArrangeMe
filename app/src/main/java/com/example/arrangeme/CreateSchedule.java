@@ -13,12 +13,13 @@ import java.util.Map;
 
 public class CreateSchedule {
 
-    private static FirebaseFunctions mFunctions;
+    private  FirebaseFunctions mFunctions;
 
+    public CreateSchedule(){
+        mFunctions = FirebaseFunctions.getInstance();
+    }
 
-
-
-    public static Task<HttpsCallableResult> classifyUserGroup(String id) {
+    public  Task<HttpsCallableResult> classifyUserGroup(String id) {
         // Create the arguments to the callable function.
         Map<String, Object> data = new HashMap<>();
         data.put("id", id);

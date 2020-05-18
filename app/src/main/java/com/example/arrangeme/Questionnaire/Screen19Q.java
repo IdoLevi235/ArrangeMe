@@ -126,7 +126,6 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
                 }
                 if (!q_answers.contains(0)) {
                     alertQfinish();
-
                 }
                 else {
                     alertQnotFinish();
@@ -165,7 +164,8 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
 
     private void alertQfinish() {
         isQFinish=true;
-        CreateSchedule.classifyUserGroup(Globals.UID);
+        CreateSchedule ce = new CreateSchedule();
+        ce.classifyUserGroup(Globals.UID);
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Congratulations!")

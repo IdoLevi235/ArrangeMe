@@ -1,6 +1,8 @@
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
 const skmeans = require('skmeans');
+const euc = require('euclidean-distance');
+
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 const admin = require('firebase-admin');
@@ -22,14 +24,20 @@ exports.initKmeans = functions.https.onCall((data, context) => {
         });
         var res = skmeans(vecs, 4);
         for (let i = 0; i < res.idxs.length; i++) {
-            var postData = {
-                group: res.idxs[i],
-                personality_vector: vecs[i]
-            };
-            var updates = {};
-            updates['/simulated_users/' + users[i]] = postData;
-            admin.database().ref().update(updates);
+            // var updates = {};
+            // updates['/simulated_users/' + users[i]] = postData;
+            admin.database().ref('/simulated_users/' + users[i]).update({
+                group: res.idxs[i]
+            });
         }
+
+        let centroids = [];
+        for (let i = 0; i < res.centroids.length; i++) {
+            centroids.push(res.centroids[i]);
+        }
+
+        admin.database().ref('/details/kmeans/').set(centroids);
+
     });
 });
 
@@ -44,7 +52,7 @@ exports.classifyUser = functions.https.onCall((data, context) => {
                 results.push(euc(x.val(), pv));
             })
             var min_index = results.indexOf(Math.min(...results));
-            admin.database().ref('users/' + data.id).update({
+            admin.database().ref('users/' + data.id+'/personal_info/').update({
                 group: min_index
             });
         });
