@@ -273,7 +273,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    Button addPhoto = (Button) findViewById(R.id.add_photo1);
+                    RoundedImageView addPhoto = (RoundedImageView) findViewById(R.id.add_photo1);
                     Uri selectedImage = data.getData();
                     selectedImage2=selectedImage;
                     try {
@@ -281,8 +281,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
 
 
-                        addPhoto.setHint("");
-                        addPhoto.setCompoundDrawables(null, null, null, null);
+                    //    addPhoto.setHint("");
+                   //     addPhoto.setCompoundDrawables(null, null, null, null);
                         addPhoto.setBackground(d);
                        // Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
                        // Picasso.get().load(imageURL).transform(transformation).into(photoHere);
