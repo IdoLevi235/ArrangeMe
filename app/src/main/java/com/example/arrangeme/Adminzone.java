@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
+import com.example.arrangeme.ui.schedule.ScheduleFragment;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -112,12 +113,12 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void simulate1000withPVnoSC() {
-        for(int i = 1 ; i<=2 ; i++){ //1000 users
+        for(int i = 1 ; i<=1 ; i++){ //1000 users
             String s = Integer.toString(i);
             mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
             HashMap<String,Integer> pv = calculate_PV();
             mDatabase.child("personality_vector").setValue(pv);
-            for (int j = 1 ; j<=10 ; j++){ //10 schedueles per each
+            for (int j = 1 ; j<=1 ; j++){ //10 schedueles per each
                 String date = (j+10) + "-11-2022";
                 createRandomSchedule(date);
             }
@@ -127,27 +128,56 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     private void createRandomSchedule(String date) {
         int key = 0;
-        ArrayList<String> hours = new ArrayList<String>()
-        {{
-            add("06:00");add("06:30");add("07:00");add("07:30");add("08:00");add("08:30");
-            add("09:00");add("09:30");add("10:00");add("10:30");add("11:00");add("11:30");
-            add("12:00");add("12:30");add("13:00");add("13:30");add("14:00");add("14:30");
-            add("15:00");add("15:30");add("16:00");add("16:30");add("17:00");add("17:30");
-            add("18:00");add("18:30");add("19:00");add("19:30");add("20:00");add("20:30");
-            add("21:00");add("21:30");add("22:00");add("22:30");add("23:00");add("23:30");
-            add("00:00");
+        ArrayList<ScheduleItem> hoursList = new ArrayList<ScheduleItem>(){{
+            add(new ScheduleItem("06:00",false)); add(new ScheduleItem("06:30",false));
+            add(new ScheduleItem("07:00",false)); add(new ScheduleItem("07:30",false));
+            add(new ScheduleItem("08:00",false)); add(new ScheduleItem("08:30",false));
+            add(new ScheduleItem("09:00",false)); add(new ScheduleItem("09:30",false));
+            add(new ScheduleItem("10:00",false)); add(new ScheduleItem("10:30",false));
+            add(new ScheduleItem("11:00",false)); add(new ScheduleItem("11:30",false));
+            add(new ScheduleItem("12:00",false)); add(new ScheduleItem("12:30",false));
+            add(new ScheduleItem("13:00",false)); add(new ScheduleItem("13:30",false));
+            add(new ScheduleItem("14:00",false)); add(new ScheduleItem("14:30",false));
+            add(new ScheduleItem("15:00",false)); add(new ScheduleItem("15:30",false));
+            add(new ScheduleItem("16:00",false)); add(new ScheduleItem("16:30",false));
+            add(new ScheduleItem("17:00",false)); add(new ScheduleItem("17:30",false));
+            add(new ScheduleItem("18:00",false)); add(new ScheduleItem("18:30",false));
+            add(new ScheduleItem("19:00",false)); add(new ScheduleItem("19:30",false));
+            add(new ScheduleItem("20:00",false)); add(new ScheduleItem("20:30",false));
+            add(new ScheduleItem("21:00",false)); add(new ScheduleItem("21:30",false));
+            add(new ScheduleItem("22:00",false)); add(new ScheduleItem("22:30",false));
+            add(new ScheduleItem("23:00",false)); add(new ScheduleItem("23:30",false));
+            add(new ScheduleItem("00:00",false));
+
         }};
-        for (key=0;hours.size()>2;key++) { //the loop continues as long as there are at least 1 free hours in the "bank"
-            int hoursSize = hours.size();
-            int randStartTimeIndex = (ThreadLocalRandom.current().nextInt(0,(hoursSize-1))); // get random start time
+        int hoursSize = hoursList.size();
+        int randStartTimeIndex;
+        int randEndTimeIndex;
+        boolean flag=true;
+        int it=0;
+        int itSize=3;
+        while (it<=12) { //the loop continues as long as there are at least 1 free hours in the "bank"
+            //(int) ((Math.random() * (max - min)) + min);
+            randStartTimeIndex = (int) (Math.random() * (((itSize+it) - it) + it));
+            randEndTimeIndex = (int) (Math.random() * (((itSize+it) - it) + it));
+            Log.d("TAG7", "createRandomSchedule: " + randStartTimeIndex + "-" + randEndTimeIndex);
+            if (randStartTimeIndex>=randEndTimeIndex) continue;
+            for (int i = randStartTimeIndex ; i<=randEndTimeIndex ; i++){ //first, check that inside this window everything is "false" (non-taken)\
+                                                                        //if we find one "true" we will generate new start,end
+                if (hoursList.get(i).getTaken()==true){
+                    flag=false;
+                }
+            }
+
+            if (flag==false) continue; //illegal start and end time
+
+            for (int i = randStartTimeIndex ; i<=randEndTimeIndex ; i++){
+                hoursList.get(i).setTaken(true);
+            }
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("startTime") // write random start time to DB
-                    .setValue(hours.get(randStartTimeIndex));
-            int randEndTimeIndex = (ThreadLocalRandom.current().nextInt(randStartTimeIndex+1,(hoursSize-1) + 1)); // get random start time
+                    .setValue(hoursList.get(randStartTimeIndex).getHour());
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("endTime")
-                    .setValue(hours.get(randEndTimeIndex));
-                    hours.subList(randStartTimeIndex,randEndTimeIndex).clear();
-
-
+                    .setValue(hoursList.get(randEndTimeIndex).getHour());
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("category")
                     .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("description").setValue("desc");
@@ -156,10 +186,16 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             int x = ThreadLocalRandom.current().nextInt(0,1+1);
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("type")
                     .setValue(types[x]);
-
-
-
-        }
+            key++;
+           // int count=0;
+//            for (ScheduleItem item : hoursList){
+//                if (item.getTaken()==true){
+//                    count++;
+//                }
+//            }
+            //if (count>=24) break; //get out of the while
+            it++;
+            }
         }
 
 
