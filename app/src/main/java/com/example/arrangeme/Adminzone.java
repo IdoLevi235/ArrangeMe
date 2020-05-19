@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
@@ -33,7 +34,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button kmeansBtn;
     private Button node;
     private FirebaseFunctions mFunctions;
-
+    private final String types[] = {"anchor","task"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,18 +137,27 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             add("21:00");add("21:30");add("22:00");add("22:30");add("23:00");add("23:30");
             add("00:00");
         }};
-
         for (key=0;hours.size()>2;key++) { //the loop continues as long as there are at least 1 free hours in the "bank"
             int hoursSize = hours.size();
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("category")
-                    .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
             int randStartTimeIndex = (ThreadLocalRandom.current().nextInt(0,(hoursSize-1))); // get random start time
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("startTime") // write random start time to DB
                     .setValue(hours.get(randStartTimeIndex));
             int randEndTimeIndex = (ThreadLocalRandom.current().nextInt(randStartTimeIndex+1,(hoursSize-1) + 1)); // get random start time
             mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("endTime")
                     .setValue(hours.get(randEndTimeIndex));
-                    hours.subList(randStartTimeIndex,randEndTimeIndex+1).clear();
+                    hours.subList(randStartTimeIndex,randEndTimeIndex).clear();
+
+
+            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("category")
+                    .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
+            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("description").setValue("desc");
+            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("reminderType")
+                    .setValue(ReminderType.fromInt(ThreadLocalRandom.current().nextInt(0,4+1)));
+            int x = ThreadLocalRandom.current().nextInt(0,1+1);
+            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("type")
+                    .setValue(types[x]);
+
+
 
         }
         }
