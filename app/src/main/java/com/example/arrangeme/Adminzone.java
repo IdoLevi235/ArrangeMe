@@ -21,10 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Adminzone extends AppCompatActivity implements View.OnClickListener{
@@ -36,7 +39,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button node;
     private FirebaseFunctions mFunctions;
     private final String types[] = {"anchor","task"};
-
+    private final int NUM_OF_WINDOWS = 14;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +121,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
             HashMap<String,Integer> pv = calculate_PV();
             mDatabase.child("personality_vector").setValue(pv);
-            for (int j = 1 ; j<=1 ; j++){ //10 schedueles per each
+            for (int j = 1 ; j<=10 ; j++){ //10 schedueles per each
                 String date = (j+10) + "-11-2022";
                 createRandomSchedule(date);
             }
@@ -127,76 +130,79 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     }
 
     private void createRandomSchedule(String date) {
-        int key = 0;
-        ArrayList<ScheduleItem> hoursList = new ArrayList<ScheduleItem>(){{
-            add(new ScheduleItem("06:00",false)); add(new ScheduleItem("06:30",false));
-            add(new ScheduleItem("07:00",false)); add(new ScheduleItem("07:30",false));
-            add(new ScheduleItem("08:00",false)); add(new ScheduleItem("08:30",false));
-            add(new ScheduleItem("09:00",false)); add(new ScheduleItem("09:30",false));
-            add(new ScheduleItem("10:00",false)); add(new ScheduleItem("10:30",false));
-            add(new ScheduleItem("11:00",false)); add(new ScheduleItem("11:30",false));
-            add(new ScheduleItem("12:00",false)); add(new ScheduleItem("12:30",false));
-            add(new ScheduleItem("13:00",false)); add(new ScheduleItem("13:30",false));
-            add(new ScheduleItem("14:00",false)); add(new ScheduleItem("14:30",false));
-            add(new ScheduleItem("15:00",false)); add(new ScheduleItem("15:30",false));
-            add(new ScheduleItem("16:00",false)); add(new ScheduleItem("16:30",false));
-            add(new ScheduleItem("17:00",false)); add(new ScheduleItem("17:30",false));
-            add(new ScheduleItem("18:00",false)); add(new ScheduleItem("18:30",false));
-            add(new ScheduleItem("19:00",false)); add(new ScheduleItem("19:30",false));
-            add(new ScheduleItem("20:00",false)); add(new ScheduleItem("20:30",false));
-            add(new ScheduleItem("21:00",false)); add(new ScheduleItem("21:30",false));
-            add(new ScheduleItem("22:00",false)); add(new ScheduleItem("22:30",false));
-            add(new ScheduleItem("23:00",false)); add(new ScheduleItem("23:30",false));
-            add(new ScheduleItem("00:00",false));
+        ArrayList<ScheduleItem> hoursList = new ArrayList<ScheduleItem>() {{
+            add(new ScheduleItem("06:00", false));
+            add(new ScheduleItem("06:30", false));
+            add(new ScheduleItem("07:00", false));
+            add(new ScheduleItem("07:30", false));
+            add(new ScheduleItem("08:00", false));
+            add(new ScheduleItem("08:30", false));
+            add(new ScheduleItem("09:00", false));
+            add(new ScheduleItem("09:30", false));
+            add(new ScheduleItem("10:00", false));
+            add(new ScheduleItem("10:30", false));
+            add(new ScheduleItem("11:00", false));
+            add(new ScheduleItem("11:30", false));
+            add(new ScheduleItem("12:00", false));
+            add(new ScheduleItem("12:30", false));
+            add(new ScheduleItem("13:00", false));
+            add(new ScheduleItem("13:30", false));
+            add(new ScheduleItem("14:00", false));
+            add(new ScheduleItem("14:30", false));
+            add(new ScheduleItem("15:00", false));
+            add(new ScheduleItem("15:30", false));
+            add(new ScheduleItem("16:00", false));
+            add(new ScheduleItem("16:30", false));
+            add(new ScheduleItem("17:00", false));
+            add(new ScheduleItem("17:30", false));
+            add(new ScheduleItem("18:00", false));
+            add(new ScheduleItem("18:30", false));
+            add(new ScheduleItem("19:00", false));
+            add(new ScheduleItem("19:30", false));
+            add(new ScheduleItem("20:00", false));
+            add(new ScheduleItem("20:30", false));
+            add(new ScheduleItem("21:00", false));
+            add(new ScheduleItem("21:30", false));
+            add(new ScheduleItem("22:00", false));
+            add(new ScheduleItem("22:30", false));
+            add(new ScheduleItem("23:00", false));
+            add(new ScheduleItem("23:30", false));
+            add(new ScheduleItem("00:00", false));
 
         }};
-        int hoursSize = hoursList.size();
-        int randStartTimeIndex;
-        int randEndTimeIndex;
-        boolean flag=true;
-        int it=0;
-        int itSize=3;
-        while (it<=12) { //the loop continues as long as there are at least 1 free hours in the "bank"
-            //(int) ((Math.random() * (max - min)) + min);
-            randStartTimeIndex = (int) (Math.random() * (((itSize+it) - it) + it));
-            randEndTimeIndex = (int) (Math.random() * (((itSize+it) - it) + it));
-            Log.d("TAG7", "createRandomSchedule: " + randStartTimeIndex + "-" + randEndTimeIndex);
-            if (randStartTimeIndex>=randEndTimeIndex) continue;
-            for (int i = randStartTimeIndex ; i<=randEndTimeIndex ; i++){ //first, check that inside this window everything is "false" (non-taken)\
-                                                                        //if we find one "true" we will generate new start,end
-                if (hoursList.get(i).getTaken()==true){
-                    flag=false;
-                }
-            }
+        //(int) ((Math.random() * (max - min)) + min);
+        //Set<ScheduleItem> hoursSet = new HashSet<ScheduleItem>();
+        ArrayList<Integer> indexes = new ArrayList<>();
 
-            if (flag==false) continue; //illegal start and end time
-
-            for (int i = randStartTimeIndex ; i<=randEndTimeIndex ; i++){
-                hoursList.get(i).setTaken(true);
-            }
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("startTime") // write random start time to DB
-                    .setValue(hoursList.get(randStartTimeIndex).getHour());
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("endTime")
-                    .setValue(hoursList.get(randEndTimeIndex).getHour());
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("category")
-                    .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("description").setValue("desc");
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("reminderType")
-                    .setValue(ReminderType.fromInt(ThreadLocalRandom.current().nextInt(0,4+1)));
-            int x = ThreadLocalRandom.current().nextInt(0,1+1);
-            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key)).child("type")
-                    .setValue(types[x]);
-            key++;
-           // int count=0;
-//            for (ScheduleItem item : hoursList){
-//                if (item.getTaken()==true){
-//                    count++;
-//                }
-//            }
-            //if (count>=24) break; //get out of the while
-            it++;
+        while (indexes.size() < NUM_OF_WINDOWS) {
+            float randomIndex = (int) ((Math.random() * (36 - 0)) + 0);
+            if (Collections.frequency(indexes, randomIndex) < 2){
+                indexes.add(randomIndex);
             }
         }
+        Collections.sort(indexes);
+
+        for (int key = 0; key < NUM_OF_WINDOWS; key+=2) {
+            int startIndex=indexes.get(key);
+            int endIndex=indexes.get(key+1);
+            if (startIndex==endIndex) endIndex++;
+            String startHour = hoursList.get(startIndex).getHour();
+            String endHour = hoursList.get(endIndex).getHour();
+
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("startTime") // write random start time to DB
+                    .setValue(startHour);
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("endTime")
+                    .setValue(endHour);
+//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("category")
+//                        .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
+//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("description").setValue("desc");
+//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("reminderType")
+//                       .setValue(ReminderType.fromInt(ThreadLocalRandom.current().nextInt(0,4+1)));
+//            int x = ThreadLocalRandom.current().nextInt(0,1+1);
+//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("type").setValue(types[x]);
+
+        }
+    }
 
 
     /**
