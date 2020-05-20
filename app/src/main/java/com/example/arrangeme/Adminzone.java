@@ -33,8 +33,9 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private final int NOON = 6; //noon = 11:00-17:00
     private final int EVENING = 4;//evening = 17:00-21:00
     private final int NIGHT = 3; // night = 21:00-24:00
-    private static final int NUM_OF_USERS = 1;
-    private static final int NUM_OF_SCH_PER_USER = 10;
+    private static final int NUM_OF_ITERATIONS = 10;
+    private static final int NUM_OF_USERS_IN_ITERATION = 5; //dont change it
+    private static final int NUM_OF_SCH_PER_USER = 20;
     private DatabaseReference mDatabase;
     private Button deleteDB;
     private Button sim1;
@@ -119,17 +120,23 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void simulate() {
-        for(int i = 1 ; i<=NUM_OF_USERS ; i++){ //x users
-            Log.d("TAG7", "simulate1000withPVnoSC: user number " + i );
-            String s = Integer.toString(i);
-            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
-            HashMap<String,Integer> pv = calculate_PV();
-            mDatabase.child("personality_vector").setValue(pv);
-            for (int j = 1 ; j<=NUM_OF_SCH_PER_USER ; j++){ //x schedueles per each
-                String date = (j+10) + "-11-2022";
-                createRandomSchedule(date);
+        int count=1;
+        //for (int i=1;i<=NUM_OF_ITERATIONS;i++) {
+            //Log.d("TAG7", "simulate: iteration " + i);
+            for (int j = 1; j <= 5000; j++) { //x users
+                Log.d("TAG7", "simulate: user number " + j);
+                String s = Integer.toString(j);
+                //s += j;
+                mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
+                HashMap<String, Integer> pv = calculate_PV();
+                mDatabase.child("personality_vector").setValue(pv);
+                for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
+                    String date = (k + 10) + "-11-2022";
+                    createRandomSchedule(date);
+                }
             }
-        }
+        //}
+        Log.d("TAG7", "simulate: BYE BYE");
 
     }
 
@@ -222,13 +229,13 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                     .setValue(c); // set random category
             Random g = new Random();
             float r=g.nextFloat();
-            if (r<0.35) //anchor - not added to either one of the vectors
+            if (r<0.25) //anchor - not added to either one of the vectors
                 mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("anchor");
-            else if (r>=0.35) { //task
+            else if (r>=0.25) { //task
                 mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("task");
                 categoriesChosen.add(c.toString());
                 //mark all tasks in this window with isTaken=true
-                for (int i=startIndex ; i<=endIndex ; i++){
+                for (int i=startIndex ; i<endIndex ; i++){
                     hoursList.get(i).setWithTask(true);
                 }
             }
@@ -244,6 +251,8 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         mDatabase.child("Schedules").child(date).child("data").child("frequency_vector").setValue(freqVec);
         Map<String,Integer> timeVec = createTimeVec(hoursList);
         mDatabase.child("Schedules").child(date).child("data").child("time_vector").setValue(timeVec);
+        mDatabase.child("Schedules").child(date).child("data").child("successful").setValue("yes");
+
     }
 
     private Map<String, Integer> createTimeVec(ArrayList<ScheduleItem> hoursList) {
