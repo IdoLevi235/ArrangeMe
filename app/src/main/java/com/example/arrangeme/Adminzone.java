@@ -44,6 +44,9 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button node;
     private FirebaseFunctions mFunctions;
     private final int NUM_OF_WINDOWS = 20;
+    ArrayList<ScheduleItem> hoursList = new ArrayList<>();
+    Map<String, Integer> freqVec = new LinkedHashMap<>();
+    Map<String,Integer> timeVec = new LinkedHashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,88 +123,138 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void simulate() {
-        int count=1;
-        //for (int i=1;i<=NUM_OF_ITERATIONS;i++) {
+       // for (int i=1;i<=NUM_OF_ITERATIONS;i++) {
             //Log.d("TAG7", "simulate: iteration " + i);
-            for (int j = 1; j <= 5000; j++) { //x users
-                Log.d("TAG7", "simulate: user number " + j);
+            for (int j = 1; j <= 1000; j++) { //x users
+               Log.d("TAG7", "simulate: user number " + j);
                 String s = Integer.toString(j);
-                //s += j;
+               //s += j;
                 mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
                 HashMap<String, Integer> pv = calculate_PV();
-                mDatabase.child("personality_vector").setValue(pv);
-                for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
-                    String date = (k + 10) + "-11-2022";
-                    createRandomSchedule(date);
+//                createRandomSchedule(j+"-11-2020");
+//                //for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
+//                //    String date = (k + 10) + "-11-2022";
+//                //    createRandomSchedule(date);
                 }
-            }
-        //}
+//            }
+        for(int k = 900 ; k <= 1000 ; k++) {
+            Log.d("TAG7", "simulate: sch number " + k);
+            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+            createRandomSchedule("10-11-2022");
+        }
+//
+//        for(int k = 100 ; k < 200 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//         }
+//        for(int k = 200 ; k < 300 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 300 ; k < 400 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 400 ; k < 500 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 500 ; k < 600 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 600 ; k < 700 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 700 ; k < 800 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 800 ; k < 900 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+//        for(int k = 900 ; k < 1000 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("13-11-2022");
+//        }
+
+        //  }
         Log.d("TAG7", "simulate: BYE BYE");
 
     }
 
     private void createRandomSchedule(String date) {
-        ArrayList<ScheduleItem> hoursList = new ArrayList<ScheduleItem>() {{
-            add(new ScheduleItem("06:00", false));
-            add(new ScheduleItem("06:30", false));
-            add(new ScheduleItem("07:00", false));
-            add(new ScheduleItem("07:30", false));
-            add(new ScheduleItem("08:00", false));
-            add(new ScheduleItem("08:30", false));
-            add(new ScheduleItem("09:00", false));
-            add(new ScheduleItem("09:30", false));
-            add(new ScheduleItem("10:00", false));
-            add(new ScheduleItem("10:30", false));
-            add(new ScheduleItem("11:00", false));
-            add(new ScheduleItem("11:30", false));
-            add(new ScheduleItem("12:00", false));
-            add(new ScheduleItem("12:30", false));
-            add(new ScheduleItem("13:00", false));
-            add(new ScheduleItem("13:30", false));
-            add(new ScheduleItem("14:00", false));
-            add(new ScheduleItem("14:30", false));
-            add(new ScheduleItem("15:00", false));
-            add(new ScheduleItem("15:30", false));
-            add(new ScheduleItem("16:00", false));
-            add(new ScheduleItem("16:30", false));
-            add(new ScheduleItem("17:00", false));
-            add(new ScheduleItem("17:30", false));
-            add(new ScheduleItem("18:00", false));
-            add(new ScheduleItem("18:30", false));
-            add(new ScheduleItem("19:00", false));
-            add(new ScheduleItem("19:30", false));
-            add(new ScheduleItem("20:00", false));
-            add(new ScheduleItem("20:30", false));
-            add(new ScheduleItem("21:00", false));
-            add(new ScheduleItem("21:30", false));
-            add(new ScheduleItem("22:00", false));
-            add(new ScheduleItem("22:30", false));
-            add(new ScheduleItem("23:00", false));
-            add(new ScheduleItem("23:30", false));
-            add(new ScheduleItem("00:00", false));
-            add(new ScheduleItem("00:30", false));
+        hoursList.clear();
+        hoursList.add(new ScheduleItem("06:00", false));
+        hoursList.add(new ScheduleItem("06:30", false));
+        hoursList.add(new ScheduleItem("07:00", false));
+        hoursList.add(new ScheduleItem("07:30", false));
+        hoursList.add(new ScheduleItem("08:00", false));
+        hoursList.add(new ScheduleItem("08:30", false));
+        hoursList.add(new ScheduleItem("09:00", false));
+        hoursList.add(new ScheduleItem("09:30", false));
+        hoursList.add(new ScheduleItem("10:00", false));
+        hoursList.add(new ScheduleItem("10:30", false));
+        hoursList.add(new ScheduleItem("11:00", false));
+        hoursList.add(new ScheduleItem("11:30", false));
+        hoursList.add(new ScheduleItem("12:00", false));
+        hoursList.add(new ScheduleItem("12:30", false));
+        hoursList.add(new ScheduleItem("13:00", false));
+        hoursList.add(new ScheduleItem("13:30", false));
+        hoursList.add(new ScheduleItem("14:00", false));
+        hoursList.add(new ScheduleItem("14:30", false));
+        hoursList.add(new ScheduleItem("15:00", false));
+        hoursList.add(new ScheduleItem("15:30", false));
+        hoursList.add(new ScheduleItem("16:00", false));
+        hoursList.add(new ScheduleItem("16:30", false));
+        hoursList.add(new ScheduleItem("17:00", false));
+        hoursList.add(new ScheduleItem("17:30", false));
+        hoursList.add(new ScheduleItem("18:00", false));
+        hoursList.add(new ScheduleItem("18:30", false));
+        hoursList.add(new ScheduleItem("19:00", false));
+        hoursList.add(new ScheduleItem("19:30", false));
+        hoursList.add(new ScheduleItem("20:00", false));
+        hoursList.add(new ScheduleItem("20:30", false));
+        hoursList.add(new ScheduleItem("21:00", false));
+        hoursList.add(new ScheduleItem("21:30", false));
+        hoursList.add(new ScheduleItem("22:00", false));
+        hoursList.add(new ScheduleItem("22:30", false));
+        hoursList.add(new ScheduleItem("23:00", false));
+        hoursList.add(new ScheduleItem("23:30", false));
+        hoursList.add(new ScheduleItem("00:00", false));
+        hoursList.add(new ScheduleItem("00:30", false));
 
-        }};
+
         //(int) ((Math.random() * (max - min)) + min);
         //Set<ScheduleItem> hoursSet = new HashSet<ScheduleItem>();
         ArrayList<Integer> indexes = new ArrayList<>();
-        Random generator = new Random();
+        //Random generator = new Random();
         int max = 36;
         int min = 0 ;
         while (indexes.size() < NUM_OF_WINDOWS) {
-            float rand = generator.nextFloat();
+            float rand = ThreadLocalRandom.current().nextFloat();
             if (rand < 0.20) { //HALF HOURS
                 //get random odd number between 0 to 36
-                if (max % 2 == 0 ) --max;
                 if (min%2==0) ++min;
-                int randOdd = (int) (((Math.random() * (max/2 - min)) + min) * 2) + 1;
+                int randOdd = min + 2*ThreadLocalRandom.current().nextInt((max-min)/2+1);
                 if (Collections.frequency(indexes,randOdd)<2){
                     indexes.add(randOdd);
                 }
             }
             else if (rand>=0.20) { // FULL HOURS
                 //get random even number between 0 to 36
-                int randEven = (int) ((Math.random() * (max/2 - min)) + min) * 2;
+                int randEven = min + 2*ThreadLocalRandom.current().nextInt((max-min)/2+1);
                 if(Collections.frequency(indexes,randEven)<2){
                     indexes.add(randEven);
                 }
@@ -227,11 +280,11 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             TaskCategory c = TaskCategory.fromInt((int) ((Math.random() * (8 - 0)) + 0));
             mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("category")
                     .setValue(c); // set random category
-            Random g = new Random();
-            float r=g.nextFloat();
-            if (r<0.25) //anchor - not added to either one of the vectors
+           // Random g = new Random();
+            float rand = ThreadLocalRandom.current().nextFloat();
+            if (rand<0.25) //anchor - not added to either one of the vectors
                 mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("anchor");
-            else if (r>=0.25) { //task
+            else if (rand>=0.25) { //task
                 mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("task");
                 categoriesChosen.add(c.toString());
                 //mark all tasks in this window with isTaken=true
@@ -247,16 +300,15 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
 
 
         }
-        Map<String, Integer> freqVec = createFreqVec(categoriesChosen);
+        createFreqVec(categoriesChosen);
         mDatabase.child("Schedules").child(date).child("data").child("frequency_vector").setValue(freqVec);
-        Map<String,Integer> timeVec = createTimeVec(hoursList);
+        createTimeVec(hoursList);
         mDatabase.child("Schedules").child(date).child("data").child("time_vector").setValue(timeVec);
         mDatabase.child("Schedules").child(date).child("data").child("successful").setValue("yes");
 
     }
 
-    private Map<String, Integer> createTimeVec(ArrayList<ScheduleItem> hoursList) {
-        Map<String,Integer> timeVector = new LinkedHashMap<>();
+    private void createTimeVec(ArrayList<ScheduleItem> hoursList) {
 
         int morning=0;
         int noon=0;
@@ -290,15 +342,14 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             }
             index++;
         }
-        timeVector.put("Morning",morning/2);
-        timeVector.put("Noon",noon/2);
-        timeVector.put("Evening",evening/2);
-        timeVector.put("Night",night/2);
-        return timeVector;
+        timeVec.put("Morning",morning/2);
+        timeVec.put("Noon",noon/2);
+        timeVec.put("Evening",evening/2);
+        timeVec.put("Night",night/2);
     }
 
-    private Map<String, Integer> createFreqVec(ArrayList<String> categoriesChosen) {
-        Map<String,Integer> freqVec = new LinkedHashMap<>();
+    private void createFreqVec(ArrayList<String> categoriesChosen) {
+        //Map<String,Integer> freqVec = new LinkedHashMap<>();
         freqVec.put("Study", Collections.frequency(categoriesChosen,"STUDY"));
         freqVec.put("Sport", Collections.frequency(categoriesChosen,"SPORT"));
         freqVec.put("Work", Collections.frequency(categoriesChosen,"WORK"));
@@ -308,8 +359,6 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         freqVec.put("Relax", Collections.frequency(categoriesChosen,"RELAX"));
         freqVec.put("Friends", Collections.frequency(categoriesChosen,"FRIENDS"));
         freqVec.put("Other", Collections.frequency(categoriesChosen,"OTHER"));
-        return freqVec;
-
     }
 
 
