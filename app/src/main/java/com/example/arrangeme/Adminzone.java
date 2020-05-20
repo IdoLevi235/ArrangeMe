@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -173,15 +174,30 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
         //(int) ((Math.random() * (max - min)) + min);
         //Set<ScheduleItem> hoursSet = new HashSet<ScheduleItem>();
         ArrayList<Integer> indexes = new ArrayList<>();
-
+        Random generator = new Random();
+        int max = hoursList.size();
+        int min = 0 ;
         while (indexes.size() < NUM_OF_WINDOWS) {
-            float randomIndex = (int) ((Math.random() * (36 - 0)) + 0);
-            if (Collections.frequency(indexes, randomIndex) < 2){
-                indexes.add(randomIndex);
+            float rand = generator.nextFloat();
+            if (rand <= 0.10) { //HALF HOURS
+                //get random odd number between 0 to 36
+                if (max % 2 == 0 ) --max;
+                if (min%2==0) ++min;
+                int randOdd = (int) (((Math.random() * (max/2 - min)) + min) * 2) + 1;
+                if (Collections.frequency(indexes,randOdd)<2){
+                    indexes.add(randOdd);
+                }
+            }
+            else if (rand<=0.90) { // FULL HOURS
+                //get random even number between 0 to 36
+                int randEven = (int) ((Math.random() * (max/2 - min)) + min) * 2;
+                if(Collections.frequency(indexes,randEven)<2){
+                    indexes.add(randEven);
+                }
             }
         }
         Collections.sort(indexes);
-
+        Log.d("TAG7", "createRandomSchedule: " + indexes);
         for (int key = 0; key < NUM_OF_WINDOWS; key+=2) {
             int startIndex=indexes.get(key);
             int endIndex=indexes.get(key+1);
