@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
-import com.example.arrangeme.ui.schedule.ScheduleFragment;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,15 +22,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Adminzone extends AppCompatActivity implements View.OnClickListener{
+    private final int MORNING = 5; //morning = 06:00-11:00
+    private final int NOON = 6; //noon = 11:00-17:00
+    private final int EVENING = 4;//evening = 17:00-21:00
+    private final int NIGHT = 3; // night = 21:00-24:00
+    private static final int NUM_OF_USERS = 1;
+    private static final int NUM_OF_SCH_PER_USER = 10;
     private DatabaseReference mDatabase;
     private Button deleteDB;
     private Button sim1;
@@ -39,8 +42,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     private Button kmeansBtn;
     private Button node;
     private FirebaseFunctions mFunctions;
-    private final String types[] = {"anchor","task"};
-    private final int NUM_OF_WINDOWS = 14;
+    private final int NUM_OF_WINDOWS = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                 mDatabase.child("simulated_users").removeValue();
                 break;
             case (R.id.sim1btn):
-                simulate1000withPVnoSC();
+                simulate();
                 break;
             case (R.id.dSim1):
                 mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -111,18 +113,19 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     }
 
     /**
-     * Method simulate1000withPVnoSC- simulated 1000 users in the DataBase and create each user a personality vector.
+     * Method simulate- simulated  users in the DataBase and create each user a personality vector and schedules
      *
      */
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void simulate1000withPVnoSC() {
-        for(int i = 1 ; i<=1 ; i++){ //1000 users
+    public void simulate() {
+        for(int i = 1 ; i<=NUM_OF_USERS ; i++){ //x users
+            Log.d("TAG7", "simulate1000withPVnoSC: user number " + i );
             String s = Integer.toString(i);
             mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
             HashMap<String,Integer> pv = calculate_PV();
             mDatabase.child("personality_vector").setValue(pv);
-            for (int j = 1 ; j<=10 ; j++){ //10 schedueles per each
+            for (int j = 1 ; j<=NUM_OF_SCH_PER_USER ; j++){ //x schedueles per each
                 String date = (j+10) + "-11-2022";
                 createRandomSchedule(date);
             }
@@ -169,17 +172,18 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             add(new ScheduleItem("23:00", false));
             add(new ScheduleItem("23:30", false));
             add(new ScheduleItem("00:00", false));
+            add(new ScheduleItem("00:30", false));
 
         }};
         //(int) ((Math.random() * (max - min)) + min);
         //Set<ScheduleItem> hoursSet = new HashSet<ScheduleItem>();
         ArrayList<Integer> indexes = new ArrayList<>();
         Random generator = new Random();
-        int max = hoursList.size();
+        int max = 36;
         int min = 0 ;
         while (indexes.size() < NUM_OF_WINDOWS) {
             float rand = generator.nextFloat();
-            if (rand <= 0.10) { //HALF HOURS
+            if (rand < 0.20) { //HALF HOURS
                 //get random odd number between 0 to 36
                 if (max % 2 == 0 ) --max;
                 if (min%2==0) ++min;
@@ -188,7 +192,7 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                     indexes.add(randOdd);
                 }
             }
-            else if (rand<=0.90) { // FULL HOURS
+            else if (rand>=0.20) { // FULL HOURS
                 //get random even number between 0 to 36
                 int randEven = (int) ((Math.random() * (max/2 - min)) + min) * 2;
                 if(Collections.frequency(indexes,randEven)<2){
@@ -197,27 +201,106 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
             }
         }
         Collections.sort(indexes);
-        Log.d("TAG7", "createRandomSchedule: " + indexes);
+        ArrayList<String> categoriesChosen = new ArrayList<>();
         for (int key = 0; key < NUM_OF_WINDOWS; key+=2) {
+            // start + end times
             int startIndex=indexes.get(key);
             int endIndex=indexes.get(key+1);
             if (startIndex==endIndex) endIndex++;
             String startHour = hoursList.get(startIndex).getHour();
+            //hoursList.get(startIndex).setTaken(true);
             String endHour = hoursList.get(endIndex).getHour();
-
-            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("startTime") // write random start time to DB
+            //hoursList.get(endIndex).setTaken(true);
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("startTime")
                     .setValue(startHour);
             mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("endTime")
                     .setValue(endHour);
-//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("category")
-//                        .setValue(TaskCategory.fromInt(ThreadLocalRandom.current().nextInt(0, 8 + 1))); // set random category
-//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("description").setValue("desc");
-//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("reminderType")
-//                       .setValue(ReminderType.fromInt(ThreadLocalRandom.current().nextInt(0,4+1)));
-//            int x = ThreadLocalRandom.current().nextInt(0,1+1);
-//            mDatabase.child("Schedules").child(date).child("tempschedule").child(String.valueOf(key/2)).child("type").setValue(types[x]);
+
+            //category and anchor/task stuff
+            TaskCategory c = TaskCategory.fromInt((int) ((Math.random() * (8 - 0)) + 0));
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("category")
+                    .setValue(c); // set random category
+            Random g = new Random();
+            float r=g.nextFloat();
+            if (r<0.35) //anchor - not added to either one of the vectors
+                mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("anchor");
+            else if (r>=0.35) { //task
+                mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("type").setValue("task");
+                categoriesChosen.add(c.toString());
+                //mark all tasks in this window with isTaken=true
+                for (int i=startIndex ; i<=endIndex ; i++){
+                    hoursList.get(i).setWithTask(true);
+                }
+            }
+
+            //DESCRIPTION + REMINDER (NOT IMPORTANT)
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("description").setValue("desc");
+            mDatabase.child("Schedules").child(date).child("schedule").child(String.valueOf(key/2)).child("reminderType")
+                       .setValue(ReminderType.fromInt((int) ((Math.random() * (4 - 0)) + 0)));
+
 
         }
+        Map<String, Integer> freqVec = createFreqVec(categoriesChosen);
+        mDatabase.child("Schedules").child(date).child("data").child("frequency_vector").setValue(freqVec);
+        Map<String,Integer> timeVec = createTimeVec(hoursList);
+        mDatabase.child("Schedules").child(date).child("data").child("time_vector").setValue(timeVec);
+    }
+
+    private Map<String, Integer> createTimeVec(ArrayList<ScheduleItem> hoursList) {
+        Map<String,Integer> timeVector = new LinkedHashMap<>();
+
+        int morning=0;
+        int noon=0;
+        int evening=0;
+        int night=0;
+        int index=0;
+
+        for(ScheduleItem item : hoursList){
+            if (index<MORNING*2){
+                if(hoursList.get(index).getWithTask()==true){
+                    morning++;
+                }
+            }
+            else if(MORNING*2<=index && index < (NOON*2+MORNING*2)){
+                if(hoursList.get(index).getWithTask()==true){
+                    noon++;
+                }
+
+            }
+            else if ((NOON*2+MORNING*2)<=index && index<(EVENING*2+NOON*2+MORNING*2)){
+                if(hoursList.get(index).getWithTask()==true){
+                    evening++;
+                }
+
+            }
+            else if ((EVENING*2+NOON*2+MORNING*2)<=index && index<=(EVENING*2+NOON*2+MORNING*2+NIGHT*2)){
+                if(hoursList.get(index).getWithTask()==true){
+                    night++;
+                }
+
+            }
+            index++;
+        }
+        timeVector.put("Morning",morning/2);
+        timeVector.put("Noon",noon/2);
+        timeVector.put("Evening",evening/2);
+        timeVector.put("Night",night/2);
+        return timeVector;
+    }
+
+    private Map<String, Integer> createFreqVec(ArrayList<String> categoriesChosen) {
+        Map<String,Integer> freqVec = new LinkedHashMap<>();
+        freqVec.put("Study", Collections.frequency(categoriesChosen,"STUDY"));
+        freqVec.put("Sport", Collections.frequency(categoriesChosen,"SPORT"));
+        freqVec.put("Work", Collections.frequency(categoriesChosen,"WORK"));
+        freqVec.put("Nutrition", Collections.frequency(categoriesChosen,"NUTRITION"));
+        freqVec.put("Family", Collections.frequency(categoriesChosen,"FAMILY"));
+        freqVec.put("Chores", Collections.frequency(categoriesChosen,"CHORES"));
+        freqVec.put("Relax", Collections.frequency(categoriesChosen,"RELAX"));
+        freqVec.put("Friends", Collections.frequency(categoriesChosen,"FRIENDS"));
+        freqVec.put("Other", Collections.frequency(categoriesChosen,"OTHER"));
+        return freqVec;
+
     }
 
 
