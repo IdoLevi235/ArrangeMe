@@ -39,6 +39,7 @@
         android:layout_width="179dp"
         android:layout_height="108dp"
         android:background="#FF9800"
+        android:enabled="false"
         android:text="simulate!!!!!!!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
