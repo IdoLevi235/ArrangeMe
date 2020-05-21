@@ -20,27 +20,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-    <TextView
-        android:id="@+id/welcomText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Welcome Linoy !"
-        android:textColor="@color/colorWhite"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.0" />
-
     <RelativeLayout
         android:id="@+id/noScheduleLayout"
         android:layout_width="308dp"
         android:layout_height="230dp"
-        android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
         android:visibility="gone"
@@ -88,49 +71,52 @@
             android:textSize="16sp"
             android:visibility="visible" />
 
+
         <Button
             android:id="@+id/questionnaireBtn"
-            android:layout_width="241dp"
-            android:layout_height="36dp"
+            android:layout_width="240dp"
+            android:layout_height="37dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="183dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="165dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/btn_rounded"
-            android:elevation="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:shadowColor="#535353"
-            android:text=" Fill The Questionnaire Now!"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:visibility="visible" />
+            android:elevation="2dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Fill The Questionnaire"
+            android:textColor="#FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.95" />
 
     </RelativeLayout>
 
-
     <Button
         android:id="@+id/chooseTasksBtn"
-        android:layout_width="116dp"
-        android:layout_height="116dp"
+        android:layout_width="167dp"
+        android:layout_height="33dp"
         android:background="@drawable/dashboard_topbuttons"
-        android:drawableTop="@drawable/choosetaskbtn"
         android:drawablePadding="-8dp"
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
-        android:text="Build Schedule"
+        android:text="Build A Schedule"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -140,14 +126,15 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Today"
-        android:textColor="@color/work"
+
+        android:textColor="#da5955"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view10"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/Hello"
@@ -163,23 +150,22 @@
         app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.041" />
 
     <View
         android:id="@+id/view9"
+        android:visibility="gone"
         android:layout_width="183dp"
         android:layout_height="78dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="163dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toEndOf="@+id/view10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
 
     <View
         android:id="@+id/view11"
@@ -203,6 +189,7 @@
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:visibility="gone"
         android:text="Completed Tasks"
         android:textColor="#000000"
         android:textSize="15sp"
@@ -225,6 +212,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="200"
+        android:visibility="gone"
         android:textColor="@color/work"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/view9"
@@ -238,17 +226,16 @@
         android:id="@+id/view10"
         android:layout_width="183dp"
         android:layout_height="78dp"
-        android:layout_marginTop="163dp"
-        android:layout_marginEnd="14dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/view9"
-        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.264" />
 
     <TextView
         android:id="@+id/tasksWeek"
@@ -259,6 +246,7 @@
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:visibility="gone"
         android:text="Left To Do This Week"
         android:textColor="#000000"
         android:textSize="15sp"
@@ -272,6 +260,7 @@
     <TextView
         android:id="@+id/tasksWeekNum"
         android:elevation="2dp"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -300,6 +289,82 @@
         app:layout_constraintStart_toStartOf="@+id/view11"
         app:layout_constraintTop_toTopOf="@+id/view11"
         app:layout_constraintVertical_bias="0.55" />
+
+    <RelativeLayout
+        android:layout_width="394dp"
+        android:layout_height="198dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="153dp"
+            android:layout_height="146dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="241dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="25dp"
+            android:elevation="3.1dp"
+            android:src="@drawable/try1" />
+
+        <RelativeLayout
+            android:layout_width="388dp"
+            android:layout_height="110dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="63dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/layout_dashboard"
+            android:elevation="3dp">
+
+            <TextView
+                android:id="@+id/textDetails"
+                android:layout_width="235dp"
+                android:layout_height="57dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="134dp"
+                android:layout_marginBottom="9dp"
+                android:fontFamily="@font/montserrat"
+                android:gravity="left"
+                android:text="You have 3 tasks to finish and already complete 80% of you schedule today. Keep it up!"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/welcomText"
+                android:layout_width="209dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="162dp"
+                android:layout_marginBottom="78dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="left"
+                android:text="Hello Ido !"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
