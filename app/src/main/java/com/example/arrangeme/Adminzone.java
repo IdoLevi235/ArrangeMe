@@ -131,17 +131,18 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
                //s += j;
                 mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
                 HashMap<String, Integer> pv = calculate_PV();
+                mDatabase.child("personality_vector").setValue(pv);
 //                createRandomSchedule(j+"-11-2020");
 //                //for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
 //                //    String date = (k + 10) + "-11-2022";
 //                //    createRandomSchedule(date);
                 }
 //            }
-        for(int k = 900 ; k <= 1000 ; k++) {
-            Log.d("TAG7", "simulate: sch number " + k);
-            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
-            createRandomSchedule("10-11-2022");
-        }
+//        for(int k = 900 ; k <= 1000 ; k++) {
+//            Log.d("TAG7", "simulate: sch number " + k);
+//            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
+//            createRandomSchedule("10-11-2022");
+//        }
 //
 //        for(int k = 100 ; k < 200 ; k++) {
 //            Log.d("TAG7", "simulate: sch number " + k);

@@ -20,7 +20,6 @@ public class User {
     public String password;
     public String fname;
     public String lname;
-    public Vector<Integer> personality_vector = new Vector<Integer>();
     public DatabaseReference mDatabase;
 
     public User() {
@@ -29,10 +28,6 @@ public class User {
     public User(String email, String fname) { //Special constructor for google sign-in
         this.email = email;
         this.fname = fname;
-        this.personality_vector.setSize(25);
-        for (int i=1;i<=25;i++){
-            this.personality_vector.add(i,0);
-        }
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calender").child("Year").child("Month").child("Day");
     }
 
@@ -43,10 +38,6 @@ public class User {
         this.password = password;
         this.fname = fname;
         this.lname = lname;
-        this.personality_vector.setSize(25);
-        for (int i=1;i<=25;i++){
-            this.personality_vector.add(i,0);
-        }
     }
 
     public String getEmail() {
