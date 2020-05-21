@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-public class ScheduleFeedback extends AppCompatActivity{
+public class ScheduleFeedback extends AppCompatActivity implements View.OnClickListener{
     private Button dislike;
     private Button like;
     @Override
@@ -22,9 +22,9 @@ public class ScheduleFeedback extends AppCompatActivity{
         setContentView(R.layout.activity_schedule_feedback);
         this.definePopUpSize();
         dislike=findViewById(R.id.dislike);
-        dislike.setOnClickListener((View.OnClickListener) this);
+        dislike.setOnClickListener(this);
         like=findViewById(R.id.like);
-        like.setOnClickListener((View.OnClickListener) this);
+        like.setOnClickListener(this);
     }
 
     private void definePopUpSize() {
@@ -32,7 +32,7 @@ public class ScheduleFeedback extends AppCompatActivity{
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width *0.6 ), (int) (height *0.78));
+        getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
@@ -43,4 +43,8 @@ public class ScheduleFeedback extends AppCompatActivity{
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

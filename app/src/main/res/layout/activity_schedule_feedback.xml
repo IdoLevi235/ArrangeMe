@@ -27,10 +27,10 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="55dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="196dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="57dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginBottom="194dp"
                 android:background="@drawable/themecorners"
                 android:elevation="10dp">
 
@@ -89,7 +89,7 @@
                     android:layout_marginBottom="128dp"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center"
-                    android:text="According to the suggested schedule for today, do you fill that you succeed complete most of your tasks? Was your day productive?"
+                    android:text="According to the suggested schedule for today, do you fill that you succeed complete most of your tasks? \nWas your day productive?"
                     android:textColor="@color/darkgray"
                     android:textSize="16sp" />
 
@@ -107,16 +107,14 @@
                     android:layout_marginBottom="247dp"
                     android:fontFamily="sans-serif-thin"
                     android:gravity="center"
-                    android:text="This information is very important in order to recommend you successful schedules in he future"
+                    android:text="This information is very important in order to recommend you successful schedules in the future"
                     android:textColor="@color/darkgray"
-                    android:textSize="11sp" />
+                    android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/dislike"
                     android:layout_width="150dp"
                     android:layout_height="37dp"
-                    android:drawableRight="@drawable/dislike"
-                    android:paddingRight="15dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
@@ -124,8 +122,10 @@
                     android:layout_marginTop="280dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/btn_rounded_no"
+                    android:drawableRight="@drawable/dislike"
                     android:elevation="2dp"
                     android:fontFamily="@font/montserrat"
+                    android:paddingRight="15dp"
                     android:text="NO"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -139,8 +139,6 @@
                     android:id="@+id/like"
                     android:layout_width="150dp"
                     android:layout_height="37dp"
-                    android:drawableRight="@drawable/like"
-                    android:paddingRight="15dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
@@ -148,8 +146,10 @@
                     android:layout_marginTop="280dp"
                     android:layout_marginEnd="187dp"
                     android:background="@drawable/btn_rounded_yes"
+                    android:drawableRight="@drawable/like"
                     android:elevation="2dp"
                     android:fontFamily="@font/montserrat"
+                    android:paddingRight="15dp"
                     android:text="Yes"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
