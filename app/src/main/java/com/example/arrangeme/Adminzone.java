@@ -125,23 +125,24 @@ public class Adminzone extends AppCompatActivity implements View.OnClickListener
     public void simulate() {
        // for (int i=1;i<=NUM_OF_ITERATIONS;i++) {
             //Log.d("TAG7", "simulate: iteration " + i);
-            for (int j = 1; j <= 1000; j++) { //x users
-               Log.d("TAG7", "simulate: user number " + j);
-                String s = Integer.toString(j);
-               //s += j;
-                mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
-                HashMap<String, Integer> pv = calculate_PV();
-                mDatabase.child("personality_vector").setValue(pv);
-//                createRandomSchedule(j+"-11-2020");
-//                //for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
-//                //    String date = (k + 10) + "-11-2022";
-//                //    createRandomSchedule(date);
-                }
+//            for (int j = 1; j <= 1000; j++) { //x users
+//               Log.d("TAG7", "simulate: user number " + j);
+//                String s = Integer.toString(j);
+//               //s += j;
+//                mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim" + s);
+//                HashMap<String, Integer> pv = calculate_PV();
+//                mDatabase.child("personality_vector").setValue(pv);
+////                createRandomSchedule(j+"-11-2020");
+////                //for (int k = 1; k <= NUM_OF_SCH_PER_USER; k++) { //x schedueles per each
+////                //    String date = (k + 10) + "-11-2022";
+////                //    createRandomSchedule(date);
+//                }
 //            }
-//        for(int k = 900 ; k <= 1000 ; k++) {
-//            Log.d("TAG7", "simulate: sch number " + k);
+//        for (int k = 900 ; k <= 1000 ; k++) {
+//            Log.d("TAG7", "simulate: user number " + k);
 //            mDatabase = FirebaseDatabase.getInstance().getReference("simulated_users").child("Sim"+k);
-//            createRandomSchedule("10-11-2022");
+//            createRandomSchedule("29-11-2022");
+//            createRandomSchedule("30-11-2022");
 //        }
 //
 //        for(int k = 100 ; k < 200 ; k++) {
