@@ -26,7 +26,6 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         like=findViewById(R.id.like);
         like.setOnClickListener(this);
     }
-
     private void definePopUpSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -41,8 +40,6 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         getWindow().setAttributes(params);
         this.setFinishOnTouchOutside(false);
     }
-
-
     @Override
     public void onClick(View v) {
 
