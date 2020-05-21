@@ -99,24 +99,47 @@
 
     </RelativeLayout>
 
+
     <Button
         android:id="@+id/chooseTasksBtn"
-        android:layout_width="167dp"
-        android:layout_height="33dp"
+        android:layout_width="130dp"
+        android:layout_height="64dp"
         android:background="@drawable/dashboard_topbuttons"
+        android:drawableRight="@drawable/scfhedule_2"
         android:drawablePadding="-8dp"
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
+        android:paddingRight="6dp"
         android:text="Build A Schedule"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/view11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <Button
+        android:id="@+id/rankit"
+        android:layout_width="180dp"
+        android:layout_height="47dp"
+        android:background="#00FFFFFF"
+        android:drawableRight="@drawable/rankit"
+        android:elevation="1.5dp"
+        android:fontFamily="@font/montserrat"
+        android:paddingRight="6dp"
+        android:text="Rank the Schedule"
+        android:textAllCaps="false"
+        android:textColor="#F1C011"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view11"
+        app:layout_constraintEnd_toEndOf="@+id/view11"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view11"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerDash"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/ScheduleForToday"
@@ -126,7 +149,6 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Today"
-
         android:textColor="#da5955"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -134,51 +156,36 @@
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.062" />
+        app:layout_constraintVertical_bias="0.032" />
 
     <TextView
         android:id="@+id/Hello"
-        android:layout_width="325dp"
-        android:layout_height="25dp"
+        android:layout_width="299dp"
+        android:layout_height="20dp"
         android:elevation="2dp"
         android:fontFamily="sans-serif-light"
-        android:text="This is your suggested schedule for today:"
+        android:text="Your suggested schedule for today:"
         android:textColor="#4E4E4E"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ScheduleForToday"
-        app:layout_constraintVertical_bias="0.041" />
-
-    <View
-        android:id="@+id/view9"
-        android:visibility="gone"
-        android:layout_width="183dp"
-        android:layout_height="78dp"
-        android:background="@drawable/rounded_rec_pink"
-        android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
-        app:layout_constraintStart_toEndOf="@+id/view10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.264" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view11"
-        android:layout_width="381dp"
-        android:layout_height="248dp"
+        android:layout_width="379dp"
+        android:layout_height="327dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Hello"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/Taskcompleted"
@@ -222,109 +229,55 @@
         app:layout_constraintTop_toTopOf="@+id/view9"
         app:layout_constraintVertical_bias="0.13" />
 
-    <View
-        android:id="@+id/view10"
-        android:layout_width="183dp"
-        android:layout_height="78dp"
-        android:background="@drawable/rounded_rec_pink"
-        android:elevation="2dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/view9"
-        app:layout_constraintHorizontal_bias="0.567"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
-        app:layout_constraintVertical_bias="0.264" />
-
-    <TextView
-        android:id="@+id/tasksWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="7dp"
-        android:elevation="2dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="Left To Do This Week"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view10"
-        app:layout_constraintEnd_toEndOf="@+id/view10"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toStartOf="@+id/view10"
-        app:layout_constraintTop_toTopOf="@+id/view10"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <TextView
-        android:id="@+id/tasksWeekNum"
-        android:elevation="2dp"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginBottom="9dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="30"
-        android:textColor="@color/work"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view10"
-        app:layout_constraintEnd_toEndOf="@+id/view10"
-        app:layout_constraintStart_toStartOf="@+id/view10"
-        app:layout_constraintTop_toTopOf="@+id/view10"
-        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDash"
-        android:layout_width="360dp"
-        android:layout_height="220dp"
+        android:layout_width="351dp"
+        android:layout_height="255dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/view11"
         app:layout_constraintEnd_toEndOf="@+id/view11"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="@+id/view11"
         app:layout_constraintTop_toTopOf="@+id/view11"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout12"
         android:layout_width="394dp"
-        android:layout_height="198dp"
+        android:layout_height="165dp"
+        android:layout_marginBottom="532dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/viewUpBtn"
+        app:layout_constraintVertical_bias="0.47">
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="153dp"
-            android:layout_height="146dp"
+            android:layout_width="175dp"
+            android:layout_height="142dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="241dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginStart="219dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="9dp"
             android:elevation="3.1dp"
-            android:src="@drawable/try1" />
+            android:src="@drawable/try2" />
 
         <RelativeLayout
             android:layout_width="388dp"
             android:layout_height="110dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="63dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/layout_dashboard"
             android:elevation="3dp">
 

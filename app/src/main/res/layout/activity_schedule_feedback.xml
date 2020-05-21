@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ScheduleFeedback">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout11"
+            android:layout_width="410dp"
+            android:layout_height="624dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.64"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.028">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout6"
+                android:layout_width="340dp"
+                android:layout_height="373dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="196dp"
+                android:background="@drawable/themecorners"
+                android:elevation="10dp">
+
+
+                <ImageView
+                    android:id="@+id/categoryImage"
+                    android:layout_width="50dp"
+                    android:layout_height="58dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="278dp"
+                    android:layout_marginBottom="287dp"
+                    android:elevation="2dp"
+                    android:padding="4dp"
+                    android:src="@drawable/rankit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.759"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.067" />
+
+                <TextView
+                    android:id="@+id/feedback"
+                    android:layout_width="248dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="81dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="301dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Schedule Feedback"
+                    android:textColor="#515050"
+                    android:textSize="24sp" />
+
+
+                <TextView
+                    android:id="@+id/doyouthink"
+                    android:layout_width="297dp"
+                    android:layout_height="122dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="129dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="128dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="According to the suggested schedule for today, do you fill that you succeed complete most of your tasks? Was your day productive?"
+                    android:textColor="@color/darkgray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/important"
+                    android:layout_width="342dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="81dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="247dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:gravity="center"
+                    android:text="This information is very important in order to recommend you successful schedules in he future"
+                    android:textColor="@color/darkgray"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/dislike"
+                    android:layout_width="150dp"
+                    android:layout_height="37dp"
+                    android:drawableRight="@drawable/dislike"
+                    android:paddingRight="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="194dp"
+                    android:layout_marginTop="280dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/btn_rounded_no"
+                    android:elevation="2dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="NO"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.93"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+                    app:layout_constraintVertical_bias="0.977" />
+
+                <Button
+                    android:id="@+id/like"
+                    android:layout_width="150dp"
+                    android:layout_height="37dp"
+                    android:drawableRight="@drawable/like"
+                    android:paddingRight="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="280dp"
+                    android:layout_marginEnd="187dp"
+                    android:background="@drawable/btn_rounded_yes"
+                    android:elevation="2dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Yes"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.108"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+                    app:layout_constraintVertical_bias="0.977" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

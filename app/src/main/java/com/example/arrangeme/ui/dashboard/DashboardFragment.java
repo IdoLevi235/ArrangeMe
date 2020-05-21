@@ -36,10 +36,12 @@ import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ScheduleFeedback;
 import com.example.arrangeme.ui.schedule.MainModelSchedule;
 import com.example.arrangeme.ui.schedule.MyViewHolder;
 import com.example.arrangeme.PersonalityVectorValidate;
 import com.example.arrangeme.ui.schedule.ScheduleFragment;
+import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -67,6 +69,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView welcome;
+    private Button rankit;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -106,6 +109,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         questionnaireBtn.setOnClickListener(this);
         mRecycler=view.findViewById(R.id.recyclerDash);
         mRecycler.setHasFixedSize(true);
+        rankit = view.findViewById(R.id.rankit);
+        rankit.setOnClickListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.checkIfPersonalityVectorFilled();
         mRecycler.setLayoutManager(layoutManager);
@@ -175,6 +180,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                  ct= new Intent(getActivity(), ChooseTasks.class);
                 getActivity().startActivity(ct);
                 break;
+            case (R.id.rankit):
+                Intent intent = new Intent(getActivity(), ScheduleFeedback.class);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent);
             default:
                 break;
         }

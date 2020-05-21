@@ -103,7 +103,6 @@
                 android:layout_marginEnd="29dp"
                 android:layout_marginBottom="447dp"
                 android:fontFamily="@font/montserrat"
-                android:paddingEnd="70dp"
                 android:text="Family"
                 android:textColor="@color/family"
                 android:textSize="24sp" />

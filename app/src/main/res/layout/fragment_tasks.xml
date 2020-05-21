@@ -14,9 +14,9 @@
         android:layout_width="336dp"
         android:layout_height="229dp"
         android:layout_marginBottom="188dp"
-        android:background="@drawable/rounded_rec_pink"
-        android:elevation="99dp"
         android:visibility="gone"
+        android:elevation="1.5dp"
+        android:background="@drawable/rounded_rec_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -39,8 +39,8 @@
             android:elevation="1.5dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textColor="@color/darkgray"
+            android:textSize="18sp"
             android:visibility="gone" />
 
         <Button
@@ -76,8 +76,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761" />
+        app:layout_constraintTop_toBottomOf="@+id/myTasks"
+        app:layout_constraintVertical_bias="0.6" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTasks"
@@ -98,7 +98,6 @@
         android:id="@+id/textView6"
         android:layout_width="339dp"
         android:layout_height="67dp"
-        android:layout_marginTop="31dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="These are your pending tasks. Press on a task to open this task's details, and swipe left to delete it. Notice: these tasks haven't been assigned to a schedule yet. "
