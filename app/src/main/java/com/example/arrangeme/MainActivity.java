@@ -29,6 +29,9 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
+/**
+ * Main activity of the project - takes to login/signup/directly to hoomepage if logged in
+ */
 public class MainActivity extends AppCompatActivity{
 
     Button loginBtn;
@@ -40,6 +43,13 @@ public class MainActivity extends AppCompatActivity{
     private TextView tv;
     private ProgressBar pb;
     Context ctx;
+
+    /**
+     * this function controls what happens on creation of the activity
+     * If user is already logged in - goes to homepage
+     * else - regular main activity with login/signup/forgot password
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,37 +134,4 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
-
-
-
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-    }
-
-    private void updateUI(FirebaseUser currentUser) {
-    }
-
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onStop() {
-        super.onStop();
-    }
-
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
 }

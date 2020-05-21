@@ -7,7 +7,15 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+/**
+ * Class that controls Notifications to users
+ */
 public class ReminderBroadcast extends BroadcastReceiver {
+    /**
+     * Building the notification
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"notifyQues")

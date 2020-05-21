@@ -51,6 +51,9 @@ import java.util.Calendar;
 import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+/**
+ * Class that controls showing Anchor's popup with its functionality, implementing Popup interface
+ */
 public class AnchorPagePopup extends AppCompatActivity implements Popup, View.OnClickListener{
     private ImageView applyBtn;
     private ImageView editModeBtn;
@@ -77,6 +80,10 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private String day;
     private String month;
 
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +116,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * Method implemented from Popup interface. Here we define the popup size and other attributes
+     */
     @Override
     public void definePopUpSize() {
         DisplayMetrics dm = new DisplayMetrics();
@@ -127,6 +137,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * This function blocks the views at the background of the popup
+     */
     @Override
     public void disableViews() {
         SpinnerShow.setEnabled(false);
@@ -141,6 +154,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         reminder_switch.setClickable(false);
 
     }
+    /**
+     * Show the details of the item in the popup
+     */
 
     @Override
     public void showDetails() {
@@ -196,6 +212,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         });
 
     }
+    /**
+     * shows the image of the item inside the popup
+     */
 
     @Override
     public void showImage() {
@@ -217,6 +236,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
             }
         });
     }
+    /**
+     * Controls the edit mode of the popup
+     */
 
     @Override
     public void editMode() {
@@ -380,6 +402,11 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * This function check validity of start and end time , for example if end time before start time
+     * @param anchorToChange
+     * @return true if start and end times ar eok and false if not
+     */
     private boolean checkStartEndTime(AnchorEntity anchorToChange) {
         String startTime = anchorToChange.getStartTime();
         String[] startArr = startTime.split(":");
@@ -421,6 +448,10 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         return true;
     }
 
+    /**
+     * editing anchor in DB after aplly in edit mode
+     * @param anchorToChange
+     */
     private void editAnchorInDB(AnchorEntity anchorToChange) {
         String arr[] = anchorToChange.getDate().split("-");
          day = arr[0];
@@ -489,6 +520,10 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * Delete anchor from DB after press delete and cinfirming
+     * @param date
+     */
     private void deleteTaskFromDB(CharSequence date) {
         mDatabase.child(anchorKey).setValue(null);
 
@@ -523,6 +558,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * defining reminders spinner
+     */
     private void defineSpinner() {
         // Initializing a String Array
         String[] reminderItems = new String[]{
@@ -583,6 +621,11 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     }
 
+    /**
+     * onClick method, from View.OnClickListener interface
+     * @param v
+     */
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -596,6 +639,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         }
     }
 
+    /**
+     * adding animation to androids back button
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

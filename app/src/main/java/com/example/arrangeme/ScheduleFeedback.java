@@ -13,9 +13,17 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+/**
+ * This class controls the schedule feedbachs - showing the user a popup and ask if the schedule was succesful
+ */
 public class ScheduleFeedback extends AppCompatActivity implements View.OnClickListener{
     private Button dislike;
     private Button like;
+
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +34,10 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         like=findViewById(R.id.like);
         like.setOnClickListener(this);
     }
+
+    /**
+     * Define popup size
+     */
     private void definePopUpSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

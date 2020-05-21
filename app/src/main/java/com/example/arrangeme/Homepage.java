@@ -53,6 +53,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Home page class - the main page of the application. has bottom navigation bar with 5 fragments
+ */
 public class Homepage extends AppCompatActivity{
 
     private Toolbar toolbar;
@@ -61,8 +64,16 @@ public class Homepage extends AppCompatActivity{
     private Button node ;
     private FirebaseFunctions mFunctions;
     private String dateToShowInScheduleFragment;
+    public static Context contextOfApplication;
+
     @SuppressLint("ResourceType")
     @Override
+
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
@@ -127,12 +138,21 @@ public class Homepage extends AppCompatActivity{
 
     }
 
-    public static Context contextOfApplication;
+    /**
+     * Thie function returns the context
+     * @return Context
+     */
     public static Context getContextOfApplication()
     {
         return contextOfApplication;
     }
 
+    /**
+     * Create notification channel
+     * @param id
+     * @param name
+     * @param description
+     */
     private void createNotificationChannel(String id, CharSequence name, String description) {
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(id,name,importance);
@@ -141,6 +161,11 @@ public class Homepage extends AppCompatActivity{
         notificationManager.createNotificationChannel(channel);
     }
 
+    /**
+     * Inflates the correct toolbar menu
+     * @param menu
+     * @return boolean true/false
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -149,6 +174,11 @@ public class Homepage extends AppCompatActivity{
     }
 
 
+    /**
+     * Controls what happens when menu item is pressed
+     * @param item
+     * @return boolean true/false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -167,6 +197,9 @@ public class Homepage extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * overriding the back button of the cellphone and adding few conditions
+     */
     @Override
     public void onBackPressed() {
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -187,9 +220,24 @@ public class Homepage extends AppCompatActivity{
     }
 
 
+    /**
+     * dateToShowInScheduleFragment is a Variable that assists showing
+     * correct date in schedule tab after user chooses tasks for a certain day
+     *
+     * this functions returns current value of this variable
+     * @return  dateToShowInScheduleFragment
+     */
     public String getDateToShowInScheduleFragment() {
         return dateToShowInScheduleFragment;
     }
+
+
+    /**
+     * dateToShowInScheduleFragment is a Variable that assists showing
+     * correct date in schedule tab after user chooses tasks for a certain day
+     *
+     * this functions sets current value of this variable
+     */
 
     public void setDateToShowInScheduleFragment(String dateToShowInScheduleFragment) {
         this.dateToShowInScheduleFragment = dateToShowInScheduleFragment;

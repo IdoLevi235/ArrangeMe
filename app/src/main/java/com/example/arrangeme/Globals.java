@@ -8,23 +8,40 @@ import android.os.Build;
 import android.widget.Button;
 import androidx.annotation.RequiresApi;
 
+/**
+ * Global functions and varaibles
+ */
 public class Globals {
+    /**
+     * Current user's UID
+     */
     public static String UID;
+    /**
+     * Current user's Email
+     */
     public static String currentEmail;
     private  Button btn_unfocus2;
     private  Button btn_focus;
     private  Button btn_unfocus2a;
     private  Button btn_unfocus2b;
     private  Button btn_focus2;
+    /**
+     * Current username
+     */
     public static String currentUsername = "test";
 
 
+    /**
+     *     This function acting like a "radio group" like with buttons with one parameter for the Button unfocused
+     *     use: in the fragments of the questionnaire
+     * @param btn_unfocus
+     * @param btn_focus
+     * @return Button - the button to focus on
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
 
 
-    //This function acting like a "radio group" like with buttons with one parameter for the Button unfocused
-    //use: in the fragments of the questionnaire
     public static Button setFocus(Button btn_unfocus, Button btn_focus){
         //define the colors of the button that is unfocused
         btn_unfocus.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
@@ -39,8 +56,14 @@ public class Globals {
         return btn_focus;
     }
 
-    //This function acting like a "radio group" like with buttons with two parameter for the Button unfocused
-    //use: in the Calendar main screen tab
+    /**
+     *     This function acting like a "radio group" like with buttons with two parameter for the Button unfocused
+     *     use: in the Calendar main screen tab
+     * @param btn_unfocus2a
+     * @param btn_unfocus2b
+     * @param btn_focus2
+     * @return Button - the button to focus on
+     */
 public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Button btn_focus2){
         //define the colors of the button that is unfocused
         btn_unfocus2a.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor("#75C1C9")));
@@ -61,8 +84,14 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
     }
 
 
-    //This function acting like a "radio group" like with buttons with one parameter for the Button unfocused
-    //use: in the fragments of the questionnaire
+    /**
+     *     This function acting like a "radio group" like with buttons with one parameter for the Button unfocused
+     *     use: in the fragments of the questionnaire
+     * @param btn_unfocus
+     * @param btn_focus
+     * @param hash
+     * @return Button - the button to focus on
+     */
     public static Button setFocusAvatars(Button btn_unfocus, Button btn_focus, Integer hash){
 
         //define the colors of the button that is unfocused
