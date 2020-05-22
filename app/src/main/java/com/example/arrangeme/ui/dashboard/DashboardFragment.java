@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView welcome;
-    private Button rankit;
+    private ImageView rankit;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
