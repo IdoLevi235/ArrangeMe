@@ -18,8 +18,6 @@ firebase.initializeApp(firebaseConfig);
 
 var db = firebase.database();
 
-
-function first(){
 db.ref('simulated_users/').once('value', (snap) => {
     let vecs = [];
     let users = [];
@@ -47,24 +45,12 @@ db.ref('simulated_users/').once('value', (snap) => {
 
     let centroids=[];
     for (let i = 0; i < res.centroids.length; i++) { 
- 
     centroids.push(res.centroids[i]);
-
-    var updates2 = {};
-    updates2['/details/kmeans/'] = centroids;
-
-    db.ref().update(updates2);
     }
-
-
+    
+    db.ref('/details/kmeans/').set(centroids);
 })
-}
 
-function classifyUser(){
-    var id = data;
-    //data from the fucntion - user id
-    db.ref('users/').once('value', (snap) => {
+
+   
     
-    
-    })
-    }
