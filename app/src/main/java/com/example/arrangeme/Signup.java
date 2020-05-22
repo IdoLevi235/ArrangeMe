@@ -28,6 +28,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+/**
+ * Signup class - responsible for signup proccess with password+email
+ */
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +45,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private TextView alreadyHave;
     private boolean hidePass=true;
     private boolean hidePass1=true;
+
+
+    /**
+     * this function controls what happens on creation of the activity
+     *
+     * @param savedInstanceState
+     */
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,10 +128,18 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    /**
+     * onDestroy
+     */
     protected void onDestroy() {
         super.onDestroy();
 
     }
+
+    /**
+     * onClick method, from View.OnClickListener interface
+     * @param v
+     */
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -146,8 +164,15 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
-
+    /**
+     * function to check validation of the form
+     * @param email
+     * @param password
+     * @param confPass
+     * @param fname
+     * @param lname
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean signUpFormValidation(String email, String password, String confPass, String fname, String lname) {
         String msg;
@@ -164,6 +189,11 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
         return true;
     }
+
+    /**
+     * This function creates error alerts in signup class
+     * @param msg
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor")
 
@@ -177,6 +207,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
        btn.setBackgroundResource(R.drawable.rounded_rec);
     }
 
+    /**
+     *  This function creates error alerts in signup class
+     */
     private void createWelcomeAlert(){
         SweetAlertDialog ad;
        ad =  new SweetAlertDialog(Signup.this, SweetAlertDialog.SUCCESS_TYPE)
@@ -202,6 +235,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * this function creates a new user in database and in auth
+     * @param email
+     * @param password
+     * @param fname
+     * @param lname
+     */
     private void createAccount( final String email, final String password, final String fname, final String lname) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

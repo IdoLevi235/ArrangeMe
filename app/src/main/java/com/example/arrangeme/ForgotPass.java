@@ -17,11 +17,19 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+/**
+ * This class controls password recovery through mail
+ */
 public class ForgotPass extends AppCompatActivity implements View.OnClickListener{
 
     private EditText email;
     Button back;
     Button submit;
+
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,12 @@ public class ForgotPass extends AppCompatActivity implements View.OnClickListene
         back.setOnClickListener(this);
 
     }
+    /**
+     * onClick method, from View.OnClickListener interface
+     * including submit button click listener - sends mail with password reset to the user
+     * and back to login button
+     * @param v
+     */
 
     @Override
     public void onClick(View v) {

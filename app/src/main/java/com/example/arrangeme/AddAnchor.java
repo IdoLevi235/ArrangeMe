@@ -63,6 +63,9 @@ import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+/**
+ * This class controls adding new anchor, from month claendar
+ */
 public class AddAnchor extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_REQUEST_CODE = 1;
     private Button submit;
@@ -90,6 +93,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private int day;
     private static int currKey2;
 
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +181,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * Setting the date picker
+     * @param datePicker
+     * @param pickedDate
+     */
     private void setDatePicker(DatePicker datePicker, String pickedDate) {
         // pickedDate string is in format of dd-mm-yyyy
         try {
@@ -188,6 +200,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Setting the toggle that controls show/hide reminder spinner
+     * @param show_spinner
+     */
     private void setToggle(Switch show_spinner) {
         show_spinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -202,6 +218,12 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * Setting reminders spinner
+     *
+     * @param spinner
+     * @param Items
+     */
     private void setSpinner(Spinner spinner, String[] Items) {
         // Initializing a String Array
         final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(Items));
@@ -253,6 +275,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    /**
+     * pick photo from phone gallery
+     */
     private void pickFromGallery() {
         //Create an Intent with action as ACTION_PICK
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -266,6 +291,12 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * getting rhe result code after user selects image
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
@@ -297,12 +328,22 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    /**
+     * Inflate correct toolbar
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.top_menu_homepage, menu);
         return true;
     }
 
+    /**
+     * control toolbar item clicks
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -317,6 +358,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * onClick method, from View.OnClickListener interface
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -352,6 +398,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * Send image to our storage
+     * @param selectedImage2
+     */
     private void sendImage(Uri selectedImage2) {
         String uniqueID = UUID.randomUUID().toString();
         StorageReference imgRef = mStorageRef.child("images/anchors/"+Globals.UID+"/"+uniqueID+".jpg");
@@ -385,6 +435,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * add photo link to the correct anchor in DB
+     * @param downloadUri
+     */
     private void addPhotoUriToDB(Uri downloadUri) {
         Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
         DatabaseReference mDatabase;
@@ -398,6 +452,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * form validation including start and end time validation
+     * @param anchorToAdd
+     * @return
+     */
     private boolean validateForm(AnchorEntity anchorToAdd) {
 
         try {
@@ -463,6 +522,9 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * show success alert in add anchor class
+     */
     private void showSuccessAlert() {
         SweetAlertDialog ad = new SweetAlertDialog(AddAnchor.this, SweetAlertDialog.SUCCESS_TYPE);
         ad.setTitleText("Great!");
@@ -482,6 +544,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**
+     * adding the new anchor to db after validation
+     * @param anchorToAdd
+     */
     private void addAnchorToDB(AnchorEntity anchorToAdd) {
         String[] arr = anchorToAdd.getDate().split("-",3);
          day = Integer.parseInt(arr[0]);
@@ -539,6 +605,11 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    /**
+     * this function recieves DatePicker object and build new StringBuilder from it
+     * @param datePicker
+     * @return String represents the date from DatePicker
+     */
     private String generateDateStringFromDatepicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -559,6 +630,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         return (sb.toString());
     }
 
+    /**
+     * this function shows TimePickerDialog
+     * @param btn
+     */
     private void showTimePickerDialog(Button btn) {
 
         final Calendar c = Calendar.getInstance();

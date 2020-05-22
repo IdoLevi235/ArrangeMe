@@ -39,6 +39,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Login class - responsible for login proccess, with password+email and with google sign in
+ */
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -63,6 +66,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mStatusTextView;
 
+    /**
+     * starts google sign in process
+     */
     @Override
     protected void onStart() {
         Log.d("onStart", "onStart Happened");
@@ -71,6 +77,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
        //updateUI(account);
     }
 
+    /**
+     * this function controls what happens on creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +142,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * onClick method, from View.OnClickListener interface
+     * @param v
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -159,13 +173,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * Sign out from google - not in use
+     */
     private void signOutWithGoogle() {
         //mGoogleSignInClient.signOut();
         Toast.makeText(Login.this,"You Are Logged Out", Toast.LENGTH_SHORT).show();
         //sign_out_button.setVisibility(View.INVISIBLE);
     }
 
-    //google sign-in method
+
+    /**
+     * Google sign in method
+     */
     private void signInWithGoogle() {
         Log.d("signInWithGoogle", "signInWithGoogle Happened");
         FirebaseUser user = mAuth.getCurrentUser();
@@ -175,6 +195,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * Sign out from google - not in use
+     */
     private void signOutFromGoogle() {
         mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -186,7 +209,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
     }
 
-    //google sign-in returned value
+    /**
+     *     google sign-in returned value
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("onActivityResult", "onActivityResult Happened");
@@ -202,6 +230,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    /**
+     * Handle result from google sign in
+     * @param completedTask
+     */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             Log.d("handleSignInResult", "handleSignInResult Happened");
@@ -217,6 +249,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Firebase authorization to google users
+     * @param account
+     */
     private void FirebaseGoogleAuth(GoogleSignInAccount account) {
 
 
@@ -244,6 +280,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    /**
+     * Adding new user to DB and take him to questionnaire, or take existing user to Homepage
+     * @param fUser
+     * @param isNewUser
+     */
     private void updateUI(FirebaseUser fUser, boolean isNewUser){
         //sign_out_button.setVisibility(View.VISIBLE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
@@ -275,6 +316,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Sign in with email and password, including authorization and getting current user
+     * @param password
+     */
     private void signInWithEmailAndPassword(String email, String password) {
         mAuth = FirebaseAuth.getInstance(); //Firebase Authentication instanc
         try {
@@ -317,6 +362,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * Creating alerts in login page
+     * @param msg
+     * @param type
+     */
     private void createAlert(String msg, int type) {
         SweetAlertDialog ad = new SweetAlertDialog(Login.this, type);
         ad.setTitleText("Error");

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.arrangeme.Entities.ScheduleItem;
 import com.example.arrangeme.Enums.ReminderType;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -25,9 +26,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * class for admin stuff - simulations, kmeans, classifications
+ */
 public class Adminzone extends AppCompatActivity implements View.OnClickListener{
     private final int MORNING = 5; //morning = 06:00-11:00
     private final int NOON = 6; //noon = 11:00-17:00
