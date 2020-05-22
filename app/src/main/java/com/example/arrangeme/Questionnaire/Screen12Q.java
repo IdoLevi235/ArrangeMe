@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,7 +63,9 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
         continue12.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello12);
-        topMessage.setText("Great Job " + Globals.currentUsername +"!");
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String username = currentFirebaseUser.getDisplayName();
+        topMessage.setText("Great Job " + username +"!");
         isReply=false;
     }
 

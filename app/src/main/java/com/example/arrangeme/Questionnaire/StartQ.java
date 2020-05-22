@@ -26,6 +26,8 @@ import android.widget.TextView;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -71,7 +73,9 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
         Button continue1 = view.findViewById(id.continue1);
         continue1.setOnClickListener(this);
         TextView topMessage = view.findViewById(R.id.text_hello1);
-        topMessage.setText("Welcome " + Globals.currentUsername );
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String username = currentFirebaseUser.getDisplayName();
+        topMessage.setText("Welcome " + username );
         isReply=false;
     }
 

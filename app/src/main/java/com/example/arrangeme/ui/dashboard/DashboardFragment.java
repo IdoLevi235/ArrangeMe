@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -69,7 +70,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView welcome;
-    private Button rankit;
+    private AppCompatImageView rankit;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,

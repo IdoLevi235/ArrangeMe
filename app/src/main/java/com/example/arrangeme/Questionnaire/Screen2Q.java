@@ -70,7 +70,9 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
         continue2.setOnClickListener(this);
         smoke=(Switch)getView().findViewById(R.id.isSmoke);
         TextView topMessage = view.findViewById(R.id.text_hello2);
-        topMessage.setText("Thank You " + Globals.currentUsername + ", Keep Going!");
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String username = currentFirebaseUser.getDisplayName();
+        topMessage.setText("Thank You " + username + ", Keep Going!");
         isReply=false;
     }
 

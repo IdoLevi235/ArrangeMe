@@ -39,6 +39,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Vector;
+
 /**
  * Login class - responsible for login proccess, with password+email and with google sign in
  */
@@ -298,7 +300,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
                 mDatabase.child("users").child(Globals.UID).child("personal_info").setValue(userToAdd);
-                mDatabase.child("users").child(Globals.UID).child("Pending_tasks").setValue(0);
+                Vector<Integer> personality_vector = new Vector<Integer>();
+                personality_vector.setSize(25);
+                for (int i=1;i<=25;i++){
+                    personality_vector.add(i,0);
+                }
+                mDatabase.child("users").child(Globals.UID).child("personality_vector").setValue(personality_vector);
+
+
                 /* addNewUserToDB end */
 
                 Intent intent = new Intent(this, Questionnaire.class);

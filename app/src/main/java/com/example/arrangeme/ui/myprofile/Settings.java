@@ -95,13 +95,14 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         notificationManager.createNotificationChannel(channel);
 
         if (cid.equals("ques")){
+
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY,17);
-            calendar.set(Calendar.MINUTE,50);
+            calendar.set(Calendar.HOUR_OF_DAY,19);
+            calendar.set(Calendar.MINUTE,00);
             Intent ct1 = new Intent(getApplicationContext(), ReminderBroadcast.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,ct1,0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),30*1000,pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
         }
     }

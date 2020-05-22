@@ -25,6 +25,8 @@ import com.example.arrangeme.MainActivity;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
 import com.example.arrangeme.Signup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,7 +72,9 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         Button continue19 = view.findViewById(R.id.continue19);
         continue19.setOnClickListener(this);
         TextView topMessage = view.findViewById(R.id.text_hello19);
-        topMessage.setText("Thank you " + Globals.currentUsername + ", Just One More To Go!");
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String username = currentFirebaseUser.getDisplayName();
+        topMessage.setText("Thank you " + username + ", Just One More To Go!");
         isReply = false;
     }
 

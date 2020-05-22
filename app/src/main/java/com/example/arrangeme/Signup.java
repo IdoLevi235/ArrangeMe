@@ -27,6 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Vector;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * Signup class - responsible for signup proccess with password+email
@@ -45,7 +48,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private TextView alreadyHave;
     private boolean hidePass=true;
     private boolean hidePass1=true;
-
 
     /**
      * this function controls what happens on creation of the activity
@@ -261,6 +263,16 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             User userToAdd = new User(email,password,fname,lname);
                             mDatabase.child("users").child(Globals.UID).child("personal_info").setValue(userToAdd);
                             //mDatabase.child("users").child(Globals.UID).child("personal_info").setValue("profilfePicURL");
+                            mDatabase.child("users").child(Globals.UID).child("settings").child("phone_notifications").setValue("no");
+                            mDatabase.child("users").child(Globals.UID).child("settings").child("app_notifications").setValue("no");
+                            mDatabase.child("users").child(Globals.UID).child("settings").child("build_your_sch_reminders").setValue("no");
+                            mDatabase.child("users").child(Globals.UID).child("settings").child("google_calendar_sync").setValue("no");
+                            Vector<Integer> personality_vector = new Vector<Integer>();
+                            personality_vector.setSize(25);
+                            for (int i=1;i<=25;i++){
+                                personality_vector.add(i,0);
+                            }
+                            mDatabase.child("users").child(Globals.UID).child("personality_vector").setValue(personality_vector);
 
                             /* addNewUserToDB end */
 

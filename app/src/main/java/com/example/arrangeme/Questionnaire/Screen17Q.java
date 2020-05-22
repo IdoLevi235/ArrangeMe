@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +62,10 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
         continue17.setOnClickListener(this);
 
         TextView topMessage = view.findViewById(R.id.text_hello17);
-        topMessage.setText("Nice Going " + Globals.currentUsername +"!");
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String username = currentFirebaseUser.getDisplayName();
+
+        topMessage.setText("Nice Going " + username +"!");
         isReply=false;
     }
 
