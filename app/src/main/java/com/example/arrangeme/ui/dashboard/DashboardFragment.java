@@ -1,6 +1,8 @@
 package com.example.arrangeme.ui.dashboard;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -36,6 +38,7 @@ import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ReminderBroadcast;
 import com.example.arrangeme.ScheduleFeedback;
 import com.example.arrangeme.ui.schedule.MainModelSchedule;
 import com.example.arrangeme.ui.schedule.MyViewHolder;
@@ -53,8 +56,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener, PersonalityVectorValidate {
 
@@ -70,6 +76,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView quesMessage;
     private TextView welcome;
     private Button rankit;
+    private Button notif;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -97,6 +104,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        notif = view.findViewById(R.id.notif);
         welcome=view.findViewById(R.id.welcomText);
         welcome.setText("Welcome " + Globals.currentUsername +"!");
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
@@ -144,7 +152,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
-        }
+
+
+    }
 
    /* public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
         Log.d("TAG7", "InitItemOfSchedule: ");
@@ -184,6 +194,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 Intent intent = new Intent(getActivity(), ScheduleFeedback.class);
                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent);
+                break;
             default:
                 break;
         }

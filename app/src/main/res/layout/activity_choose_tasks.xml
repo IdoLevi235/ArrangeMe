@@ -229,4 +229,19 @@
         app:layout_constraintTop_toBottomOf="@+id/recylcler_choosetasks"
         app:layout_constraintVertical_bias="0.56" />
 
+    <Button
+        android:id="@+id/notif"
+        android:layout_width="91dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="9dp"
+        android:text="notif"
+        app:layout_constraintBottom_toTopOf="@+id/textViewExplanation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/chooseDate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChoose"
+        app:layout_constraintVertical_bias="0.117" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -121,19 +121,6 @@ public class Homepage extends AppCompatActivity{
         }
         contextOfApplication = getApplicationContext();
 
-        // Notifications stuff //
-        String id = "notifyQUes";
-        CharSequence name = "QuestionnaireNotfilledNotification";
-        String description = "Channel to notify on unfilled questionnaires";
-        createNotificationChannel(id,name,description);
-        Calendar calendar = Calendar.getInstance();
-
-        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-        // Notifications stuff end //
-
 
 
     }
@@ -147,19 +134,6 @@ public class Homepage extends AppCompatActivity{
         return contextOfApplication;
     }
 
-    /**
-     * Create notification channel
-     * @param id
-     * @param name
-     * @param description
-     */
-    private void createNotificationChannel(String id, CharSequence name, String description) {
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(id,name,importance);
-        channel.setDescription(description);
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
-    }
 
     /**
      * Inflates the correct toolbar menu

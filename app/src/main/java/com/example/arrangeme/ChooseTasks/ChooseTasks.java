@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -38,6 +42,7 @@ import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ReminderBroadcast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -59,6 +64,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static androidx.core.content.ContextCompat.getSystemService;
+
 /**
  * Choose tasks class - here the user chooses tasks from his pending tasks that he wants to do
  * in a specific day.
@@ -91,6 +99,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private ProgressBar spinner;
     private Button setDate;
     private ImageView imv4;
+    private Button notif;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
             R.drawable.work_white, R.drawable.nutrition_white,
             R.drawable.family_white, R.drawable.chores_white,
@@ -115,6 +124,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
+
         mFunctions = FirebaseFunctions.getInstance();
         toolbar = findViewById(R.id.toolbar_chooseTasks);
         setSupportActionBar(toolbar);
@@ -126,6 +136,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 onBackPressed();
             }
         });
+        notif=findViewById(R.id.notif);
+        notif.setOnClickListener(this);
 
         view4=findViewById(R.id.view4);
 
@@ -400,11 +412,44 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 DatePickerDialog datePickerDialog = createDatePickerDialog();
                 datePickerDialog.show();
                 break;
+            case R.id.notif:
+                // Notifications stuff //
+                Log.d("TAG7", "onClick: notif pressed");
+                String cid = "notifyQues";
+                CharSequence name = "QuestionnaireNotfilledNotification";
+                String description = "Channel to notify on unfilled questionnaires";
+                createNotificationChannel(cid,name,description);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY,13);
+                calendar.set(Calendar.MINUTE,9);
+                Intent ct1 = new Intent(getApplicationContext(), ReminderBroadcast.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,ct1,0);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+                // Notifications stuff end //
+
+
             default:
                 break;
         }//end of switch
 
     } //end of onclick
+
+    /**
+     * Create notification channel
+     * @param cid
+     * @param name
+     * @param description
+     */
+    private void createNotificationChannel(String cid, CharSequence name, String description) {
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(cid,name,importance);
+        channel.setDescription(description);
+        channel.setName(name);
+        channel.setShowBadge(true);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
 
     /**
      * this function adds frequency vector and time vector to the correct pace in DB

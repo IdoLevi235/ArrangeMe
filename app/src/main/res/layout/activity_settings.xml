@@ -126,7 +126,7 @@
             android:textSize="15sp" />
 
         <Switch
-            android:id="@+id/tasks"
+            android:id="@+id/build"
             android:layout_width="331dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
