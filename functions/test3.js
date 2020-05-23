@@ -1,5 +1,7 @@
 
 const firebase = require('firebase/app');
+var createKDTree = require("static-kdtree")
+
 require('firebase/auth');
 require('firebase/database');
 const euc = require('euclidean-distance');
@@ -20,33 +22,41 @@ var mygroup = 3;
 firebase.initializeApp(firebaseConfig);
 
 var db = firebase.database();
-var ref = db.ref('simulated_users').orderByChild('group').equalTo('3');
-console.log(ref);
-ref.once('value',(snap) => {
-    
-    console.log(snap.val());
-});
-db.ref('simulated_users/').once('value', (snap) => {
+var all_freqs_vec = [];
+var all_info = [];
+var info_freqsvec = [];
+var ref = db.ref('simulated_users').orderByChild('group').equalTo(mygroup);
+ref.once('value').then((snap) => {
     snap.forEach(x => {
-        var group = x.val().group;
-        var user_id = x.key;
-        var schedules_map = [];
-        var schedules = x.val().Schedules;
-        if (group = mygroup) {          
-            for (const iterator of schedules) {
-                var isSuccesful = iterator.val().data.successful;
-                let schedules = [];
-            if (isSuccesful === "yes") {
-                theClosestFreqVec();
-            }
-            } 
-        }
-    })
+        info_freqsvec = theClosestFreqVec(x);
+        all_freqs_vec.push(info_freqsvec[0]);
+        all_info.push[info_freqsvec[1]];
+        all_info.push(x);
+    });
+    var tree = createKDTree(all_freqs_vec);
+    console.log("index of 100 closest points to [2,1,0,1,0,1,0,1,2] are ", tree.knn([2,1,0,1,0,1,0,1,2], 100));
+    tree.dispose();
 });
 
 
-function theClosestFreqVec() {
-
+function theClosestFreqVec(x) {
+    var freqs_vec = [];
+    var Schedules = [];
+    var info = [];
+    var info_freqsvec=[]
+    Schedules = x.val().Schedules;
+    for (const date in Schedules) {
+        var freq_withkey = [];
+        freq_withkey = Schedules[date].data.frequency_vector;
+        var freq = [];
+        for (const key in freq_withkey) {
+            freq.push(freq_withkey[key]);
+        }
+    freqs_vec.push(freq);
+    info.push(date);
+    }
+    info_freqsvec.push(freqs_vec);
+    info_freqsvec.push(info);
+    return (info_freqsvec);
 }
-
 
