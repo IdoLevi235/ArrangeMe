@@ -38,6 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.arrangeme.CreateSchedule;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
@@ -55,6 +56,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -674,6 +676,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Map<String, Integer> timeVector = createTimeVector(hoursMap);
                 Log.d("TAG6", "onClick:time= " + timeVector);
                 addVectorsToDB(frequencyVector,timeVector,date);
+                buildSchedule(timeVector,frequencyVector);
+
                 intent.putExtra("FromHomepage", "3");
                 intent.putExtra("date",date);
                 Log.d("TAG1", "onClick in choosetasks: " + date);
@@ -685,6 +689,33 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         //Button btn = (Button) ad.findViewById(R.id.confirm_button);
         //btn.setBackgroundResource(R.drawable.rounded_rec);
         // Button btn1 = (Button) ad.findViewById(R.id.cancel);
+    }
+
+
+    public void buildSchedule(Map<String, Integer> timeVector, Map<String, Integer> frequencyVector) {
+        ArrayList timeArray = new ArrayList<Integer>();
+        ArrayList freqArray = new ArrayList<Integer>();
+        for (Map.Entry<String,Integer> entry : timeVector.entrySet())
+            timeArray.add(entry.getValue());
+        for (Map.Entry<String,Integer> entry : frequencyVector.entrySet())
+            freqArray.add(entry.getValue());
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("group");
+        final int[] group = new int[1];
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                group[0] = (int) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        CreateSchedule ce = new CreateSchedule();
+        Log.d("CreateSchedule", +group[0]+timeArray.toString()+freqArray.toString());
+        ce.findBestSchedule(group[0],timeArray,freqArray);
     }
 
     /**

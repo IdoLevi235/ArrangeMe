@@ -3,7 +3,6 @@ package com.example.arrangeme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -29,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;

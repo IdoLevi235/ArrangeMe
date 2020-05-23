@@ -110,9 +110,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
         pictureCircle = view.findViewById(R.id.pictureCircle);
         pictureCircle.setOnClickListener(this);
-
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
         TabItem achievementsTab = view.findViewById(R.id.achievementsTab);
         TabItem infoTab = view.findViewById(R.id.infoTab);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getParentFragmentManager());
@@ -177,13 +175,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     Uri profileImage = data.getData();
-                    sendImage(profileImage);
                     try {
-                        Context applicationContext = Homepage.getContextOfApplication();
-                        InputStream inputStream =  applicationContext.getContentResolver().openInputStream(profileImage);
-                        Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.circle_choose_tasks));
+                        InputStream inputStream = getActivity().getContentResolver().openInputStream(profileImage);
+                        Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
                         pictureCircle.setBackground(d);
-
                     } catch (FileNotFoundException e) {
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
                         pictureCircle.setBackground(d);

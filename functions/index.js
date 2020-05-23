@@ -2,6 +2,7 @@
 const functions = require('firebase-functions');
 const skmeans = require('skmeans');
 const euc = require('euclidean-distance');
+var createKDTree = require("static-kdtree");
 
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
@@ -52,9 +53,80 @@ exports.classifyUser = functions.https.onCall((data, context) => {
                 results.push(euc(x.val(), pv));
             })
             var min_index = results.indexOf(Math.min(...results));
-            admin.database().ref('users/' + data.id+'/personal_info/').update({
+            admin.database().ref('users/' + data.id + '/personal_info/').update({
                 group: min_index
             });
         });
     });
+});
+
+// this function finds the fitted schedule
+exports.findSchedule = functions.https.onCall((data, context) => {
+    // const id = data.id;
+    const group = data.group;
+    const frequencyVec = data.freqVec;
+    const timeVec = data.timeVec;
+    var all_freqs_vec = [];
+    var all_info = [];
+    var info_freqsvec = [];
+    var ref = admin.database().ref('simulated_users').orderByChild('group').equalTo(group);
+    ref.once('value', (snap) => {
+        snap.forEach(x => {
+            info_freqsvec = theClosestFreqVec(x);
+            all_freqs_vec.push(...info_freqsvec[0]);
+            all_info.push({
+                id: x.key,
+                dates: info_freqsvec[1],
+                time_vector: info_freqsvec[2],
+                schedule: info_freqsvec[3]
+            });
+        });
+        var tree = createKDTree(all_freqs_vec);
+        var knnFreq = tree.knn(frequencyVec, 10);
+        tree.dispose();
+        timeVec_Sched = theClosestTimeVec(all_freqs_vec, knnFreq, all_info);
+        tree = createKDTree(timeVec_Sched.time_vec);
+        var res = tree.knn(timeVec, 1);
+        tree.dispose();
+        var chosen_sched = timeVec_Sched.schedules[res[0]];
+        return chosen_sched;
+    });
+    function theClosestFreqVec(x) {
+        var freqs_vec = [];
+        var Schedules = [];
+        var info = [];
+        var info_freqsvec = []
+        Schedules = x.val().Schedules;
+        for (const date in Schedules) {
+            var freq_withkey = [];
+            freq_withkey = Schedules[date].data.frequency_vector;
+            var freq = [];
+            for (const key in freq_withkey) {
+                freq.push(freq_withkey[key]);
+            }
+            freqs_vec.push(freq);
+            info.push(date);
+            info.push(Schedules[date].data.time_vector);
+            info.push(Schedules[date].schedule);
+        }
+        info_freqsvec.push(freqs_vec);
+        info_freqsvec.push(...info);
+        return (info_freqsvec);
+    }
+
+    function theClosestTimeVec(all_freqs_vec, knnFreq, all_info) {
+        var time_vec = [];
+        var schedules = [];
+        for (const index in knnFreq) {
+            var time_withkey = [];
+            var a = Math.floor(knnFreq[index] / 21);
+            var b = all_info[a].time_vector;
+            for (const key in b) {
+                time_withkey.push(b[key]);
+            }
+            time_vec.push(time_withkey);
+            schedules.push(all_info[a].schedule);
+        }
+        return { time_vec, schedules };
+    }
 });
