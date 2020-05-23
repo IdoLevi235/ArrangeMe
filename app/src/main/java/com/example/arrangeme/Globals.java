@@ -100,6 +100,7 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
         //btn_unfocus.setBackgroundResource(hash.get(btn_unfocus));
 
         //define the colors of the button that is focused
+
         btn_focus.setBackgroundResource(R.drawable.avatar_choose);
         //return the button that is focused
         return btn_focus;

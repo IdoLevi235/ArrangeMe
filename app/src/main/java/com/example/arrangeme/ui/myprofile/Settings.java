@@ -41,6 +41,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     Switch phoneNotif;
     Switch buildYour;
     Switch googleSync;
+    Button backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
 
         Log.d("TAG6", "onCreate: " + currUID);
         applyBtn = findViewById(R.id.applyBtn);
+        backBtn = findViewById(R.id.backBtn);
         applyBtn.setOnClickListener(this);
-
+        backBtn.setOnClickListener(this);
         appNotif = findViewById(R.id.App);
         phoneNotif=findViewById(R.id.Phone);
         buildYour=findViewById(R.id.build);
@@ -108,6 +110,11 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.applyBtn:
@@ -131,6 +138,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
                 ad.show();
                 Button btn = (Button) ad.findViewById(R.id.confirm_button);
                 btn.setBackgroundResource(R.drawable.rounded_rec);
+                break;
+
+            case R.id.backBtn:
+               onBackPressed();
                 break;
         }
     }

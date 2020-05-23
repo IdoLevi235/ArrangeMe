@@ -139,35 +139,23 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         weekCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
             @Override
             public void onEmptyViewClicked(@NotNull Calendar calendar) {
-
-                addTaskOrAnchor();
+                addAnchor();
             }
         });
 
         setHasOptionsMenu(true);
         return view;
-
-
     }
-    public void addTaskOrAnchor(){
-        SweetAlertDialog ad=  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE).setContentText(("Do you want to add a task or an anchor?"));
-        ad.setConfirmText("Task");
-        ad.setCancelText("Anchor");
-        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                startActivity(new Intent(getActivity(), AddTasks.class));
-            }
-        });
+
+    public void onBackPressed() {
+    }
+
+
+    public void addAnchor(){
         Intent intent = new Intent(getActivity(), AddAnchor.class);
-        ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                //TODO: add the same date as the square, don't know if possible
-                startActivity(new Intent(getActivity(), AddAnchor.class));
-            }
-        });
-        ad.show();
+        //TODO: add anchor date like in the month
+        //intent.putExtra("date", dateStringSentToAddAnchor[0]);
+        startActivity(intent);
     }
 
     public Calendar DateStringToCalendar (String date1) throws ParseException {
@@ -198,7 +186,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 
         switch (v.getId()) {
             case R.id.floatingActionButton:
-                addTaskOrAnchor();
+                addAnchor();
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

@@ -169,7 +169,10 @@ public class Homepage extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+
     }
+
+
 
     /**
      * overriding the back button of the cellphone and adding few conditions

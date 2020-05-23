@@ -305,23 +305,16 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         /* Calendar stuff End*/
 
     }
+    public void onBackPressed() {
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.addTasksFloater):
-            SweetAlertDialog ad;
-            ad =  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE)
-                    .setContentText(("Do you want to add a new anchor?"));
-            ad.setConfirmText("Yes!");
                 Intent intent = new Intent(getActivity(), AddAnchor.class);
-                ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sDialog) {
-                    intent.putExtra("date", dateStringSentToAddAnchor[0]);
-                    startActivity(intent);
-                }
-            });
-            ad.show();
+                intent.putExtra("date", dateStringSentToAddAnchor[0]);
+                startActivity(intent);
             break;
 
             default:

@@ -70,6 +70,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView welcome;
+    private RelativeLayout view11;
     private AppCompatImageView rankit;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
@@ -112,6 +113,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         mRecycler.setHasFixedSize(true);
         rankit = view.findViewById(R.id.rankit);
         rankit.setOnClickListener(this);
+        view11=view.findViewById(R.id.view11);
+        view11.setOnClickListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.checkIfPersonalityVectorFilled();
         mRecycler.setLayoutManager(layoutManager);
@@ -225,7 +228,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     }
                 }
                 if (q_answers.contains(0)) {
-                    Log.d("TAG7", "onDataChange: CONTAIN0" );
+                    view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
                     noSchRelative.setVisibility(View.VISIBLE);
                     noScheduleYet.setVisibility(View.VISIBLE);

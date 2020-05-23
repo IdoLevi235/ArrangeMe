@@ -101,6 +101,10 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public void callParentMethod(){
+        getActivity().onBackPressed();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.calendar_menu, menu);

@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,16 +33,34 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.arrangeme.AddTasks.AddTasks;
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import com.squareup.picasso.Transformation;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -49,9 +69,12 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private ImageView avatarBtn;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Button pictureCircle;
+    private DatabaseReference mDatabase;
+    private RoundedImageView pictureCircle;
+    //private Button pictureCircle;
     private FrameLayout containerFilter;
     private Uri profileImage;
+    private StorageReference mStorageRef;
     private int[] tabIcons = { R.drawable.flagachive1,  R.drawable.card1};
     int flag=0;
 
@@ -88,6 +111,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         pictureCircle = view.findViewById(R.id.pictureCircle);
         pictureCircle.setOnClickListener(this);
 
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         TabItem achievementsTab = view.findViewById(R.id.achievementsTab);
         TabItem infoTab = view.findViewById(R.id.infoTab);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getParentFragmentManager());
@@ -97,6 +122,27 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         setUpIcons();
+        setUpImages();
+    }
+
+    public void setUpImages() {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("profile_photo");
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String imageURL = (String) dataSnapshot.getValue();
+                    try {
+                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
+                        Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(pictureCircle);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
     }
 
     private void setUpIcons() {
@@ -112,6 +158,16 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    /**
+     * add photo link to the correct anchor in DB
+     * @param downloadUri
+     */
+    private void addPhotoUriToDB(Uri downloadUri) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
+        mDatabase.child("profile_photo").setValue(downloadUri.toString());
+    }
+
 
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
@@ -121,12 +177,11 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     Uri profileImage = data.getData();
+                    sendImage(profileImage);
                     try {
                         Context applicationContext = Homepage.getContextOfApplication();
                         InputStream inputStream =  applicationContext.getContentResolver().openInputStream(profileImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.circle_choose_tasks));
-                        pictureCircle.setHint("");
-                        pictureCircle.setCompoundDrawables(null,null,null,null);
                         pictureCircle.setBackground(d);
 
                     } catch (FileNotFoundException e) {
@@ -150,6 +205,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
+
+
     @SuppressLint("ResourceType")
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
@@ -162,6 +219,43 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Send image to our storage
+     * @param selectedImage
+     */
+    private void sendImage(Uri selectedImage) {
+        String uniqueID = UUID.randomUUID().toString();
+        StorageReference imgRef = mStorageRef.child("images/profile_pic/"+Globals.UID+"/"+uniqueID+".jpg");
+        try {
+            UploadTask uploadTask = imgRef.putFile(selectedImage);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    // Continue with the task to get the download URL
+                    return imgRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        addPhotoUriToDB(downloadUri);
+                        Log.d("TAG8", "onComplete: down: " + downloadUri);
+                    } else {
+                        Log.d("TAG8", "onComplete: Download link generation failed");
+                    }
+                }
+            });
+        }    catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
     @Override

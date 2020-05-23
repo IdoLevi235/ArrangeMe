@@ -324,7 +324,6 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                     }
                     break;
             }
-
     }
 
 

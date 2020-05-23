@@ -147,14 +147,15 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
         dayCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
             @Override
             public void onEmptyViewClicked(@NotNull Calendar calendar) {
-                addTaskOrAnchor();
+                addAnchor();
             }
         });
 
         setHasOptionsMenu(true);
         return view;
+    }
 
-
+    public void onBackPressed() {
     }
 
     public Calendar DateStringToCalendar(String createDate) throws ParseException{
@@ -178,32 +179,18 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
         dayCalendar.setOnClickListener(this);
     }
 
-    public void addTaskOrAnchor(){
-        SweetAlertDialog ad=  new SweetAlertDialog( getActivity(), SweetAlertDialog.NORMAL_TYPE).setContentText(("Do you want to add a task or an anchor?"));
-        ad.setConfirmText("Task");
-        ad.setCancelText("Anchor");
-        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                startActivity(new Intent(getActivity(), AddTasks.class));
-            }
-        });
+    public void addAnchor(){
         Intent intent = new Intent(getActivity(), AddAnchor.class);
-        ad.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener(){
-            @Override
-            public void onClick(SweetAlertDialog sDialog) {
-                //TODO: add the same date as the square, don't know if possible
-                startActivity(new Intent(getActivity(), AddAnchor.class));
-            }
-        });
-        ad.show();
+        //TODO: add anchor date like in the month
+        //intent.putExtra("date", dateStringSentToAddAnchor[0]);
+        startActivity(intent);
     }
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.floatingActionButton:
-                addTaskOrAnchor();
+                addAnchor();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());

@@ -3,7 +3,6 @@ const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 const euc = require('euclidean-distance');
-
 var firebaseConfig = {
     apiKey: "AIzaSyDMWj1qvYW2baOqTQRZI1WSzc1zWdY0uFM",
     authDomain: "arrangeme-b5809.firebaseapp.com",
@@ -16,39 +15,37 @@ var firebaseConfig = {
 };
 
 var id = 'sim1';
-var mygroup=3;
+var mygroup = 3;
 
 firebase.initializeApp(firebaseConfig);
 
 var db = firebase.database();
-
+var ref = db.ref('simulated_users').orderByChild('group').equalTo('3');
+console.log(ref);
+ref.once('value',(snap) => {
+    
+    console.log(snap.val());
+});
 db.ref('simulated_users/').once('value', (snap) => {
-    var group = snap.val().group;
-    var user_id = snap.key;
-    var schedules_map=[];
-    if(group=mygroup)
-        {
-            db.ref('simulated_users/'+user_id+'/schedules/').once('value', (snap) => {
-                snap.forEach(x => {
-                    var isSuccesful = x.child('data/successful');
-                    let schedules=[];
-                    let schedule = {
-                        date: x.child().val(),
-                        schedules: x.child('data/schedule')
-                      };
-                    if(isSuccesful==="yes"){
-                        schedules_map.entries(schedule);
-                        console.log(schedules_map);
-                        console.log(schedules_map.length());
-                        theClosestFreqVec();
-                    }
-                })
-            });
+    snap.forEach(x => {
+        var group = x.val().group;
+        var user_id = x.key;
+        var schedules_map = [];
+        var schedules = x.val().Schedules;
+        if (group = mygroup) {          
+            for (const iterator of schedules) {
+                var isSuccesful = iterator.val().data.successful;
+                let schedules = [];
+            if (isSuccesful === "yes") {
+                theClosestFreqVec();
+            }
+            } 
         }
+    })
 });
 
 
-function theClosestFreqVec(){
+function theClosestFreqVec() {
 
 }
 
