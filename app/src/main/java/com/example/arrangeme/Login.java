@@ -189,7 +189,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
      * Google sign in method
      */
     private void signInWithGoogle() {
-        Log.d("signInWithGoogle", "signInWithGoogle Happened");
+        Log.d("TAG5", "signInWithGoogle Happened");
         FirebaseUser user = mAuth.getCurrentUser();
 
 
@@ -256,8 +256,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
      * @param account
      */
     private void FirebaseGoogleAuth(GoogleSignInAccount account) {
-
-
             AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
             mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -283,7 +281,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     /**
-     * Adding new user to DB and take him to questionnaire, or take existing user to Homepage
+     * Adding new google user to DB and take him to questionnaire, or take existing user to Homepage
      * @param fUser
      * @param isNewUser
      */
@@ -297,19 +295,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             if(isNewUser) {
                 /* addNewUserToDB */
+
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
-                mDatabase.child("users").child(Globals.UID).child("personal_info").setValue(userToAdd);
+                mDatabase.child("users").child(Globals.UID).child("settings").child("phone_notifications").setValue("no");
+                mDatabase.child("users").child(Globals.UID).child("settings").child("app_notifications").setValue("no");
+                mDatabase.child("users").child(Globals.UID).child("settings").child("build_your_sch_reminders").setValue("no");
+                mDatabase.child("users").child(Globals.UID).child("settings").child("google_calendar_sync").setValue("no");
+                mDatabase.child("users").child(Globals.UID).child("personal_info").child("email").setValue(Globals.currentEmail);
+                mDatabase.child("users").child(Globals.UID).child("personal_info").child("fname").setValue(Globals.currentUsername);
                 Vector<Integer> personality_vector = new Vector<Integer>();
                 personality_vector.setSize(25);
                 for (int i=1;i<=25;i++){
-                    personality_vector.add(i,0);
+                   personality_vector.add(i,0);
                 }
                 mDatabase.child("users").child(Globals.UID).child("personality_vector").setValue(personality_vector);
-
-
                 /* addNewUserToDB end */
-
                 Intent intent = new Intent(this, Questionnaire.class);
                 startActivity(intent);
                 finish();
@@ -385,6 +386,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btn.setBackgroundResource(R.drawable.rounded_rec);
 
     }
+
 }
 
 

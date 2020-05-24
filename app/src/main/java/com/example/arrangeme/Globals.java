@@ -28,7 +28,7 @@ public class Globals {
     /**
      * Current username
      */
-    public static String currentUsername = "test";
+    public static String currentUsername;
 
 
     /**

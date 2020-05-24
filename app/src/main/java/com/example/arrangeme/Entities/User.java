@@ -2,7 +2,6 @@ package com.example.arrangeme.Entities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.example.arrangeme.Globals;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
