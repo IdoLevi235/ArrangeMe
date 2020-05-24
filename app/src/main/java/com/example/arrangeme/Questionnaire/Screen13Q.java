@@ -29,6 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class Screen13Q extends Fragment implements View.OnClickListener {
 
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
+    private RadioButton rb4;
+    private RadioButton rb5;
+
 
     public Screen13Q() {
         // Required empty public constructor
@@ -49,6 +55,30 @@ public class Screen13Q extends Fragment implements View.OnClickListener {
         Button continue13 = view.findViewById(R.id.continue13);
         TextView topMessage = view.findViewById(R.id.text_hello13);
         topMessage.setText("Keep Up The Good Work!");
+        rb1 = view.findViewById(R.id.radioButton131);
+        rb2 = view.findViewById(R.id.radioButton132);
+        rb3 = view.findViewById(R.id.radioButton133);
+        rb4 = view.findViewById(R.id.radioButton134);
+        rb5 = view.findViewById(R.id.radioButton135);
+
+        int currAns = Questionnaire.qarr[16];
+        if (currAns==1){
+            rb1.setChecked(true);
+        }
+        else if (currAns==2){
+            rb2.setChecked(true);
+        }
+        else if (currAns==3){
+            rb3.setChecked(true);
+        }
+        else if (currAns==4){
+            rb4.setChecked(true);
+        }
+        else if (currAns==5){
+            rb5.setChecked(true);
+        }
+
+
         continue13.setOnClickListener(this);
     }
 

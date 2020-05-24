@@ -28,7 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
  * create an instance of this fragment.
  */
 public class Screen4Q extends Fragment implements View.OnClickListener {
-
+    RadioButton rb1;
+    RadioButton rb2;
+    RadioButton rb3;
+    RadioButton rb4;
+    RadioButton rb5;
 
 
     public Screen4Q() {
@@ -45,11 +49,32 @@ public class Screen4Q extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final NavController navController = Navigation.findNavController(view);
         Button continue4 = view.findViewById(R.id.continue4);
         TextView topMessage = view.findViewById(R.id.text_hello4);
         topMessage.setText("Keep Up The Good Work!");
+        rb1 = view.findViewById(R.id.radioButton41);
+        rb2 = view.findViewById(R.id.radioButton42);
+        rb3 = view.findViewById(R.id.radioButton43);
+        rb4 = view.findViewById(R.id.radioButton44);
+        rb5 = view.findViewById(R.id.radioButton45);
+
+        int currAns = Questionnaire.qarr[5];
+        if (currAns==1){
+            rb1.setChecked(true);
+        }
+        else if (currAns==2){
+            rb2.setChecked(true);
+        }
+        else if (currAns==3){
+            rb3.setChecked(true);
+        }
+        else if (currAns==4){
+            rb4.setChecked(true);
+        }
+        else if (currAns==5){
+            rb5.setChecked(true);
+        }
         continue4.setOnClickListener(this);
     }
 

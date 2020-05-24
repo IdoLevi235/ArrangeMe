@@ -32,6 +32,16 @@ public class Screen16Q extends Fragment implements View.OnClickListener {
 
     RadioGroup rg1;
     RadioGroup rg2;
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
+    private RadioButton rb4;
+    private RadioButton rb5;
+    private RadioButton rb6;
+    private RadioButton rb7;
+    private RadioButton rb8;
+    private RadioButton rb9;
+    private RadioButton rb10;
 
     public Screen16Q() {
         // Required empty public constructor
@@ -66,7 +76,12 @@ public class Screen16Q extends Fragment implements View.OnClickListener {
         RadioButton[] rb_array = {rb1,rb2,rb3,rb4,rb5,rb6,rb7,rb8,rb9,rb10};
         TextView topMessage = view.findViewById(R.id.text_hello16);
         topMessage.setText("Keep Up The Good Work!");
+
+        int currAns = Questionnaire.qarr[19];
+        rb_array[currAns-1].setChecked(true);
+
         continue16.setOnClickListener(this);
+
         for (RadioButton rb : rb_array)
         {
             rb.setOnClickListener(this);

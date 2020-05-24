@@ -21,8 +21,13 @@ import android.widget.TextView;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -56,17 +61,19 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
+        int currentAns = Questionnaire.qarr[3];
+        if(currentAns>0) {
+            btn_unfocus = Globals.setFocus(btn_unfocus, btn[currentAns-1]);
+        }
+        ratingBar = (RatingBar)getView().findViewById(R.id.rateManageTime);
+        currentAns=Questionnaire.qarr[4];
+        ratingBar.setRating(currentAns);
         Button continue3 = view.findViewById(R.id.continue3);
         continue3.setOnClickListener(this);
         TextView topMessage = view.findViewById(R.id.text_hello3);
         topMessage.setText("You Are Doing Great!");
-        ratingBar = (RatingBar)getView().findViewById(R.id.rateManageTime);
         isReply=false;
     }
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onClick(View v){ //check for what button is pressed

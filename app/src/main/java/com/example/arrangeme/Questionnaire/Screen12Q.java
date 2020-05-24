@@ -58,6 +58,10 @@ public class Screen12Q extends Fragment implements View.OnClickListener {
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
+        int currentAns = Questionnaire.qarr[15];
+        if(currentAns>0) {
+            btn_unfocus = Globals.setFocus(btn_unfocus, btn[currentAns-1]);
+        }
 
         Button continue12 = view.findViewById(R.id.continue12);
         continue12.setOnClickListener(this);

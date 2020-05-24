@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,11 @@ import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -60,17 +64,29 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         for(int i = 0; i < btn.length; i++){
             btn[i] = (Button)getView().findViewById(btn_id[i]);
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
+        int currentAns = Questionnaire.qarr[1];
+        if(currentAns>0) {
+            btn_unfocus = Globals.setFocus(btn_unfocus, btn[currentAns-1]);
+        }
+        currentAns = Questionnaire.qarr[2];
+        smoke=(Switch)getView().findViewById(R.id.isSmoke);
+        if(currentAns==2) {
+            smoke.setChecked(false);
+        }
+        else if (currentAns==1){
+            smoke.setChecked(true);
+        }
+
 
         Button continue2 = view.findViewById(R.id.continue2);
         continue2.setOnClickListener(this);
-        smoke=(Switch)getView().findViewById(R.id.isSmoke);
         TextView topMessage = view.findViewById(R.id.text_hello2);
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String username = currentFirebaseUser.getDisplayName();
         topMessage.setText("Thank You " + username + ", Keep Going!");
         isReply=false;

@@ -30,6 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Screen61Q extends Fragment implements View.OnClickListener {
 
     private DatabaseReference mDatabase;
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
+    private RadioButton rb4;
+    private RadioButton rb5;
 
 
     public Screen61Q() {
@@ -46,11 +51,34 @@ public class Screen61Q extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final NavController navController = Navigation.findNavController(view);
         Button continue61 = view.findViewById(R.id.continue61);
         TextView topMessage = view.findViewById(R.id.text_hello61);
         topMessage.setText("Keep Up The Good Work!");
+        rb1 = view.findViewById(R.id.radioButton611);
+        rb2 = view.findViewById(R.id.radioButton612);
+        rb3 = view.findViewById(R.id.radioButton613);
+        rb4 = view.findViewById(R.id.radioButton614);
+        rb5 = view.findViewById(R.id.radioButton615);
+
+        int currAns = Questionnaire.qarr[7];
+        if (currAns==1){
+            rb1.setChecked(true);
+        }
+        else if (currAns==2){
+            rb2.setChecked(true);
+        }
+        else if (currAns==3){
+            rb3.setChecked(true);
+        }
+        else if (currAns==4){
+            rb4.setChecked(true);
+        }
+        else if (currAns==5){
+            rb5.setChecked(true);
+        }
+
+
         continue61.setOnClickListener(this);
     }
 

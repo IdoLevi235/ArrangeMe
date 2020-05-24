@@ -15,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
@@ -28,8 +29,11 @@ import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -70,6 +74,10 @@ public class StartQ<viewPager> extends Fragment  implements View.OnClickListener
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
+        int currentAns = Questionnaire.qarr[0];
+        if(currentAns>0) {
+            btn_unfocus = Globals.setFocus(btn_unfocus, btn[currentAns-1]);
+        }
         Button continue1 = view.findViewById(id.continue1);
         continue1.setOnClickListener(this);
         TextView topMessage = view.findViewById(R.id.text_hello1);

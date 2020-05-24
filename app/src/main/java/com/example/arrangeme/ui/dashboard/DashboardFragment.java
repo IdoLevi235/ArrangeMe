@@ -236,7 +236,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     quesMessage.setVisibility(View.VISIBLE);
                     quesMessage.setText("You must complete the questionnaire in order to receive schedules!");
                     questionnaireBtn.setVisibility(View.VISIBLE);
-                    questionnaireBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), Questionnaire.class)));
+                    int answers[] = new int[25];
+                    int i=0;
+                    for (Integer x : q_answers){
+                       answers[i++]=x;
+                    }
+                    Intent intent = new Intent(getActivity(),Questionnaire.class);
+                    intent.putExtra("answers",answers);
+                    questionnaireBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
             @Override

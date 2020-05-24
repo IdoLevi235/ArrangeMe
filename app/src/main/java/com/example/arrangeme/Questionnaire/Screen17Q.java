@@ -57,7 +57,10 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
             btn[i].setOnClickListener(this);
         }
         btn_unfocus = btn[0];
-
+        int currentAns = Questionnaire.qarr[20];
+        if(currentAns>0) {
+            btn_unfocus = Globals.setFocus(btn_unfocus, btn[currentAns-1]);
+        }
         Button continue17 = view.findViewById(R.id.continue17);
         continue17.setOnClickListener(this);
 

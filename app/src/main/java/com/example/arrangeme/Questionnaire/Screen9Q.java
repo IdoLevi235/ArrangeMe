@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
  * create an instance of this fragment.
  */
 public class Screen9Q extends Fragment implements View.OnClickListener {
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
 
 
 
@@ -50,6 +53,20 @@ public class Screen9Q extends Fragment implements View.OnClickListener {
         Button continue9 = view.findViewById(R.id.continue9);
         TextView topMessage = view.findViewById(R.id.text_hello9);
         topMessage.setText("Keep Up The Good Work!");
+        rb1 = view.findViewById(R.id.radioButton91);
+        rb2 = view.findViewById(R.id.radioButton92);
+        rb3 = view.findViewById(R.id.radioButton93);
+        int currAns = Questionnaire.qarr[12];
+        if (currAns==1){
+            rb1.setChecked(true);
+        }
+        else if (currAns==2){
+            rb2.setChecked(true);
+        }
+        else if (currAns==3){
+            rb3.setChecked(true);
+        }
+
         continue9.setOnClickListener(this);
     }
 
