@@ -118,7 +118,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String imageURL = (String) dataSnapshot.getValue();
                     try {
-                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(100).oval(true).build();
+                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(130).oval(true).build();
                         Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(pictureCircle);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -132,7 +132,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
     private void setUpIcons() {
-
         tabLayout.setInlineLabel(true);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
@@ -170,10 +169,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                     try {
                         InputStream inputStream = getActivity().getContentResolver().openInputStream(profileImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
-                        pictureCircle.setBackground(d);
+                        //pictureCircle.setBackground(d);
                     } catch (FileNotFoundException e) {
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
-                        pictureCircle.setBackground(d);
+                        //pictureCircle.setBackground(d);
                     }
                     break;
             }
