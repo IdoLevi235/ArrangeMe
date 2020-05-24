@@ -41,6 +41,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class Screen19Q extends Fragment implements View.OnClickListener {
 
     private Button aloneBtn;

@@ -2,7 +2,6 @@ package com.example.arrangeme.ui.myprofile;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -15,33 +14,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.Globals;
-import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.calendar.FilterFragment;
-import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +42,6 @@ import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
 
 import java.io.FileNotFoundException;
@@ -77,6 +63,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private StorageReference mStorageRef;
     private int[] tabIcons = { R.drawable.flagachive1,  R.drawable.card1};
     int flag=0;
+    private Uri profileImage2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -109,7 +96,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         viewPager = view.findViewById(R.id.viewPager);
 
         pictureCircle = view.findViewById(R.id.pictureCircle);
-        pictureCircle.setOnClickListener(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         TabItem achievementsTab = view.findViewById(R.id.achievementsTab);
         TabItem infoTab = view.findViewById(R.id.infoTab);
@@ -121,16 +107,18 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         tabLayout.setupWithViewPager(viewPager);
         setUpIcons();
         setUpImages();
+        pictureCircle.setOnClickListener(this);
+        //sendImage(profileImage);
     }
 
     public void setUpImages() {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("profile_photo");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("profile_photo");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String imageURL = (String) dataSnapshot.getValue();
                     try {
-                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
+                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(100).oval(true).build();
                         Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(pictureCircle);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -175,6 +163,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     Uri profileImage = data.getData();
+                    if (profileImage!=null){
+                        sendImage(profileImage); //HERE we send it to storage
+                    }
+
                     try {
                         InputStream inputStream = getActivity().getContentResolver().openInputStream(profileImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
@@ -217,13 +209,14 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     /**
      * Send image to our storage
-     * @param selectedImage
+     *
+     * @param profileImage
      */
-    private void sendImage(Uri selectedImage) {
+    private void sendImage(Uri profileImage) {
         String uniqueID = UUID.randomUUID().toString();
         StorageReference imgRef = mStorageRef.child("images/profile_pic/"+Globals.UID+"/"+uniqueID+".jpg");
         try {
-            UploadTask uploadTask = imgRef.putFile(selectedImage);
+            UploadTask uploadTask = imgRef.putFile(profileImage);
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
