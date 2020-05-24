@@ -59,7 +59,7 @@ public class CreateSchedule {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
                         List<String> data = (List<String>) httpsCallableResult.getData();
-                        Log.d("classifyUser", "onSuccess: "  );
+                        Log.d("FINDSCHE", "onSuccess: "  +data);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

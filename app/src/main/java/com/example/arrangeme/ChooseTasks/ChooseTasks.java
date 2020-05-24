@@ -693,19 +693,23 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
 
     public void buildSchedule(Map<String, Integer> timeVector, Map<String, Integer> frequencyVector) {
-        ArrayList timeArray = new ArrayList<Integer>();
-        ArrayList freqArray = new ArrayList<Integer>();
-        for (Map.Entry<String,Integer> entry : timeVector.entrySet())
-            timeArray.add(entry.getValue());
-        for (Map.Entry<String,Integer> entry : frequencyVector.entrySet())
-            freqArray.add(entry.getValue());
+        ArrayList<Integer> timeArray = new ArrayList<>();
+        ArrayList<Integer> freqArray = new ArrayList<>();
+        for (Integer x : timeVector.values())
+            timeArray.add(x);
+        for (Integer y : frequencyVector.values())
+            freqArray.add(y);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("group");
-        final int[] group = new int[1];
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("group");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                group[0] = (int) dataSnapshot.getValue();
+                Log.d("CreateSchedule", "onDataChange: snapshot " + dataSnapshot.getValue().getClass());
+                Long g = (Long) dataSnapshot.getValue();
+                Integer group = g.intValue();
+                CreateSchedule ce = new CreateSchedule();
+                Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
+                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray);
             }
 
             @Override
@@ -713,9 +717,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
             }
         });
-        CreateSchedule ce = new CreateSchedule();
-        Log.d("CreateSchedule", +group[0]+timeArray.toString()+freqArray.toString());
-        ce.findBestSchedule(group[0],timeArray,freqArray);
+
     }
 
     /**

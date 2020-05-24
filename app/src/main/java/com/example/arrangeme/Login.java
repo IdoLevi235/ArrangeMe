@@ -297,7 +297,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 /* addNewUserToDB */
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
+                //User userToAdd = new User(Globals.currentEmail, Globals.currentUsername);
                 mDatabase.child("users").child(Globals.UID).child("settings").child("phone_notifications").setValue("no");
                 mDatabase.child("users").child(Globals.UID).child("settings").child("app_notifications").setValue("no");
                 mDatabase.child("users").child(Globals.UID).child("settings").child("build_your_sch_reminders").setValue("no");
