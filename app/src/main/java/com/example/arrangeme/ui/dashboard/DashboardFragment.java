@@ -160,6 +160,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
+                Log.d("TAG7", "onDataChange: " + dataSnapshot);
                     if ((dataSnapshot.getChildrenCount()==0)) {
                         view11.setVisibility(View.GONE);
                         mRecycler.setVisibility(View.GONE);
