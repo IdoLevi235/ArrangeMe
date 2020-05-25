@@ -78,8 +78,9 @@ public class Screen16Q extends Fragment implements View.OnClickListener {
         topMessage.setText("Keep Up The Good Work!");
 
         int currAns = Questionnaire.qarr[19];
-        rb_array[currAns-1].setChecked(true);
-
+        if(currAns>0) {
+            rb_array[currAns - 1].setChecked(true);
+        }
         continue16.setOnClickListener(this);
 
         for (RadioButton rb : rb_array)

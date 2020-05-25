@@ -3,6 +3,26 @@ const functions = require('firebase-functions');
 const skmeans = require('skmeans');
 const euc = require('euclidean-distance');
 var createKDTree = require("static-kdtree");
+require('firebase/auth');
+require('firebase/database');
+// const firebase = require('firebase/app');
+// var firebaseConfig = {
+//     apiKey: "AIzaSyDMWj1qvYW2baOqTQRZI1WSzc1zWdY0uFM",
+//     authDomain: "arrangeme-b5809.firebaseapp.com",
+//     databaseURL: "https://arrangeme-b5809.firebaseio.com",
+//     // projectId: "arrangeme-b5809",
+//     storageBucket: "arrangeme-b5809.appspot.com",
+//     // messagingSenderId: "sender-id",
+//     // appId: "1:24099753586:android:e9bcbc2f7a6e094f603ceb",
+//     // measurementId: "G-measurement-id",
+// };
+
+// var id = 'sim1';
+// var mygroup = 3;
+
+// firebase.initializeApp(firebaseConfig);
+
+// var db = firebase.database();
 
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
@@ -62,39 +82,40 @@ exports.classifyUser = functions.https.onCall((data, context) => {
 
 // this function finds the fitted schedule
 exports.findSchedule = functions.https.onCall((data, context) => {
-    // const id = data.id;
-    console.log(data);
-    console.log(data.group);
-    console.log(data.freqVec);
-    console.log(data.timeVec);
-    const group = data.group;
-    const frequencyVec = data.freqVec;
-    const timeVec = data.timeVec;
     var all_freqs_vec = [];
     var all_info = [];
     var info_freqsvec = [];
-    var ref = admin.database().ref('simulated_users').orderByChild('group').equalTo(group);
-    ref.once('value', (snap) => {
-        snap.forEach(x => {
-            info_freqsvec = theClosestFreqVec(x);
-            all_freqs_vec.push(...info_freqsvec[0]);
-            all_info.push({
-                id: x.key,
-                dates: info_freqsvec[1],
-                time_vector: info_freqsvec[2],
-                schedule: info_freqsvec[3]
+    var ref = admin.database().ref('simulated_users').orderByChild('group').equalTo(data.group);
+    return new Promise((resolve, reject) => {
+        ref.once('value', (snap) => {
+            snap.forEach(x => {
+                info_freqsvec = theClosestFreqVec(x);
+                all_freqs_vec.push(...info_freqsvec[0]);
+                all_info.push({
+                    id: x.key,
+                    dates: info_freqsvec[1],
+                    time_vector: info_freqsvec[2],
+                    schedule: info_freqsvec[3]
+                });
             });
-        });
-        var tree = createKDTree(all_freqs_vec);
-        var knnFreq = tree.knn(frequencyVec, 10);
-        tree.dispose();
-        timeVec_Sched = theClosestTimeVec(all_freqs_vec, knnFreq, all_info);
-        tree = createKDTree(timeVec_Sched.time_vec);
-        var res = tree.knn(timeVec, 1);
-        tree.dispose();
-        var chosen_sched = timeVec_Sched.schedules[res[0]];
-        return chosen_sched;
+            var tree = createKDTree(all_freqs_vec);
+            var knnFreq = tree.knn(data.freqVec, 10);
+            tree.dispose();
+            timeVec_Sched = theClosestTimeVec(all_freqs_vec, knnFreq, all_info);
+            var timeTree = createKDTree(timeVec_Sched.time_vec);
+            var res = timeTree.knn(data.timeVec, 1);
+            timeTree.dispose();
+            var chosen_sched = timeVec_Sched.schedules[res[0]];
+            if(chosen_sched){
+                console.log(chosen_sched);
+                resolve(chosen_sched);
+            }
+            else{
+                reject(new Error('Error in function!'));
+            }
+        }).catch(reject);
     });
+
     function theClosestFreqVec(x) {
         var freqs_vec = [];
         var Schedules = [];
