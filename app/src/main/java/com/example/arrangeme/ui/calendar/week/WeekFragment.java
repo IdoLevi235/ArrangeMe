@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -64,7 +66,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         for (int i = 0; i < catColor.length; i++) {
             hash.put(cat[i], catColor[i]);
         }
-
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -26,8 +26,11 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
         Bundle extras = getIntent().getExtras();
-        qarr = extras.getIntArray("answers");
-
+        try {
+            qarr = extras.getIntArray("answers");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -89,7 +89,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
      * @param description
      */
     private void createNotificationChannel(String cid, CharSequence name, String description) {
-        Log.d("TAG6", "createNotificationChannel: HELLO");
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(cid,name,importance);
         channel.setDescription(description);
@@ -97,14 +96,14 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         notificationManager.createNotificationChannel(channel);
 
         if (cid.equals("ques")){
-
+            Log.d("TAG6", "createNotificationChannel: HELLO");
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY,19);
-            calendar.set(Calendar.MINUTE,00);
+            calendar.set(Calendar.HOUR_OF_DAY,13);
+            calendar.set(Calendar.MINUTE,38);
             Intent ct1 = new Intent(getApplicationContext(), ReminderBroadcast.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,ct1,0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),60*1000,pendingIntent);
 
         }
     }
