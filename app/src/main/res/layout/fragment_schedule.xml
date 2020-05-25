@@ -81,7 +81,7 @@
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:visibility="visible" />
 
         <TextView

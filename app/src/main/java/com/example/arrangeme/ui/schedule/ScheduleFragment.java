@@ -93,7 +93,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         datePicker = (Button)view.findViewById(R.id.chooseDate2);
         String date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
         if (date!=null) { // came from choosetasks

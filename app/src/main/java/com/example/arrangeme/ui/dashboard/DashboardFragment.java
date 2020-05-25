@@ -54,6 +54,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -117,11 +118,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         view11.setOnClickListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.checkIfPersonalityVectorFilled();
+        this.checkIfThereIsSchedule();
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         ScheduleFragment sf = new ScheduleFragment();
         String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Pending_tasks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
        // Query query = mDatabase.orderByChild("createDate").equalTo(today);
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
@@ -149,6 +151,33 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
         }
+
+    public void checkIfThereIsSchedule() {
+
+        DatabaseReference mDatabase;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                    if ((dataSnapshot.getValue()==null)) {
+                        view11.setVisibility(View.GONE);
+                        mRecycler.setVisibility(View.GONE);
+                        noSchRelative.setVisibility(View.VISIBLE);
+                        noScheduleYet.setVisibility(View.VISIBLE);
+                        noScheduleYet.setText("You don't have schedule for today");
+                        quesMessage.setVisibility(View.VISIBLE);
+                        quesMessage.setText("Please insert tasks and press red the button to build a schedule");
+                        questionnaireBtn.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
    /* public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
         Log.d("TAG7", "InitItemOfSchedule: ");
@@ -235,7 +264,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     noScheduleYet.setText("You don't have schedule for today");
                     quesMessage.setVisibility(View.VISIBLE);
                     quesMessage.setText("You must complete the questionnaire in order to receive schedules!");
-                    questionnaireBtn.setVisibility(View.VISIBLE);
+
                     int answers[] = new int[25];
                     int i=0;
                     for (Integer x : q_answers){
