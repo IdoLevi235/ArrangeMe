@@ -306,6 +306,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
     }
     public void onBackPressed() {
+
     }
 
     @Override
