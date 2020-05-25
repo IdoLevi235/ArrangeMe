@@ -63,6 +63,10 @@ exports.classifyUser = functions.https.onCall((data, context) => {
 // this function finds the fitted schedule
 exports.findSchedule = functions.https.onCall((data, context) => {
     // const id = data.id;
+    console.log(data);
+    console.log(data.group);
+    console.log(data.freqVec);
+    console.log(data.timeVec);
     const group = data.group;
     const frequencyVec = data.freqVec;
     const timeVec = data.timeVec;

@@ -52,6 +52,9 @@ public class CreateSchedule {
         data.put("group", group);
         data.put("freqVec", frequencyVector);
         data.put("timeVec", timeVector);
+        Log.d("FINDSCHE", "1 "  +group);
+        Log.d("FINDSCHE", "2 "  +frequencyVector);
+        Log.d("FINDSCHE", "3 "  +timeVector);
         return mFunctions
                 .getHttpsCallable("findSchedule")
                 .call(data)
@@ -65,7 +68,7 @@ public class CreateSchedule {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("classifyUser", "onFailure: " + e );
+                        Log.d("FINDSCHE", "onFailure: " + e );
 
                     }
                 });
