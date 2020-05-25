@@ -237,6 +237,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginBottom="9dp"
         android:text="notif"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textViewExplanation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
