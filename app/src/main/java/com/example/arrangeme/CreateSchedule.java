@@ -67,11 +67,9 @@ public class CreateSchedule {
                 .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                        List<String> data = (List<String>) httpsCallableResult.getData();
-                        Log.d("FINDSCHE", "onSuccess: " +data.get(0));
-                        Log.d("FINDSCHE", "onSuccess: " +data.getClass());
-                        Log.d("FINDSCHE", "onSuccess: "  +data);
-                        //makeFixes(data,frequencyVector,timeVector,date);
+                        List<HashMap<String,String>> data1 = (List<HashMap<String, String>>) httpsCallableResult.getData();
+                        Log.d("FINDSCHE", "onSuccess: " + data1);
+                        makeFixes(data1,frequencyVector,timeVector,date);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -82,7 +80,10 @@ public class CreateSchedule {
                 });
     }
 
-    public void makeFixes(List<String> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, String date) {
+    public void makeFixes(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, String date) {
+        Log.d("FINDSCHE", "makeFixes: " + recommendedSch.getClass());
+        Log.d("FINDSCHE", "makeFixes: " + recommendedSch);
+
         ArrayList<AnchorEntity> anchorsList= new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -107,22 +108,28 @@ public class CreateSchedule {
         });
     }
 
-    public void anchorsFix(List<String> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, ArrayList<AnchorEntity> anchorsList) {
-        ArrayList<ScheduleItem> reccomendedSchedule = convertStringsToSchedule(recommendedSch);
+    public void anchorsFix(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, ArrayList<AnchorEntity> anchorsList) {
+        ArrayList<ScheduleItem> recommendedSchedule = convertStringsToSchedule(recommendedSch);
+        // works until here, we have the scheudle that the algorithm found in a good arraylist
+        //next step, anchor fix (step 1)
     }
 
-    private ArrayList<ScheduleItem> convertStringsToSchedule(List<String> recommendedSch) {
+    private ArrayList<ScheduleItem> convertStringsToSchedule(List<HashMap<String, String>> recommendedSch) {
         ArrayList<ScheduleItem> items= new ArrayList<>();
-        for (String item:recommendedSch){
-            String bigArr[] = item.split(", ");
-            String startTimeArr[] = bigArr[2].split("=");
-            String endTimeArr[] = bigArr[3].split("=");
-            String categoryArr[] = bigArr[4].split("=");
-            ScheduleItem sc = new ScheduleItem(startTimeArr[1],endTimeArr[1],categoryArr[1]);
-            items.add(sc);
-        }
+        for (Map<String, String> entry : recommendedSch) {
+            String startTime = null;
+            String endTime = null;
+            String category = null;
+            for (String key : entry.keySet()) {
+                if(key.equals("startTime")) startTime=entry.get(key) ; // get the value (key=startTime, value=09:00)
+                if(key.equals("endTime")) endTime=entry.get(key) ; // get the value (key=endTime, value=10:00)
+                if(key.equals("category")) category=entry.get(key) ; // get the value (key=category, value=XXXX)
+            }
+            Log.d("FINDSCHE", "convertStringsToSchedule: item =" + startTime + " " + endTime + " " + category);
+            ScheduleItem scheduleItem = new ScheduleItem(startTime,endTime,category);
+            items.add(scheduleItem);
 
-        Log.d("convertStringsToSchedule", "convertStringsToSchedule: " +items.get(0).getStartTime()+" "+ items.size());
+        }
         return items;
     }
 }
