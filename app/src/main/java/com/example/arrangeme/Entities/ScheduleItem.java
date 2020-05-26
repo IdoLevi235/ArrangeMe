@@ -3,10 +3,23 @@ package com.example.arrangeme.Entities;
 public class ScheduleItem {
     String hour;
     Boolean isWithTask;
+    String startTime;
+    String endTime;
+    String category;
 
     public ScheduleItem(String hour, Boolean isWithTask) {
         this.hour = hour;
         this.isWithTask = isWithTask;
+    }
+
+    public ScheduleItem(String startTime, String endTime, String category) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+    }
+
+    public ScheduleItem() {
+
     }
 
     public String getHour() {
@@ -24,4 +37,27 @@ public class ScheduleItem {
         isWithTask = withTask;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

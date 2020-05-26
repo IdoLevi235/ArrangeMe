@@ -238,7 +238,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(800, 180));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
                 if (positionsMarked.contains(position)){
-                    holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+                    holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
                 }
                 else {
                     holder.button.setBackgroundResource(catBackgroundFull[x]);
@@ -276,7 +276,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
      */
     private void itemOnClick(MyViewHolder holder, int position, MainModel model) {
         Drawable dDarkblue = ResourcesCompat.getDrawable(getResources(),
-                R.drawable.rounded_rec_darkblue_nostroke, null);
+                R.drawable.rounded_rec_blue_nostroke, null);
         Drawable dCurr = holder.button.getBackground();
         Drawable.ConstantState constantStateDrawableA = dDarkblue.getConstantState();
         Drawable.ConstantState constantStateDrawableB = dCurr.getConstantState();
@@ -315,7 +315,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private void chooseTask(MyViewHolder holder) {
         if (count < numOfTasksToChoose) { //stay red
             count++;
-            holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+            holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
             numberTextView.setBackgroundResource(R.drawable.red_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
@@ -325,7 +325,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         { //red--->green
             Log.d("TAG6", "chooseTask: green");
             count++;
-            holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+            holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
             numberTextView.setBackgroundResource(R.drawable.green_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
@@ -676,7 +676,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Map<String, Integer> timeVector = createTimeVector(hoursMap);
                 Log.d("TAG6", "onClick:time= " + timeVector);
                 addVectorsToDB(frequencyVector,timeVector,date);
-                buildSchedule(timeVector,frequencyVector);
+                buildSchedule(timeVector,frequencyVector,date);
 
                 intent.putExtra("FromHomepage", "3");
                 intent.putExtra("date",date);
@@ -692,7 +692,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    public void buildSchedule(Map<String, Integer> timeVector, Map<String, Integer> frequencyVector) {
+    public void buildSchedule(Map<String, Integer> timeVector, Map<String, Integer> frequencyVector,String date) {
         ArrayList<Integer> timeArray = new ArrayList<>();
         ArrayList<Integer> freqArray = new ArrayList<>();
         for (Integer x : timeVector.values())
@@ -709,7 +709,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
                 Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
-                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray);
+                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date);
             }
 
             @Override

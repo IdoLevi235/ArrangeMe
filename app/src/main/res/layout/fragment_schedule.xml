@@ -191,7 +191,7 @@
         android:gravity="center"
         android:textColor="#4E4E4E"
         android:textSize="15sp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +201,7 @@
     <View
         android:id="@+id/view4"
         android:layout_width="369dp"
-        android:layout_height="495dp"
+        android:layout_height="490dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         android:visibility="visible"
@@ -209,19 +209,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.18" />
 
     <RelativeLayout
         android:id="@+id/scheduleExistsLayout"
-        android:layout_width="370dp"
-        android:layout_height="462dp"
+        android:layout_width="373dp"
+        android:layout_height="476dp"
         android:elevation="1.5dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.086">
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -240,16 +241,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSchedule"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="373dp"
+            android:layout_height="490dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-3dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="-22dp"
+            android:layout_marginStart="-17dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="-19dp"
             android:elevation="1.5dp" />
 
     </RelativeLayout>

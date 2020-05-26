@@ -18,7 +18,7 @@ public class AnchorEntity {
     String date;
     String timeStart;
     String timeEnd;
-
+    String anchorID;
     public AnchorEntity() {
 
     }
@@ -32,6 +32,12 @@ public class AnchorEntity {
         this.date = date;
         this.timeStart = startTime;
         this.timeEnd = endTime;
+    }
+
+    public AnchorEntity(String timeStart, String timeEnd,String anchorID) {
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.anchorID=anchorID;
     }
 
 
