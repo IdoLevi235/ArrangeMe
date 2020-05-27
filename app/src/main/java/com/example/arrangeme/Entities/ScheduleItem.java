@@ -7,6 +7,8 @@ public class ScheduleItem {
     String endTime;
     String category;
 
+    String type;
+
     public ScheduleItem(String hour, Boolean isWithTask) {
         this.hour = hour;
         this.isWithTask = isWithTask;
@@ -22,6 +24,22 @@ public class ScheduleItem {
 
     }
 
+    public ScheduleItem(String startTime, String endTime, String category, String type) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+        this.type = type;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getHour() {
         return hour;
     }
@@ -29,6 +47,7 @@ public class ScheduleItem {
     public void setHour(String hour) {
         this.hour = hour;
     }
+
     public Boolean getWithTask() {
         return isWithTask;
     }
