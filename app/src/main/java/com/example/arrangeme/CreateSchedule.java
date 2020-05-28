@@ -118,10 +118,10 @@ public class CreateSchedule {
                     }
                 }
                 recommendedSchedule = convertStringsToSchedule(recommendedSch);
-                deleteAnchorsFromRecommSch(); // WORKS
-                divideReccSch(); // works
-                badHoursCheck(); // works
-                goodHoursCheck();
+                deleteAnchorsFromRecommSch(); // WORKS - deleting anchors from reccomended schedule
+                divideReccSch(); // works - 2 lists: 1) recommended tasks in bad hours (anchors of the requesting user)  2) recommended tasks in good hours
+                badHoursCheck(); // works - step 1 in the fix algorithm
+                goodHoursCheck(); //works - step 2 in the fix algorithm
             }
 
             @Override
