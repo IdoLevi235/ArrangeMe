@@ -1,6 +1,6 @@
 package com.example.arrangeme.Entities;
 
-public class ScheduleItem {
+public class ScheduleItem{
     String hour;
     Boolean isWithTask;
     String startTime;

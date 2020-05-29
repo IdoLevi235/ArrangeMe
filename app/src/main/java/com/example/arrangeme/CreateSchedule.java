@@ -1,6 +1,5 @@
 package com.example.arrangeme;
 
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
@@ -32,6 +31,8 @@ public class CreateSchedule {
     ArrayList<ScheduleItem> recommSchGoodHours = new ArrayList<>();
     ArrayList<ScheduleItem> recommSchBadHours = new ArrayList<>();
     HashMap<String,Integer> requestedFreqVec = new HashMap<>();
+    HashMap<String,Integer> originalRequestedFreqVec = new HashMap<>();
+    ArrayList<ScheduleItem> finalSchedule = new ArrayList<>();
     public CreateSchedule(){
         mFunctions = FirebaseFunctions.getInstance();
     }
@@ -97,6 +98,15 @@ public class CreateSchedule {
         requestedFreqVec.put("RELAX", (Integer) frequencyVector.get(6));
         requestedFreqVec.put("FRIENDS", (Integer) frequencyVector.get(7));
         requestedFreqVec.put("OTHER", (Integer) frequencyVector.get(8));
+        originalRequestedFreqVec.put("STUDY", (Integer) frequencyVector.get(0));
+        originalRequestedFreqVec.put("SPORT", (Integer) frequencyVector.get(1));
+        originalRequestedFreqVec.put("WORK", (Integer) frequencyVector.get(2));
+        originalRequestedFreqVec.put("NUTRITION", (Integer) frequencyVector.get(3));
+        originalRequestedFreqVec.put("FAMILY", (Integer) frequencyVector.get(4));
+        originalRequestedFreqVec.put("CHORES", (Integer) frequencyVector.get(5));
+        originalRequestedFreqVec.put("RELAX", (Integer) frequencyVector.get(6));
+        originalRequestedFreqVec.put("FRIENDS", (Integer) frequencyVector.get(7));
+        originalRequestedFreqVec.put("OTHER", (Integer) frequencyVector.get(8));
 
     }
 
@@ -122,6 +132,7 @@ public class CreateSchedule {
                 divideReccSch(); // works - 2 lists: 1) recommended tasks in bad hours (anchors of the requesting user)  2) recommended tasks in good hours
                 badHoursCheck(); // works - step 1 in the fix algorithm
                 goodHoursCheck(); //works - step 2 in the fix algorithm
+                unifyGoodScheduleWithAnchors(); // step 3 in the fix algorithm
             }
 
             @Override
@@ -129,6 +140,13 @@ public class CreateSchedule {
 
             }
         });
+    }
+
+    private void unifyGoodScheduleWithAnchors() {
+        finalSchedule.addAll(anchorsList);
+        finalSchedule.addAll(recommSchGoodHours);
+        //now, sort the final schedule based on startTime
+
     }
 
     private void goodHoursCheck() {
@@ -143,7 +161,7 @@ public class CreateSchedule {
             else { // replace it with something from the bad hours, or delete it from good hours
                 if (!recommSchBadHours.isEmpty()){ // bad hours is not empty
                     boolean flag=false;
-                    for (int j = 0 ; j<recommSchBadHours.size() ; j++){ // finding item in bad hours that matches the freq vec
+                    for (int j = 0 ; j<recommSchBadHours.size() ; j++){ // small loop with index j - finding item in bad hours that matches the freq vec
                         if (flag==true) break; // stop looping
                         newCat = recommSchBadHours.get(j).getCategory();
                         x = requestedFreqVec.get(newCat);
@@ -162,16 +180,21 @@ public class CreateSchedule {
             }
         }
 
+        //now comparing again, good items with original freqvec
+        for (int i = 0  ; i< recommSchGoodHours.size() ; i++){
+            String category = recommSchGoodHours.get(i).getCategory();
+            if (originalRequestedFreqVec.get(category)==0){
+                recommSchGoodHours.remove(i);
+            }
+        }
     }
 
     private void badHoursCheck() {
         Iterator<ScheduleItem> it = recommSchBadHours.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String badItemCategory = it.next().getCategory();
             Integer x = requestedFreqVec.get(badItemCategory); // get the value of this category in freq vec
-            if (x > 0) {   // it is in freqvec
-                requestedFreqVec.replace(badItemCategory, x, x - 1);
-            } else {
+            if (x == 0) {    // it is not in freqvec
                 it.remove();
             }
         }
