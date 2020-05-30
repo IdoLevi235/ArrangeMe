@@ -1,13 +1,15 @@
 package com.example.arrangeme.Entities;
 
+import androidx.annotation.NonNull;
+
 public class ScheduleItem{
     String hour;
     Boolean isWithTask;
     String startTime;
     String endTime;
     String category;
-
     String type;
+    String anchorID;
 
     public ScheduleItem(String hour, Boolean isWithTask) {
         this.hour = hour;
@@ -29,6 +31,16 @@ public class ScheduleItem{
         this.endTime = endTime;
         this.category = category;
         this.type = type;
+    }
+
+    public ScheduleItem(String startTime, String endTime, String category, String type, String anchorID) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+        this.type = type;
+        if(anchorID!=null)
+            this.anchorID = anchorID;
+        else this.anchorID="-1";
     }
 
 
@@ -78,5 +90,15 @@ public class ScheduleItem{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        String sTime = this.getStartTime();
+        String eTime = this.getEndTime();
+        String category = this.getCategory();
+        String type = this.getType();
+        return "Start: " + sTime+ " End: " + eTime + " Category: " + category + " Type:" + type;
     }
 }

@@ -77,4 +77,77 @@ public enum TaskCategory {
     return t;
   }
 
+  public static String fromEnumToString (TaskCategory s){
+    String t;
+    switch (s){
+      case STUDY:
+        t="study";
+        break;
+      case SPORT:
+        t="sport";
+        break;
+      case WORK:
+        t="work";
+        break;
+      case NUTRITION:
+        t="nutrition";
+        break;
+      case FAMILY:
+        t="family";
+        break;
+      case CHORES:
+        t="chores";
+        break;
+      case RELAX:
+        t="relax";
+        break;
+      case FRIENDS:
+        t="friends";
+        break;
+      case OTHER:
+        t="other";
+        break;
+      default:
+        t="none";
+        break;
+    }
+    return t;
+  }
+  public static String fromIntToString (int x){
+    String t;
+    switch (x){
+      case 0:
+        t="study";
+        break;
+      case 1:
+        t="sport";
+        break;
+      case 2:
+        t="work";
+        break;
+      case 3:
+        t="nutrition";
+        break;
+      case 4:
+        t="family";
+        break;
+      case 5:
+        t="chores";
+        break;
+      case 6:
+        t="relax";
+        break;
+      case 7:
+        t="friends";
+        break;
+      case 8:
+        t="other";
+        break;
+      default:
+        t=null;
+        break;
+    }
+    return t;
+  }
+
 }
