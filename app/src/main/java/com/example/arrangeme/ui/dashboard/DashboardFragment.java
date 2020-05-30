@@ -156,7 +156,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
         DatabaseReference mDatabase;
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("task").child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {

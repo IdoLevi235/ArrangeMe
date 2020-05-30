@@ -9,7 +9,7 @@ import com.example.arrangeme.Enums.TaskCategory;
 
 import java.util.Calendar;
 
-public class AnchorEntity {
+public class AnchorEntity{
     TaskCategory category;
     String description;
     Uri photo;
