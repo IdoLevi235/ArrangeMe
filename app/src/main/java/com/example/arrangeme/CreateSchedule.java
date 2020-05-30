@@ -1,5 +1,6 @@
 package com.example.arrangeme;
 
+import android.app.PendingIntent;
 import android.transition.Scene;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -24,13 +25,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CreateSchedule {
     private DatabaseReference mDatabase;
     private  FirebaseFunctions mFunctions;
+    ArrayList<String> onlyAvailableHoursList = new ArrayList<>();
     ArrayList<AnchorEntity> anchorsList = new ArrayList<>();
     ArrayList<ScheduleItem> recommendedSchedule;
     ArrayList<ScheduleItem> recommSchGoodHours = new ArrayList<>();
@@ -155,7 +160,17 @@ public class CreateSchedule {
                 put("CHORES",0); put("RELAX",0); put("FRIENDS",0); put("OTHER",0);
             }};
             HashMap<String,Integer> difference = new HashMap<>(); // difference between original and current
-            for (ScheduleItem item : finalSchedule){
+        LinkedHashMap<String,Boolean> hoursMap = new LinkedHashMap<String,Boolean>() // Boolean: true = available, false=  unavailable
+        {{
+            put("06:00",true); put("06:30",true); put("07:00",true); put("07:30",true); put("08:00",true); put("08:30",true);
+            put("09:00",true); put("09:30",true); put("10:00",true); put("10:30",true); put("11:00",true); put("11:30",true);
+            put("12:00",true); put("12:30",true); put("13:00",true); put("13:30",true); put("14:00",true); put("14:30",true);
+            put("15:00",true); put("15:30",true); put("16:00",true); put("16:30",true); put("17:00",true); put("17:30",true);
+            put("18:00",true); put("18:30",true); put("19:00",true); put("19:30",true); put("20:00",true); put("20:30",true);
+            put("21:00",true); put("21:30",true); put("22:00",true); put("22:30",true); put("23:00",true); put("23:30",true);
+        }};
+
+        for (ScheduleItem item : finalSchedule){
                 if (item.getType().equals("task")){
                     String cat = item.getCategory();
                     Integer x = currentFreqVec.get(cat);
@@ -170,12 +185,79 @@ public class CreateSchedule {
                  Integer diff = originalRequestedFreqVec.get(c) - currentFreqVec.get(c);
                  difference.put(c,diff);
              }
+                Log.d("finalsch", "finalCheck: " + difference);
 
              // positive number - the user is missing tasks in this category - add a task from this category to the final schedule
-             // negative number - the user has too much from this category - delete a task from this category to the final scheudle
+             // negative number - the user has too much from this category - delete a task from this category to the final schedule
+
+             //First, delete unnecessary tasks
+            Iterator it1 = difference.entrySet().iterator();
+            while (it1.hasNext()) {
+                Map.Entry pair = (Map.Entry) it1.next();
+                Integer x = (Integer) pair.getValue();
+                while (x < 0) {
+                    Iterator it2 = finalSchedule.iterator();
+                    while (it2.hasNext()) {
+                        ScheduleItem scheduleItem = (ScheduleItem) it2.next();
+                        String cat = scheduleItem.getCategory();
+                        if (cat.equals(pair.getKey())) {
+                            it2.remove();
+                            x++;
+                        }
+                    }
+                }
+            }
+            Log.d("finalsch", "finalCheck: after delete negatives = " + finalSchedule); // works
+
+
+                //  Then, if there is a positive number in "difference",
+                //  for example WORK=2, try to add 2 work tasks (1 hour long each)
+                //  into empty places in the final schedule (if possible)
+
+                boolean flag=false;
+                Set<String> removeSet = new HashSet<>();
+                // Here we delete unavailable hours from hourslist
+                Iterator it3 = finalSchedule.iterator();
+                while (it3.hasNext()){
+                    ScheduleItem item = (ScheduleItem) it3.next();
+                    String sTime = item.getStartTime();
+                    String eTime = item.getEndTime();
+                    Iterator it4 = hoursMap.entrySet().iterator();
+                    while (it4.hasNext()){
+                        Map.Entry pair1 = (Map.Entry) it4.next();
+                        String hour = (String) pair1.getKey();
+                        if (hour.equals(sTime)){
+                            flag=true;
+                            pair1.setValue(false); // false = unavailable
+                            removeSet.add((String) pair1.getKey());
+                        }
+                        else if (hour.equals(eTime)){
+                            flag=false;
+                            pair1.setValue(false); // false = unavailable
+                            removeSet.add((String) pair1.getKey());
+                        }
+                        else if (flag==true){
+                            pair1.setValue(false); // false = unavailable
+                            removeSet.add((String) pair1.getKey());
+                        }
+                    }
+                }
+                //hoursMap.keySet().removeAll(removeSet);
+                //end of removing unavailable hours (marking them as false in the hoursmap)
+                Log.d("finalsch", "finalCheck: hoursMap = " + hoursMap); // works
+                onlyAvailableHoursList.addAll(hoursMap.keySet()); // all available hours are in ArrayList finalAvailableHoursList now
+                List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 2);
+                Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
+
+
 
 
     }
+
+    private void findAvailableHours() {
+
+    }
+
 
     private void unifyGoodScheduleWithAnchors() {
         finalSchedule.addAll(recommSchGoodHours);
