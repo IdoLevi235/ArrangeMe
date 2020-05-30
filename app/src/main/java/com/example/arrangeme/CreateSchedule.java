@@ -110,6 +110,7 @@ public class CreateSchedule {
 
     public void anchorsFix(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, ArrayList<AnchorEntity> anchorsList) {
         ArrayList<ScheduleItem> recommendedSchedule = convertStringsToSchedule(recommendedSch);
+        
         // works until here, we have the scheudle that the algorithm found in a good arraylist
         //next step, anchor fix (step 1)
     }
