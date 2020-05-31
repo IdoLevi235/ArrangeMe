@@ -21,6 +21,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,6 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CreateSchedule {
     private DatabaseReference mDatabase;
@@ -195,19 +197,19 @@ public class CreateSchedule {
             while (it1.hasNext()) {
                 Map.Entry pair = (Map.Entry) it1.next();
                 Integer x = (Integer) pair.getValue();
-                while (x < 0) {
-                    Iterator it2 = finalSchedule.iterator();
-                    while (it2.hasNext()) {
+                Iterator it2 = finalSchedule.iterator();
+                while (x < 0 && it2.hasNext()) {
                         ScheduleItem scheduleItem = (ScheduleItem) it2.next();
                         String cat = scheduleItem.getCategory();
                         if (cat.equals(pair.getKey())) {
                             it2.remove();
                             x++;
+                            pair.setValue(x);
                         }
-                    }
                 }
             }
             Log.d("finalsch", "finalCheck: after delete negatives = " + finalSchedule); // works
+            Log.d("finalsch", "finalCheck: after delete negatives = " + difference); // works
 
 
                 //  Then, if there is a positive number in "difference",
@@ -242,19 +244,83 @@ public class CreateSchedule {
                         }
                     }
                 }
-                //hoursMap.keySet().removeAll(removeSet);
+                hoursMap.keySet().removeAll(removeSet);
                 //end of removing unavailable hours (marking them as false in the hoursmap)
                 Log.d("finalsch", "finalCheck: hoursMap = " + hoursMap); // works
                 onlyAvailableHoursList.addAll(hoursMap.keySet()); // all available hours are in ArrayList finalAvailableHoursList now
-                List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 2);
+                List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 3);
+                List<List<String>> smallerListsClone = new ArrayList<>(smallerLists); // clone
                 Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
 
 
+                //each sublist is a possible free hour
+                //continue from here
+
+                Iterator it5 = difference.entrySet().iterator();
+                while (it5.hasNext()){ // iterate on difference
+                    Map.Entry pair = (Map.Entry) it5.next();
+                    Integer x = (Integer) pair.getValue();
+                    String cat = (String) pair.getKey();
+                    Iterator it6 = smallerListsClone.iterator();
+                    while (x>0 && it6.hasNext()){ // iterate until x = 0
+                            List<String> smallList = (List<String>) it6.next();
+                            String sTime = smallList.get(0);
+                            String eTime = smallList.get(smallList.size()-1);
+                            LocalTime start = LocalTime.parse(sTime);
+                            LocalTime end = LocalTime.parse(eTime);
+                            if (start.until(end, ChronoUnit.HOURS)==1){ // available one hour
+                                ScheduleItem item = new ScheduleItem(sTime,eTime,cat,"task");
+                                finalSchedule.add(item);
+                                x--;
+                                it6.remove();
+                                pair.setValue((Integer)pair.getValue()-1);
+                            }
+                    }
+                }
+        Log.d("finalsch", "finalCheck: diffrence after one hour wiindows:" + difference);
+        //half hour windows
+        List<String> newAvailableHours = smallerListsClone.stream().flatMap(List::stream).collect(Collectors.toList());
+        List<List<String>> newSmallerLists = Lists.partition(newAvailableHours, 2);
+        List<List<String>> newSmallerListsClone = new ArrayList<>(newSmallerLists); // clone
+//
+//
+        Iterator it7 = difference.entrySet().iterator();
+        while (it7.hasNext()){ // iterate on difference
+            Map.Entry pair = (Map.Entry) it7.next();
+            Integer x = (Integer) pair.getValue();
+            String cat = (String) pair.getKey();
+            Iterator it8 = newSmallerListsClone.iterator();
+            while (x>0 && it8.hasNext()){ // iterate until x = 0 or list of couples is over
+                    List<String> smallList = (List<String>) it8.next();
+                    String sTime = smallList.get(0);
+                    String eTime = smallList.get(smallList.size()-1);
+                    LocalTime start = LocalTime.parse(sTime);
+                    LocalTime end = LocalTime.parse(eTime);
+                    if (start.until(end, ChronoUnit.MINUTES)==30){ // available half hour
+                        ScheduleItem item = new ScheduleItem(sTime,eTime,cat,"task");
+                        finalSchedule.add(item);
+                        it8.remove();
+                        pair.setValue(x--);
+                    }
+                    break;
+            }
+        }
 
 
-    }
 
-    private void findAvailableHours() {
+
+        Collections.sort(finalSchedule, (item1, item2) -> {
+            LocalTime item1start = LocalTime.parse(item1.getStartTime());
+            LocalTime item2start = LocalTime.parse(item2.getStartTime());
+            if (item1start.isBefore(item2start)) return -1;
+            if (item1start.isAfter(item2start)) return 1;
+            else return 0;
+        });
+
+        Log.d("finalsch", "finalCheck: after final fix:" + finalSchedule);
+        Log.d("finalsch", "finalCheck: after final fix:" + difference);
+
+
 
     }
 

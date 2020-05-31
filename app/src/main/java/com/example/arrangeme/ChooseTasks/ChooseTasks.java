@@ -407,6 +407,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 else {
                   String date = (String) setDate.getText();
                   chooseTaskSuccess(date);
+
               }
                 break;
 
