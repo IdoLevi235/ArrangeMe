@@ -117,17 +117,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         view11=view.findViewById(R.id.view11);
         view11.setOnClickListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        this.checkIfPersonalityVectorFilled();
-        this.checkIfThereIsSchedule();
+        //this.checkIfPersonalityVectorFilled();
+        //this.checkIfThereIsSchedule();
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         ScheduleFragment sf = new ScheduleFragment();
         String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        /*mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
        // Query query = mDatabase.orderByChild("createDate").equalTo(today);
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
-
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                 Log.d("TAG7", "onBindViewHolder: ");
@@ -150,6 +149,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
+        */
         }
 
     public void checkIfThereIsSchedule() {

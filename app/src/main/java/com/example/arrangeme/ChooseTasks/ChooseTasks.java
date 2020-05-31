@@ -115,6 +115,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     ArrayList<String> categoriesChosen = new ArrayList<>();
     ArrayList<Integer> positionsMarked = new ArrayList<>();
+    ArrayList<String> keysChosen = new ArrayList<>();
+
     Map<String, Boolean> hoursMap;
     @Override
 
@@ -281,11 +283,15 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         Drawable.ConstantState constantStateDrawableA = dDarkblue.getConstantState();
         Drawable.ConstantState constantStateDrawableB = dCurr.getConstantState();
         if (!constantStateDrawableA.equals(constantStateDrawableB)) { //Not pressed yet
+            String key = fbAdapter.getRef(position).getKey();
+            keysChosen.add(key);
             chooseTask(holder);
             categoriesChosen.add(model.getCategory());
             positionsMarked.add(position);
 
         } else { //pressed, unpick
+            String key = fbAdapter.getRef(position).getKey();
+            keysChosen.remove(key);
             unChooseTask(holder, model);
             categoriesChosen.remove(model.getCategory());
             positionsMarked.remove((Integer)position);
@@ -664,6 +670,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 sweetAlertDialog.dismissWithAnimation();
+                keysChosen.clear();
             }
         });
 
@@ -676,9 +683,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Log.d("TAG6", "onClick:freq= " + frequencyVector);
                 Map<String, Integer> timeVector = createTimeVector(hoursMap);
                 Log.d("TAG6", "onClick:time= " + timeVector);
+                //Log.d("TAG9", "onClick: keys chosen = " + keysChosen); works
                 addVectorsToDB(frequencyVector,timeVector,date);
+                moveChosenTasksFromPendingTasks();
                 buildSchedule(timeVector,frequencyVector,date);
-
                 intent.putExtra("FromHomepage", "3");
                 intent.putExtra("date",date);
                 Log.d("TAG1", "onClick in choosetasks: " + date);
@@ -690,6 +698,62 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         //Button btn = (Button) ad.findViewById(R.id.confirm_button);
         //btn.setBackgroundResource(R.drawable.rounded_rec);
         // Button btn1 = (Button) ad.findViewById(R.id.cancel);
+    }
+
+    private void moveChosenTasksFromPendingTasks() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String key = ds.getKey();
+                    if (keysChosen.contains(key)){
+                        try {
+                            //getting task details to preserve
+                            String category = (String) ds.child("category").getValue();
+                            String createDate = (String) ds.child("createDate").getValue();
+                            String description = (String) ds.child("description").getValue();
+                            String location = (String) ds.child("location").getValue();
+                            String reminderType = (String) ds.child("reminderType").getValue();
+                            String photoURI = (String) ds.child("photoUri").getValue();
+                            ds.getRef().setValue(null);
+                            moveTask(key,category,createDate,description,location,reminderType,photoURI);
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void moveTask(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
+        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("temp");
+        newRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.child(key).getRef().child("category").setValue(category);
+                dataSnapshot.child(key).getRef().child("createDate").setValue(createDate);
+                dataSnapshot.child(key).getRef().child("description").setValue(description);
+                dataSnapshot.child(key).getRef().child("location").setValue(location);
+                dataSnapshot.child(key).getRef().child("reminderType").setValue(reminderType);
+                dataSnapshot.child(key).getRef().child("photoUri").setValue(photoURI);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
@@ -710,7 +774,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
                 Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
-                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date);
+                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date,keysChosen);
             }
 
             @Override

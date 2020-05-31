@@ -124,10 +124,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                InitItemOfSchedule(holder,position,model); // Init each item in schedule
-                setClickListenerToItem(holder,position); // Short click --> cancel pick
-                setLongClickListenerToItem(holder,position); // Long clicks
-                spinner.setVisibility(View.GONE);
+               //InitItemOfSchedule(holder,position,model); // Init each item in schedule
+                //setClickListenerToItem(holder,position); // Short click --> cancel pick
+                //setLongClickListenerToItem(holder,position); // Long clicks
+                //spinner.setVisibility(View.GONE);
             }
 
             @NonNull
@@ -300,10 +300,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
         holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-        if(model.getType().equals("ANCHOR")) {
+        if(model.getType().equals("anchor")) {
             holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
         }
-        else if (model.getType().equals("TASK"))
+        else if (model.getType().equals("task"))
             holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
         holder.button.setBackgroundResource
                 (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);

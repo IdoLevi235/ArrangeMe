@@ -9,6 +9,15 @@ public class ScheduleItem{
     String endTime;
     String category;
     String type;
+
+    public String getAnchorID() {
+        return anchorID;
+    }
+
+    public void setAnchorID(String anchorID) {
+        this.anchorID = anchorID;
+    }
+
     String anchorID;
 
     public ScheduleItem(String hour, Boolean isWithTask) {

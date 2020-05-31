@@ -117,31 +117,31 @@ public enum TaskCategory {
     String t;
     switch (x){
       case 0:
-        t="study";
+        t="STUDY";
         break;
       case 1:
-        t="sport";
+        t="SPORT";
         break;
       case 2:
-        t="work";
+        t="WORK";
         break;
       case 3:
-        t="nutrition";
+        t="NUTRITION";
         break;
       case 4:
-        t="family";
+        t="FAMILY";
         break;
       case 5:
-        t="chores";
+        t="CHORES";
         break;
       case 6:
-        t="relax";
+        t="RELAX";
         break;
       case 7:
-        t="friends";
+        t="FRIENDS";
         break;
       case 8:
-        t="other";
+        t="OTHER";
         break;
       default:
         t=null;
