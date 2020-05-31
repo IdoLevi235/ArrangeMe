@@ -74,7 +74,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private RoundedImageView addPhoto;
     private EditText addLocation;
     private ReminderType chosenReminder;
-    private TaskCategory chosenCat;
+    private String chosenCat;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase2;
     private TextView textViewHelloAdd;
@@ -262,7 +262,7 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
                     if (spinner==spinnerRem)
                     chosenReminder = ReminderType.fromInt(position);
                     else if (spinner==spinnerCat){
-                    chosenCat=TaskCategory.fromInt(position);
+                    chosenCat=TaskCategory.fromIntToString(position);
                     }
                 }
             }

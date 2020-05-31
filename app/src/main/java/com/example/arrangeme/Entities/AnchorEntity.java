@@ -10,7 +10,7 @@ import com.example.arrangeme.Enums.TaskCategory;
 import java.util.Calendar;
 
 public class AnchorEntity{
-    TaskCategory category;
+    String category;
     String description;
     Uri photo;
     ReminderType reminderType;
@@ -18,12 +18,21 @@ public class AnchorEntity{
     String date;
     String timeStart;
     String timeEnd;
+
+    public String getAnchorID() {
+        return anchorID;
+    }
+
+    public void setAnchorID(String anchorID) {
+        this.anchorID = anchorID;
+    }
+
     String anchorID;
     public AnchorEntity() {
 
     }
 
-    public AnchorEntity(TaskCategory category, String description, Uri photo, ReminderType reminderType, String location, String date, String startTime, String endTime) {
+    public AnchorEntity(String category, String description, Uri photo, ReminderType reminderType, String location, String date, String startTime, String endTime) {
         this.category = category;
         this.description = description;
         this.photo = photo;
@@ -34,18 +43,19 @@ public class AnchorEntity{
         this.timeEnd = endTime;
     }
 
-    public AnchorEntity(String timeStart, String timeEnd,String anchorID) {
+        public AnchorEntity(String timeStart, String timeEnd,String anchorID, String category) {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.anchorID=anchorID;
+        this.category = category;
     }
 
 
-    public TaskCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(TaskCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
