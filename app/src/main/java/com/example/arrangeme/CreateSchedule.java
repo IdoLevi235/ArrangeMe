@@ -211,7 +211,7 @@ public class CreateSchedule {
                             String location = (String) ds.child("location").getValue();
                             String photoUri = (String) ds.child("photoUri").getValue();
                             String reminderType = (String) ds.child("reminderType").getValue();
-                            ScheduleItem item = new ScheduleItem();
+                            ScheduleItem item = new ScheduleItem( category,  createDate,  description,  location);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
