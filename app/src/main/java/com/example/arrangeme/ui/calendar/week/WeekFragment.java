@@ -74,7 +74,10 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("week", "onDataChange: "+ds.toString());
                     DataSnapshot mDatabase2 = ds.child("schedule");
+                    Log.d("week", "onDataChange: "+mDatabase2.toString());
+
                     if (mDatabase2.exists()) {
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
@@ -96,13 +99,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         try {
                             cal = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getStartTime());
                             cal2 = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getEndTime());
-                            Log.d("weekCal", "onDataChange: " + cal);
-                            Log.d("weekCal", "onDataChange: " + cal2);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        //TODO: change the cal3- for the finish date
-                        // cal3.add(Calendar.HOUR, 3);
                         Event event = new Event(String.valueOf(scheduleFromDB.get(i).getId()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
                         listOfEvents.add(event);
                     }
