@@ -173,7 +173,7 @@ public class CreateSchedule {
             scheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    scheduleRef.child(String.valueOf(finalI)).setValue(finalSchedule.get(finalI));
+                   scheduleRef.child(String.valueOf(finalI)).setValue(finalSchedule.get(finalI));
                     if (finalSchedule.get(finalI).getType().equals("task")){
                         String cat = finalSchedule.get(finalI).getCategory();
                         getTaskDetails(cat,String.valueOf(finalI),date);
@@ -201,7 +201,7 @@ public class CreateSchedule {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    if (ds.child("category").equals(cat)) { // match
+                    if (ds.child("category").getValue().equals(cat)) { // match
                     try {
                         String createDate = (String) ds.child("createDate").getValue();
                         String description = (String) ds.child("description").getValue();
@@ -215,6 +215,7 @@ public class CreateSchedule {
                         scheduleRef.child(key).child("photoUri").setValue(photoUri);
                         scheduleRef.child(key).child("reminderType").setValue(reminderType);
                         ds.getRef().setValue(null); // delete
+                        moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
                         //TODO: MAYBE TO ACTIVE TASKS
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -224,29 +225,6 @@ public class CreateSchedule {
                 }
 
                 // Unchosen tasks back to pending tasks
-
-                tempRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            String key = ds.getKey();
-                            String category = (String) ds.child("category").getValue();
-                            String createDate = (String) ds.child("createDate").getValue();
-                            String description = (String) ds.child("description").getValue();
-                            String location = (String) ds.child("location").getValue();
-                            String reminderType = (String) ds.child("reminderType").getValue();
-                            String photoURI = (String) ds.child("photoUri").getValue();
-                            ds.getRef().setValue(null);
-                            putInPendingTasks(key,category,createDate,description,location,reminderType,photoURI);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
             }
 
             @Override
@@ -254,6 +232,35 @@ public class CreateSchedule {
 
             }
         });
+    }
+
+    private void moveTasksFromTempToPending() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
+        tempRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String key = ds.getKey();
+                    String category = (String) ds.child("category").getValue();
+                    String createDate = (String) ds.child("createDate").getValue();
+                    String description = (String) ds.child("description").getValue();
+                    String location = (String) ds.child("location").getValue();
+                    String reminderType = (String) ds.child("reminderType").getValue();
+                    String photoURI = (String) ds.child("photoUri").getValue();
+                    ds.getRef().setValue(null);
+                    putInPendingTasks(key,category,createDate,description,location,reminderType,photoURI);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void putInPendingTasks(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
