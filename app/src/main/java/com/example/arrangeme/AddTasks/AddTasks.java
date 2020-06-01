@@ -410,7 +410,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
                         int newKey;
                         if (biggestKey==null) newKey=0;
                         else newKey = Integer.parseInt(biggestKey) + 1;
-
                         currKey = newKey;
                         taskEntityToAdd.setCategory(mainAdapter.getCurrentCategory());
                         taskEntityToAdd.setDescription(description);

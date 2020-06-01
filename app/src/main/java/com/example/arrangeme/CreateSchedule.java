@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 
 import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Entities.ScheduleItem;
+import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.Lists;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +24,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,8 +35,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CreateSchedule {
+    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private  FirebaseFunctions mFunctions;
     ArrayList<String> onlyAvailableHoursList = new ArrayList<>();
@@ -72,7 +79,7 @@ public class CreateSchedule {
                 });
     }
 
-    public  Task<HttpsCallableResult> findBestSchedule(int group, ArrayList timeVector, ArrayList frequencyVector, String date) {
+    public  Task<HttpsCallableResult> findBestSchedule(int group, ArrayList timeVector, ArrayList frequencyVector, String date, ArrayList<String> keysChosen) {
         // Create the arguments to the callable function.
         initFreqVecHashMap(frequencyVector); // storing the requested freq vec for later use
         Map<String, Object> data = new HashMap<>();
@@ -87,7 +94,7 @@ public class CreateSchedule {
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
                         List<HashMap<String,String>> data1 = (List<HashMap<String, String>>) httpsCallableResult.getData();
                         Log.d("FINDSCHE", "onSuccess: " + data1);
-                        makeFixes(data1,frequencyVector,timeVector,date);
+                        makeFixes(data1,frequencyVector,timeVector,date,keysChosen);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -120,7 +127,7 @@ public class CreateSchedule {
 
     }
 
-    public void makeFixes(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, String date) {
+    public void makeFixes(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, String date, ArrayList<String> keysChosen) {
         Log.d("FINDSCHE", "makeFixes: " + recommendedSch.getClass());
         Log.d("FINDSCHE", "makeFixes: " + recommendedSch);
 
@@ -144,7 +151,9 @@ public class CreateSchedule {
                 badHoursCheck(); // works - step 1 in the fix algorithm
                 goodHoursCheck(); //works - step 2 in the fix algorithm
                 unifyGoodScheduleWithAnchors(); // good schedule + anchors unified
-                finalCheck(); // step 3
+                finalCheck(); // step 3, here we get final schedule
+                addFinalScheduleToDB(date,keysChosen);
+
             }
 
             @Override
@@ -152,6 +161,116 @@ public class CreateSchedule {
 
             }
         });
+    }
+
+    private void addFinalScheduleToDB(String date, ArrayList<String> keysChosen) { // keysChosen has tasks keys
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
+        for (int i = 0 ; i<finalSchedule.size() ; i++){
+            int finalI = i;
+            scheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                   scheduleRef.child(String.valueOf(finalI)).setValue(finalSchedule.get(finalI));
+                    if (finalSchedule.get(finalI).getType().equals("task")){
+                        String cat = finalSchedule.get(finalI).getCategory();
+                        getTaskDetails(cat,String.valueOf(finalI),date);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        
+        
+        
+
+    }
+
+    private void getTaskDetails(String cat, String key, String date) { // key = schedule item key
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
+        tempRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    if (ds.child("category").getValue().equals(cat)) { // match
+                    try {
+                        String createDate = (String) ds.child("createDate").getValue();
+                        String description = (String) ds.child("description").getValue();
+                        String location = (String) ds.child("location").getValue();
+                        String photoUri = (String) ds.child("photoUri").getValue();
+                        String reminderType = (String) ds.child("reminderType").getValue();
+                        DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
+                        scheduleRef.child(key).child("createDate").setValue(createDate);
+                        scheduleRef.child(key).child("description").setValue(description);
+                        scheduleRef.child(key).child("location").setValue(location);
+                        scheduleRef.child(key).child("photoUri").setValue(photoUri);
+                        scheduleRef.child(key).child("reminderType").setValue(reminderType);
+                        ds.getRef().setValue(null); // delete
+                        moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
+                        //TODO: MAYBE TO ACTIVE TASKS
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+
+                    }
+                }
+
+                // Unchosen tasks back to pending tasks
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void moveTasksFromTempToPending() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
+        tempRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    String key = ds.getKey();
+                    String category = (String) ds.child("category").getValue();
+                    String createDate = (String) ds.child("createDate").getValue();
+                    String description = (String) ds.child("description").getValue();
+                    String location = (String) ds.child("location").getValue();
+                    String reminderType = (String) ds.child("reminderType").getValue();
+                    String photoURI = (String) ds.child("photoUri").getValue();
+                    ds.getRef().setValue(null);
+                    putInPendingTasks(key,category,createDate,description,location,reminderType,photoURI);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void putInPendingTasks(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
+        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        newRef.child(key).child("category").setValue(category);
+        newRef.child(key).child("createDate").setValue(createDate);
+        newRef.child(key).child("description").setValue(description);
+        newRef.child(key).child("location").setValue(location);
+        newRef.child(key).child("reminderType").setValue(reminderType);
+        newRef.child(key).child("photoUri").setValue(photoURI);
     }
 
     private void finalCheck(){
@@ -195,19 +314,19 @@ public class CreateSchedule {
             while (it1.hasNext()) {
                 Map.Entry pair = (Map.Entry) it1.next();
                 Integer x = (Integer) pair.getValue();
-                while (x < 0) {
-                    Iterator it2 = finalSchedule.iterator();
-                    while (it2.hasNext()) {
+                Iterator it2 = finalSchedule.iterator();
+                while (x < 0 && it2.hasNext()) {
                         ScheduleItem scheduleItem = (ScheduleItem) it2.next();
                         String cat = scheduleItem.getCategory();
                         if (cat.equals(pair.getKey())) {
                             it2.remove();
                             x++;
+                            pair.setValue(x);
                         }
-                    }
                 }
             }
             Log.d("finalsch", "finalCheck: after delete negatives = " + finalSchedule); // works
+            Log.d("finalsch", "finalCheck: after delete negatives = " + difference); // works
 
 
                 //  Then, if there is a positive number in "difference",
@@ -242,19 +361,83 @@ public class CreateSchedule {
                         }
                     }
                 }
-                //hoursMap.keySet().removeAll(removeSet);
+                hoursMap.keySet().removeAll(removeSet);
                 //end of removing unavailable hours (marking them as false in the hoursmap)
                 Log.d("finalsch", "finalCheck: hoursMap = " + hoursMap); // works
                 onlyAvailableHoursList.addAll(hoursMap.keySet()); // all available hours are in ArrayList finalAvailableHoursList now
-                List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 2);
+                List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 3);
+                List<List<String>> smallerListsClone = new ArrayList<>(smallerLists); // clone
                 Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
 
 
+                //each sublist is a possible free hour
+                //continue from here
+
+                Iterator it5 = difference.entrySet().iterator();
+                while (it5.hasNext()){ // iterate on difference
+                    Map.Entry pair = (Map.Entry) it5.next();
+                    Integer x = (Integer) pair.getValue();
+                    String cat = (String) pair.getKey();
+                    Iterator it6 = smallerListsClone.iterator();
+                    while (x>0 && it6.hasNext()){ // iterate until x = 0
+                            List<String> smallList = (List<String>) it6.next();
+                            String sTime = smallList.get(0);
+                            String eTime = smallList.get(smallList.size()-1);
+                            LocalTime start = LocalTime.parse(sTime);
+                            LocalTime end = LocalTime.parse(eTime);
+                            if (start.until(end, ChronoUnit.HOURS)==1){ // available one hour
+                                ScheduleItem item = new ScheduleItem(sTime,eTime,cat,"task");
+                                finalSchedule.add(item);
+                                x--;
+                                it6.remove();
+                                pair.setValue((Integer)pair.getValue()-1);
+                            }
+                    }
+                }
+        Log.d("finalsch", "finalCheck: diffrence after one hour wiindows:" + difference);
+        //half hour windows
+        List<String> newAvailableHours = smallerListsClone.stream().flatMap(List::stream).collect(Collectors.toList());
+        List<List<String>> newSmallerLists = Lists.partition(newAvailableHours, 2);
+        List<List<String>> newSmallerListsClone = new ArrayList<>(newSmallerLists); // clone
+//
+//
+        Iterator it7 = difference.entrySet().iterator();
+        while (it7.hasNext()){ // iterate on difference
+            Map.Entry pair = (Map.Entry) it7.next();
+            Integer x = (Integer) pair.getValue();
+            String cat = (String) pair.getKey();
+            Iterator it8 = newSmallerListsClone.iterator();
+            while (x>0 && it8.hasNext()){ // iterate until x = 0 or list of couples is over
+                    List<String> smallList = (List<String>) it8.next();
+                    String sTime = smallList.get(0);
+                    String eTime = smallList.get(smallList.size()-1);
+                    LocalTime start = LocalTime.parse(sTime);
+                    LocalTime end = LocalTime.parse(eTime);
+                    if (start.until(end, ChronoUnit.MINUTES)==30){ // available half hour
+                        ScheduleItem item = new ScheduleItem(sTime,eTime,cat,"task");
+                        finalSchedule.add(item);
+                        it8.remove();
+                        pair.setValue(x--);
+                    }
+                    break;
+            }
+        }
 
 
-    }
 
-    private void findAvailableHours() {
+
+        Collections.sort(finalSchedule, (item1, item2) -> {
+            LocalTime item1start = LocalTime.parse(item1.getStartTime());
+            LocalTime item2start = LocalTime.parse(item2.getStartTime());
+            if (item1start.isBefore(item2start)) return -1;
+            if (item1start.isAfter(item2start)) return 1;
+            else return 0;
+        });
+
+        Log.d("finalsch", "finalCheck: after final fix:" + finalSchedule);
+        Log.d("finalsch", "finalCheck: after final fix:" + difference);
+
+
 
     }
 
@@ -268,6 +451,7 @@ public class CreateSchedule {
             String category = anchor.getCategory();
             String type = "anchor";
             String id = anchor.getAnchorID();
+
             ScheduleItem item = new ScheduleItem(sTime, eTime, category, type, id);
             finalSchedule.add(item);
         }
