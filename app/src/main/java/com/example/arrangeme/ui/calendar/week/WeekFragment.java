@@ -72,18 +72,18 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("weekCal", "onDataChange1: " + ds.toString());
                     DataSnapshot mDatabase2 = ds.child("schedule");
                     Log.d("weekCal", "onDataChange2: " + mDatabase2.toString());
-                    List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                     if (mDatabase2.exists()) {
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         Log.d("weekCal", "ArrayList: " + message.toString());
                         for (HashMap<String, String> entry : message) {
                             Log.d("weekCal", "HashMap: " + entry.toString());
                             if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("anchorID"), entry.get("type"));
+                                sc = new ScheduleItem(entry.get("anchorID"), entry.get("type"),message.indexOf(entry));
                                 Log.d("weekCal", "entry: " + sc.toString());
                             }
                             else {
@@ -94,26 +94,27 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                             Log.d("weekCal", "scheduleFromDB: " + scheduleFromDB.toString());
                         }
                     }
+                }
+                for (int i = 0; i < scheduleFromDB.size(); i++) {
+                    Log.d("weekCal", "scheduleFromDB2: " + scheduleFromDB.toString());
 
-                            for (int i = 0; i < scheduleFromDB.size(); i++) {
-                                Calendar cal = Calendar.getInstance();
-                                Calendar cal2 = Calendar.getInstance();
-                                try {
-                                    cal = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getStartTime());
-                                    cal2 = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getEndTime());
-                                    Log.d("weekCal", "onDataChange: " + cal);
-                                    Log.d("weekCal", "onDataChange: " + cal2);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                //TODO: change the cal3- for the finish date
-                                // cal3.add(Calendar.HOUR, 3);
-                                Event event = new Event(String.valueOf(sc.getId()), sc.getDescription(), cal, cal2, sc.getCategory(), ContextCompat.getColor(getActivity(), hash.get(sc.getCategory().toLowerCase())), false, false);
-                                listOfEvents.add(event);
-                            }
-                    weekCalendar.submit(listOfEvents);
-                        }
+                    Calendar cal = Calendar.getInstance();
+                    Calendar cal2 = Calendar.getInstance();
+                    try {
+                        cal = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getStartTime());
+                        cal2 = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getEndTime());
+                        Log.d("weekCal", "onDataChange: " + cal);
+                        Log.d("weekCal", "onDataChange: " + cal2);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
+                    //TODO: change the cal3- for the finish date
+                    // cal3.add(Calendar.HOUR, 3);
+                    Event event = new Event(String.valueOf(sc.getId()), sc.getDescription(), cal, cal2, sc.getCategory(), ContextCompat.getColor(getActivity(), hash.get(sc.getCategory().toLowerCase())), false, false);
+                    listOfEvents.add(event);
+                }
+                weekCalendar.submit(listOfEvents);
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }

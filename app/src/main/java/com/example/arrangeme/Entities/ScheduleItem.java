@@ -17,9 +17,10 @@ public class ScheduleItem{
     String photoUri;
     String reminderType;
 
-    public ScheduleItem(String anchorID, String type) {
+    public ScheduleItem(String anchorID, String type, int id) {
         this.anchorID = anchorID;
         this.type = type;
+        this.id=id;
     }
 
 
