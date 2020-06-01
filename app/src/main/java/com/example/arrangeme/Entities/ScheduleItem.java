@@ -11,6 +11,7 @@ public class ScheduleItem{
     String type;
     String anchorID;
     String createDate;
+    String date;
     String description;
     int id;
     String location;
@@ -24,12 +25,12 @@ public class ScheduleItem{
     }
 
 
-    public ScheduleItem(String startTime, String endTime, String category, String type, String createDate, String description, String location, int id) {
+    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, int id) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.category = category;
         this.type = type;
-        this.createDate = createDate;
+        this.date = date;
         this.description = description;
         this.location = location;
         this.id=id;
@@ -85,6 +86,14 @@ public class ScheduleItem{
         this.location = location;
         this.photoUri = photoUri;
         this.reminderType = reminderType;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 

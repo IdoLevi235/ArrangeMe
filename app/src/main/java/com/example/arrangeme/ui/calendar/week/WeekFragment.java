@@ -85,7 +85,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 sc = new ScheduleItem(entry.get("anchorID"), entry.get("type"),message.indexOf(entry));
                             }
                             else {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("createDate"), entry.get("description"), entry.get("location"),message.indexOf(entry) );
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),message.indexOf(entry) );
                             }
                             scheduleFromDB.add(sc);
                             Log.d("weekCal", "scheduleFromDB: " + scheduleFromDB.toString());
@@ -97,8 +97,8 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         Calendar cal = Calendar.getInstance();
                         Calendar cal2 = Calendar.getInstance();
                         try {
-                            cal = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getStartTime());
-                            cal2 = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getEndTime());
+                            cal = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getStartTime());
+                            cal2 = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getEndTime());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
