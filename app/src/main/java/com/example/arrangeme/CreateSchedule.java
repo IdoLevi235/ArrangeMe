@@ -216,14 +216,17 @@ public class CreateSchedule {
             scheduleRef.child(String.valueOf(key)).child("endTime").setValue(item.getEndTime());
             if (!item.getType().equals("anchor")) {
                 for (ScheduleItem task : tempTasks) {
-                    if (item.getCategory().equals(task.getCategory())) { // ma"tch
+                    if (item.getCategory().equals(task.getCategory())) { // match
                         scheduleRef.child(String.valueOf(key)).child("type").setValue("task");
                         scheduleRef.child(String.valueOf(key)).child("category").setValue(task.getCategory());
-                        scheduleRef.child(String.valueOf(key)).child("createDate").setValue(task.getCreateDate());
+                        scheduleRef.child(String.valueOf(key)).child("date").setValue(date);
                         scheduleRef.child(String.valueOf(key)).child("description").setValue(task.getDescription());
                         scheduleRef.child(String.valueOf(key)).child("location").setValue(task.getLocation());
                         scheduleRef.child(String.valueOf(key)).child("photoUri").setValue(task.getPhotoUri());
                         scheduleRef.child(String.valueOf(key)).child("reminderType").setValue(task.getReminderType());
+                        //after task added to db, we want to remove it from temp into active tasks
+                        DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Active_tasks");
+                        activeRef.push().setValue(task);
                         tempTasks.remove(task);
                         break;
                     }
@@ -234,10 +237,11 @@ public class CreateSchedule {
                 scheduleRef.child(String.valueOf(key)).child("AnchorID").setValue(item.getAnchorID());
                 scheduleRef.child(String.valueOf(key)).child("type").setValue("anchor");
                 scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
+                scheduleRef.child(String.valueOf(key)).child("date").setValue(date);
+
             }
 
         }
-
 
     }
 
