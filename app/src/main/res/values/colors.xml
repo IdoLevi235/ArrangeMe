@@ -22,5 +22,6 @@
     <color name="transparent">#00000000</color>
     db3737
     <color name="redtrash">#db3737</color>
+    <color name="anchor">#B33232</color>
 
 </resources>
