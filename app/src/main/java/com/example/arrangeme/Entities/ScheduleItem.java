@@ -67,6 +67,16 @@ public class ScheduleItem{
         else this.anchorID="-1";
     }
 
+    public ScheduleItem(String startTime, String endTime, String category, String type, String createDate, String description, String location) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+        this.type = type;
+        this.createDate = createDate;
+        this.description = description;
+        this.location = location;
+    }
+
 
     public String getId() {
         return id;

@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public class CreateSchedule {
@@ -50,6 +51,7 @@ public class CreateSchedule {
     HashMap<String,Integer> requestedFreqVec = new HashMap<>();
     HashMap<String,Integer> originalRequestedFreqVec = new HashMap<>();
     ArrayList<ScheduleItem> finalSchedule = new ArrayList<>();
+    ArrayList<ScheduleItem> tempTasks = new ArrayList<>();
     public CreateSchedule(){
         mFunctions = FirebaseFunctions.getInstance();
     }
@@ -153,6 +155,9 @@ public class CreateSchedule {
                 unifyGoodScheduleWithAnchors(); // good schedule + anchors unified
                 finalCheck(); // step 3, here we get final schedule
                 addFinalScheduleToDB(date,keysChosen);
+                moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
+                // Unchosen tasks back to pending tasks
+
 
             }
 
@@ -164,6 +169,7 @@ public class CreateSchedule {
     }
 
     private void addFinalScheduleToDB(String date, ArrayList<String> keysChosen) { // keysChosen has tasks keys
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID = user.getUid();
@@ -174,9 +180,9 @@ public class CreateSchedule {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                    scheduleRef.child(String.valueOf(finalI)).setValue(finalSchedule.get(finalI));
-                    if (finalSchedule.get(finalI).getType().equals("task")){
+                    if (finalSchedule.get(finalI).getType().equals("task")){ // changing all tasks to real users tasks
                         String cat = finalSchedule.get(finalI).getCategory();
-                        getTaskDetails(cat,String.valueOf(finalI),date);
+                            getTaskDetails(cat, String.valueOf(finalI), date);
                     }
                 }
 
@@ -186,10 +192,6 @@ public class CreateSchedule {
                 }
             });
         }
-        
-        
-        
-
     }
 
     private void getTaskDetails(String cat, String key, String date) { // key = schedule item key
@@ -200,32 +202,22 @@ public class CreateSchedule {
         tempRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    if (ds.child("category").getValue().equals(cat)) { // match
-                    try {
-                        String createDate = (String) ds.child("createDate").getValue();
-                        String description = (String) ds.child("description").getValue();
-                        String location = (String) ds.child("location").getValue();
-                        String photoUri = (String) ds.child("photoUri").getValue();
-                        String reminderType = (String) ds.child("reminderType").getValue();
-                        DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
-                        scheduleRef.child(key).child("createDate").setValue(createDate);
-                        scheduleRef.child(key).child("description").setValue(description);
-                        scheduleRef.child(key).child("location").setValue(location);
-                        scheduleRef.child(key).child("photoUri").setValue(photoUri);
-                        scheduleRef.child(key).child("reminderType").setValue(reminderType);
-                        ds.getRef().setValue(null); // delete
-                        //TODO: MAYBE TO ACTIVE TASKS
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.child("category").getValue().equals(cat)) {
+                        try {
+                            String category = (String) ds.child("category").getValue();
+                            String createDate = (String) ds.child("createDate").getValue();
+                            String description = (String) ds.child("description").getValue();
+                            String location = (String) ds.child("location").getValue();
+                            String photoUri = (String) ds.child("photoUri").getValue();
+                            String reminderType = (String) ds.child("reminderType").getValue();
+                            ScheduleItem item = new ScheduleItem();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-                moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
-                // Unchosen tasks back to pending tasks
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
