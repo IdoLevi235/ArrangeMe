@@ -215,7 +215,6 @@ public class CreateSchedule {
                         scheduleRef.child(key).child("photoUri").setValue(photoUri);
                         scheduleRef.child(key).child("reminderType").setValue(reminderType);
                         ds.getRef().setValue(null); // delete
-                        moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
                         //TODO: MAYBE TO ACTIVE TASKS
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -223,7 +222,7 @@ public class CreateSchedule {
 
                     }
                 }
-
+                moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
                 // Unchosen tasks back to pending tasks
             }
 
@@ -264,7 +263,10 @@ public class CreateSchedule {
     }
 
     private void putInPendingTasks(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
-        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Pending_tasks");
         newRef.child(key).child("category").setValue(category);
         newRef.child(key).child("createDate").setValue(createDate);
         newRef.child(key).child("description").setValue(description);
