@@ -185,6 +185,8 @@ public class CreateSchedule {
                             String photoUri = (String) ds.child("photoUri").getValue();
                             String reminderType = (String) ds.child("reminderType").getValue();
                             ScheduleItem item = new ScheduleItem( category,  createDate,  description,  location,  photoUri,  reminderType);
+                            String id = ds.getKey();
+                            item.setId(Integer.parseInt(id));
                             tempTasks.add(item);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -227,7 +229,10 @@ public class CreateSchedule {
                         scheduleRef.child(String.valueOf(key)).child("reminderType").setValue(task.getReminderType());
                         //after task added to db, we want to remove it from temp into active tasks
                         DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Active_tasks");
+                        task.setDate(date);
                         activeRef.push().setValue(task);
+                        DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
+                        tempRef.child(String.valueOf(task.getId())).setValue(null);
                         tempTasks.remove(task);
                         break;
                     }
@@ -240,7 +245,10 @@ public class CreateSchedule {
                 scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
             }
 
-        }
+        } // end of schedule creation
+
+        //now we need to put in Pending tasks the tasks that are still in temp
+        moveTasksFromTempToPending();
 
     }
 
