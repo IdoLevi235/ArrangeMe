@@ -236,7 +236,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id==R.id.action_logout){
-            Toast.makeText(getContext(), "Logout clicked inside dashboard", Toast.LENGTH_LONG).show();
             return true;
         }
 

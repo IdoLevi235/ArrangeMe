@@ -24,6 +24,7 @@ import com.example.arrangeme.AddAnchor;
 import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Entities.Event;
+import com.example.arrangeme.Entities.ScheduleItem;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -48,8 +50,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class WeekFragment extends Fragment implements View.OnClickListener, OnMonthChangeListener {
 
     private WeekView weekCalendar;
-    TaskEntity task = new TaskEntity();
-    List <TaskEntity> tasksFromDB = new ArrayList();
+    ScheduleItem sc;
+    List <ScheduleItem> scheduleFromDB = new ArrayList();
 
     HashMap<String, Integer> hash = new HashMap<String, Integer>();
     Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
@@ -62,48 +64,63 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         floatingActionButton.setOnClickListener(this);
         weekCalendar = (WeekView) view.findViewById(R.id.weekView);
         weekCalendar.setOnClickListener(this);
-
         for (int i = 0; i < catColor.length; i++) {
             hash.put(cat[i], catColor[i]);
         }
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
-                // TODO:after database with dates: we need to change it to task all the tasks in this month, month after and month before, and if it works to copy it to ONMOTHCHANGE function.
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    task.setDescription((String) ds.child("description").getValue());
-                    task.setLocation((String) ds.child("location").getValue());
-                    task.setCategoryS((String) ds.child("category").getValue());
-                    task.setCreateDate((String) ds.child("createDate").getValue());
-                    task.setReminderTypeS((String) ds.child("reminderType").getValue());
-                    task.setId(ds.getKey());
-                    tasksFromDB.add(task);
-                    for (int i = 0; i < tasksFromDB.size(); i++) {
-                        Calendar cal = Calendar.getInstance();
-                        Calendar cal3 = Calendar.getInstance();
-                        try {
-                            cal = DateStringToCalendar(tasksFromDB.get(i).getCreateDate());
-                            cal3 = DateStringToCalendar(tasksFromDB.get(i).getCreateDate());
-                            Log.d("cal", "onDataChange: " + cal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                    Log.d("weekCal", "onDataChange1: " + ds.toString());
+                    DataSnapshot mDatabase2 = ds.child("schedule");
+                    Log.d("weekCal", "onDataChange2: " + mDatabase2.toString());
+                    List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
+                    if (mDatabase2.exists()) {
+                        ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
+                        Log.d("weekCal", "ArrayList: " + message.toString());
+                        for (HashMap<String, String> entry : message) {
+                            Log.d("weekCal", "HashMap: " + entry.toString());
+                            if(entry.get("type").equals("anchor")) {
+                                sc = new ScheduleItem(entry.get("anchorID"), entry.get("type"));
+                                Log.d("weekCal", "entry: " + sc.toString());
+                            }
+                            else {
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("createDate"), entry.get("description"), entry.get("location"), entry.toString());
+                                Log.d("weekCal", "entry1: " + sc.toString());
+                            }
+                            scheduleFromDB.add(sc);
+                            Log.d("weekCal", "scheduleFromDB: " + scheduleFromDB.toString());
                         }
-                        //TODO: change the cal3- for the finish date
-                        cal3.add(Calendar.HOUR, 3);
-                        Event event = new Event(task.getId(), task.getDescription(), cal, cal3,task.getCategoryS() , ContextCompat.getColor(getActivity(), hash.get(task.getCategoryS().toLowerCase())), false, false);
-                        listOfEvents.add(event);
                     }
-                }
-                weekCalendar.submit(listOfEvents);
-            }
 
+                            for (int i = 0; i < scheduleFromDB.size(); i++) {
+                                Calendar cal = Calendar.getInstance();
+                                Calendar cal2 = Calendar.getInstance();
+                                try {
+                                    cal = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getStartTime());
+                                    cal2 = DateStringToCalendar(scheduleFromDB.get(i).getCreateDate(), scheduleFromDB.get(i).getEndTime());
+                                    Log.d("weekCal", "onDataChange: " + cal);
+                                    Log.d("weekCal", "onDataChange: " + cal2);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                //TODO: change the cal3- for the finish date
+                                // cal3.add(Calendar.HOUR, 3);
+                                Event event = new Event(sc.getId(), sc.getDescription(), cal, cal2, sc.getCategory(), ContextCompat.getColor(getActivity(), hash.get(sc.getCategory().toLowerCase())), false, false);
+                                listOfEvents.add(event);
+                            }
+                    weekCalendar.submit(listOfEvents);
+                        }
+                    }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
@@ -173,6 +190,25 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(arr[0]));
         calendar.set(Calendar.YEAR, Integer.parseInt(arr[2]));
        return calendar;
+    }
+
+
+    public Calendar DateStringToCalendar (String date1, String hour) throws ParseException {
+        Log.d("weekCal", "DateStringToCalendar: " + hour);
+        Log.d("weekCal", "DateStringToCalendar: " + date1);
+        String arr[] = date1.split("-");
+        String arr2[] = hour.split("-");
+
+        //TODO: SET THE HOURS
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 13);
+        calendar.set(Calendar.HOUR, 7);
+        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.MONTH,Integer.parseInt(arr[1])-1);
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(arr[0]));
+        calendar.set(Calendar.YEAR, Integer.parseInt(arr[2]));
+        return calendar;
     }
 
 

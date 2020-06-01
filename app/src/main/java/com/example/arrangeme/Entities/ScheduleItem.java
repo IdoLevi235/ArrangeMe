@@ -9,16 +9,31 @@ public class ScheduleItem{
     String endTime;
     String category;
     String type;
-
-    public String getAnchorID() {
-        return anchorID;
-    }
-
-    public void setAnchorID(String anchorID) {
-        this.anchorID = anchorID;
-    }
-
     String anchorID;
+    String createDate;
+    String description;
+    String id;
+    String location;
+
+    public ScheduleItem(String anchorID, String type) {
+        this.anchorID = anchorID;
+        this.type = type;
+    }
+
+
+    public ScheduleItem(String startTime, String endTime, String category, String type, String createDate, String description, String location, String id) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+        this.type = type;
+        this.createDate = createDate;
+        this.description = description;
+        this.location = location;
+        this.id=id;
+    }
+
+
+
 
     public ScheduleItem(String hour, Boolean isWithTask) {
         this.hour = hour;
@@ -51,6 +66,48 @@ public class ScheduleItem{
             this.anchorID = anchorID;
         else this.anchorID="-1";
     }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getAnchorID() {
+        return anchorID;
+    }
+
+    public void setAnchorID(String anchorID) {
+        this.anchorID = anchorID;
+    }
+
 
 
     public String getType() {
@@ -107,7 +164,12 @@ public class ScheduleItem{
         String sTime = this.getStartTime();
         String eTime = this.getEndTime();
         String category = this.getCategory();
+        String description = this.getDescription();
+        String createDate = this.getCreateDate();
+        String location = this.getLocation();
+        String ancorID =this.getAnchorID();
+        String Id= this.getId();
         String type = this.getType();
-        return "Start: " + sTime+ " End: " + eTime + " Category: " + category + " Type:" + type;
+        return "Start Time: " + sTime+ " End Time: " + eTime + " Category: " + category + " Type:" + type +" Description:" +description+" CreateDate:"+createDate+" Location:"+location+" AncorID:"+ancorID+" Id:"+Id;
     }
 }

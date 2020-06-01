@@ -769,7 +769,6 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("CreateSchedule", "onDataChange: snapshot " + dataSnapshot.getValue().getClass());
                 Long g = (Long) dataSnapshot.getValue();
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
