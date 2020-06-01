@@ -256,15 +256,15 @@
 
             <Button
                 android:id="@+id/chooseTasksBtn"
-                android:layout_width="172dp"
+                android:layout_width="195dp"
                 android:layout_height="46dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="22dp"
+                android:layout_marginStart="9dp"
                 android:layout_marginTop="98dp"
-                android:layout_marginEnd="188dp"
+                android:layout_marginEnd="175dp"
                 android:layout_marginBottom="9dp"
                 android:background="@drawable/dashboard_topbuttons"
                 android:drawableRight="@drawable/scfhedule_2"
