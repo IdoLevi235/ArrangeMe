@@ -87,7 +87,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 Log.d("weekCal", "entry: " + sc.toString());
                             }
                             else {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("createDate"), entry.get("description"), entry.get("location"), entry.toString());
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("createDate"), entry.get("description"), entry.get("location"),message.indexOf(entry) );
                                 Log.d("weekCal", "entry1: " + sc.toString());
                             }
                             scheduleFromDB.add(sc);
@@ -108,7 +108,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 }
                                 //TODO: change the cal3- for the finish date
                                 // cal3.add(Calendar.HOUR, 3);
-                                Event event = new Event(sc.getId(), sc.getDescription(), cal, cal2, sc.getCategory(), ContextCompat.getColor(getActivity(), hash.get(sc.getCategory().toLowerCase())), false, false);
+                                Event event = new Event(String.valueOf(sc.getId()), sc.getDescription(), cal, cal2, sc.getCategory(), ContextCompat.getColor(getActivity(), hash.get(sc.getCategory().toLowerCase())), false, false);
                                 listOfEvents.add(event);
                             }
                     weekCalendar.submit(listOfEvents);

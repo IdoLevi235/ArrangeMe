@@ -12,7 +12,7 @@ public class ScheduleItem{
     String anchorID;
     String createDate;
     String description;
-    String id;
+    int id;
     String location;
 
     public ScheduleItem(String anchorID, String type) {
@@ -21,7 +21,7 @@ public class ScheduleItem{
     }
 
 
-    public ScheduleItem(String startTime, String endTime, String category, String type, String createDate, String description, String location, String id) {
+    public ScheduleItem(String startTime, String endTime, String category, String type, String createDate, String description, String location, int id) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.category = category;
@@ -78,11 +78,11 @@ public class ScheduleItem{
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -178,7 +178,7 @@ public class ScheduleItem{
         String createDate = this.getCreateDate();
         String location = this.getLocation();
         String ancorID =this.getAnchorID();
-        String Id= this.getId();
+        int Id= this.getId();
         String type = this.getType();
         return "Start Time: " + sTime+ " End Time: " + eTime + " Category: " + category + " Type:" + type +" Description:" +description+" CreateDate:"+createDate+" Location:"+location+" AncorID:"+ancorID+" Id:"+Id;
     }
