@@ -219,6 +219,7 @@ public class CreateSchedule {
                     if (item.getCategory().equals(task.getCategory())) { // match
                         scheduleRef.child(String.valueOf(key)).child("type").setValue("task");
                         scheduleRef.child(String.valueOf(key)).child("category").setValue(task.getCategory());
+                        scheduleRef.child(String.valueOf(key)).child("createDate").setValue(task.getCreateDate());
                         scheduleRef.child(String.valueOf(key)).child("date").setValue(date);
                         scheduleRef.child(String.valueOf(key)).child("description").setValue(task.getDescription());
                         scheduleRef.child(String.valueOf(key)).child("location").setValue(task.getLocation());
@@ -237,8 +238,6 @@ public class CreateSchedule {
                 scheduleRef.child(String.valueOf(key)).child("AnchorID").setValue(item.getAnchorID());
                 scheduleRef.child(String.valueOf(key)).child("type").setValue("anchor");
                 scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
-                scheduleRef.child(String.valueOf(key)).child("date").setValue(date);
-
             }
 
         }
