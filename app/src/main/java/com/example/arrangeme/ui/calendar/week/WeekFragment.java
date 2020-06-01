@@ -72,6 +72,8 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("week", "onDataChange: "+mDatabase.toString());
+
                 List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("week", "onDataChange: "+ds.toString());
