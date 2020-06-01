@@ -186,19 +186,22 @@ public class CreateSchedule {
                             String reminderType = (String) ds.child("reminderType").getValue();
                             ScheduleItem item = new ScheduleItem( category,  createDate,  description,  location,  photoUri,  reminderType);
                             tempTasks.add(item);
-                            Log.d("koosemek", "onDataChange: " + tempTasks);
-                            addTasksToDB(date);
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                     }
-                }
+                Log.d("koosemek", "onDataChange: " + tempTasks);
+                addTasksToDB(date);
+
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
     }
 
     private void addTasksToDB(String date) {
@@ -206,17 +209,31 @@ public class CreateSchedule {
         FirebaseUser user = mAuth.getCurrentUser();
         String UID = user.getUid();
         DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
-        for (int i = 0 ; i<finalSchedule.size() ; i++){
-            for (ScheduleItem task : tempTasks){
-                if (finalSchedule.get(i).getCategory().equals(task.getCategory())){ // match
-                    scheduleRef.child(String.valueOf(i)).child("category").setValue(task.getCategory());
-                    scheduleRef.child(String.valueOf(i)).child("createDate").setValue(task.getCreateDate());
-                    scheduleRef.child(String.valueOf(i)).child("description").setValue(task.getDescription());
-                    scheduleRef.child(String.valueOf(i)).child("location").setValue(task.getLocation());
-                   // scheduleRef.child(String.valueOf(i)).child("photoUri").setValue(task.get());
-                   // scheduleRef.child(String.valueOf(i)).child("reminderType").setValue(task.getCategory());
-                    tempTasks.remove(task);
+        int key = -1 ;
+        for (ScheduleItem item : finalSchedule){
+            key++;
+            scheduleRef.child(String.valueOf(key)).child("startTime").setValue(item.getStartTime());
+            scheduleRef.child(String.valueOf(key)).child("endTime").setValue(item.getEndTime());
+            if (!item.getType().equals("anchor")) {
+                for (ScheduleItem task : tempTasks) {
+                    if (item.getCategory().equals(task.getCategory())) { // ma"tch
+                        scheduleRef.child(String.valueOf(key)).child("type").setValue("task");
+                        scheduleRef.child(String.valueOf(key)).child("category").setValue(task.getCategory());
+                        scheduleRef.child(String.valueOf(key)).child("createDate").setValue(task.getCreateDate());
+                        scheduleRef.child(String.valueOf(key)).child("description").setValue(task.getDescription());
+                        scheduleRef.child(String.valueOf(key)).child("location").setValue(task.getLocation());
+                        scheduleRef.child(String.valueOf(key)).child("photoUri").setValue(task.getPhotoUri());
+                        scheduleRef.child(String.valueOf(key)).child("reminderType").setValue(task.getReminderType());
+                        tempTasks.remove(task);
+                        break;
+                    }
                 }
+            }
+
+            else if (item.getType().equals("anchor")){
+                scheduleRef.child(String.valueOf(key)).child("AnchorID").setValue(item.getAnchorID());
+                scheduleRef.child(String.valueOf(key)).child("type").setValue("anchor");
+                scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
             }
 
         }
