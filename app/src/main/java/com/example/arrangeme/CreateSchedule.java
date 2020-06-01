@@ -154,8 +154,8 @@ public class CreateSchedule {
                 goodHoursCheck(); //works - step 2 in the fix algorithm
                 unifyGoodScheduleWithAnchors(); // good schedule + anchors unified
                 finalCheck(); // step 3, here we get final schedule
-                addFinalScheduleToDB(date,keysChosen);
-                moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
+                getTempsDetails(date);
+                //moveTasksFromTempToPending(); // if any tasks left in temp (not chosen to final schedule), put them back in pending
                 // Unchosen tasks back to pending tasks
 
 
@@ -168,33 +168,7 @@ public class CreateSchedule {
         });
     }
 
-    private void addFinalScheduleToDB(String date, ArrayList<String> keysChosen) { // keysChosen has tasks keys
-
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String UID = user.getUid();
-        DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
-        for (int i = 0 ; i<finalSchedule.size() ; i++){
-            int finalI = i;
-            scheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   scheduleRef.child(String.valueOf(finalI)).setValue(finalSchedule.get(finalI));
-                    if (finalSchedule.get(finalI).getType().equals("task")){ // changing all tasks to real users tasks
-                        String cat = finalSchedule.get(finalI).getCategory();
-                            getTaskDetails(cat, String.valueOf(finalI), date);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
-
-    private void getTaskDetails(String cat, String key, String date) { // key = schedule item key
+    private void getTempsDetails(String date) { // key = schedule item key
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID = user.getUid();
@@ -203,7 +177,6 @@ public class CreateSchedule {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.child("category").getValue().equals(cat)) {
                         try {
                             String category = (String) ds.child("category").getValue();
                             String createDate = (String) ds.child("createDate").getValue();
@@ -211,18 +184,44 @@ public class CreateSchedule {
                             String location = (String) ds.child("location").getValue();
                             String photoUri = (String) ds.child("photoUri").getValue();
                             String reminderType = (String) ds.child("reminderType").getValue();
-                            ScheduleItem item = new ScheduleItem( category,  createDate,  description,  location);
+                            ScheduleItem item = new ScheduleItem( category,  createDate,  description,  location,  photoUri,  reminderType);
+                            tempTasks.add(item);
+                            Log.d("koosemek", "onDataChange: " + tempTasks);
+                            addTasksToDB(date);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
-            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+    }
+
+    private void addTasksToDB(String date) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        DatabaseReference scheduleRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("schedule");
+        for (int i = 0 ; i<finalSchedule.size() ; i++){
+            for (ScheduleItem task : tempTasks){
+                if (finalSchedule.get(i).getCategory().equals(task.getCategory())){ // match
+                    scheduleRef.child(String.valueOf(i)).child("category").setValue(task.getCategory());
+                    scheduleRef.child(String.valueOf(i)).child("createDate").setValue(task.getCreateDate());
+                    scheduleRef.child(String.valueOf(i)).child("description").setValue(task.getDescription());
+                    scheduleRef.child(String.valueOf(i)).child("location").setValue(task.getLocation());
+                   // scheduleRef.child(String.valueOf(i)).child("photoUri").setValue(task.get());
+                   // scheduleRef.child(String.valueOf(i)).child("reminderType").setValue(task.getCategory());
+                    tempTasks.remove(task);
+                }
+            }
+
+        }
+
+
     }
 
     private void moveTasksFromTempToPending() {
