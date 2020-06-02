@@ -234,7 +234,7 @@ public class CreateSchedule {
                         task.setDate(date);
                         String uniqueID = UUID.randomUUID().toString();
                         activeRef.child(uniqueID).setValue(task);
-                        scheduleRef.child(String.valueOf(key)).child("activeKey").setValue(uniqueID);
+                        scheduleRef.child(String.valueOf(key)).child("activeKey").setValue("t" + uniqueID);
                         DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
                         tempRef.child(String.valueOf(task.getId())).setValue(null);
                         tempTasks.remove(task);

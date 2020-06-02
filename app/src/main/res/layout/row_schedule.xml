@@ -42,8 +42,8 @@
 
         <TextView
             android:id="@+id/timeText"
-            android:layout_width="85dp"
-            android:layout_height="50dp"
+            android:layout_width="71dp"
+            android:layout_height="44dp"
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat"
             android:textAlignment="textStart"
