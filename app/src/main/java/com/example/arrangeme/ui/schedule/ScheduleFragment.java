@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
+import com.example.arrangeme.Login;
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -51,6 +54,8 @@ import java.util.Date;
 
 public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener{
     private ScheduleViewModel scheduleViewModel;
+    private RelativeLayout noSchRel;
+    private RelativeLayout schExistRel;
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView chooseMessage;
@@ -116,8 +121,43 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
         datePicker.setText(date);
         datePicker.setOnClickListener(this);
-
+        checkIfQuestionnaireFilled();
         initializeSchedule();
+    }
+
+    private void checkIfQuestionnaireFilled() {
+        final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference currUserRef = mDatabase.child("users").child(UID).child("personality_vector");
+        currUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (!(data.getKey().equals("0"))) { // ignore children 0 of "Personality vector" (doesn't exist (null), only 1-->25)
+                        q_answers.add(Integer.parseInt(data.getValue().toString()));
+                    }
+                }
+                if (q_answers.contains(0)) {
+                    noSchRel.setVisibility(View.VISIBLE);
+                    schExistRel.setVisibility(View.GONE);
+                    quesMessage.setVisibility(View.VISIBLE);
+                    questionnaireBtn.setVisibility(View.VISIBLE);
+                    questionnaireBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), Questionnaire.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void initializeSchedule() {
@@ -163,8 +203,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
-
-
+        noSchRel=view.findViewById(R.id.noScheduleLayout);
+        schExistRel=view.findViewById(R.id.scheduleExistsLayout);
     }
 
     private void initializeFields() {
@@ -327,12 +367,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
             //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
             SpannableStringBuilder str = new SpannableStringBuilder
-                (model.getDescription() + "\n\n\nCategory : " + model.getCategory());
+                (model.getDescription() + "\n\nCategory : " + model.getCategory());
             str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
             str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.button.setText(str);
-            holder.button.setLayoutParams(new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
-            holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+            holder.button.setLayoutParams(new LinearLayout.LayoutParams(700, 200));
+            holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
             holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
             if (model.getType().equals("anchor")) {
                 holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);

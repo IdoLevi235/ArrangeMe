@@ -100,6 +100,7 @@
             android:elevation="1.5dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
+            android:text="You must fill the questionnaire in order to recieve schedule recommendations!"
             android:textSize="18sp"
             android:visibility="gone" />
 
