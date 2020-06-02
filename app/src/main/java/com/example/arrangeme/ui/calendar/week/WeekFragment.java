@@ -160,9 +160,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
                 String id = ((Event) o).getId();
-                String firstLetter = id.substring(0, 1);
+                String firstLetter = id.substring(0, 3);
                 //if the first letter is "t" so it is a task
-                if(firstLetter.equals('t')){
+                if(firstLetter.equals("2305")){
                     Intent intent = new Intent(getActivity(), TaskPagePopup.class);
                     getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     Bundle b = new Bundle();
