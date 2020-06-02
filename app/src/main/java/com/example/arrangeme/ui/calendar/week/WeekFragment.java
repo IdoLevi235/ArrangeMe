@@ -84,7 +84,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey") );
                             }
                             scheduleFromDB.add(sc);
-                            Log.d("weekCal", "scheduleFromDB: " + scheduleFromDB.toString());
                         }
                     }
                 }
@@ -133,7 +132,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                     }
                                     listOfEvents.add(event);
                                 }
-                                //submit the anchores of the schedule in the weekview
+                                /**
+                                 * submit the anchors of the schedule in the weekview
+                                 */
                                 weekCalendar.submit(listOfEvents);
 
                             }
@@ -143,48 +144,41 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         });
                     }
                     }
-                //submit the tasks of the schedule in the weekview
+                /**
+                 * submit the tasks of the schedule in the weekview
+                 */
                 weekCalendar.submit(listOfEvents);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-
+        /**
+         * when clicking on the events , it will open their details in pop up window
+         */
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
                 String id = ((Event) o).getId();
                 String firstLetter = id.substring(0, 1);
+                //if the first letter is "t" so it is a task
                 if(firstLetter.equals('t')){
-                    
+                    Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Bundle b = new Bundle();
+                    b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                    intent.putExtras(b);
+                    startActivity(intent);
                 }
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks").child(id);
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child("type").getValue().equals("TASK")) {
-                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            Bundle b = new Bundle();
-                            b.putString("TaskKey", ((Event) o).getId());
-                            intent.putExtras(b);
-                            startActivity(intent);
-                        } else if (dataSnapshot.child("type").getValue().equals("ANCHOR")) {
-                            Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            Bundle b = new Bundle();
-                            b.putString("AnchorKey", ((Event) o).getId());
-                            intent.putExtras(b);
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
+                //if the first letter isn't "t" it is an anchor
+                else {
+                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Bundle b = new Bundle();
+                    b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -203,6 +197,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     }
 
 
+    /**
+     * this function add new anchor when pressing the + or an empty cell
+     */
     public void addAnchor(){
         Intent intent = new Intent(getActivity(), AddAnchor.class);
         //TODO: add anchor date like in the month
@@ -210,15 +207,14 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         startActivity(intent);
     }
 
-
+    /**
+     * this function convert date in string to a calendar type
+     * @param date1 its the date
+     * @param hour its the hour for this date
+     */
     public Calendar DateStringToCalendar (String date1, String hour) throws ParseException {
-        Log.d("weekCal", "DateStringToCalendar1: " + hour);
-        Log.d("weekCal", "DateStringToCalendar2: " + date1);
         String arr[] = date1.split("-");
         String arr2[] = hour.split(":");
-        Log.d("weekCal", "DateStringToCalendar3: " + Integer.parseInt(arr2[0]));
-        Log.d("weekCal", "DateStringToCalendar4: " + Integer.parseInt(arr2[1]));
-        //TODO: SET THE HOURS
         Calendar calendar = Calendar.getInstance();
 
         if(Integer.parseInt(arr2[0])>12){
@@ -263,8 +259,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     @NotNull
     @Override
     public List<WeekViewDisplayable> onMonthChange(@NotNull Calendar calendar, @NotNull Calendar calendar1) {
-
-
         return null;
     }
 }

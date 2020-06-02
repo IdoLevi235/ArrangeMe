@@ -52,6 +52,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class TaskPagePopup extends Activity  implements View.OnClickListener, Popup {
@@ -73,6 +75,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private TaskEntity taskToPresent;
     private TaskCategory taskCategory;
     private ReminderType reminderType;
+    private int fromWhereTheTask;
     private int reminderInt;
     private RoundedImageView photoHere;
     @Override
@@ -85,8 +88,16 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
         //task key is the key for the task that the user touched
         Bundle b = getIntent().getExtras();
-        if(b != null)
+        if(b != null) {
+            taskKey = b.getString("TaskKeyFromWeek");
+            if(taskKey!=null || taskKey.equals("")){
+                fromWhereTheTask=0;
+            }
             taskKey = b.getString("TaskKey");
+            if(taskKey!=null || taskKey.equals("")){
+                fromWhereTheTask=1;
+            }
+        }
 
         //define buttons
         applyBtn=findViewById(R.id.applyBtn);
@@ -105,16 +116,21 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         this.disableViews();
 
         //set data for the view from the DB
-        this.showDetails();
+        this.showDetails(fromWhereTheTask);
 
     }
 
 
     //set data to the views from the DB
-    public void showDetails() {
+    public void showDetails(int fromWhereTheTask) {
         this.showImage();
         TaskEntity taskToPresent =new TaskEntity();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        if(fromWhereTheTask==0) {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks");
+        }
+        else if (fromWhereTheTask==1){
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        }
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
