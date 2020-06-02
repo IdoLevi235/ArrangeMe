@@ -17,11 +17,24 @@ public class ScheduleItem{
     String location;
     String photoUri;
     String reminderType;
+    String idForCalendar;
 
     public ScheduleItem(String anchorID, String type, int id) {
         this.anchorID = anchorID;
         this.type = type;
         this.id=id;
+    }
+
+
+    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, String idForCalendar) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+        this.type = type;
+        this.date = date;
+        this.description = description;
+        this.location = location;
+        this.idForCalendar=idForCalendar;
     }
 
 
@@ -87,6 +100,16 @@ public class ScheduleItem{
         this.photoUri = photoUri;
         this.reminderType = reminderType;
     }
+
+
+    public String getIdForCalendar() {
+        return idForCalendar;
+    }
+
+    public void setIdForCalendar(String idForCalendar) {
+        this.idForCalendar = idForCalendar;
+    }
+
 
     public String getDate() {
         return date;
