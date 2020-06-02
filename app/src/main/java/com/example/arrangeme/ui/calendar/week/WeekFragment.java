@@ -78,11 +78,12 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"),message.indexOf(entry));
+                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"), (long) message.indexOf(entry));
                             }
                             else {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),Long.parseLong(entry.get("activeKey")) );
                             }
+                            Log.d("weekcal", "onDataChange: "+sc.toString());
                             scheduleFromDB.add(sc);
                         }
                     }
@@ -99,6 +100,8 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                             e.printStackTrace();
                         }
                         Event event = new Event(String.valueOf(scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
+                        Log.d("weekcaltask", "onDataChange: "+event.getId().toString());
+
                         listOfEvents.add(event);
                     }
                     else {
@@ -123,12 +126,14 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                         e.printStackTrace();
                                     }
                                     Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                                    Log.d("weekcal", "onDataChange: "+event.getId().toString());
                                     listOfEvents.add(event);
                                 }
                                 /**
                                  * submit the anchors of the schedule in the weekview
                                  */
                                 weekCalendar.submit(listOfEvents);
+                                Log.d("weekcal", "onDataChange: "+listOfEvents.toString());
 
                             }
                             @Override
