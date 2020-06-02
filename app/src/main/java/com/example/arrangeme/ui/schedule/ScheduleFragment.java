@@ -299,7 +299,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String key = fbAdapter.getRef(position).getKey();
                         int x = Integer.parseInt(key);
-                        if (dataSnapshot.child(key).child("type").getValue().equals("TASK")) {
+                        if (dataSnapshot.child(key).child("type").getValue().equals("task")) {
                             if (longPressCount[0] == 1) {//1 long presses until now
                                 if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
                                     longPressKeys[0] = -1;
@@ -323,27 +323,30 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     }
 
     public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
-        holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
-        holder.button.setText("\t"+model.getDescription()+" \n\n\t"+model.getCategory());
-        //SpannableStringBuilder str = new SpannableStringBuilder
-          //      ("\t"+model.getDescription()+" \n\n\n\t"+model.getCategory());
-        //str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getDescription().length()+1, 0);
-        //str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getDescription().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //holder.button.setText(str);
-        holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
-        holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
-        holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-        if(model.getType().equals("anchor")) {
-            holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-            holder.button.setBackgroundResource
-                    (R.drawable.rounded_temp_grey_anchor);
-        }
-        else if (model.getType().equals("task")) {
-            holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-            holder.button.setBackgroundResource
-                    (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
-            holder.button.setCompoundDrawablesWithIntrinsicBounds
-                    (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
+        try {
+            holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
+            //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
+            SpannableStringBuilder str = new SpannableStringBuilder
+                (model.getDescription() + "\n\n\nCategory : " + model.getCategory());
+            str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
+            str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.button.setText(str);
+            holder.button.setLayoutParams(new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
+            holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+            holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
+            if (model.getType().equals("anchor")) {
+                holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                holder.button.setBackgroundResource
+                        (R.drawable.rounded_temp_grey_anchor);
+            } else if (model.getType().equals("task")) {
+                holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                holder.button.setBackgroundResource
+                        (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                holder.button.setCompoundDrawablesWithIntrinsicBounds
+                        (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
