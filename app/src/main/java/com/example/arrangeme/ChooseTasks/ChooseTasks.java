@@ -38,6 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.CreateSchedule;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
@@ -356,11 +357,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     tv.setVisibility(View.VISIBLE);
                     howMuchMore.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
-                    confirm.setEnabled(false);
                     view4.setVisibility(View.GONE);
                     imv4.setVisibility(View.GONE);
                     tv2.setVisibility(View.GONE);
                     numberTextView.setVisibility(View.GONE);
+                    confirm.setText("Add new tasks");
                 }
             }
 
@@ -411,9 +412,16 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 //            }
 
                 else {
-                  String date = (String) setDate.getText();
-                  chooseTaskSuccess(date);
-
+                    String s = confirm.getText().toString() ;
+                    Log.d("TAG9", "onClick: " + s);
+                    if (s.equals("Add new tasks")){
+                        Intent i = new Intent(ChooseTasks.this,AddTasks.class);
+                        startActivity(i);
+                    }
+                    else {
+                        String date = (String) setDate.getText();
+                        chooseTaskSuccess(date);
+                    }
               }
                 break;
 
