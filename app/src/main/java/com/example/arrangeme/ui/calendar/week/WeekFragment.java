@@ -122,14 +122,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-                                    Event event;
-                                    if (category == null) {
-                                        String temp = " ";
-                                        category = temp;
-                                        event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                    } else {
-                                        event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), hash.get(category.toLowerCase())), false, false);
-                                    }
+                                    Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
                                     listOfEvents.add(event);
                                 }
                                 /**
