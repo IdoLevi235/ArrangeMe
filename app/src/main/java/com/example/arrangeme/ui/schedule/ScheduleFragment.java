@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.ChooseTasks.ChooseTasks;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
@@ -56,6 +57,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private ScheduleViewModel scheduleViewModel;
     private RelativeLayout noSchRel;
     private RelativeLayout schExistRel;
+    private View view4;
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView chooseMessage;
@@ -140,16 +142,24 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 }
                 if (q_answers.contains(0)) {
                     noSchRel.setVisibility(View.VISIBLE);
+                    view4.setVisibility(View.GONE);
                     schExistRel.setVisibility(View.GONE);
                     quesMessage.setVisibility(View.VISIBLE);
                     questionnaireBtn.setVisibility(View.VISIBLE);
+                    int answers[] = new int[25];
+                    int i=0;
+                    for (Integer x : q_answers){
+                        answers[i++]=x;
+                    }
+                    Intent intent = new Intent(getActivity(),Questionnaire.class);
+                    intent.putExtra("answers",answers);
                     questionnaireBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), Questionnaire.class);
                             startActivity(intent);
                         }
                     });
+
                 }
             }
             @Override
@@ -165,6 +175,38 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         /*Fire base UI stuff */
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
                 .child("Schedules").child(date).child("schedule");
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildrenCount()==0){
+                    noSchRel.setVisibility(View.VISIBLE);
+                    view4.setVisibility(View.GONE);
+                    schExistRel.setVisibility(View.GONE);
+                    chooseMessage.setVisibility(View.VISIBLE);
+                    chooseTaskBtn.setVisibility(View.VISIBLE);
+                    chooseTaskBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(getActivity(), ChooseTasks.class);
+                            i.putExtra("date",date);
+                            startActivity(i);
+                        }
+                    });
+                }
+                else {
+                    noSchRel.setVisibility(View.GONE);
+                    view4.setVisibility(View.VISIBLE);
+                    schExistRel.setVisibility(View.VISIBLE);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
@@ -205,6 +247,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
         noSchRel=view.findViewById(R.id.noScheduleLayout);
         schExistRel=view.findViewById(R.id.scheduleExistsLayout);
+        view4 = view.findViewById(R.id.view4);
     }
 
     private void initializeFields() {
