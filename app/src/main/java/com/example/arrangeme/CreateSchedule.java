@@ -247,8 +247,8 @@ public class CreateSchedule {
                         //after task added to db, we want to remove it from temp into active tasks
                         DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Active_tasks");
                         task.setDate(date);
-                        String uniqueID = UUID.randomUUID().toString();
-                        activeRef.child(uniqueID).setValue(task);
+                        Integer uniqueID = (int) (Math.random() * Integer.MAX_VALUE);
+                        activeRef.child("2305" + String.valueOf(uniqueID)).setValue(task);
                         scheduleRef.child(String.valueOf(key)).child("activeKey").setValue("t" + uniqueID);
                         DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
                         tempRef.child(String.valueOf(task.getId())).setValue(null);
