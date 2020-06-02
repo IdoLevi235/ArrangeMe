@@ -146,6 +146,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     schExistRel.setVisibility(View.GONE);
                     quesMessage.setVisibility(View.VISIBLE);
                     questionnaireBtn.setVisibility(View.VISIBLE);
+                    noScheduleYet.setVisibility(View.VISIBLE);
+                    noScheduleYet.setText("You don't have schedule for this day!");
                     int answers[] = new int[25];
                     int i=0;
                     for (Integer x : q_answers){
@@ -182,6 +184,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 if(dataSnapshot.getChildrenCount()==0){
                     noSchRel.setVisibility(View.VISIBLE);
                     view4.setVisibility(View.GONE);
+                    noScheduleYet.setVisibility(View.VISIBLE);
+                    noScheduleYet.setText("You don't have schedule for this day!");
                     schExistRel.setVisibility(View.GONE);
                     chooseMessage.setVisibility(View.VISIBLE);
                     chooseTaskBtn.setVisibility(View.VISIBLE);
@@ -198,7 +202,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     noSchRel.setVisibility(View.GONE);
                     view4.setVisibility(View.VISIBLE);
                     schExistRel.setVisibility(View.VISIBLE);
-
                 }
             }
 
@@ -239,7 +242,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         chooseTaskBtn = view.findViewById(R.id.chooseTaskBtn);
         chooseMessage = view.findViewById(R.id.chooseMessage);
         quesMessage = view.findViewById(R.id.quesMessage);
-        noScheduleYet= view.findViewById(R.id.quesMessage);
+        noScheduleYet= view.findViewById(R.id.noScheduleYet);
         recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
         recyclerSchedule.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

@@ -149,6 +149,21 @@ public class CreateSchedule {
                         anchorsList.add(anch);
                     }
                 }
+                DatabaseReference schRef = FirebaseDatabase.getInstance().getReference().
+                        child("users").child(Globals.UID).child("Schedules");
+                schRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(date)){
+                            schRef.child(date).child("schedule").setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 recommendedSchedule = convertStringsToSchedule(recommendedSch);
                 deleteAnchorsFromRecommSch(); // WORKS - deleting anchors from recommended schedule
                 divideReccSch(); // works - 2 lists: 1) recommended tasks in bad hours (anchors of the requesting user)  2) recommended tasks in good hours
@@ -232,8 +247,8 @@ public class CreateSchedule {
                         //after task added to db, we want to remove it from temp into active tasks
                         DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Active_tasks");
                         task.setDate(date);
-                        String uniqueID = UUID.randomUUID().toString();
-                        activeRef.child(uniqueID).setValue(task);
+                        Integer uniqueID = (int) (Math.random() * Integer.MAX_VALUE);
+                        activeRef.child("2305" + String.valueOf(uniqueID)).setValue(task);
                         scheduleRef.child(String.valueOf(key)).child("activeKey").setValue("t" + uniqueID);
                         DatabaseReference tempRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("temp");
                         tempRef.child(String.valueOf(task.getId())).setValue(null);
@@ -247,6 +262,9 @@ public class CreateSchedule {
                 scheduleRef.child(String.valueOf(key)).child("AnchorID").setValue(item.getAnchorID());
                 scheduleRef.child(String.valueOf(key)).child("type").setValue("anchor");
                 scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
+                scheduleRef.child(String.valueOf(key)).child("description").setValue(item.getDescription());
+
+
             }
 
         } // end of schedule creation
@@ -476,8 +494,10 @@ public class CreateSchedule {
             String category = anchor.getCategory();
             String type = "anchor";
             String id = anchor.getAnchorID();
+            String description = anchor.getDescription();
 
             ScheduleItem item = new ScheduleItem(sTime, eTime, category, type, id);
+            item.setDescription(description);
             finalSchedule.add(item);
         }
         //now sorting by start time

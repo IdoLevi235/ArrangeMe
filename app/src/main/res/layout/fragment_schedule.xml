@@ -59,8 +59,6 @@
         android:layout_height="245dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +100,6 @@
             android:elevation="1.5dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="You must fill the questionnaire in order to recieve schedule recommendations!"
             android:textSize="18sp"
             android:visibility="gone" />
 

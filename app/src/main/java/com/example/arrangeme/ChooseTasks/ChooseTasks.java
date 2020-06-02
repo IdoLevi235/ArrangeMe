@@ -363,6 +363,18 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     numberTextView.setVisibility(View.GONE);
                     confirm.setText("Add new tasks");
                 }
+
+                else {
+                    tv.setVisibility(View.GONE);
+                    howMuchMore.setVisibility(View.VISIBLE);
+                    spinner.setVisibility(View.VISIBLE);
+                    view4.setVisibility(View.VISIBLE);
+                    imv4.setVisibility(View.VISIBLE);
+                    tv2.setVisibility(View.VISIBLE);
+                    numberTextView.setVisibility(View.VISIBLE);
+                    confirm.setText("Build Your Schedule");
+
+                }
             }
 
             @Override
