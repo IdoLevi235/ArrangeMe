@@ -117,6 +117,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
         if (date!=null) { // came from choosetasks
             ((Homepage) getActivity()).setDateToShowInScheduleFragment(null);
+            spinner.setVisibility(View.VISIBLE);
         }
         else { //didn't come from choose tasks, show today's date
             date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -177,61 +178,62 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         /*Fire base UI stuff */
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
                 .child("Schedules").child(date).child("schedule");
-
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getChildrenCount()==0){
-                    noSchRel.setVisibility(View.VISIBLE);
-                    view4.setVisibility(View.GONE);
-                    noScheduleYet.setVisibility(View.VISIBLE);
-                    noScheduleYet.setText("You don't have schedule for this day!");
-                    schExistRel.setVisibility(View.GONE);
-                    chooseMessage.setVisibility(View.VISIBLE);
-                    chooseTaskBtn.setVisibility(View.VISIBLE);
-                    chooseTaskBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(getActivity(), ChooseTasks.class);
-                            i.putExtra("date",date);
-                            startActivity(i);
-                        }
-                    });
+        if(spinner.getVisibility()!=View.VISIBLE) {
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getChildrenCount() == 0) {
+                        noSchRel.setVisibility(View.VISIBLE);
+                        view4.setVisibility(View.GONE);
+                        noScheduleYet.setVisibility(View.VISIBLE);
+                        noScheduleYet.setText("You don't have schedule for this day!");
+                        schExistRel.setVisibility(View.GONE);
+                        chooseMessage.setVisibility(View.VISIBLE);
+                        chooseTaskBtn.setVisibility(View.VISIBLE);
+                        chooseTaskBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(getActivity(), ChooseTasks.class);
+                                i.putExtra("date", date);
+                                startActivity(i);
+                            }
+                        });
+                    } else {
+                        noSchRel.setVisibility(View.GONE);
+                        view4.setVisibility(View.VISIBLE);
+                        schExistRel.setVisibility(View.VISIBLE);
+                    }
                 }
-                else {
-                    noSchRel.setVisibility(View.GONE);
-                    view4.setVisibility(View.VISIBLE);
-                    schExistRel.setVisibility(View.VISIBLE);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-            }
+            });
+        }
+        else {
+            options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
+            fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+                @SuppressLint({"WrongConstant", "SetTextI18n"})
+                @Override
+                protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
+                    InitItemOfSchedule(holder, position, model); // Init each item in schedule
+                    setClickListenerToItem(holder, position); // Short click --> cancel pick
+                    setLongClickListenerToItem(holder, position); // Long clicks
+                    spinner.setVisibility(View.GONE);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @NonNull
+                @Override
+                public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
+                    return new MyViewHolder(v);
+                }
+            };
 
-            }
-        });
-        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
-        fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
-            @SuppressLint({"WrongConstant", "SetTextI18n"})
-            @Override
-            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                InitItemOfSchedule(holder,position,model); // Init each item in schedule
-                setClickListenerToItem(holder,position); // Short click --> cancel pick
-                setLongClickListenerToItem(holder,position); // Long clicks
-                spinner.setVisibility(View.GONE);
-            }
-
-            @NonNull
-            @Override
-            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule,parent,false);
-                return new MyViewHolder(v);
-            }
-        };
-
-        fbAdapter.startListening();
-        recyclerSchedule.setAdapter(fbAdapter);
-
+            fbAdapter.startListening();
+            recyclerSchedule.setAdapter(fbAdapter);
+        }
     }
 
     private void initializeComponents(View view) {

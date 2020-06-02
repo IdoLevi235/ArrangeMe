@@ -465,4 +465,5 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         reminder_switch.setClickable(false);
 
     }
+
 }
