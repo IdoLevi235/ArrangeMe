@@ -116,13 +116,13 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         this.disableViews();
 
         //set data for the view from the DB
-        this.showDetails(fromWhereTheTask);
+        this.showDetail(fromWhereTheTask);
 
     }
 
 
     //set data to the views from the DB
-    public void showDetails(int fromWhereTheTask) {
+    public void showDetail(int fromWhereTheTask) {
         this.showImage();
         TaskEntity taskToPresent =new TaskEntity();
         if(fromWhereTheTask==0) {
@@ -463,6 +463,11 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         locationText.setClickable(false);
 
         reminder_switch.setClickable(false);
+
+    }
+
+    @Override
+    public void showDetails() {
 
     }
 }

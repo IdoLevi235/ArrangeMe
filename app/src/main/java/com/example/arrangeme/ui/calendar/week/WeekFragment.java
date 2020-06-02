@@ -81,7 +81,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"),message.indexOf(entry));
                             }
                             else {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey") );
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),Long.parseLong(entry.get("activeKey")) );
                             }
                             scheduleFromDB.add(sc);
                         }
@@ -98,7 +98,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        Event event = new Event(String.valueOf(scheduleFromDB.get(i).getId()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
+                        Event event = new Event(String.valueOf(scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
                         listOfEvents.add(event);
                     }
                     else {

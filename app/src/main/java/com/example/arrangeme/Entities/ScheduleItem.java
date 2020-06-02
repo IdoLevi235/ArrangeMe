@@ -17,7 +17,7 @@ public class ScheduleItem{
     String location;
     String photoUri;
     String reminderType;
-    String idForCalendar;
+    Long idForCalendar;
 
     public ScheduleItem(String anchorID, String type, int id) {
         this.anchorID = anchorID;
@@ -26,7 +26,7 @@ public class ScheduleItem{
     }
 
 
-    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, String idForCalendar) {
+    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, Long idForCalendar) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.category = category;
@@ -102,11 +102,11 @@ public class ScheduleItem{
     }
 
 
-    public String getIdForCalendar() {
+    public Long getIdForCalendar() {
         return idForCalendar;
     }
 
-    public void setIdForCalendar(String idForCalendar) {
+    public void setIdForCalendar(Long idForCalendar) {
         this.idForCalendar = idForCalendar;
     }
 

@@ -65,6 +65,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private Button sTime;
     private Button eTime;
     private Uri image;
+    private int fromWhereTheAnchor;
     private DatabaseReference mDatabase;
     private ReminderType chosenReminder;
     private ReminderType chosenReminderEdited;
@@ -90,9 +91,17 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         this.definePopUpSize();
         Bundle b = getIntent().getExtras();
         if(b != null) {
+            anchorKey = b.getString("AnchorKeyFromWeek");
+            if(anchorKey!=null || anchorKey.equals("")){
+                fromWhereTheAnchor=0;
+            }
             anchorKey = b.getString("AnchorKey");
-
+            if(anchorKey!=null || anchorKey.equals("")){
+                fromWhereTheAnchor=1;
+            }
         }
+
+
         //define views
         applyBtn=findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(this);
@@ -110,7 +119,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         //disable all views
         this.disableViews();
         //set data for the view from the DB
-        this.showDetails();
+        this.showDetails(fromWhereTheAnchor);
 
     }
 
@@ -152,14 +161,21 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         reminder_switch.setClickable(false);
 
     }
+
+    @Override
+    public void showDetails() {
+
+    }
+
     /**
      * Show the details of the item in the popup
      */
 
-    @Override
-    public void showDetails() {
+
+    public void showDetails(int fromWhereTheAnchor) {
         this.showImage();
         anchorToPresent = new AnchorEntity();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
