@@ -143,7 +143,9 @@ public class CreateSchedule {
                         String end = (String) ds.child("endTime").getValue();
                         String anchorID = (String) ds.getKey();
                         String category = (String) ds.child("category").getValue();
+                        String description = (String) ds.child("description").getValue();
                         AnchorEntity anch = new AnchorEntity(start,end,anchorID,category);
+                        anch.setDescription(description);
                         anchorsList.add(anch);
                     }
                 }

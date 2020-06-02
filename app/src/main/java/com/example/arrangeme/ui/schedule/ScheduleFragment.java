@@ -1,6 +1,8 @@
 package com.example.arrangeme.ui.schedule;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,17 +35,21 @@ import com.example.arrangeme.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-public class ScheduleFragment<RecyclerAdapter> extends Fragment {
+public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener{
     private ScheduleViewModel scheduleViewModel;
     private TextView noScheduleYet;
     private TextView quesMessage;
@@ -51,8 +58,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     private Button questionnaireBtn;
     private ProgressBar spinner;
     private RecyclerView recyclerSchedule;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private String[] myDataset;
+    String date;
+    FirebaseUser user;
+    String UID;
     private ArrayList<MainModelSchedule> mainModels;
     private DatabaseReference mDatabase;
     private FirebaseRecyclerOptions<MainModelSchedule> options;
@@ -65,7 +75,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
             R.drawable.sport_white,
             R.drawable.work_white,
             R.drawable.nutrition_white,
-            R.drawable.family_white_frame,
+            R.drawable.family_white,
             R.drawable.chores_white,
             R.drawable.relax_white,
             R.drawable.friends_white, 0};
@@ -74,7 +84,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                     R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                     R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
-
+    private FirebaseAuth mAuth;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,41 +103,37 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
-        datePicker = (Button)view.findViewById(R.id.chooseDate2);
-        String date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
+        initializeFields();
+        initializeComponents(view);
+
+        // First entrace - take the date from homepage or put today's date
+        date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
         if (date!=null) { // came from choosetasks
-            datePicker.setText(date);
             ((Homepage) getActivity()).setDateToShowInScheduleFragment(null);
         }
         else { //didn't come from choose tasks, show today's date
-            String today = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-            datePicker.setText(today);
+            date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         }
-        spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
-        spinner.setVisibility(View.VISIBLE);
-        questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
-        chooseTaskBtn = view.findViewById(R.id.chooseTaskBtn);
-        chooseMessage = view.findViewById(R.id.chooseMessage);
-        quesMessage = view.findViewById(R.id.quesMessage);
-        noScheduleYet= view.findViewById(R.id.quesMessage);
-        recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
-        recyclerSchedule.setHasFixedSize(true);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerSchedule.setLayoutManager(layoutManager);
-        recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
-        longPressKeys[0]=-1;longPressKeys[1]=-1;
-        longPressPositions[0]=-1;longPressPositions[1]=-1;
-        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
+        datePicker.setText(date);
+        datePicker.setOnClickListener(this);
+
+        initializeSchedule();
+    }
+
+    private void initializeSchedule() {
+        // set date
         /*Fire base UI stuff */
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
+                .child("Schedules").child(date).child("schedule");
+        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase,MainModelSchedule.class).build();
         fbAdapter=new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-               //InitItemOfSchedule(holder,position,model); // Init each item in schedule
-                //setClickListenerToItem(holder,position); // Short click --> cancel pick
-                //setLongClickListenerToItem(holder,position); // Long clicks
-                //spinner.setVisibility(View.GONE);
+                InitItemOfSchedule(holder,position,model); // Init each item in schedule
+                setClickListenerToItem(holder,position); // Short click --> cancel pick
+                setLongClickListenerToItem(holder,position); // Long clicks
+                spinner.setVisibility(View.GONE);
             }
 
             @NonNull
@@ -140,6 +146,33 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
 
         fbAdapter.startListening();
         recyclerSchedule.setAdapter(fbAdapter);
+
+    }
+
+    private void initializeComponents(View view) {
+        datePicker = (Button)view.findViewById(R.id.chooseDate2);
+        spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.VISIBLE);
+        questionnaireBtn =  view.findViewById(R.id.questionnaireBtn);
+        chooseTaskBtn = view.findViewById(R.id.chooseTaskBtn);
+        chooseMessage = view.findViewById(R.id.chooseMessage);
+        quesMessage = view.findViewById(R.id.quesMessage);
+        noScheduleYet= view.findViewById(R.id.quesMessage);
+        recyclerSchedule= view.findViewById(R.id.recyclerSchedule);
+        recyclerSchedule.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerSchedule.setLayoutManager(layoutManager);
+        recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
+
+
+    }
+
+    private void initializeFields() {
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
+        longPressKeys[0]=-1;longPressKeys[1]=-1;
+        longPressPositions[0]=-1;longPressPositions[1]=-1;
     }
 
     private void setLongClickListenerToItem(MyViewHolder holder, int position) {
@@ -151,7 +184,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String key = fbAdapter.getRef(position).getKey();
                         int x = Integer.parseInt(key);
-                        if (dataSnapshot.child(key).child("type").getValue().equals("TASK")) {
+                        if (dataSnapshot.child(key).child("type").getValue().equals("task")) {
                             if (longPressCount[0] == 2){ // 2 long presses already
                                 //nothing to do here yet..
                             }
@@ -290,43 +323,57 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment {
     }
 
     public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
-        holder.timeText.setText(" "+model.getTime());
-        holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-        SpannableStringBuilder str = new SpannableStringBuilder
-                ("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-        str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length()+1, 0);
-        holder.button.setText(str);
+        holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
+        holder.button.setText("\t"+model.getDescription()+" \n\n\t"+model.getCategory());
+        //SpannableStringBuilder str = new SpannableStringBuilder
+          //      ("\t"+model.getDescription()+" \n\n\n\t"+model.getCategory());
+        //str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getDescription().length()+1, 0);
+        //str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getDescription().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //holder.button.setText(str);
         holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
         if(model.getType().equals("anchor")) {
             holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+            holder.button.setBackgroundResource
+                    (R.drawable.rounded_temp_grey_anchor);
         }
-        else if (model.getType().equals("task"))
+        else if (model.getType().equals("task")) {
             holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-        holder.button.setBackgroundResource
-                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
-        holder.button.setCompoundDrawablesWithIntrinsicBounds
-                (0,0,catIcon[TaskCategory.fromStringToInt(model.getCategory())],0);
-
-
+            holder.button.setBackgroundResource
+                    (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+            holder.button.setCompoundDrawablesWithIntrinsicBounds
+                    (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
+        }
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case (R.id.DayBtn):
-
-                break;
-            case (R.id.WeekBtn):
-
-                break;
-            case (R.id.MonthBtn):
-
+            case R.id.chooseDate2:
+                DatePickerDialog datePickerDialog = createDatePickerDialog();
+                datePickerDialog.show();
                 break;
             default:
                 break;
         }
+    }
+
+    private DatePickerDialog createDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("SetTextI18n")
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // these two lines in order to make it 01-05-2020 instead of 1-5-2020
+                String day = dayOfMonth<10 ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+                String month = monthOfYear+1<10 ? "0" + String.valueOf(monthOfYear+1) : String.valueOf(monthOfYear+1);
+                date = day+"-"+(month)+"-"+year;
+                datePicker.setText(date);
+                initializeSchedule();
+            }
+
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        return dpd;
+
     }
 
 }
