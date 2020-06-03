@@ -17,16 +17,17 @@ public class ScheduleItem{
     String location;
     String photoUri;
     String reminderType;
-    Long idForCalendar;
+    String idForCalendar;
 
-    public ScheduleItem(String anchorID, String type, Long idForCalendar) {
+    public ScheduleItem(String anchorID, String type, String idForCalendar, int i) {
         this.anchorID = anchorID;
         this.type = type;
         this.idForCalendar=idForCalendar;
+        i=0;
     }
 
 
-    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, Long idForCalendar) {
+    public ScheduleItem(String startTime, String endTime, String category, String type, String date, String description, String location, String idForCalendar) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.category = category;
@@ -102,11 +103,11 @@ public class ScheduleItem{
     }
 
 
-    public Long getIdForCalendar() {
+    public String getIdForCalendar() {
         return idForCalendar;
     }
 
-    public void setIdForCalendar(Long idForCalendar) {
+    public void setIdForCalendar(String idForCalendar) {
         this.idForCalendar = idForCalendar;
     }
 
@@ -220,7 +221,7 @@ public class ScheduleItem{
         String createDate = this.getCreateDate();
         String location = this.getLocation();
         String ancorID =this.getAnchorID();
-        long Id= this.getIdForCalendar();
+        String Id= this.getIdForCalendar();
         String type = this.getType();
         return "Start Time: " + sTime+ " End Time: " + eTime + " Category: " + category + " Type:" + type +" Description:" +description+" CreateDate:"+createDate+" Location:"+location+" AncorID:"+ancorID+" id for calendar:"+Id;
     }

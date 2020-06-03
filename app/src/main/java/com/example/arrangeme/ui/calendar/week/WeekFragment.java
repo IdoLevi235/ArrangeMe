@@ -71,6 +71,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            @NonNull
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     DataSnapshot mDatabase2 = ds.child("schedule");
@@ -78,10 +79,10 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"), (long) message.indexOf(entry));
+                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"), String.valueOf(message.indexOf(entry)),0);
                             }
                             else {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),Long.parseLong(entry.get("activeKey")) );
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
                             }
                             Log.d("weekcal", "onDataChange: "+sc.toString());
                             scheduleFromDB.add(sc);
@@ -99,7 +100,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        Event event = new Event(String.valueOf(scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
+                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
                         Log.d("weekcaltask", "onDataChange: "+event.getId().toString());
 
                         listOfEvents.add(event);
@@ -157,8 +158,11 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
+
                 String id = ((Event) o).getId();
                 String firstLetter = id.substring(0, 3);
+                Log.d("weekclick", "firstLetter: "+firstLetter);
+                Log.d("weekclick", "id: "+id);
                 //if the first letter is "t" so it is a task
                 if(firstLetter.equals("2305")){
                     Intent intent = new Intent(getActivity(), TaskPagePopup.class);

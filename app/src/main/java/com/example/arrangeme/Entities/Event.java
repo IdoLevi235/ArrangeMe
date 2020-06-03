@@ -13,8 +13,8 @@ import kotlin.Metadata;
 import kotlin.jvm.internal.Intrinsics;
 
 public class Event implements WeekViewDisplayable<Event> {
-    private final String id;
     @NotNull
+    private final String id;
     private final String title;
     private final Calendar startTime;
     private final Calendar endTime;
@@ -23,7 +23,7 @@ public class Event implements WeekViewDisplayable<Event> {
     private final boolean isAllDay;
     private final boolean isCanceled;
 
-    public Event(String id, @NotNull String title, @NotNull Calendar startTime, @NotNull Calendar endTime, @NotNull String location, int color, boolean isAllDay, boolean isCanceled) {
+    public Event(@NotNull String id, @NotNull String title, @NotNull Calendar startTime, @NotNull Calendar endTime, @NotNull String location, int color, boolean isAllDay, boolean isCanceled) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -46,6 +46,7 @@ public class Event implements WeekViewDisplayable<Event> {
 
     }
 
+    @NotNull
     public final String getId() {
         return this.id;
     }
