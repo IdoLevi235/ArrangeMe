@@ -3,17 +3,16 @@ package com.example.arrangeme.ui.calendar.month;
 public class MainModelMonth {
     private String category;
     private String description;
-    private String time;
     private String type;
     private String createDate;
-
-
-
+    private String startTime;
+    private String endTime;
+    private String AnchorID;
+    private String activeKey;
 
     public MainModelMonth(String category, String description, String time, String type, String creteDate) {
         this.category = category;
         this.description = description;
-        this.time = time;
         this.type = type;
         this.createDate=creteDate;
     }
@@ -37,13 +36,6 @@ public class MainModelMonth {
         this.description = description;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public String getType() {
         return type;
@@ -62,5 +54,36 @@ public class MainModelMonth {
     }
 
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getAnchorID() {
+        return AnchorID;
+    }
+
+    public void setAnchorID(String anchorID) {
+        AnchorID = anchorID;
+    }
+
+    public String getActiveKey() {
+        return activeKey;
+    }
+
+    public void setActiveKey(String activeKey) {
+        this.activeKey = activeKey;
+    }
 }
 

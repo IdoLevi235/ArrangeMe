@@ -38,10 +38,13 @@ import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ui.schedule.MainModelSchedule;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
+import com.facebook.appevents.suggestedevents.ViewOnClickListener;
 import com.firebase.ui.database.FirebaseArray;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,19 +74,36 @@ import static android.content.Intent.getIntent;
 
 
 public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.OnClickListener {
+    Integer[] catIcon = {R.drawable.study_white,
+            R.drawable.sport_white,
+            R.drawable.work_white,
+            R.drawable.nutrition_white,
+            R.drawable.family_white_frame,
+            R.drawable.chores_white,
+            R.drawable.relax_white,
+            R.drawable.friends_white, 0};
+    Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
+            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
+                    R.drawable.rounded_rec_other_nostroke};
+    StringBuilder dateString = new StringBuilder();
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView monthCalendar;
     private RelativeLayout relativeLayout;
    // private TextView eventsName;
     private TextView noItemsText;
     private RecyclerView mRecycler;
-    private DatabaseReference mDatabase;
-    private DatabaseReference mDatabase2;
+    private DatabaseReference schRef;
+    private DatabaseReference anchRef;
     private ProgressBar spinner;
     private FirebaseRecyclerOptions<MainModelMonth> options;
     private FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder> fbAdapter;
     private FloatingActionButton addTasks;
     final String[] dateStringSentToAddAnchor = new String[1];
-
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    String UID;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,19 +121,22 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
         addTasks=view.findViewById(R.id.addTasksFloater);
         addTasks.setOnClickListener(this);
         noItemsText=view.findViewById(R.id.noItemsText);
-        noItemsText.setText("No tasks/anchors to show");
+        noItemsText.setText("No schedule/anchors to show");
         noItemsText.setVisibility(View.VISIBLE);
         monthCalendar=view.findViewById(R.id.monthCalendar);
         final HashSet<String> datesWithTasks = new HashSet<>();
         final HashSet<String> datesWithAnchors = new HashSet<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID); //tasks ref from schedule will be here
-        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        schRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules");
+        anchRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Anchors");
         //child of pending tasks that they are tasks
-        Query query_tasks = mDatabase.orderByChild("type").equalTo("TASK");
-        Query query_anchors = mDatabase2;
+        Query query_sch = schRef;
+        Query query_anchors = anchRef;
         query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -147,13 +170,11 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
             }
         });
-
-
-        query_tasks.addListenerForSingleValueEvent(new ValueEventListener() {
+        query_sch.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    datesWithTasks.add((String) ds.child("createDate").getValue());
+                    datesWithTasks.add(ds.getKey());
                 }
                 /* decorator start */
                 monthCalendar.addDecorator(new DayViewDecorator() {
@@ -169,7 +190,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
                     @Override
                     public void decorate(DayViewFacade view) {
-                        view.addSpan(new DotSpan(5, Color.GREEN));
+                        view.addSpan(new DotSpan(5,ContextCompat.getColor(getContext(), R.color.arrangeMeMain)));
                     }
 
                 });
@@ -182,8 +203,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
             }
         });
-
-
         //spinner = view.findViewById(R.id.progressBar55);
         //spinner.setVisibility(View.GONE);
         //relativeLayout = view.findViewById(R.id.relativeLayout);
@@ -194,21 +213,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        Integer[] catIcon = {R.drawable.study_white,
-                R.drawable.sport_white,
-                R.drawable.work_white,
-                R.drawable.nutrition_white,
-                R.drawable.family_white_frame,
-                R.drawable.chores_white,
-                R.drawable.relax_white,
-                R.drawable.friends_white, 0};
-        Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
-                {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                        R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                        R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                        R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
-                        R.drawable.rounded_rec_other_nostroke};
-        StringBuilder dateString = new StringBuilder();
 
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -234,68 +238,24 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 dateString.append(year);
                 dateStringSentToAddAnchor[0] =dateString.toString();
                 /* Recycler Stuff */
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
-                Query query = mDatabase.orderByChild("date").equalTo(dateString.toString());
-                options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(query, MainModelMonth.class).build();
-                fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
+                schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+
+                schRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelMonth model) {
-                        //  spinner.setVisibility(View.VISIBLE);
-                        noItemsText.setVisibility(View.GONE);
-                        holder.timeText.setText(" " + model.getTime());
-                        holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
-                        SpannableStringBuilder str = new SpannableStringBuilder
-                                ("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
-                        str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length() + 1, 0);
-                        holder.button.setText(str);
-                        holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
-                        holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
-                        holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
-                        //if (model.getType().equals("ANCHOR")) {
-                        //    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-                        // } else if (model.getType().equals("TASK")) {
-                        //    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-                        //}
-                        holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time); //for now it only show anchors
-                        holder.button.setBackgroundResource
-                                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
-                        holder.button.setCompoundDrawablesWithIntrinsicBounds
-                                (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
-                        // spinner.setVisibility(View.GONE);
-                        holder.button.setOnClickListener(v -> { //goto anchor/task popup
-                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String key = fbAdapter.getRef(position).getKey();
-                                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                    Bundle b = new Bundle();
-                                    b.putString("AnchorKey", key);
-                                    intent.putExtras(b);
-                                    startActivity(intent);
-                                    //for now, only anchors
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        });
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.hasChild(String.valueOf(dateString))){
+                            showOnlyAnchors();
+                        }
+                        else {
+                            showSchedule();
+                        }
                     }
 
-
-                    @NonNull
                     @Override
-                    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        Log.d("TAG", "onCreateViewHolder: " + viewType);
-                        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_events_month, parent, false);
-                        return new MyViewHolder(v);
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
-                };
-                fbAdapter.startListening();
-                mRecycler.setAdapter(fbAdapter);
+                });
                 /* Recycler Stuff End*/
 
 
@@ -305,6 +265,144 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         /* Calendar stuff End*/
 
     }
+
+    private void showSchedule() {
+        schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(String.valueOf(dateString)).child("schedule");
+        options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(schRef, MainModelMonth.class).build();
+        fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelMonth model) {
+                try {
+                    holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
+                    //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
+                    SpannableStringBuilder str = new SpannableStringBuilder
+                            (model.getDescription() + "\n\nCategory : " + model.getCategory());
+                    str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
+                    str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    holder.button.setText(str);
+                    holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
+                    holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+                    holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
+                    if (model.getType().equals("anchor")) {
+                        holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                        holder.button.setBackgroundResource
+                                (R.drawable.rounded_temp_grey_anchor);
+                        holder.button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {   //OPEN ANCHOR POPUP
+                                String id = model.getAnchorID();
+                                Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                Bundle b = new Bundle();
+                                b.putString("AnchorKeyFromWeek", id);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        });
+                    } else if (model.getType().equals("task")) {
+                        holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                        holder.button.setBackgroundResource
+                                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds
+                                (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
+                                        0);
+                        holder.button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String id = model.getActiveKey();
+                                Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                Bundle b = new Bundle();
+                                b.putString("TaskKeyFromWeek", id);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        });
+
+                    }
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                Log.d("TAG", "onCreateViewHolder: " + viewType);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_events_month, parent, false);
+                return new MyViewHolder(v);
+            }
+        };
+        fbAdapter.startListening();
+        mRecycler.setAdapter(fbAdapter);
+
+    }
+
+    private void showOnlyAnchors() {
+        Query q = anchRef.orderByChild("date").equalTo(String.valueOf(dateString));
+        options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(q, MainModelMonth.class).build();
+        fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelMonth model) {
+                //  spinner.setVisibility(View.VISIBLE);
+                noItemsText.setVisibility(View.GONE);
+                holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
+                //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
+                SpannableStringBuilder str = new SpannableStringBuilder
+                        (model.getDescription() + "\n\nCategory : " + model.getCategory());
+                str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
+                str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.button.setText(str);
+                holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
+                //if (model.getType().equals("ANCHOR")) {
+                //    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                // } else if (model.getType().equals("TASK")) {
+                //    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                //}
+                holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time); //for now it only show anchors
+                holder.button.setBackgroundResource
+                        (R.drawable.rounded_temp_grey_anchor);
+                // spinner.setVisibility(View.GONE);
+                holder.button.setOnClickListener(v -> { //goto anchor/task popup
+                    schRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String key = fbAdapter.getRef(position).getKey();
+                            Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("AnchorKey", key);
+                            intent.putExtras(b);
+                            startActivity(intent);
+                            //for now, only anchors
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                });
+            }
+
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                Log.d("TAG", "onCreateViewHolder: " + viewType);
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_events_month, parent, false);
+                return new MyViewHolder(v);
+            }
+        };
+        fbAdapter.startListening();
+        mRecycler.setAdapter(fbAdapter);
+
+    }
+
     public void onBackPressed() {
 
     }

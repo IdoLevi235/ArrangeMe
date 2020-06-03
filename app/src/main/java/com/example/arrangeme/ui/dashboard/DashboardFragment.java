@@ -61,6 +61,9 @@ import java.util.Locale;
 public class DashboardFragment extends Fragment implements View.OnClickListener, PersonalityVectorValidate {
 
     private DashboardViewModel dashboardViewModel;
+    private ScheduleFragment sf ;
+    private String today;
+    private LinearLayoutManager layoutManager;
     private Button chooseTasksBtn;
     private Button questionnaireBtn;
     private DatabaseReference mDatabase;
@@ -116,25 +119,20 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         rankit.setOnClickListener(this);
         view11=view.findViewById(R.id.view11);
         view11.setOnClickListener(this);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        //this.checkIfPersonalityVectorFilled();
-        //this.checkIfThereIsSchedule();
-        mRecycler.setLayoutManager(layoutManager);
-        mRecycler.setItemAnimator(new DefaultItemAnimator());
-        ScheduleFragment sf = new ScheduleFragment();
-        String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        /*mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
-       // Query query = mDatabase.orderByChild("createDate").equalTo(today);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        this.checkIfPersonalityVectorFilled();
+        }
+
+    private void showTodaySchedule() {
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                 Log.d("TAG7", "onBindViewHolder: ");
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
-                holder.button.setLayoutParams (new LinearLayout.LayoutParams(600, ViewGroup.LayoutParams.MATCH_PARENT));
-                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(90, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
+                holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-
             }
 
 
@@ -149,61 +147,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         };
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
-        */
-        }
 
-    public void checkIfThereIsSchedule() {
-
-        DatabaseReference mDatabase;
-
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("task").child("Pending_tasks");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                Log.d("TAG7", "onDataChange: " + dataSnapshot);
-                    if ((dataSnapshot.getChildrenCount()==0)) {
-                        view11.setVisibility(View.GONE);
-                        mRecycler.setVisibility(View.GONE);
-                        noSchRelative.setVisibility(View.VISIBLE);
-                        noScheduleYet.setVisibility(View.VISIBLE);
-                        noScheduleYet.setText("You don't have schedule for today");
-                        quesMessage.setVisibility(View.VISIBLE);
-                        quesMessage.setText("Please insert tasks and press red the button to build a schedule");
-                        questionnaireBtn.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
-
-
-   /* public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
-        Log.d("TAG7", "InitItemOfSchedule: ");
-        holder.timeText.setText(" "+model.getTime());
-        holder.button.setText("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-        SpannableStringBuilder str = new SpannableStringBuilder
-                ("\t"+model.getCategory()+" \n\n\t"+model.getDescription());
-        str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD_ITALIC), 0, model.getCategory().length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        str.setSpan(new RelativeSizeSpan(1.05f), 0, model.getCategory().length()+1, 0);
-        holder.button.setText(str);
-        holder.button.setLayoutParams (new LinearLayout.LayoutParams(720, ViewGroup.LayoutParams.MATCH_PARENT));
-        holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
-        holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-        if(model.getType().equals("ANCHOR")) {
-            holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-        }
-        else if (model.getType().equals("TASK"))
-            holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-        holder.button.setBackgroundResource
-                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
-        holder.button.setCompoundDrawablesWithIntrinsicBounds
-                (0,0,catIcon[TaskCategory.fromStringToInt(model.getCategory())],0);
-
-    }*/
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -256,7 +201,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                         q_answers.add(Integer.parseInt(data.getValue().toString()));
                     }
                 }
-                if (q_answers.contains(0)) {
+                if (q_answers.contains(0)) { //questionnaire not filled
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
                     noSchRelative.setVisibility(View.VISIBLE);
@@ -279,11 +224,46 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                         }
                     });
                 }
+                else { // questionnaire filled
+                    quesIsOK();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+    }
+
+    private void quesIsOK() {
+        mRecycler.setLayoutManager(layoutManager);
+        mRecycler.setItemAnimator(new DefaultItemAnimator());
+        sf = new ScheduleFragment();
+        today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(today).child("schedule");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()>0){ //SHOW TODAYS SCHEDULE
+                    showTodaySchedule();
+                }
+                else {
+                    view11.setVisibility(View.GONE);
+                    mRecycler.setVisibility(View.GONE);
+                    noSchRelative.setVisibility(View.VISIBLE);
+                    noScheduleYet.setVisibility(View.VISIBLE);
+                    noScheduleYet.setText("You don't have schedule for today");
+                    quesMessage.setVisibility(View.VISIBLE);
+                    quesMessage.setText("Please insert tasks and press on\n'Build A Schedule' button!");
+                    questionnaireBtn.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

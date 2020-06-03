@@ -168,8 +168,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDash"
-        android:layout_width="363dp"
-        android:layout_height="303dp"
+        android:layout_width="366dp"
+        android:layout_height="314dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/view11"
         app:layout_constraintEnd_toEndOf="@+id/view11"

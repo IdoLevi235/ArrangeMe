@@ -509,14 +509,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                         }
 
                         else if(dataSnapshot.child(key).child("type").getValue().equals("anchor") ){
-                            Log.d("popopo", "onClick: start");
                             String id = model.getAnchorID();
                             Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
                             b.putString("AnchorKeyFromWeek", id);
                             intent.putExtras(b);
-                            Log.d("popopo", "onClick: activeKey=" + id);
                             startActivity(intent);
                         }
                     }
@@ -533,7 +531,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
         try {
-            holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
+            holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
             //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
             SpannableStringBuilder str = new SpannableStringBuilder
                 (model.getDescription() + "\n\nCategory : " + model.getCategory());
