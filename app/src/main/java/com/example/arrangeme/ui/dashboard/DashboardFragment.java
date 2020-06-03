@@ -31,6 +31,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.ChooseTasks.ChooseTasks;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
@@ -133,7 +135,42 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
-            }
+                if(model.getType().equals("anchor")){
+                holder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {   //OPEN ANCHOR POPUP
+                        String id = model.getAnchorID();
+                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("AnchorKeyFromWeek", id);
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+                });
+
+                } else if (model.getType().equals("task")){
+                    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
+                    holder.button.setBackgroundResource
+                            (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                    holder.button.setCompoundDrawablesWithIntrinsicBounds
+                            (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
+                                    0);
+                    holder.button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String id = model.getActiveKey();
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("TaskKeyFromWeek", id);
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
+        }
 
 
             @NonNull
