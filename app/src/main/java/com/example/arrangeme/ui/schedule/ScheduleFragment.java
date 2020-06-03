@@ -3,6 +3,7 @@ package com.example.arrangeme.ui.schedule;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,22 +21,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.ChooseTasks.ChooseTasks;
+import com.example.arrangeme.Entities.Event;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Login;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,6 +73,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private RecyclerView recyclerSchedule;
     private LinearLayoutManager layoutManager;
     private String[] myDataset;
+    String deletedKey;
+    String deletedCategory;
+    String deletedDescription;
+    String deletedLocation;
     String date;
     FirebaseUser user;
     String UID;
@@ -92,7 +102,14 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
     private FirebaseAuth mAuth;
-
+    private String deletedType;
+    private String deletedActiveKey;
+    private String deletedCreateDate;
+    private String deletedDate;
+    private String deletedEndTime;
+    private String deletedStartTime;
+    private Object deletedPhotoURI;
+    private String deletedReminderType;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -126,6 +143,85 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         datePicker.setOnClickListener(this);
         checkIfQuestionnaireFilled();
         initializeSchedule();
+        initSwipes();
+    }
+
+    private void initSwipes() {
+        try{
+            ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
+                        .child("Schedules").child(date).child("schedule");
+                switch (direction) {
+                    case ItemTouchHelper.LEFT :
+                        deletedKey = fbAdapter.getRef(position).getKey();
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                deletedType = (String) dataSnapshot.child(deletedKey).child("type").getValue();
+                                deletedCategory = (String) dataSnapshot.child(deletedKey).child("category").getValue();
+                                deletedDescription = (String) dataSnapshot.child(deletedKey).child("description").getValue();
+                                deletedLocation = (String) dataSnapshot.child(deletedKey).child("location").getValue();
+                                deletedActiveKey = (String) dataSnapshot.child(deletedKey).child("activeKey").getValue();
+                                deletedCreateDate = (String) dataSnapshot.child(deletedKey).child("createDate").getValue();
+                                deletedDate = (String) dataSnapshot.child(deletedKey).child("date").getValue();
+                                deletedEndTime = (String) dataSnapshot.child(deletedKey).child("endTime").getValue();
+                                deletedStartTime = (String) dataSnapshot.child(deletedKey).child("startTime").getValue();
+                                deletedPhotoURI = (String) dataSnapshot.child(deletedKey).child("photoUri").getValue();
+                                deletedReminderType = (String) dataSnapshot.child(deletedKey).child("reminderType").getValue();
+
+                                if (deletedType.equals("anchor")) {
+                                    Toast.makeText(getContext(), "You can't delete an anchor!", Toast.LENGTH_LONG).show();
+                                    fbAdapter.notifyDataSetChanged();
+                                } else {
+                                    fbAdapter.getRef(position).setValue(null);
+                                    Snackbar.make(recyclerSchedule, "You deleted a " + deletedCategory
+                                            + " task: " + deletedDescription, Snackbar.LENGTH_LONG)
+                                            .setAction("Undo", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    mDatabase.child(deletedKey).child("category").setValue(deletedCategory);
+                                                    mDatabase.child(deletedKey).child("description").setValue(deletedDescription);
+                                                    mDatabase.child(deletedKey).child("location").setValue(deletedLocation);
+                                                    mDatabase.child(deletedKey).child("type").setValue(deletedType);
+                                                    mDatabase.child(deletedKey).child("startTime").setValue(deletedStartTime);
+                                                    mDatabase.child(deletedKey).child("endTime").setValue(deletedEndTime);
+                                                    mDatabase.child(deletedKey).child("date").setValue(deletedDate);
+                                                    mDatabase.child(deletedKey).child("createDate").setValue(deletedCreateDate);
+                                                    mDatabase.child(deletedKey).child("activeKey").setValue(deletedActiveKey);
+                                                    mDatabase.child(deletedKey).child("photoUri").setValue(deletedPhotoURI);
+                                                    mDatabase.child(deletedKey).child("reminderType").setValue(deletedReminderType);
+                                                }
+                                            }).show();
+
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                        break;
+                    default:
+                        break;
+                    }
+
+                }
+            });
+        helper.attachToRecyclerView(recyclerSchedule);
+
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void checkIfQuestionnaireFilled() {
@@ -146,6 +242,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     view4.setVisibility(View.GONE);
                     schExistRel.setVisibility(View.GONE);
                     quesMessage.setVisibility(View.VISIBLE);
+                    quesMessage.setText("You didn't fill the questionnaire yet.");
                     questionnaireBtn.setVisibility(View.VISIBLE);
                     noScheduleYet.setVisibility(View.VISIBLE);
                     noScheduleYet.setText("You don't have schedule for this day!");
@@ -218,7 +315,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 @Override
                 protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                     InitItemOfSchedule(holder, position, model); // Init each item in schedule
-                    setClickListenerToItem(holder, position); // Short click --> cancel pick
+                    setClickListenerToItem(holder, position,model); // Short click --> cancel pick
                     setLongClickListenerToItem(holder, position); // Long clicks
                     spinner.setVisibility(View.GONE);
                 }
@@ -233,6 +330,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
             fbAdapter.startListening();
             recyclerSchedule.setAdapter(fbAdapter);
+
         }
     }
 
@@ -378,7 +476,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
     }
 
-    private void setClickListenerToItem(MyViewHolder holder, int position) {
+    private void setClickListenerToItem(MyViewHolder holder, int position, MainModelSchedule model) {
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -397,6 +495,29 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                     longPressCount[0]--;
                                 }
                             }
+                            else { // 0 long presses untill now, show popup
+                                Log.d("popopo", "onClick: start");
+                                String id = model.getActiveKey();
+                                Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                Bundle b = new Bundle();
+                                b.putString("TaskKeyFromWeek", id);
+                                intent.putExtras(b);
+                                Log.d("popopo", "onClick: activeKey=" + id);
+                                startActivity(intent);
+                            }
+                        }
+
+                        else if(dataSnapshot.child(key).child("type").getValue().equals("anchor") ){
+                            Log.d("popopo", "onClick: start");
+                            String id = model.getAnchorID();
+                            Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("AnchorKeyFromWeek", id);
+                            intent.putExtras(b);
+                            Log.d("popopo", "onClick: activeKey=" + id);
+                            startActivity(intent);
                         }
                     }
 
@@ -431,7 +552,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 holder.button.setBackgroundResource
                         (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
                 holder.button.setCompoundDrawablesWithIntrinsicBounds
-                        (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())], 0);
+                        (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
+                                0);
             }
         }catch(Exception e){
             e.printStackTrace();

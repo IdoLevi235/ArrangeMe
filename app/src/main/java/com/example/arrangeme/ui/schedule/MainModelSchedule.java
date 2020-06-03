@@ -9,6 +9,9 @@ public class MainModelSchedule {
     private String type;
     private String startTime;
     private String endTime;
+    private String activeKey;
+
+    private String AnchorID;
 
 
     public MainModelSchedule(String category, String description, String type, String startTime, String endTime) {
@@ -20,6 +23,14 @@ public class MainModelSchedule {
     }
 
     public MainModelSchedule() {
+    }
+
+    public String getActiveKey() {
+        return activeKey;
+    }
+
+    public void setActiveKey(String activeKey) {
+        this.activeKey = activeKey;
     }
 
     public String getCategory() {
@@ -60,6 +71,14 @@ public class MainModelSchedule {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getAnchorID() {
+        return AnchorID;
+    }
+
+    public void setAnchorID(String anchorID) {
+        AnchorID = anchorID;
     }
 }
 

@@ -89,16 +89,21 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anchor_page_poup);
         this.definePopUpSize();
-        Bundle b = getIntent().getExtras();
-        if(b != null) {
-            anchorKey = b.getString("AnchorKeyFromWeek");
-            if(anchorKey!=null || anchorKey.equals("")){
-                fromWhereTheAnchor=0;
+        try {
+            Bundle b = getIntent().getExtras();
+            if (b != null) {
+                if (b.getString("AnchorKeyFromWeek")!=null) {
+                    fromWhereTheAnchor = 0; // from week/schedule
+                    anchorKey = b.getString("AnchorKeyFromWeek");
+                    Log.d("popopo", "onCreate: key = " +anchorKey + " fromwhere = " + fromWhereTheAnchor);
+                }
+                else {
+                    anchorKey = b.getString("AnchorKey");
+                    fromWhereTheAnchor = 1; // from month fragment
+                }
             }
-            anchorKey = b.getString("AnchorKey");
-            if(anchorKey!=null || anchorKey.equals("")){
-                fromWhereTheAnchor=1;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -171,11 +176,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
      * Show the details of the item in the popup
      */
 
-
     public void showDetails(int fromWhereTheAnchor) {
         this.showImage();
         anchorToPresent = new AnchorEntity();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -232,8 +235,8 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     public void showImage() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(anchorKey).child("photoUri");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(anchorKey).child("photoUri");
+        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();

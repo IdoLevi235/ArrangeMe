@@ -87,16 +87,24 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         this.definePopUpSize();
 
         //task key is the key for the task that the user touched
-        Bundle b = getIntent().getExtras();
-        if(b != null) {
-            taskKey = b.getString("TaskKeyFromWeek");
-            if(taskKey!=null || taskKey.equals("")){
-                fromWhereTheTask=0;
+        try {
+            Bundle b = getIntent().getExtras();
+            if (b != null) {
+                if (b.getString("TaskKeyFromWeek")!=null) {
+                    Log.d("popopo", "onCreate: WEEK/SCHEDULE");
+                    fromWhereTheTask = 0;
+                    String str = b.getString("TaskKeyFromWeek");
+                    taskKey = str.substring(4);
+                    Log.d("popopo", "onCreate: key = " +taskKey + " fromwhere = " + fromWhereTheTask);
+                }
+                else {
+                    Log.d("popopo", "onCreate: TASKS TAB");
+                    taskKey = b.getString("TaskKey");
+                    fromWhereTheTask = 1;
+                }
             }
-            taskKey = b.getString("TaskKey");
-            if(taskKey!=null || taskKey.equals("")){
-                fromWhereTheTask=1;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //define buttons
@@ -123,7 +131,6 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     //set data to the views from the DB
     public void showDetail(int fromWhereTheTask) {
-        this.showImage();
         TaskEntity taskToPresent =new TaskEntity();
         if(fromWhereTheTask==0) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks");
@@ -169,19 +176,33 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
                     SpinnerShow.setText(ReminderType.betterString(reminder));
                     reminder_switch.setChecked(true);
                 }
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        this.showImage();
+
     }
-        //shows the task's details in the activity layout
+
+
+    //shows the task's details in the activity layout
 
 
     @Override
     public void showImage(){
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks").child(taskKey).child("photoUri");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        try{
+            DatabaseReference mDatabase2 = null;
+            if(fromWhereTheTask==0) {
+                 mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks").child(taskKey).child("photoUri");
+            }
+            else if (fromWhereTheTask==1){
+                 mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks").child(taskKey).child("photoUri");
+            }
+            mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String imageURL = (String) dataSnapshot.getValue();
@@ -201,6 +222,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
 
 
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //turn on the edit mode

@@ -261,7 +261,6 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
-                android:text="Lorem Ipusom Lorem Ipusom Lorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem IpusomLorem2 "
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
@@ -330,7 +329,6 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
-                android:text="Lorem Ipusom Lorem Ipusom Lorem"
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
