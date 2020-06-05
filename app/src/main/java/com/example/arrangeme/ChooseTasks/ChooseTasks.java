@@ -418,12 +418,13 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                   String str = "You must choose a date!";
                   chooseTaskFailed(str);
               }
-//                else if (count < numOfTasksToChoose) {
-//                String str = "You must choose " + numOfTasksToChoose + " tasks!";
-//                chooseTaskFailed(str);
-//            }
+              //check that he chose at least one task
+              else if (categoriesChosen.isEmpty() && confirm.getText().toString().equals("Build Your Schedule")) {
+              String str = "You must choose at least one task!";
+              chooseTaskFailed(str);
+             }
 
-                else {
+              else {
                     String s = confirm.getText().toString() ;
                     Log.d("TAG9", "onClick: " + s);
                     if (s.equals("Add new tasks")){
@@ -490,10 +491,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
         mDatabase.child(date).child("data").child("frequency_vector").setValue(frequencyVector);
         mDatabase.child(date).child("data").child("time_vector").setValue(timeVector);
-
-
-
-    }
+        mDatabase.child(date).child("data").child("successful").setValue("n/a");
+}
 
     /**
      * this function calculates, creates and returns the time vector according to this user's
@@ -704,6 +703,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Map<String, Integer> timeVector = createTimeVector(hoursMap);
                 Log.d("TAG6", "onClick:time= " + timeVector);
                 //Log.d("TAG9", "onClick: keys chosen = " + keysChosen); works
+
                 addVectorsToDB(frequencyVector,timeVector,date);
                 moveChosenTasksFromPendingTasks();
                 buildSchedule(timeVector,frequencyVector,date);

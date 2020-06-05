@@ -275,7 +275,8 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         /*Fire base UI stuff */
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
                 .child("Schedules").child(date).child("schedule");
-        if(spinner.getVisibility()!=View.VISIBLE) {
+        String today = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        if(spinner.getVisibility()!=View.VISIBLE) { // COMING FROM TAB SCHEDULE
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -299,6 +300,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                         noSchRel.setVisibility(View.GONE);
                         view4.setVisibility(View.VISIBLE);
                         schExistRel.setVisibility(View.VISIBLE);
+                        initializeFirebaseUI();
                     }
                 }
 
@@ -308,30 +310,33 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 }
             });
         }
-        else {
-            options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
-            fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
-                @SuppressLint({"WrongConstant", "SetTextI18n"})
-                @Override
-                protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
-                    InitItemOfSchedule(holder, position, model); // Init each item in schedule
-                    setClickListenerToItem(holder, position,model); // Short click --> cancel pick
-                    setLongClickListenerToItem(holder, position); // Long clicks
-                    spinner.setVisibility(View.GONE);
-                }
-
-                @NonNull
-                @Override
-                public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                    View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
-                    return new MyViewHolder(v);
-                }
-            };
-
-            fbAdapter.startListening();
-            recyclerSchedule.setAdapter(fbAdapter);
-
+        else { // COMING FROM CHOOSE TASKS
+            initializeFirebaseUI();
         }
+    }
+
+    private void initializeFirebaseUI() {
+        options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
+        fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
+            @SuppressLint({"WrongConstant", "SetTextI18n"})
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
+                InitItemOfSchedule(holder, position, model); // Init each item in schedule
+                setClickListenerToItem(holder, position,model); // Short click --> cancel pick
+                setLongClickListenerToItem(holder, position); // Long clicks
+                spinner.setVisibility(View.GONE);
+            }
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
+                return new MyViewHolder(v);
+            }
+        };
+
+        fbAdapter.startListening();
+        recyclerSchedule.setAdapter(fbAdapter);
     }
 
     private void initializeComponents(View view) {
@@ -561,15 +566,14 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.chooseDate2:
-                DatePickerDialog datePickerDialog = createDatePickerDialog();
-                datePickerDialog.show();
+                createDatePickerDialog();
                 break;
             default:
                 break;
         }
     }
 
-    private DatePickerDialog createDatePickerDialog() {
+    private void createDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
@@ -583,7 +587,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             }
 
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        return dpd;
+        dpd.show();
 
     }
 
