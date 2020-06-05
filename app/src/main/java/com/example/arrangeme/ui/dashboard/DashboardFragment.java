@@ -155,6 +155,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         Bundle b = new Bundle();
                         b.putString("AnchorKeyFromWeek", id);
+                        b.putString("date",today);
                         intent.putExtras(b);
                         startActivity(intent);
                     }
@@ -213,7 +214,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 }
                 else { // n/a
                     rateMsg.setText("");
-
                 }
             }
 

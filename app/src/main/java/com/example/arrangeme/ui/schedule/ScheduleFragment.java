@@ -557,6 +557,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
                             b.putString("AnchorKeyFromWeek", id);
+                            b.putString("date",date);
                             intent.putExtras(b);
                             startActivity(intent);
                         }

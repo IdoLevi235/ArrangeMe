@@ -247,6 +247,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                             showOnlyAnchors();
                         }
                         else {
+                            addTasks.setEnabled(false); // if schedule exists this date, dont add anchors
                             showSchedule();
                         }
                     }
@@ -411,6 +412,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.addTasksFloater):
+
                 Intent intent = new Intent(getActivity(), AddAnchor.class);
                 intent.putExtra("date", dateStringSentToAddAnchor[0]);
                 startActivity(intent);
@@ -439,7 +441,4 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         dateString.append(year);
         return dateString;
     }
-    //TODO: change the days to english
-    //todo: spinner?!?!?12/#?!@$?#@!QR$?@#W
-    //TODO: REFACTOR
 }

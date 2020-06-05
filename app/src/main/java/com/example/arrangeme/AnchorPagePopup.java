@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,6 +79,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private String year;
     private String day;
     private String month;
+    String dateOfAnchor;
 
     /**
      * this function controls what happens on creation of the activity
@@ -93,8 +95,9 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
             Bundle b = getIntent().getExtras();
             if (b != null) {
                 if (b.getString("AnchorKeyFromWeek")!=null) {
-                    fromWhereTheAnchor = 0; // from week/schedule
+                    fromWhereTheAnchor = 0; // from week/schedule/dashboard/day
                     anchorKey = b.getString("AnchorKeyFromWeek");
+                    dateOfAnchor = b.getString("date");
                     Log.d("popopo", "onCreate: key = " +anchorKey + " fromwhere = " + fromWhereTheAnchor);
                 }
                 else {
@@ -265,6 +268,13 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
         SpinnerShow.setVisibility(View.INVISIBLE);
 
+        //if it is in scheduke, disable date+time
+        if (fromWhereTheAnchor==0)//not from month calendar
+        {
+             date.setEnabled(false);
+             sTime.setEnabled(false);
+             eTime.setEnabled(false);
+        }
         //set description editable
         descriptionText.setEnabled(true);
         descriptionText.setClickable(true);
@@ -480,7 +490,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
         DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").
                 child(Globals.UID).child("Calendar").child(year).child(month).child(day);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() { //EDIT IN ANCHORS
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mDatabase.child(anchorKey).child("description").setValue(anchorToChange.getDescription());
@@ -507,18 +517,11 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
             }
         });
-
-        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("TAG4", "onDataChange: datasnapshot= " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d("TAG4", "onDataChange: ds = " + ds);
-                    Log.d("TAG4", "onDataChange: ds.brother= " + ds.child("brother").getValue());
-                    Log.d("TAG4", "onDataChange: anchorKey= " + anchorKey);
-                    Log.d("TAG4", "onDataChange: equals= " + String.valueOf(ds.child("brother").getValue()).equals(anchorKey));
                     if (String.valueOf(ds.child("brother").getValue()).equals(anchorKey)){
-                        Log.d("TAG4", "onDataChange: inside if ds.getchildren= " + ds.getChildren());
                         ds.getRef().child("description").setValue(anchorToChange.getDescription());
                         ds.getRef().child("location").setValue(anchorToChange.getLocation());
                         ds.getRef().child("date").setValue(anchorToChange.getDate());
@@ -534,6 +537,37 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
             }
         });
+         */ // edit in calendar - come back here when we need it
+        DatabaseReference mDatabase3;
+        Query q;
+        if (dateOfAnchor!=null) //EDIT IN SHCEULDE
+        {
+            mDatabase3=FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(dateOfAnchor).child("schedule");
+            q=mDatabase3.orderByChild("AnchorID").equalTo(anchorKey);
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        ds.getRef().child("description").setValue(anchorToChange.getDescription());
+                        ds.getRef().child("location").setValue(anchorToChange.getLocation());
+                        if (reminder_switch.isChecked()) {
+                            if (chosenReminderEdited != null) {
+                                ds.getRef().child("reminderType").setValue(chosenReminderEdited);
+                            }
+                        } else {
+                            ds.getRef().child("reminderType").setValue(null);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
 
     }
 
@@ -543,7 +577,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
      */
     private void deleteTaskFromDB(CharSequence date) {
         mDatabase.child(anchorKey).setValue(null);
-
         String arr[] = date.toString().split("-");
         String day = arr[0];
         String month = arr[1];
@@ -551,6 +584,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
             month =  month.substring(1);
         }
         String year = arr[2];
+        /*
         DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").
                 child(Globals.UID).child("Calendar").child(year).child(month).child(day);
         mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -567,7 +601,30 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/ //come back here when we need calendar
+
+        DatabaseReference schRef;
+        Query q;
+        if (dateOfAnchor!=null) //EDIT IN SHCEULDE
+        {
+            schRef=FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(dateOfAnchor).child("schedule");
+            q=schRef.orderByChild("AnchorID").equalTo(anchorKey);
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        ds.getRef().setValue(null);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
         Intent intent = new Intent(AnchorPagePopup.this, Homepage.class);
         intent.putExtra("FromHomepage", "2");
         startActivity(intent);
