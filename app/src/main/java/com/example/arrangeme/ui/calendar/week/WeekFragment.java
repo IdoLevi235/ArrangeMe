@@ -79,12 +79,12 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"));
+                               // sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"));
+                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("AnchorID"));
                             }
                             else {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
                             }
-                            Log.d("weekcal", "onDataChange: "+sc.toString());
                             scheduleFromDB.add(sc);
                         }
                     }
@@ -101,44 +101,54 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                             e.printStackTrace();
                         }
                         Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
-                        Log.d("weekcaltask", "onDataChange: "+event.getId().toString());
 
                         listOfEvents.add(event);
                     }
-
                     else {
-                        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
-                        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    String anchorID = ds.getKey();
-                                    String startTime = (String) ds.child("startTime").getValue();
-                                    String endTime = (String) ds.child("endTime").getValue();
-                                    String date = (String) ds.child("date").getValue();
-                                    String description = (String) ds.child("description").getValue();
-                                    String category = (String) ds.child("category").getValue();
+                        Calendar cal = Calendar.getInstance();
+                        Calendar cal2 = Calendar.getInstance();
+                        try {
+                            cal = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getStartTime());
+                            cal2 = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getEndTime());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
 
-                                    Calendar cal = Calendar.getInstance();
-                                    Calendar cal2 = Calendar.getInstance();
-                                    try {
-                                        cal = DateStringToCalendar(date, startTime);
-                                        cal2 = DateStringToCalendar(date, endTime);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    /**
-                                     * submit the anchors of the schedule in the weekview
-                                     */
-                                    Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                    Log.d("weekcal", "onDataChange: " + event.getId().toString());
-                                    listOfEvents.add(event);
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
+                        listOfEvents.add(event);
+
+//                        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+//                        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    String anchorID = ds.getKey();
+//                                    String startTime = (String) ds.child("startTime").getValue();
+//                                    String endTime = (String) ds.child("endTime").getValue();
+//                                    String date = (String) ds.child("date").getValue();
+//                                    String description = (String) ds.child("description").getValue();
+//                                    String category = (String) ds.child("category").getValue();
+//
+//                                    Calendar cal = Calendar.getInstance();
+//                                    Calendar cal2 = Calendar.getInstance();
+//                                    try {
+//                                        cal = DateStringToCalendar(date, startTime);
+//                                        cal2 = DateStringToCalendar(date, endTime);
+//                                    } catch (ParseException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    /**
+//                                     * submit the anchors of the schedule in the weekview
+//                                     */
+//                                    Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+//                                    Log.d("weekcal", "onDataChange: " + event.getId().toString());
+//                                    listOfEvents.add(event);
+//                                }
+//                            }
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                            }
+//                        });
                     }
                     }
                 /**
