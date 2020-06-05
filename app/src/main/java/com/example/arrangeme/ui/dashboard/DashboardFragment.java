@@ -211,6 +211,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 else if (rate.equals("no")){
                     rateMsg.setText("You rated this schedule as unsuccessful");
                 }
+                else { // n/a
+                    rateMsg.setText("");
+
+                }
             }
 
             @Override
@@ -233,6 +237,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 Bundle b = new Bundle();
                 Intent intent = new Intent(getActivity(), ScheduleFeedback.class);
                 b.putString("date",today);
+                b.putBoolean("isFromScheduleTab",false);
                 intent.putExtras(b);
                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent);

@@ -36,6 +36,7 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
     private FirebaseUser user;
     private String UID;
     private DatabaseReference mDatabase;
+    private boolean isFromSchedule=false;
     /**
      * this function controls what happens on creation of the activity
      * @param savedInstanceState
@@ -56,6 +57,8 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
 
         Bundle b = getIntent().getExtras();
         date = b.getString("date");
+        isFromSchedule = b.getBoolean("isFromScheduleTab");
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,13 +96,26 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.dislike:
                 mDatabase.child("successful").setValue("no");
-                Intent i1 = new Intent(ScheduleFeedback.this,Homepage.class);
+                Bundle b = new Bundle();
+                Intent i1 = new Intent(ScheduleFeedback.this, Homepage.class);
+                if (isFromSchedule == true){ // from schedule
+                    b.putString("FromHomepage","3");
+                    b.putString("date",date);
+                    i1.putExtras(b);
+
+                }
                 startActivity(i1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.like:
                 mDatabase.child("successful").setValue("yes");
-                Intent i2 = new Intent(ScheduleFeedback.this,Homepage.class);
+                Bundle b2 = new Bundle();
+                Intent i2 = new Intent(ScheduleFeedback.this, Homepage.class);
+                if (isFromSchedule == true){ // from schedule
+                    b2.putString("FromHomepage","3");
+                    b2.putString("date",date);
+                    i2.putExtras(b2);
+                }
                 startActivity(i2);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
