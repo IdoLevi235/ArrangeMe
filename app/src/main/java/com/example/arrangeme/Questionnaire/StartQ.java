@@ -44,6 +44,7 @@ import static com.example.arrangeme.R.*;
 
 /**
  * A simple {@link Fragment} subclass.
+ * The first question in the questionnaire
  */
 public class StartQ<viewPager> extends Fragment  implements View.OnClickListener {
 

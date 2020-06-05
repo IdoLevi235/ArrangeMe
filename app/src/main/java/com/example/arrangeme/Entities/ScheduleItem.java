@@ -2,6 +2,9 @@ package com.example.arrangeme.Entities;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Class that represents schedule item in our code
+ */
 public class ScheduleItem{
     String hour;
     Boolean isWithTask;

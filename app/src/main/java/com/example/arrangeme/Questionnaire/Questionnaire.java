@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Main class of questionnaire. here we recieve the previous answers
+ */
 public class Questionnaire extends AppCompatActivity {
   static int qarr[] = new int[25];
     private int value;

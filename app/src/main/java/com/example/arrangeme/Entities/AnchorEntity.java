@@ -9,6 +9,9 @@ import com.example.arrangeme.Enums.TaskCategory;
 
 import java.util.Calendar;
 
+/**
+ * Class that represents anchor entity in our code
+ */
 public class AnchorEntity{
     String category;
     String description;

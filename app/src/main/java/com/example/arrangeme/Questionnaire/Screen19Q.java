@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Page number 20 of the questionnaire, final page
  */
 
 public class Screen19Q extends Fragment implements View.OnClickListener {
@@ -55,11 +55,20 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     private RadioButton rb2;
     private RadioButton rb3;
 
+    /**
+     * empty constructor
+     */
     public Screen19Q() {
         // Required empty public constructor
     }
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +76,10 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_screen19_q, container, false);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -104,6 +117,10 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param v
+     * onclick listsener
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onClick(View v){ //check for what button is pressed
         final NavController navController = Navigation.findNavController(v);
@@ -140,6 +157,9 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Function that checks at the end of the questionnaire if the user filled all the 25 questions or not
+     */
     private void isQuestionnaireFilled() {
         final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
         DatabaseReference mDatabase;
@@ -169,6 +189,9 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Alert box to the user in case that the questionnaire isn't filled
+     */
     private void alertQnotFinish() {
         isQFinish=false;
         SweetAlertDialog ad;
@@ -190,6 +213,9 @@ public class Screen19Q extends Fragment implements View.OnClickListener {
 
 
     }
+    /**
+     * Alert box to the user in case that the questionnaire  filled
+     */
 
     private void alertQfinish() {
         isQFinish=true;

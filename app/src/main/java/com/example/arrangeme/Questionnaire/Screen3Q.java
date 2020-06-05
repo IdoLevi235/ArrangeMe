@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
+ * The third page in the questionnaire
  */
 public class Screen3Q extends Fragment implements View.OnClickListener {
 
@@ -47,12 +48,23 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_screen3_q, container, false);
     }
+
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,6 +87,10 @@ public class Screen3Q extends Fragment implements View.OnClickListener {
         isReply=false;
     }
 
+    /**
+     * @param v
+     * onclick listener
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onClick(View v){ //check for what button is pressed
         final NavController navController = Navigation.findNavController(v);

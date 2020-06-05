@@ -13,6 +13,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Vector;
 
+/**
+ * Class that represents user in our code
+ */
 public class User {
     public static String uid;
     public String email;

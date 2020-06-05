@@ -4,16 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
@@ -21,25 +11,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.alamkanak.weekview.WeekView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.arrangeme.AddAnchor;
-import com.example.arrangeme.AddTasks.AddTasks;
 import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
-import com.example.arrangeme.ui.schedule.MainModelSchedule;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
-import com.facebook.appevents.suggestedevents.ViewOnClickListener;
-import com.firebase.ui.database.FirebaseArray;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,21 +46,13 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-import org.w3c.dom.Text;
-
-import java.security.AlgorithmParameters;
-import java.security.spec.AlgorithmParameterSpec;
-import java.security.spec.InvalidParameterSpecException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Locale;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static android.content.Intent.getIntent;
 
 
+/**
+ * @param <RecyclerAdapter>
+ * This class controls the month view calendar
+ */
 public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.OnClickListener {
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
@@ -104,12 +84,22 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     String UID;
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_month, container, false);
@@ -118,6 +108,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     }
 
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -216,6 +210,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
+            /**
+             * @param widget
+             * @param date
+             * @param selected
+             * function that controls what happens each time we pick a date in month calendar
+             */
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 //spinner.setVisibility(View.VISIBLE);
@@ -268,6 +268,9 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
     }
 
+    /**
+     * Show schedule for specified day in recycler view
+     */
     private void showSchedule() {
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(String.valueOf(dateString)).child("schedule");
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(schRef, MainModelMonth.class).build();
@@ -343,6 +346,9 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
     }
 
+    /**
+     * If there isnt schedule, show only anchors
+     */
     private void showOnlyAnchors() {
         Query q = anchRef.orderByChild("date").equalTo(String.valueOf(dateString));
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(q, MainModelMonth.class).build();
@@ -406,10 +412,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
 
     }
 
-    public void onBackPressed() {
-
-    }
-
+    /**
+     * @param v
+     * onclick listener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -424,6 +430,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
+
+    /**
+     * @param date
+     * @return StringBuilder
+     * this function gets CalendarDay and returns StringBuilder of this date
+     */
     public StringBuilder getSBfromCalendarDay (CalendarDay date) {
         StringBuilder dateString = new StringBuilder();
         dateString.setLength(0);

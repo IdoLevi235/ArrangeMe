@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Page number 18 of the questionnaire
  */
 public class Screen17Q extends Fragment implements View.OnClickListener {
 
@@ -37,11 +37,20 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
     private int[] btn_id = {R.id.yesSportBtn, R.id.noSportBtn, R.id.dontKnow2Btn};
     private boolean isReply=false;
 
+    /**
+     * empty constructor
+     */
     public Screen17Q() {
         // Required empty public constructor
     }
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +58,10 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_screen17_q, container, false);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -73,6 +86,10 @@ public class Screen17Q extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param v
+     * onclick listener
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onClick(View v){ //check for what button is pressed
         final NavController navController = Navigation.findNavController(v);

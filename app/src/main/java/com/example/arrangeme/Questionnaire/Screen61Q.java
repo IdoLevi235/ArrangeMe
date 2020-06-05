@@ -25,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * create an instance of this fragment.
+ * Page number 7 of the questionnaire
  */
 public class Screen61Q extends Fragment implements View.OnClickListener {
 
@@ -37,10 +37,19 @@ public class Screen61Q extends Fragment implements View.OnClickListener {
     private RadioButton rb5;
 
 
+    /**
+     * empty constructor
+     */
     public Screen61Q() {
         // Required empty public constructor
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +57,10 @@ public class Screen61Q extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_screen61_q, container, false);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -83,6 +96,10 @@ public class Screen61Q extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param v
+     * onclick listener
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {

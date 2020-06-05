@@ -11,6 +11,9 @@ import com.example.arrangeme.Enums.TaskCategory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * class that represents tasks entity in our code
+ */
 public class TaskEntity {
     TaskCategory category;
     String description;

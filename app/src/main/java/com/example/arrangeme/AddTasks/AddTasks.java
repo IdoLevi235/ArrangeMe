@@ -63,6 +63,11 @@ import java.util.Locale;
 import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+/**
+ * Add Tasks class - here the user can insert new tasks.
+ * Those tasks will be assigned into schedule later
+ */
 public class AddTasks extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private FirebaseFunctions mFunctions;
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -93,9 +98,13 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private Uri downloadUri2;
     private int currKey;
 
+    /**
+     * @param savedInstanceState
+     * onCreate method - set the initial parameters to all of xml components in this page
+     */
     @SuppressLint({"ClickableViewAccessibility", "ResourceType"})
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tasks);
         toolbar = findViewById(R.id.toolbar_addTasks);
@@ -175,6 +184,13 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 
     }
 
+
+    /**
+     * @param spinner
+     * @param items
+     * this functions set the spinner with reminder type options
+     */
+
     private void setSpinner(Spinner spinner, String[] items) {
         final List<String> reminderItemsList = new ArrayList<>(Arrays.asList(items));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -224,6 +240,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 
     }
 
+    /**
+     * @param recyclerView
+     * This function sets the recycler view of the categories.
+     */
     private void setRecyclerView(RecyclerView recyclerView) {
         Integer[] catIcon = {R.drawable.study, R.drawable.sport,  R.drawable.work, R.drawable.nutrition,
                 R.drawable.familycat, R.drawable.chores, R.drawable.relax,R.drawable.friends_cat, 0};
@@ -277,11 +297,21 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     }
 
 
+    /**
+     * This function inflates the top toolbar
+     * @param menu
+     * @return true if the toolbar created successfully
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.top_menu_homepage, menu);
         return true;
     }
+    /**
+     *   this function handles action bar item clicks
+     *   @param item
+     * @return true if the toolbar created successfully
+     */
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -299,9 +329,9 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     }
 
 
-
-
-
+    /**
+     * Hiding/showing navigation arrows of recycler view
+     */
     public void SwitchArrows(){
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
@@ -317,6 +347,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
+    /**
+     * onClick listener
+     * @param v
+     */
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -331,6 +366,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
+    /**
+     * @param selectedImage2
+     * With given Uri , we upload the photo to Firebase storage
+     */
     private void sendImage(Uri selectedImage2) {
         String uniqueID = UUID.randomUUID().toString();
         StorageReference imgRef = mStorageRef.child("images/tasks/"+Globals.UID+"/"+uniqueID+".jpg");
@@ -363,6 +402,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 }
     }
 
+    /**
+     * @param downloadUri
+     * adding photoUri to DB
+     */
     private void addPhotoUriToDB(Uri downloadUri) {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
@@ -370,6 +413,10 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         mDatabase.child("photoUri").setValue(downloadUri.toString());
     }
 
+    /**
+     * Adding new tas to db
+     * includes form validations, adding to DB and success alertbox
+     */
     private void addTaskToDB() {
             String description = desc.getText().toString();
             String location = addLocation.getText().toString();
@@ -444,6 +491,9 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 
     }
 
+    /**
+     * Picking photo from phone's gallery to upload
+     */
     private void pickFromGallery() {
         //Create an Intent with action as ACTION_PICK
         Intent intent=new Intent(Intent.ACTION_PICK);
@@ -455,6 +505,13 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         // Launching the Intent
         startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
+
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     *
+     */
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
@@ -481,6 +538,11 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 
     }
 
+    /**
+     * @param v
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
