@@ -204,8 +204,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("successful").getValue().equals("yes")){
+                String rate = (String) dataSnapshot.child("successful").getValue();
+                if (rate.equals("yes")){
                     rateMsg.setText("You rated this schedule as successful");
+                }
+                else if (rate.equals("no")){
+                    rateMsg.setText("You rated this schedule as unsuccessful");
                 }
             }
 

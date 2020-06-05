@@ -269,6 +269,9 @@ public class CreateSchedule {
                 scheduleRef.child(String.valueOf(key)).child("type").setValue("anchor");
                 scheduleRef.child(String.valueOf(key)).child("category").setValue(item.getCategory());
                 scheduleRef.child(String.valueOf(key)).child("description").setValue(item.getDescription());
+                scheduleRef.child(String.valueOf(key)).child("reminderType").setValue(item.getReminderType());
+                scheduleRef.child(String.valueOf(key)).child("photoUri").setValue(item.getPhotoUri());
+                scheduleRef.child(String.valueOf(key)).child("date").setValue(item.getDate());
 
 
             }
