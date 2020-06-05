@@ -53,6 +53,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     ScheduleItem sc;
     List <ScheduleItem> scheduleFromDB = new ArrayList();
 
+    HashMap<String, String> openPopUp = new HashMap<>();
     HashMap<String, Integer> hash = new HashMap<String, Integer>();
     Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
     String[] cat = {"study", "sport", "work", "nutrition","family", "chores", "relax", "friends", "other"};
@@ -81,9 +82,11 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                             if(entry.get("type").equals("anchor")) {
                                // sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"));
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("AnchorID"));
+                                openPopUp.put(sc.getIdForCalendar(),sc.getType());
                             }
                             else {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
+                                openPopUp.put(sc.getIdForCalendar(),sc.getType());
                             }
                             scheduleFromDB.add(sc);
                         }
@@ -124,27 +127,15 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
+                Log.d("openPopUp", "onEventClick: "+openPopUp.toString());
                 String id = ((Event) o).getId();
-                if(id.length()>4){
-                    String firstLetter = id.substring(0, 4);
-                    //if the first letter is "t" so it is a task
-                    if(firstLetter.equals("2305")){
-                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Bundle b = new Bundle();
-                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
-                        intent.putExtras(b);
-                        startActivity(intent);
-                    }
-                    //if the first letter isn't "t" it is an anchor
-                    else {
-                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Bundle b = new Bundle();
-                        b.putString("AnchorKeyFromWeek", ((Event) o).getId());
-                        intent.putExtras(b);
-                        startActivity(intent);
-                    }
+                if(openPopUp.get(id).equals("task")) {
+                    Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Bundle b = new Bundle();
+                    b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                    intent.putExtras(b);
+                    startActivity(intent);
                 }
                 else {
                         Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
@@ -153,8 +144,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         b.putString("AnchorKeyFromWeek", ((Event) o).getId());
                         intent.putExtras(b);
                         startActivity(intent);
-                }
-
+                    }
             }
         });
 
