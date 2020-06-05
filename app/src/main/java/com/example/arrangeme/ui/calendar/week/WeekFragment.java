@@ -91,7 +91,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                 }
                 List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                 for (int i = 0; i < scheduleFromDB.size(); i++) {
-                    if (scheduleFromDB.get(i).getType().equals("task")) {
                         Calendar cal = Calendar.getInstance();
                         Calendar cal2 = Calendar.getInstance();
                         try {
@@ -100,22 +99,21 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
-
+                    if (scheduleFromDB.get(i).getType().equals("task")) {
+                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
                         listOfEvents.add(event);
                     }
                     else {
-                        Calendar cal = Calendar.getInstance();
-                        Calendar cal2 = Calendar.getInstance();
-                        try {
-                            cal = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getStartTime());
-                            cal2 = DateStringToCalendar(scheduleFromDB.get(i).getDate(), scheduleFromDB.get(i).getEndTime());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if(scheduleFromDB.get(i).getCategory()==null){
+                            scheduleFromDB.get(i).setCategory(" ");
                         }
-                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2,scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-
+                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
                         listOfEvents.add(event);
+                    }
+                }
+                weekCalendar.submit(listOfEvents);
+                    }
+
 
 //                        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
 //                        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -149,13 +147,11 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 //                            public void onCancelled(@NonNull DatabaseError databaseError) {
 //                            }
 //                        });
-                    }
-                    }
+
                 /**
                  * submit the tasks of the schedule in the weekview
                  */
-                weekCalendar.submit(listOfEvents);
-            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -231,7 +227,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
             calendar.set(Calendar.AM_PM, Calendar.PM);
             arr2[0]= String.valueOf(Integer.parseInt(arr2[0])%12);
         }
-        else if(Integer.parseInt(arr2[0])<12){
+        else if(Integer.parseInt(arr2[0])<=12){
             calendar.set(Calendar.AM_PM, Calendar.AM);
             if(Integer.parseInt(arr2[0])==0)
                 arr2[0]= String.valueOf(24);
