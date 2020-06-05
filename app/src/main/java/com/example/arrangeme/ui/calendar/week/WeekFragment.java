@@ -79,7 +79,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"), String.valueOf(message.indexOf(entry)),0);
+                                sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"));
                             }
                             else {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
@@ -126,22 +126,22 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
+                                    /**
+                                     * submit the anchors of the schedule in the weekview
+                                     */
                                     Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                    Log.d("weekcal", "onDataChange: "+event.getId().toString());
+                                    Log.d("weekcal", "onDataChange: " + event.getId().toString());
                                     listOfEvents.add(event);
                                 }
-                                /**
-                                 * submit the anchors of the schedule in the weekview
-                                 */
-                                weekCalendar.submit(listOfEvents);
-                                Log.d("weekcal", "onDataChange: "+listOfEvents.toString());
-
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
                     }
+                    weekCalendar.submit(listOfEvents);
+                    Log.d("weekcal", "onDataChange: " + listOfEvents.toString());
                     }
                 /**
                  * submit the tasks of the schedule in the weekview
