@@ -418,12 +418,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                   String str = "You must choose a date!";
                   chooseTaskFailed(str);
               }
-//                else if (count < numOfTasksToChoose) {
-//                String str = "You must choose " + numOfTasksToChoose + " tasks!";
-//                chooseTaskFailed(str);
-//            }
+              else if (categoriesChosen.isEmpty() && confirm.getText().toString().equals("Build Your Schedule")) {
+              String str = "You must choose at least one task!";
+              chooseTaskFailed(str);
+             }
 
-                else {
+              else {
                     String s = confirm.getText().toString() ;
                     Log.d("TAG9", "onClick: " + s);
                     if (s.equals("Add new tasks")){
