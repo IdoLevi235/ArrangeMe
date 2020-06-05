@@ -114,44 +114,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                 weekCalendar.submit(listOfEvents);
                     }
 
-
-//                        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
-//                        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                                    String anchorID = ds.getKey();
-//                                    String startTime = (String) ds.child("startTime").getValue();
-//                                    String endTime = (String) ds.child("endTime").getValue();
-//                                    String date = (String) ds.child("date").getValue();
-//                                    String description = (String) ds.child("description").getValue();
-//                                    String category = (String) ds.child("category").getValue();
-//
-//                                    Calendar cal = Calendar.getInstance();
-//                                    Calendar cal2 = Calendar.getInstance();
-//                                    try {
-//                                        cal = DateStringToCalendar(date, startTime);
-//                                        cal2 = DateStringToCalendar(date, endTime);
-//                                    } catch (ParseException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    /**
-//                                     * submit the anchors of the schedule in the weekview
-//                                     */
-//                                    Event event = new Event(anchorID, description, cal, cal2, category, ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-//                                    Log.d("weekcal", "onDataChange: " + event.getId().toString());
-//                                    listOfEvents.add(event);
-//                                }
-//                            }
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                            }
-//                        });
-
-                /**
-                 * submit the tasks of the schedule in the weekview
-                 */
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -162,29 +124,37 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
-
                 String id = ((Event) o).getId();
-                String firstLetter = id.substring(0, 3);
-                Log.d("weekclick", "firstLetter: "+firstLetter);
-                Log.d("weekclick", "id: "+id);
-                //if the first letter is "t" so it is a task
-                if(firstLetter.equals("2305")){
-                    Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    Bundle b = new Bundle();
-                    b.putString("TaskKeyFromWeek", ((Event) o).getId());
-                    intent.putExtras(b);
-                    startActivity(intent);
+                if(id.length()>4){
+                    String firstLetter = id.substring(0, 4);
+                    //if the first letter is "t" so it is a task
+                    if(firstLetter.equals("2305")){
+                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+                    //if the first letter isn't "t" it is an anchor
+                    else {
+                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
                 }
-                //if the first letter isn't "t" it is an anchor
                 else {
-                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    Bundle b = new Bundle();
-                    b.putString("AnchorKeyFromWeek", ((Event) o).getId());
-                    intent.putExtras(b);
-                    startActivity(intent);
+                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                        intent.putExtras(b);
+                        startActivity(intent);
                 }
+
             }
         });
 
