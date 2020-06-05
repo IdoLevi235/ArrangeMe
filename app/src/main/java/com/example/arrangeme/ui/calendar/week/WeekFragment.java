@@ -105,13 +105,14 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 
                         listOfEvents.add(event);
                     }
+
                     else {
                         DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
                         mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    String anchorID = (String) ds.getKey();
+                                    String anchorID = ds.getKey();
                                     String startTime = (String) ds.child("startTime").getValue();
                                     String endTime = (String) ds.child("endTime").getValue();
                                     String date = (String) ds.child("date").getValue();
@@ -134,14 +135,11 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                     listOfEvents.add(event);
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
                     }
-                    weekCalendar.submit(listOfEvents);
-                    Log.d("weekcal", "onDataChange: " + listOfEvents.toString());
                     }
                 /**
                  * submit the tasks of the schedule in the weekview
