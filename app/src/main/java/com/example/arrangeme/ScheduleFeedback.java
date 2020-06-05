@@ -3,6 +3,7 @@ package com.example.arrangeme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -59,12 +60,7 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("successful").getValue().equals("n/a")){ // schedule without rate yer
                     doyouthink.setText("According to the suggested schedule for " + date + ", do you fill that you succeed complete most of your tasks? \nWas your day productive?");
-                }
-                else {
-
-                }
             }
 
             @Override
@@ -94,13 +90,18 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
     }
     @Override
     public void onClick(View v) {
-
         switch (v.getId()){
             case R.id.dislike:
-                mDatabase.child("succesful").setValue("no");
+                mDatabase.child("successful").setValue("no");
+                Intent i1 = new Intent(ScheduleFeedback.this,Homepage.class);
+                startActivity(i1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.like:
-                mDatabase.child("succesful").setValue("yes");
+                mDatabase.child("successful").setValue("yes");
+                Intent i2 = new Intent(ScheduleFeedback.this,Homepage.class);
+                startActivity(i2);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             default:
                 break;
