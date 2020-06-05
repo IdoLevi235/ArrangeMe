@@ -219,6 +219,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 //spinner.setVisibility(View.VISIBLE);
+                addTasks.setEnabled(true);
                 monthCalendar.setSelectionColor(ContextCompat.getColor(getContext(), R.color.arrangeMeMain));
                 noItemsText.setVisibility(View.VISIBLE);
                 dateString.setLength(0);
@@ -296,6 +297,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 Bundle b = new Bundle();
                                 b.putString("AnchorKeyFromWeek", id);
+                                b.putString("date", String.valueOf(dateString));
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }

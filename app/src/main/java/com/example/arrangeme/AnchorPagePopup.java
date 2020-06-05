@@ -79,7 +79,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private String year;
     private String day;
     private String month;
-    String dateOfAnchor;
+    String dateOfAnchor="";
 
     /**
      * this function controls what happens on creation of the activity
@@ -98,7 +98,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                     fromWhereTheAnchor = 0; // from week/schedule/dashboard/day
                     anchorKey = b.getString("AnchorKeyFromWeek");
                     dateOfAnchor = b.getString("date");
-                    Log.d("popopo", "onCreate: key = " +anchorKey + " fromwhere = " + fromWhereTheAnchor);
                 }
                 else {
                     anchorKey = b.getString("AnchorKey");
