@@ -43,10 +43,14 @@ import com.example.arrangeme.CreateSchedule;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ReminderBroadcast;
+import com.example.arrangeme.Signup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +60,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -119,6 +124,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     ArrayList<String> keysChosen = new ArrayList<>();
 
     Map<String, Boolean> hoursMap;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    String UID;
     @Override
 
     /**
@@ -129,7 +137,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
-
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
         mFunctions = FirebaseFunctions.getInstance();
         toolbar = findViewById(R.id.toolbar_chooseTasks);
         setSupportActionBar(toolbar);
@@ -424,16 +434,17 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
               chooseTaskFailed(str);
              }
 
-              else {
+              else { // validations passed
                     String s = confirm.getText().toString() ;
                     Log.d("TAG9", "onClick: " + s);
-                    if (s.equals("Add new tasks")){
+                    if (s.equals("Add new tasks")){ // add new tasks button
                         Intent i = new Intent(ChooseTasks.this,AddTasks.class);
                         startActivity(i);
                     }
-                    else {
-                        String date = (String) setDate.getText();
-                        chooseTaskSuccess(date);
+                    else { // build schedule button
+                        isPastSchedulesRated();
+                        //String date = (String) setDate.getText();
+                        //chooseTaskSuccess(date);
                     }
               }
                 break;
@@ -464,6 +475,60 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         }//end of switch
 
     } //end of onclick
+
+    private void isPastSchedulesRated() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+        ArrayList<LocalDate> datesWithUnratedSchedule = new ArrayList<>();
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    if (ds.child("data").child("successful").getValue().equals("n/a")){
+                        datesWithUnratedSchedule.add(LocalDate.parse(ds.getKey()));
+                    }
+                }
+                LocalDate today = LocalDate.now(); // get todays date
+                for (LocalDate date : datesWithUnratedSchedule){
+                    if (date.isBefore(today)){
+                        showSchUnratedAlert(date);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void showSchUnratedAlert(LocalDate date) {
+        SweetAlertDialog ad;
+        ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Sorry!")
+                .setContentText(("The system cannot create a schedule for you yet.\nYou didn't rate " +
+                                "the schedule from " + date + ".\n" +
+                        "Your review on each past schedule is very important, in order to create the best schedule for you."));
+        ad.setConfirmText("Rate now");
+        ad.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                Bundle b = new Bundle();
+                Intent intent = new Intent(ChooseTasks.this, Homepage.class);
+                b.putString("FromHomepage","3");
+                b.putString("date", date.toString());
+                intent.putExtras(b);
+                startActivity(intent);
+                finish();
+            }
+        });
+        ad.show();
+        Button btn = (Button) ad.findViewById(R.id.confirm_button);
+        btn.setBackgroundResource(R.drawable.rounded_rec);
+
+    }
 
     /**
      * Create notification channel
