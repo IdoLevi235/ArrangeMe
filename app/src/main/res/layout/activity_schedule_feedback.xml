@@ -89,7 +89,6 @@
                     android:layout_marginBottom="128dp"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center"
-                    android:text="According to the suggested schedule for today, do you fill that you succeed complete most of your tasks? \nWas your day productive?"
                     android:textColor="@color/darkgray"
                     android:textSize="16sp" />
 

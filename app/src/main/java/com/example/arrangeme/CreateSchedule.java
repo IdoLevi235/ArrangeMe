@@ -146,6 +146,12 @@ public class CreateSchedule {
                         String description = (String) ds.child("description").getValue();
                         AnchorEntity anch = new AnchorEntity(start,end,anchorID,category);
                         anch.setDescription(description);
+                        String rem = (String) ds.child("reminderType").getValue();
+                        anch.setReminderTypeStr(rem);
+                        String photoUri = (String) ds.child("photoUri").getValue();
+                        anch.setPhoto(photoUri);
+                        String d = (String) ds.child("date").getValue();
+                        anch.setDate(d);
                         anchorsList.add(anch);
                     }
                 }
@@ -495,9 +501,14 @@ public class CreateSchedule {
             String type = "anchor";
             String id = anchor.getAnchorID();
             String description = anchor.getDescription();
-
+            String date = anchor.getDate();
+            String photo = anchor.getPhoto();
+            String rem = anchor.getReminderTypeStr();
             ScheduleItem item = new ScheduleItem(sTime, eTime, category, type, id);
             item.setDescription(description);
+            item.setDate(date);
+            item.setPhotoUri(photo);
+            item.setReminderType(rem);
             finalSchedule.add(item);
         }
         //now sorting by start time

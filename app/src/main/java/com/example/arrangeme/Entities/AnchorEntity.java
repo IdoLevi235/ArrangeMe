@@ -12,12 +12,16 @@ import java.util.Calendar;
 public class AnchorEntity{
     String category;
     String description;
-    Uri photo;
+    String photo;
     ReminderType reminderType;
+
+
+    String reminderTypeStr;
     String location;
     String date;
     String timeStart;
     String timeEnd;
+    String anchorID;
 
     public String getAnchorID() {
         return anchorID;
@@ -27,12 +31,11 @@ public class AnchorEntity{
         this.anchorID = anchorID;
     }
 
-    String anchorID;
     public AnchorEntity() {
 
     }
 
-    public AnchorEntity(String category, String description, Uri photo, ReminderType reminderType, String location, String date, String startTime, String endTime) {
+    public AnchorEntity(String category, String description, String photo, ReminderType reminderType, String location, String date, String startTime, String endTime) {
         this.category = category;
         this.description = description;
         this.photo = photo;
@@ -67,11 +70,11 @@ public class AnchorEntity{
         this.description = description;
     }
 
-    public Uri getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Uri photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -115,4 +118,13 @@ public class AnchorEntity{
     public void setEndTime(String endTime) {
         this.timeEnd = endTime;
     }
+    public String getReminderTypeStr() {
+        return reminderTypeStr;
+    }
+
+    public void setReminderTypeStr(String reminderTypeStr) {
+        this.reminderTypeStr = reminderTypeStr;
+    }
+
+
 }

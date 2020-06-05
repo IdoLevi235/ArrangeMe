@@ -47,6 +47,8 @@ import com.example.arrangeme.ui.schedule.ScheduleFragment;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,6 +78,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView welcome;
+    private TextView rateMsg;
     private RelativeLayout view11;
     private AppCompatImageView rankit;
     Integer[] catIcon = {R.drawable.study_white,
@@ -91,6 +94,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
                     R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private String UID;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -105,6 +111,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
+        rateMsg=view.findViewById(R.id.rateMsg);
         welcome=view.findViewById(R.id.welcomText);
         welcome.setText("Welcome " + Globals.currentUsername +"!");
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
@@ -126,6 +136,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         }
 
     private void showTodaySchedule() {
+        showScheduleRate();
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @Override
@@ -187,6 +198,24 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    private void showScheduleRate() {
+        DatabaseReference dbRef;
+        dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(today).child("data");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("successful").getValue().equals("yes")){
+                    rateMsg.setText("You rated this schedule as successful");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -197,7 +226,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 getActivity().startActivity(ct);
                 break;
             case (R.id.rankit):
+                Bundle b = new Bundle();
                 Intent intent = new Intent(getActivity(), ScheduleFeedback.class);
+                b.putString("date",today);
+                intent.putExtras(b);
                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent);
             default:
@@ -229,7 +261,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     public void checkIfPersonalityVectorFilled() {
         final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personality_vector");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personality_vector");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -277,7 +309,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         sf = new ScheduleFragment();
         today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(today).child("schedule");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(today).child("schedule");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
