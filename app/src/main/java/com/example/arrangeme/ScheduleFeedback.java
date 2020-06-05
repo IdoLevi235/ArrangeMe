@@ -47,8 +47,6 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
         UID=user.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
-
         dislike=findViewById(R.id.dislike);
         dislike.setOnClickListener(this);
         like=findViewById(R.id.like);
@@ -57,11 +55,11 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
 
         Bundle b = getIntent().getExtras();
         date = b.getString("date");
-
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("succesfull").equals("n/a")){ // schedule without rate yer
+                if (dataSnapshot.child("successful").getValue().equals("n/a")){ // schedule without rate yer
                     doyouthink.setText("According to the suggested schedule for " + date + ", do you fill that you succeed complete most of your tasks? \nWas your day productive?");
                 }
                 else {
