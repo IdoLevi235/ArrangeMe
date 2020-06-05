@@ -3,6 +3,7 @@ package com.example.arrangeme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -35,6 +36,7 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
     private FirebaseUser user;
     private String UID;
     private DatabaseReference mDatabase;
+    private boolean isFromSchedule=false;
     /**
      * this function controls what happens on creation of the activity
      * @param savedInstanceState
@@ -55,16 +57,13 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
 
         Bundle b = getIntent().getExtras();
         date = b.getString("date");
+        isFromSchedule = b.getBoolean("isFromScheduleTab");
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("successful").getValue().equals("n/a")){ // schedule without rate yer
                     doyouthink.setText("According to the suggested schedule for " + date + ", do you fill that you succeed complete most of your tasks? \nWas your day productive?");
-                }
-                else {
-
-                }
             }
 
             @Override
@@ -94,13 +93,31 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
     }
     @Override
     public void onClick(View v) {
-
         switch (v.getId()){
             case R.id.dislike:
-                mDatabase.child("succesful").setValue("no");
+                mDatabase.child("successful").setValue("no");
+                Bundle b = new Bundle();
+                Intent i1 = new Intent(ScheduleFeedback.this, Homepage.class);
+                if (isFromSchedule == true){ // from schedule
+                    b.putString("FromHomepage","3");
+                    b.putString("date",date);
+                    i1.putExtras(b);
+
+                }
+                startActivity(i1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.like:
-                mDatabase.child("succesful").setValue("yes");
+                mDatabase.child("successful").setValue("yes");
+                Bundle b2 = new Bundle();
+                Intent i2 = new Intent(ScheduleFeedback.this, Homepage.class);
+                if (isFromSchedule == true){ // from schedule
+                    b2.putString("FromHomepage","3");
+                    b2.putString("date",date);
+                    i2.putExtras(b2);
+                }
+                startActivity(i2);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             default:
                 break;

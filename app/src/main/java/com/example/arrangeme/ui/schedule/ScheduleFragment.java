@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -41,6 +42,7 @@ import com.example.arrangeme.Homepage;
 import com.example.arrangeme.Login;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ScheduleFeedback;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -53,6 +55,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,10 +71,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private TextView noScheduleYet;
     private TextView quesMessage;
     private TextView chooseMessage;
+    private TextView rateMsg;
     private Button chooseTaskBtn;
     private Button questionnaireBtn;
     private ProgressBar spinner;
     private RecyclerView recyclerSchedule;
+    private AppCompatImageView rankit;
     private LinearLayoutManager layoutManager;
     private String[] myDataset;
     String deletedKey;
@@ -315,7 +321,35 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
+    private void showScheduleRate() {
+        DatabaseReference dbRef;
+        dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String rate = (String) dataSnapshot.child("successful").getValue();
+                if (rate.equals("yes")){
+                    rateMsg.setText("You rated this schedule as successful");
+                }
+                else if (rate.equals("no")){
+                    rateMsg.setText("You rated this schedule as unsuccessful");
+            }
+
+                else { // n/a
+                    rateMsg.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     private void initializeFirebaseUI() {
+        showScheduleRate();
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
@@ -356,6 +390,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         noSchRel=view.findViewById(R.id.noScheduleLayout);
         schExistRel=view.findViewById(R.id.scheduleExistsLayout);
         view4 = view.findViewById(R.id.view4);
+        rateMsg = view.findViewById(R.id.rateMsgSch);
+        rankit = view.findViewById(R.id.rankit);
+        rankit.setOnClickListener(this);
     }
 
     private void initializeFields() {
@@ -568,6 +605,14 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             case R.id.chooseDate2:
                 createDatePickerDialog();
                 break;
+            case R.id.rankit:
+                Bundle b = new Bundle();
+                Intent intent = new Intent(getActivity(), ScheduleFeedback.class);
+                b.putString("date",date);
+                b.putBoolean("isFromScheduleTab",true);
+                intent.putExtras(b);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent);
             default:
                 break;
         }

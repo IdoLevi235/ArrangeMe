@@ -152,6 +152,8 @@ public class CreateSchedule {
                         anch.setPhoto(photoUri);
                         String d = (String) ds.child("date").getValue();
                         anch.setDate(d);
+                        String location = (String) ds.child("location").getValue();
+                        anch.setLocation(location);
                         anchorsList.add(anch);
                     }
                 }
@@ -250,6 +252,7 @@ public class CreateSchedule {
                         scheduleRef.child(String.valueOf(key)).child("location").setValue(task.getLocation());
                         scheduleRef.child(String.valueOf(key)).child("photoUri").setValue(task.getPhotoUri());
                         scheduleRef.child(String.valueOf(key)).child("reminderType").setValue(task.getReminderType());
+                        scheduleRef.child(String.valueOf(key)).child("location").setValue(task.getLocation());
                         //after task added to db, we want to remove it from temp into active tasks
                         DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("tasks").child("Active_tasks");
                         task.setDate(date);
@@ -507,11 +510,13 @@ public class CreateSchedule {
             String date = anchor.getDate();
             String photo = anchor.getPhoto();
             String rem = anchor.getReminderTypeStr();
+            String location=anchor.getLocation();
             ScheduleItem item = new ScheduleItem(sTime, eTime, category, type, id);
             item.setDescription(description);
             item.setDate(date);
             item.setPhotoUri(photo);
             item.setReminderType(rem);
+            item.setLocation(location);
             finalSchedule.add(item);
         }
         //now sorting by start time
