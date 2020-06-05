@@ -86,6 +86,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             }
                             else if (!hidePass){
                                 passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                                passwordText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                                 passwordText.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.eyeee,0);
                                 hidePass=true;
                             }

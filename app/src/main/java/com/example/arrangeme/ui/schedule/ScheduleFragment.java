@@ -327,16 +327,17 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String rate = (String) dataSnapshot.child("successful").getValue();
-                if (rate.equals("yes")){
-                    rateMsg.setText("You rated this schedule as successful");
-                }
-                else if (rate.equals("no")){
-                    rateMsg.setText("You rated this schedule as unsuccessful");
-            }
-
-                else { // n/a
-                    rateMsg.setText("");
+                try {
+                    String rate = (String) dataSnapshot.child("successful").getValue();
+                    if (rate.equals("yes")) {
+                        rateMsg.setText("You rated this schedule as successful");
+                    } else if (rate.equals("no")) {
+                        rateMsg.setText("You rated this schedule as unsuccessful");
+                    } else { // n/a
+                        rateMsg.setText("");
+                    }
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
             }
 
