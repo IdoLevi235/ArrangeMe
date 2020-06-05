@@ -146,8 +146,8 @@
 
         <Button
             android:id="@+id/chooseTaskBtn"
-            android:layout_width="281dp"
-            android:layout_height="41dp"
+            android:layout_width="195dp"
+            android:layout_height="46dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -156,13 +156,17 @@
             android:layout_marginTop="174dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/btn_rounded"
-            android:elevation="1.5dp"
-            android:fontFamily="sans-serif-medium"
             android:shadowColor="#535353"
-            android:text="Build a Schedule"
+            android:background="@drawable/dashboard_topbuttons"
+            android:drawableRight="@drawable/scfhedule_2"
+            android:drawablePadding="-8dp"
+            android:elevation="1.5dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingRight="6dp"
+            android:text="Build A Schedule"
             android:textAllCaps="false"
-            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:textSize="13sp"
             android:visibility="gone" />
 
     </RelativeLayout>

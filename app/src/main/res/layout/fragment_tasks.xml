@@ -45,8 +45,8 @@
 
         <Button
             android:id="@+id/questionnaireBtn"
-            android:layout_width="281dp"
-            android:layout_height="41dp"
+            android:layout_width="240dp"
+            android:layout_height="37dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -55,15 +55,14 @@
             android:layout_marginTop="173dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="31dp"
-            android:background="@drawable/btn_rounded"
-            android:elevation="1.5dp"
-            android:fontFamily="sans-serif-medium"
-            android:shadowColor="#535353"
-            android:text=" Fill The Questionnaire Now!"
+            android:background="@drawable/btn_rounded_yellow"
+            android:elevation="2dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Fill The Questionnaire"
+            android:textColor="#FFFFFF"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:visibility="gone" />
-
 
     </RelativeLayout>
 
