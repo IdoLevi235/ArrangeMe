@@ -61,6 +61,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -443,8 +444,6 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     }
                     else { // build schedule button
                         isPastSchedulesRated();
-                        //String date = (String) setDate.getText();
-                        //chooseTaskSuccess(date);
                     }
               }
                 break;
@@ -482,17 +481,27 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String date_str="";
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     if (ds.child("data").child("successful").getValue().equals("n/a")){
-                        datesWithUnratedSchedule.add(LocalDate.parse(ds.getKey()));
+                        date_str =  ds.getKey();
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        datesWithUnratedSchedule.add(LocalDate.parse(date_str,dateFormatter));
                     }
                 }
                 LocalDate today = LocalDate.now(); // get todays date
+                boolean flag = false;
                 for (LocalDate date : datesWithUnratedSchedule){
                     if (date.isBefore(today)){
-                        showSchUnratedAlert(date);
+                        showSchUnratedAlert(date_str);
+                        flag=true;
                         break;
                     }
+                }
+
+                if (flag==false) { // there are no un-rated past schedule, so its OK, go and build schedule
+                    String date = (String) setDate.getText();
+                    chooseTaskSuccess(date);
                 }
             }
 
@@ -504,7 +513,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private void showSchUnratedAlert(LocalDate date) {
+    private void showSchUnratedAlert(String date) {
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Sorry!")
