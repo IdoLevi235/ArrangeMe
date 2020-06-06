@@ -22,8 +22,8 @@ public class ScheduleItem{
     String reminderType;
     String idForCalendar;
 
-    public ScheduleItem(String anchorID, String type) {
-        this.anchorID = anchorID;
+    public ScheduleItem(String date, String type) {
+        this.date = date;
         this.type = type;
     }
 
