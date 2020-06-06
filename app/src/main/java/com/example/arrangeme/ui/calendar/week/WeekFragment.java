@@ -174,6 +174,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                     getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     Bundle b = new Bundle();
                     b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                    b.putString("date",openPopUp.get(id).getDate());
                     intent.putExtras(b);
                     startActivity(intent);
                 }
