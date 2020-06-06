@@ -52,7 +52,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
     private WeekView weekCalendar;
     ScheduleItem sc;
     List <ScheduleItem> scheduleFromDB = new ArrayList();
-
+    List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<>();
     HashMap<String, ScheduleItem> openPopUp = new HashMap<>();
     HashMap<String, Integer> hash = new HashMap<String, Integer>();
     Integer[] catColor = {R.color.study, R.color.sport, R.color.work, R.color.nutrition, R.color.family, R.color.chores, R.color.relax, R.color.friends, R.color.other};
@@ -80,7 +80,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
-                               // sc = new ScheduleItem(entry.get("AnchorID"), entry.get("type"));
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("AnchorID"));
                                 ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"));
                                 openPopUp.put(sc.getIdForCalendar(),sc1);
@@ -94,7 +93,6 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         }
                     }
                 }
-                List<WeekViewDisplayable<Event>> listOfEvents = new ArrayList<WeekViewDisplayable<Event>>();
                 for (int i = 0; i < scheduleFromDB.size(); i++) {
                         Calendar cal = Calendar.getInstance();
                         Calendar cal2 = Calendar.getInstance();
@@ -121,15 +119,55 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+        /**
+         *this reference is to load all the anchors for the user to the weekview
+         */
+        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Calendar cal = Calendar.getInstance();
+                        Calendar cal2 = Calendar.getInstance();
+                        try {
+                            Log.d("mDatabase2Week", "onDataChange: "+ds.child("date").getValue().toString());
+                            cal = DateStringToCalendar(ds.child("date").getValue().toString(), ds.child("startTime").getValue().toString());
+                            cal2 = DateStringToCalendar(ds.child("date").getValue().toString(), ds.child("endTime").getValue().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(!ds.hasChild("category")){
+                                Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, " ", ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                                ScheduleItem sc1=new ScheduleItem(ds.child("date").getValue().toString(), "anchor");
+                                openPopUp.put(ds.getKey(),sc1);
+                                listOfEvents.add(event);
+                        }
+                        else {
+                               Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, ds.child("category").getValue().toString(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                                ScheduleItem sc1=new ScheduleItem(ds.child("date").getValue().toString(), "anchor");
+                                openPopUp.put(ds.getKey(),sc1);
+                               listOfEvents.add(event);
+                            }
+                        }
+                weekCalendar.submit(listOfEvents);
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         /**
          * when clicking on the events , it will open their details in pop up window
          */
         weekCalendar.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
-                Log.d("openPopUp", "onEventClick: "+openPopUp.toString());
                 String id = ((Event) o).getId();
                 if(openPopUp.get(id).getType().equals("task")) {
                     Intent intent = new Intent(getActivity(), TaskPagePopup.class);
@@ -160,7 +198,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 
         setHasOptionsMenu(true);
         return view;
-    }
+}
 
     public void onBackPressed() {
     }
