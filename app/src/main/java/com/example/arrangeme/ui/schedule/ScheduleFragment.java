@@ -580,10 +580,17 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         try {
             holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
             //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
-            SpannableStringBuilder str = new SpannableStringBuilder
-                (model.getDescription() + "\n\nCategory : " + model.getCategory());
-            str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
-            str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            String cat = model.getCategory();
+            SpannableStringBuilder str = null;
+            if(cat!=null) {
+                 str = new SpannableStringBuilder
+                        (model.getDescription() + "\n\nCategory : " + cat);
+            }
+            else {
+                str = new SpannableStringBuilder(model.getDescription());
+            }
+            str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length(), 0);
+            str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.button.setText(str);
             holder.button.setLayoutParams(new LinearLayout.LayoutParams(600, 200));
             holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));

@@ -138,55 +138,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tasks);
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        UID = user.getUid();
-        mFunctions = FirebaseFunctions.getInstance();
-        toolbar = findViewById(R.id.toolbar_chooseTasks);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.backsmall);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        notif=findViewById(R.id.notif);
-        notif.setOnClickListener(this);
+        initializeComponents();
+        initializeFields();
+        initializeToolbar();
 
-        view4=findViewById(R.id.view4);
-
-        imv4 = findViewById(R.id.imageView4);
-
-        spinner = findViewById(R.id.progressBar3);
-        spinner.setVisibility(View.VISIBLE);
-
-        tv = findViewById(R.id.textView16);
-        tv.setVisibility(View.GONE);
-
-        tv2=findViewById(R.id.textViewExplanation);
-        //tv2.setVisibility(View.INVISIBLE);
-
-        numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
-        numberTextView.setText(Integer.toString(count));
-        numberTextView.setBackgroundResource(R.drawable.red_textview);
-
-        howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
-        //howMuchMore.setText("You can choose " + (numOfTasksToChoose - count) + " more tasks");
-
-        helloTxt = (TextView) findViewById(R.id.textViewHello);
-        helloTxt.setText("Hello, " + Globals.currentUsername + "!");
-
-        count = 0;
-
-        confirm = (Button) findViewById(R.id.confirmTasksBtn);
-        confirm.setOnClickListener(this);
-
-        setDate = (Button)findViewById(R.id.chooseDate);
-        setDate.setOnClickListener(this);
+        // get extras (date)
         Intent i = getIntent();
-
         String date = i.getStringExtra("date");
         Log.d("TAG3", "onCreate: " + date);
         if (date!=null) {
@@ -196,18 +153,74 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
             setDate.setText(currentDate);
         }
-
-        layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
-        mRecycler = findViewById(R.id.recylcler_choosetasks);
         String d = setDate.getText().toString();
         Log.d("TAG2", "onCreate: " + d);
         checkNumberOfFreeHours(d);
         setRecycler(mRecycler);
+    }
+
+    /**
+     * Initialize the toolbar
+     */
+    private void initializeToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    /**
+     * Initialize all components from XML and setting texts, onclick listeners for them
+     */
+    private void initializeComponents() {
+        toolbar = findViewById(R.id.toolbar_chooseTasks);
+        notif=findViewById(R.id.notif);
+        notif.setOnClickListener(this);
+        view4=findViewById(R.id.view4);
+        imv4 = findViewById(R.id.imageView4);
+        spinner = findViewById(R.id.progressBar3);
+        spinner.setVisibility(View.VISIBLE);
+        tv = findViewById(R.id.textView16);
+        tv.setVisibility(View.GONE);
+        tv2=findViewById(R.id.textViewExplanation);
+        numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
+        numberTextView.setText(Integer.toString(count));
+        numberTextView.setBackgroundResource(R.drawable.red_textview);
+        howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
+        helloTxt = (TextView) findViewById(R.id.textViewHello);
+        helloTxt.setText("Hello, " + Globals.currentUsername + "!");
+        confirm = (Button) findViewById(R.id.confirmTasksBtn);
+        confirm.setOnClickListener(this);
+        setDate = (Button)findViewById(R.id.chooseDate);
+        setDate.setOnClickListener(this);
+        layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
+        mRecycler = findViewById(R.id.recylcler_choosetasks);
 
     }
 
+    /**
+     * Initialize other fields of this class
+     */
+    private void initializeFields() {
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
+        mFunctions = FirebaseFunctions.getInstance();
+        count = 0;
+    }
+
+    /**
+     * @param date
+     * check if there is already a schedule in the systen for this user in this date.
+     * if so - give him a special message
+     */
     private void checkIfThereIsSchedule(String date) {
-       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(date);
+       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(date).child("schedule");
        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -475,6 +488,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     } //end of onclick
 
+    /**
+     * Before building a schedule, we check if the user rated all of his past schedule (before today)
+     * if he did - we build a schedule
+     * if not - we direct him to schedule tab to the specific unrated schedule
+     */
     private void isPastSchedulesRated() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
         ArrayList<LocalDate> datesWithUnratedSchedule = new ArrayList<>();
@@ -513,6 +531,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * @param date
+     * Alert if there are past unrated schedules
+     */
     private void showSchUnratedAlert(String date) {
         SweetAlertDialog ad;
         ad =  new SweetAlertDialog(ChooseTasks.this, SweetAlertDialog.WARNING_TYPE)
@@ -794,6 +816,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         // Button btn1 = (Button) ad.findViewById(R.id.cancel);
     }
 
+    /**
+     * Remove chosen tasks from pending tasks into temp folder in DB
+     */
     private void moveChosenTasksFromPendingTasks() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -827,6 +852,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         });
 
     }
+    /**
+     * Remove a task from pending tasks into temp folder in DB
+     */
 
     private void moveTask(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
         DatabaseReference newRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("temp");
@@ -851,6 +879,12 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     }
 
 
+    /**
+     * @param timeVector
+     * @param frequencyVector
+     * @param date
+     * Schedule building proccess starts here.
+     */
     public void buildSchedule(Map<String, Integer> timeVector, Map<String, Integer> frequencyVector,String date) {
         ArrayList<Integer> timeArray = new ArrayList<>();
         ArrayList<Integer> freqArray = new ArrayList<>();
