@@ -37,6 +37,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -68,6 +69,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private Switch reminder_switch;
     private Uri image;
     private DatabaseReference mDatabase;
+    private DatabaseReference schRef;
     private ReminderType chosenReminder;
     private ReminderType chosenReminderEdited;
     private TaskEntity task;
@@ -78,6 +80,8 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private int fromWhereTheTask;
     private int reminderInt;
     private RoundedImageView photoHere;
+    private String date;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,15 +94,13 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         try {
             Bundle b = getIntent().getExtras();
             if (b != null) {
-                if (b.getString("TaskKeyFromWeek")!=null) {
-                    Log.d("popopo", "onCreate: WEEK/SCHEDULE");
+                if (b.getString("TaskKeyFromWeek")!=null) { // from calendars/dashboard/schedule
                     fromWhereTheTask = 0;
                     String str = b.getString("TaskKeyFromWeek");
                     taskKey = str.substring(4);
-                    Log.d("popopo", "onCreate: key = " +taskKey + " fromwhere = " + fromWhereTheTask);
+                    date = b.getString("date");
                 }
-                else {
-                    Log.d("popopo", "onCreate: TASKS TAB");
+                else { // from tasks tab
                     taskKey = b.getString("TaskKey");
                     fromWhereTheTask = 1;
                 }
@@ -270,7 +272,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
         textCategory.setOnClickListener(this);
         //when click on delete the task
-        editModeBtn.setOnClickListener(new View.OnClickListener() {
+        editModeBtn.setOnClickListener(new View.OnClickListener() { //deleting here
            @Override
            public void onClick(View v) {
                SweetAlertDialog delete;
@@ -294,7 +296,7 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
                delete.show();
            }
        });
-        applyBtn.setOnClickListener(new View.OnClickListener() {
+        applyBtn.setOnClickListener(new View.OnClickListener() { //editing here
             @Override
             public void onClick(View v) {
                 if (descriptionText.length() == 0) {
@@ -387,9 +389,15 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         });
     }
 
-    private void addTaskToDB(TaskEntity editedTaskToChange) {
-
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+    private void addTaskToDB(TaskEntity editedTaskToChange) { // editing here
+        if(fromWhereTheTask==0){ // update in active tasks + sch
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks");
+            schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(date).child("schedule");
+            updateTaskInSchedule(editedTaskToChange);
+        }
+        else if (fromWhereTheTask==1) { // update only in pending tasks
+             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
+        }
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -415,16 +423,68 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             });
         }
 
+    private void updateTaskInSchedule(TaskEntity editedTaskToChange) {
+        String activeKey = "2305" + taskKey;
+        Query q = schRef.orderByChild("activeKey").equalTo(activeKey);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ds.getRef().child("description").setValue(editedTaskToChange.getDescription());
+                    ds.getRef().child("location").setValue(editedTaskToChange.getLocation());
+                    if(reminder_switch.isChecked()) {
+                        if(chosenReminderEdited!=null) {
+                            ds.getRef().child("reminderType").setValue(chosenReminderEdited);
+                        }
+                    }
+                    else
+                    {
+                        ds.getRef().child("reminderType").setValue(null);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     private void deleteTaskFromDB() {
+        // delete from active tasks/pending tasks
         mDatabase.child(taskKey).setValue(null);
         Intent intent = new Intent(TaskPagePopup.this, Homepage.class);
         intent.putExtra("FromHomepage", "1");
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
+        if(fromWhereTheTask==0) {
+            schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(date).child("schedule");
+            deleteTaskFromSchedule();
+        }
 
         //TODO: add "undo" delete like in tab tasks?
+    }
+
+    private void deleteTaskFromSchedule() {
+        String activeKey = "2305" + taskKey;
+        Query q = schRef.orderByChild("activeKey").equalTo(activeKey);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ds.getRef().setValue(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
