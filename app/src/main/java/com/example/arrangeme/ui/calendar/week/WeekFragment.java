@@ -49,6 +49,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class WeekFragment extends Fragment implements View.OnClickListener, OnMonthChangeListener {
 
+
     private WeekView weekCalendar;
     ScheduleItem sc;
     List <ScheduleItem> scheduleFromDB = new ArrayList();
