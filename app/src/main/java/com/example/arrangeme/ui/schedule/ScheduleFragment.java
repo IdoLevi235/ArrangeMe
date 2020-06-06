@@ -545,6 +545,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 Bundle b = new Bundle();
                                 b.putString("TaskKeyFromWeek", id);
+                                b.putString("date",date);
                                 intent.putExtras(b);
                                 Log.d("popopo", "onClick: activeKey=" + id);
                                 startActivity(intent);

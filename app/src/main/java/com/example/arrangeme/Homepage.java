@@ -101,6 +101,7 @@ public class Homepage extends AppCompatActivity{
         Intent i = getIntent();
         String data = i.getStringExtra("FromHomepage");
         String date = i.getStringExtra("date");
+
         Log.d("TAG1", "onCreate: in homepage" + date);
         if (data != null && data.contentEquals("1")) {
             navView.setSelectedItemId(R.id.navigation_tasks);

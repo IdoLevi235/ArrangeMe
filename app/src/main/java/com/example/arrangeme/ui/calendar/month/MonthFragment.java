@@ -320,6 +320,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 Bundle b = new Bundle();
                                 b.putString("TaskKeyFromWeek", id);
+                                b.putString("date", String.valueOf(dateString));
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }
