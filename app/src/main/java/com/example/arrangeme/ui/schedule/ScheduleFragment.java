@@ -116,6 +116,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private String deletedStartTime;
     private Object deletedPhotoURI;
     private String deletedReminderType;
+    private boolean isFromChooseTasks=false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -141,6 +142,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         if (date!=null) { // came from choosetasks
             ((Homepage) getActivity()).setDateToShowInScheduleFragment(null);
             spinner.setVisibility(View.VISIBLE);
+            isFromChooseTasks=true;
         }
         else { //didn't come from choose tasks, show today's date
             date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -206,7 +208,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                                     mDatabase.child(deletedKey).child("reminderType").setValue(deletedReminderType);
                                                 }
                                             }).show();
-
                                 }
                             }
                             @Override
@@ -282,7 +283,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID)
                 .child("Schedules").child(date).child("schedule");
         String today = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        if(spinner.getVisibility()!=View.VISIBLE) { // COMING FROM TAB SCHEDULE
+        if(isFromChooseTasks==false) { // COMING FROM TAB SCHEDULE
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -316,7 +317,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 }
             });
         }
-        else { // COMING FROM CHOOSE TASKS
+        else if (isFromChooseTasks==true){ // COMING FROM CHOOSE TASKS
             initializeFirebaseUI();
         }
     }
@@ -360,6 +361,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 setClickListenerToItem(holder, position,model); // Short click --> cancel pick
                 setLongClickListenerToItem(holder, position); // Long clicks
                 spinner.setVisibility(View.GONE);
+                isFromChooseTasks=false;
             }
 
             @NonNull
