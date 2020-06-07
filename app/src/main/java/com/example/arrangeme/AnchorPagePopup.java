@@ -141,13 +141,14 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
         WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.dimAmount = 0.5f;
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = -15;
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         getWindow().setAttributes(params);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         this.setFinishOnTouchOutside(false);
-        Log.d("TAG", "definePopUpSize: " + this);
 
     }
 
