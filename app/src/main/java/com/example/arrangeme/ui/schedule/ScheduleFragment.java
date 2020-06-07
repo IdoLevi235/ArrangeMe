@@ -456,24 +456,30 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private void swapItems(DataSnapshot dataSnapshot, Handler handler) {
         handler.postDelayed(new Runnable() {
             public void run() {
-                // Actions to do after 5 seconds
+                // Actions to do after 0.85 seconds
 
                 String firstKey = String.valueOf(longPressKeys[0]);
                 String secondKey = String.valueOf(longPressKeys[1]);
+
                 String firstTaskCategory = (String) dataSnapshot.child(firstKey).child("category").getValue();
                 String firstTaskDescription = (String) dataSnapshot.child(firstKey).child("description").getValue();
                 String firstTaskLocation = (String) dataSnapshot.child(firstKey).child("location").getValue();
+                String firstActiveKey = (String) dataSnapshot.child(firstKey).child("activeKey").getValue();
+
                 String secondTaskCategory = (String) dataSnapshot.child(secondKey).child("category").getValue();
                 String secondTaskDescription = (String) dataSnapshot.child(secondKey).child("description").getValue();
                 String secondTaskLocation = (String) dataSnapshot.child(secondKey).child("location").getValue();
+                String secondActiveKey = (String) dataSnapshot.child(secondKey).child("activeKey").getValue();
 
                 dataSnapshot.child(firstKey).child("category").getRef().setValue(secondTaskCategory);
                 dataSnapshot.child(firstKey).child("description").getRef().setValue(secondTaskDescription);
                 dataSnapshot.child(firstKey).child("location").getRef().setValue(secondTaskLocation);
+                dataSnapshot.child(firstKey).child("activeKey").getRef().setValue(secondActiveKey);
 
                 dataSnapshot.child(secondKey).child("category").getRef().setValue(firstTaskCategory);
                 dataSnapshot.child(secondKey).child("description").getRef().setValue(firstTaskDescription);
                 dataSnapshot.child(secondKey).child("location").getRef().setValue(firstTaskLocation);
+                dataSnapshot.child(secondKey).child("activeKey").getRef().setValue(firstActiveKey);
 
                 fbAdapter.notifyItemChanged(longPressPositions[0], longPressPositions[1]);
                 Snackbar.make(recyclerSchedule,"You swapped between " + firstTaskDescription
@@ -484,10 +490,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                 dataSnapshot.child(firstKey).child("category").getRef().setValue(firstTaskCategory);
                                 dataSnapshot.child(firstKey).child("description").getRef().setValue(firstTaskDescription);
                                 dataSnapshot.child(firstKey).child("location").getRef().setValue(firstTaskLocation);
+                                dataSnapshot.child(firstKey).child("activeKey").getRef().setValue(firstActiveKey);
 
                                 dataSnapshot.child(secondKey).child("category").getRef().setValue(secondTaskCategory);
                                 dataSnapshot.child(secondKey).child("description").getRef().setValue(secondTaskDescription);
                                 dataSnapshot.child(secondKey).child("location").getRef().setValue(secondTaskLocation);
+                                dataSnapshot.child(secondKey).child("activeKey").getRef().setValue(secondActiveKey);
+
                             }
                         }).show();
                 longPressCount[0]=0;
@@ -498,7 +507,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
             }
         }, 850);
-
     }
 
     private void cancelPickedItemWithLongClick(MyViewHolder holder, String key, DataSnapshot dataSnapshot) {
