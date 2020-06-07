@@ -190,7 +190,7 @@
         app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966" />
+        app:layout_constraintVertical_bias="0.935" />
 
     <Button
         android:id="@+id/logout"
@@ -232,9 +232,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="79dp"
+            android:layout_marginStart="69dp"
             android:layout_marginTop="62dp"
-            android:layout_marginEnd="70dp"
+            android:layout_marginEnd="80dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_rounded_yellow"
             android:elevation="2dp"

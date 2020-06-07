@@ -89,7 +89,7 @@
             android:textSize="20sp" />
 
         <ProgressBar
-            android:id="@+id/progressBar5"
+            android:id="@+id/progressBarLevel"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="295dp"
             android:layout_height="24dp"
@@ -104,7 +104,7 @@
             android:progress="70" />
 
         <TextView
-            android:id="@+id/levelNum"
+            android:id="@+id/level"
             android:layout_width="162dp"
             android:layout_height="18dp"
             android:layout_alignParentStart="true"
@@ -122,7 +122,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/howManyPoints"
+            android:id="@+id/points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -144,17 +144,17 @@
             android:id="@+id/AvatarCircle"
             android:layout_width="85dp"
             android:layout_height="83dp"
-            android:layout_alignBottom="@+id/levelNum"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="7dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="319dp"
-            android:layout_marginBottom="-25dp"
+            android:layout_marginBottom="14dp"
             android:background="@drawable/avatar_empty"
             android:elevation="3dp"
-            android:src="@drawable/firstravatar" />
+             />
 
     </RelativeLayout>
 

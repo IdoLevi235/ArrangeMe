@@ -141,8 +141,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         leftScrl.setOnTouchListener(this);
         /* Right and Left click listenrs end*/
 
-        textViewHelloAdd = findViewById(R.id.textViewHelloAdd);
-        textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
 
         /* spinner stuff */
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);

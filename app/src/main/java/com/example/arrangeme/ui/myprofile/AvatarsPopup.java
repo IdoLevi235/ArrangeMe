@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,18 +16,14 @@ import androidx.annotation.Nullable;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Dictionary;
 import java.util.HashMap;
 
 public class AvatarsPopup extends Activity implements View.OnClickListener{
 
-    Button AvatarCircle1;
-    Button AvatarCircle6;
-    Button AvatarCircle3;
-    Button AvatarCircle2;
-    Button AvatarCircle5;
-    Button AvatarCircle4;
+
     Button apply_avatar;
     int ChosenAvatar=0;
     private Button btn_unfocus;
@@ -72,7 +67,7 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.apply_avatar:
-                updateAvatar();
+                updateAvatar(ChosenAvatar);
                 break;
             case R.id.AvatarCircle1:
                 ChosenAvatar=1;
@@ -101,8 +96,13 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         }
     }
 
-    private void updateAvatar() {
-        //TODO: UPDATE AVATAR IN user db + set the profile avatar picture to be the new avatar.
+    private void updateAvatar(int ChosenAvatar) {
+        String avatar= "avatar"+ChosenAvatar;
+        Log.d("avatar", "updateAvatar: avatar"+avatar);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
+        mDatabase.child("avatar").setValue(avatar);
+
         onBackPressed();
         return;
     }
@@ -115,11 +115,13 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width*0.90 ), (int) (height *0.65));
         WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.dimAmount = 0.5f;
         params.gravity = Gravity.CENTER;
         params.x = 0;
         params.y = -20;
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         getWindow().setAttributes(params);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
 }

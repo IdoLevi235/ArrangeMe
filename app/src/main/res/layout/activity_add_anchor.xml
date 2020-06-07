@@ -24,20 +24,27 @@
 
         <TextView
             android:id="@+id/textViewHelloAddanchor"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_width="210dp"
+            android:layout_height="30dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="570dp"
+            android:layout_marginStart="102dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="99dp"
+            android:layout_marginBottom="575dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
+            android:text="Add New Anchor"
             android:textColor="@color/arrangeMeMain"
-            android:textSize="26sp" />
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.503" />
 
         <TextView
             android:id="@+id/textViewPleaseChooseAnchor"

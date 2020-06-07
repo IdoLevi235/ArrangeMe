@@ -20,8 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997" />
 
     <TextView
         android:id="@+id/text_title"
@@ -92,27 +92,31 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
+
+
     <TextView
         android:id="@+id/textViewHelloAdd"
-        android:layout_width="281dp"
-        android:layout_height="45dp"
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="76dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:text="Add New Task"
         android:textColor="@color/arrangeMeMain"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.503" />
+
 
     <TextView
         android:id="@+id/textViewPleaseChooseAdd"
         android:layout_width="327dp"
         android:layout_height="48dp"
         android:layout_marginTop="63dp"
-        android:layout_marginBottom="584dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Here you can insert new tasks that you would like to do in the next few days. "
@@ -121,9 +125,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewHelloAdd"
-        app:layout_constraintVertical_bias="0.82" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002" />
 
     <Button
         android:id="@+id/sumbitBtn11"

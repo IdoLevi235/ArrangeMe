@@ -122,8 +122,6 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         addPhoto.setOnClickListener(this);
         addLocation = (EditText) findViewById(R.id.locationAnc11);
         anchorToAdd = new AnchorEntity();
-        textViewHelloAdd = findViewById(R.id.textViewHelloAddanchor);
-        textViewHelloAdd.setText("Hello, " + Globals.currentUsername + "!");
         addLocation = (EditText)findViewById(R.id.locationAnc11);
 
         /* Reminder spinner stuff */

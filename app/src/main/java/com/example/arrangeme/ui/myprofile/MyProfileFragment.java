@@ -2,6 +2,7 @@ package com.example.arrangeme.ui.myprofile;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,8 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,6 +33,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.arrangeme.Globals;
+import com.example.arrangeme.Homepage;
 import com.example.arrangeme.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,6 +57,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
@@ -61,6 +69,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private ViewPager viewPager;
     private DatabaseReference mDatabase;
     private RoundedImageView pictureCircle;
+    private TextView profileName;
+    private TextView level;
+    private TextView points;
+    private ProgressBar progressBarLevel;
     //private Button pictureCircle;
     private FrameLayout containerFilter;
     private Uri profileImage;
@@ -103,8 +115,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
         pictureCircle = view.findViewById(R.id.pictureCircle);
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        TabItem achievementsTab = view.findViewById(R.id.achievementsTab);
-        TabItem infoTab = view.findViewById(R.id.infoTab);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getParentFragmentManager());
         //Adding fragments to the viewpager
@@ -114,11 +124,62 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         tabLayout.setupWithViewPager(viewPager);
         setUpIcons();
         setUpImages();
+        setUpAvatar();
         pictureCircle.setOnClickListener(this);
-        //sendImage(profileImage);
+
+
+        //TODO insert user details - progress bar, name, level, points
+        profileName=view.findViewById(R.id.profileName);
+        profileName.setText(Globals.currentUsername);
+        level=view.findViewById(R.id.level);
+        level.setText("master of schedules");
+        progressBarLevel=view.findViewById(R.id.progressBarLevel);
+        points=view.findViewById(R.id.points);
+        points.setText("1000");
+
+
     }
 
+    public void setUpAvatar() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("avatar")){
+                    DataSnapshot mDatabase2 = dataSnapshot.child("avatar");
+                 //   avatarBtn.setImageResource(Integer.parseInt((String) mDatabase2.getValue()));
+//                    String dr= (String) mDatabase2.getValue();
+//                    avatarBtn.setImageResource(Integer.parseInt(dr));
 
+                    String uri = (String) mDatabase2.getValue();
+                    int resID = getResId(uri, R.drawable.class); // or other resource class
+                    avatarBtn.setImageResource(resID); // set as image
+
+                }
+                else
+                {
+                    avatarBtn.setImageResource(R.drawable.avatar2);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public int getResId(String resName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
     public void setUpImages() {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("profile_photo");
@@ -161,6 +222,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.child("profile_photo").setValue(downloadUri.toString());
+
         ///////////////////////////////////////////////////////////////////////refreshing fragment-works but ViewModel of the tabs wont work
 //        FragmentTransaction ftr = getFragmentManager().beginTransaction();
 //        ftr.detach(MyProfileFragment.this).commitNowAllowingStateLoss();
