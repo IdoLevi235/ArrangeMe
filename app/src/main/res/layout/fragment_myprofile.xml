@@ -11,18 +11,6 @@
 
 
     <!-- Image Cropper fill the remaining available height -->
-    <com.theartofdev.edmodo.cropper.CropImageView
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cropImageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        custom:cropGuidelines="on"
-        custom:cropShape="oval"
-        custom:cropBorderLineColor="@android:color/holo_red_dark"
-        custom:cropGuidelinesColor="@android:color/holo_green_dark"
-        custom:cropBorderLineThickness="5dp"
-        tools:ignore="MissingConstraints" />
 
 
     <View
@@ -38,9 +26,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.makeramen.roundedimageview.RoundedImageView
+
         android:id="@+id/pictureCircle"
-        android:layout_width="199dp"
-        android:layout_height="199dp"
+        android:layout_width="224dp"
+        android:layout_height="214dp"
         android:background="@drawable/circle_choose_tasks"
         android:elevation="2dp"
         android:fontFamily="sans-serif"
@@ -50,24 +39,25 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintVertical_bias="0.102" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/AvatarCircle"
-        android:layout_width="98dp"
-        android:layout_height="93dp"
-        android:background="@drawable/avatar_empty"
-        android:elevation="3dp"
-        android:src="@drawable/firstravatar"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="376dp"
+        android:layout_height="650dp"
+        android:layout_weight="1"
+        app:cropBorderLineColor="@android:color/holo_red_dark"
+        app:cropBorderLineThickness="1dp"
+        app:cropFixAspectRatio="true"
+        app:cropShape="oval"
+        app:layout_constraintBottom_toBottomOf="@+id/calendars_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.258" />
-
+        tools:ignore="MissingConstraints" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout7"
@@ -83,18 +73,17 @@
 
         <TextView
             android:id="@+id/profileName"
-            android:layout_width="184dp"
-            android:layout_height="26dp"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="207dp"
-            android:layout_marginBottom="72dp"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="58dp"
             android:fontFamily="@font/montserrat"
-            android:gravity="left"
             android:text="PROFILE NAME"
             android:textColor="@color/arrangeMeMain"
             android:textSize="20sp" />
@@ -102,16 +91,16 @@
         <ProgressBar
             android:id="@+id/progressBar5"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="295dp"
+            android:layout_height="24dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="33dp"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="63dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="17dp"
             android:progress="70" />
 
         <TextView
@@ -122,10 +111,10 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="229dp"
-            android:layout_marginBottom="54dp"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="148dp"
+            android:layout_marginBottom="39dp"
             android:fontFamily="@font/montserrat"
             android:gravity="left"
             android:text="Master Of Schedules"
@@ -140,16 +129,32 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="222dp"
-            android:layout_marginTop="68dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginStart="322dp"
+            android:layout_marginTop="81dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="sans-serif-light"
             android:gravity="right"
             android:text="1000 Points"
             android:textAllCaps="true"
             android:textColor="@color/darkgray"
             android:textSize="13sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/AvatarCircle"
+            android:layout_width="85dp"
+            android:layout_height="83dp"
+            android:layout_alignBottom="@+id/levelNum"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="319dp"
+            android:layout_marginBottom="-25dp"
+            android:background="@drawable/avatar_empty"
+            android:elevation="3dp"
+            android:src="@drawable/firstravatar" />
 
     </RelativeLayout>
 

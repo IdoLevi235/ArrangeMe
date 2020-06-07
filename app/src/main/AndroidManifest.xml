@@ -9,10 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- this is a ucrop try-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- this is a ucrop try-->
 
 
     <application
@@ -23,10 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- this is a ucrop try-->
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" android:theme="@style/Base.Theme.AppCompat"/>
         <!-- optional (needed if default theme has no action bar) -->
-        <!-- this is a ucrop try-->
 
         <activity android:name=".ScheduleFeedback"
             android:screenOrientation="portrait"
