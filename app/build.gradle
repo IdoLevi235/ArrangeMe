@@ -41,6 +41,9 @@ android {
 
 
 dependencies {
+    //crop try:
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    ////
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.3'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0'

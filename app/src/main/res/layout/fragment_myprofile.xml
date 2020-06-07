@@ -10,6 +10,21 @@
     tools:context=".ui.myprofile.MyProfileFragment">
 
 
+    <!-- Image Cropper fill the remaining available height -->
+    <com.theartofdev.edmodo.cropper.CropImageView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        custom:cropGuidelines="on"
+        custom:cropShape="oval"
+        custom:cropBorderLineColor="@android:color/holo_red_dark"
+        custom:cropGuidelinesColor="@android:color/holo_green_dark"
+        custom:cropBorderLineThickness="5dp"
+        tools:ignore="MissingConstraints" />
+
+
     <View
         android:id="@+id/viewUpBtn"
         android:layout_width="match_parent"
@@ -30,7 +45,6 @@
         android:elevation="2dp"
         android:fontFamily="sans-serif"
         android:gravity="bottom|center"
-        android:paddingBottom="20dp"
         android:text="Add A profile Picture"
         android:textColor="#494848"
         android:textSize="10dp"
@@ -195,7 +209,6 @@
                 app:tabInlineLabel="true"
                 android:text="Basic Info" />
         </com.google.android.material.tabs.TabLayout>
-
     </RelativeLayout>
 
     <FrameLayout
@@ -223,5 +236,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

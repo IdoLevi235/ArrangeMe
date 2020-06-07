@@ -3,6 +3,7 @@ package com.example.arrangeme.ui.myprofile;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -43,6 +45,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -64,6 +68,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private int[] tabIcons = { R.drawable.flagachive1,  R.drawable.card1};
     int flag=0;
     private Uri profileImage2;
+    CropImageView cropImageView = null;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -99,6 +105,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         TabItem achievementsTab = view.findViewById(R.id.achievementsTab);
         TabItem infoTab = view.findViewById(R.id.infoTab);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getParentFragmentManager());
         //Adding fragments to the viewpager
         adapter.AddFragment(new Achievements(), "Achievements");
@@ -111,6 +118,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         //sendImage(profileImage);
     }
 
+
+
     public void setUpImages() {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("profile_photo");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,8 +127,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String imageURL = (String) dataSnapshot.getValue();
                     try {
-                        Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(130).oval(true).build();
-                        Picasso.get().load(imageURL).fit().centerCrop().transform(transformation).into(pictureCircle);
+                        Transformation transformation = new RoundedTransformationBuilder().oval(true).scaleType(ImageView.ScaleType.FIT_XY).build();
+                        //   Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(0).oval(true).build();
+                        Picasso.get().load(imageURL).noFade().fit().centerCrop().transform(transformation).into(pictureCircle);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -151,6 +161,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.child("profile_photo").setValue(downloadUri.toString());
+        ///////////////////////////////////////////////////////////////////////refreshing fragment-works but ViewModel of the tabs wont work
+//        FragmentTransaction ftr = getFragmentManager().beginTransaction();
+//        ftr.detach(MyProfileFragment.this).commitNowAllowingStateLoss();
+//        ftr.attach(MyProfileFragment.this).commitNowAllowingStateLoss();
     }
 
 
@@ -175,19 +189,22 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                         //pictureCircle.setBackground(d);
                     }
                     break;
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (resultCode == Activity.RESULT_OK) {
+                        Uri resultUri = result.getUri();
+                        sendImage(resultUri); //HERE we send it to storage
+                    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                        Exception error = result.getError();
+                    }
+                    break;
             }
     }
 
+
     private void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+        CropImage.activity().start(getContext(), this);
+
     }
 
 
