@@ -147,13 +147,13 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild("avatar")){
                     DataSnapshot mDatabase2 = dataSnapshot.child("avatar");
-                 //   avatarBtn.setImageResource(Integer.parseInt((String) mDatabase2.getValue()));
-//                    String dr= (String) mDatabase2.getValue();
-//                    avatarBtn.setImageResource(Integer.parseInt(dr));
 
-                    String uri = (String) mDatabase2.getValue();
-                    int resID = getResId(uri, R.drawable.class); // or other resource class
-                    avatarBtn.setImageResource(resID); // set as image
+                    String avatarName = (String) mDatabase2.getValue();
+                    int avatarID = getResId(avatarName, R.drawable.class); // or other resource class
+                    avatarBtn.setImageResource(avatarID); // set as image
+                    String background_avatar = "circle_"+avatarName;
+                    int backgroundID = getResId(background_avatar, R.drawable.class); // or other resource class
+                    avatarBtn.setBackgroundResource(backgroundID);
 
                 }
                 else

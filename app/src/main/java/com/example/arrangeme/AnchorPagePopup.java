@@ -264,7 +264,7 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     public void editMode() {
         //change the icon view from edit to delete
         editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
-        editModeBtn.setBackgroundResource(R.drawable.avatar_female2);
+        editModeBtn.setBackgroundResource(R.drawable.circle_avatar3);
 
         SpinnerShow.setVisibility(View.INVISIBLE);
 
