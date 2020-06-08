@@ -282,8 +282,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 try {
 
                     if (!FilterFragment.Category_Set.isEmpty() &&
-                            !FilterFragment.Category_Set.contains(model.getCategory())){ // filter hide
+                            !FilterFragment.Category_Set.contains(model.getCategory()))
+                    { // filter hide
                         holder.itemView.setVisibility(View.GONE);
+                        holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                     }
                     holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
                     //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());

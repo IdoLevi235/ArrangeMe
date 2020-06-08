@@ -57,6 +57,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -142,6 +143,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
                 Log.d("TAG7", "onBindViewHolder: ");
+                String s = model.getEndTime().equals("00:00") ? "23:59" : model.getEndTime();
+                LocalTime itemEndTime = LocalTime.parse(s);
+                LocalTime now = LocalTime.now();
+                if (itemEndTime.isBefore(now)){
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
                 holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
                 holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
