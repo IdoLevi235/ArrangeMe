@@ -189,7 +189,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
-                if (FilterFragment.Category_Set.contains(model.getCategory().toUpperCase())){ // filter hide
+                if (!FilterFragment.Category_Set.contains(model.getCategory().toUpperCase())){ // filter hide
                     holder.itemView.setVisibility(View.INVISIBLE);
                 }
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());

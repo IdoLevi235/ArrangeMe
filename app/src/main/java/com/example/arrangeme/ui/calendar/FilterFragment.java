@@ -288,7 +288,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
                 }
                 else typeFilter=0;
-                
+
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
 
