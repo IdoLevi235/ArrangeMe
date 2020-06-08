@@ -86,7 +86,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private Button confirmBtn;
     private int currentPosition;
     private final int numOfCategories = 9;
-    private TextView textViewHelloAdd;
     private EditText desc;
     private Switch show_spinner;
     private RoundedImageView addPhoto;
@@ -396,6 +395,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
             if (task.isSuccessful()) {
                 downloadUri = task.getResult();
                 addPhotoUriToDB(downloadUri);
+                Log.d("TAG8", "onComplete: down: " + downloadUri);
             } else {
                 Log.d("TAG8", "onComplete: Download link generation failed");
             }

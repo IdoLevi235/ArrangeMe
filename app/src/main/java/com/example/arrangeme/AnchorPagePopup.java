@@ -25,6 +25,8 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -65,20 +67,18 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     private Button date;
     private Button sTime;
     private Button eTime;
-    private Uri image;
     private int fromWhereTheAnchor;
     private DatabaseReference mDatabase;
-    private ReminderType chosenReminder;
     private ReminderType chosenReminderEdited;
-    private TaskEntity task;
-    private TaskCategory taskCategory;
     private AnchorEntity anchorToPresent;
-    private ReminderType reminderType;
     private int reminderInt;
     private RoundedImageView photoHere;
     private String year;
     private String day;
     private String month;
+    private String flagPhoto;
+    private  RelativeLayout relativeLayout;
+
     String dateOfAnchor="";
 
     /**
@@ -88,9 +88,10 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anchor_page_poup);
-        this.definePopUpSize();
+
         try {
             Bundle b = getIntent().getExtras();
             if (b != null) {
@@ -98,15 +99,23 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
                     fromWhereTheAnchor = 0; // from week/schedule/dashboard/day
                     anchorKey = b.getString("AnchorKeyFromWeek");
                     dateOfAnchor = b.getString("date");
+                    flagPhoto=b.getString("photo");
                 }
                 else {
                     anchorKey = b.getString("AnchorKey");
+                    flagPhoto=b.getString("photo");
                     fromWhereTheAnchor = 1; // from month fragment
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        relativeLayout = findViewById(R.id.relativeLayout6);
+        relativeLayout.setOnClickListener(this);
+
+
+        definePopUpSize1(flagPhoto);
+
 
 
         //define views
@@ -133,22 +142,60 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
     /**
      * Method implemented from Popup interface. Here we define the popup size and other attributes
      */
+
+    public void definePopUpSize1(String flagPhoto) {
+        if(flagPhoto.equals("yes"))
+        {
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+            getWindow().setLayout((int) (width *0.9 ), (int) (height *0.84));
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.dimAmount = 0.5f;
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = -15;
+            getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            getWindow().setAttributes(params);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.setFinishOnTouchOutside(false);
+        }
+        else{
+
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
+            lp= new RelativeLayout.LayoutParams(lp.width, 1050);
+            lp.setMarginStart(55);
+            Log.d("popupsize", "lp: "+lp.height);
+            lp.topMargin=150;
+            relativeLayout.setTranslationY(0);
+            relativeLayout.setLayoutParams(lp);
+            relativeLayout.setFocusable(true);
+            relativeLayout.setElevation(10);
+
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+            getWindow().setLayout((int) (width *0.9 ), (int) (height *0.6));
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.dimAmount = 0.5f;
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = -20;
+            getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            getWindow().setAttributes(params);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.setFinishOnTouchOutside(false);
+            relativeLayout.setBackgroundColor(R.drawable.themecorners);
+            relativeLayout.setBackgroundResource(R.drawable.themecorners);
+        }
+
+    }
+
     @Override
     public void definePopUpSize() {
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.dimAmount = 0.5f;
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -15;
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        getWindow().setAttributes(params);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        this.setFinishOnTouchOutside(false);
 
     }
 

@@ -51,6 +51,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -120,6 +122,8 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         desc = findViewById(R.id.desc_text_anchor);
         addPhoto = findViewById(R.id.add_photo1);
         addPhoto.setOnClickListener(this);
+        addPhoto.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
+        addPhoto.setPadding(90,90,92,90);
         addLocation = (EditText) findViewById(R.id.locationAnc11);
         anchorToAdd = new AnchorEntity();
         addLocation = (EditText)findViewById(R.id.locationAnc11);
@@ -277,15 +281,16 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
      * pick photo from phone gallery
      */
     private void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+//        //Create an Intent with action as ACTION_PICK
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        // Sets the type as image/*. This ensures only components of type image are selected
+//        intent.setType("image/*");
+//        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+//        String[] mimeTypes = {"image/jpeg", "image/png"};
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+//        // Launching the Intent
+//        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
 
     }
 
@@ -302,23 +307,31 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    RoundedImageView addPhoto = (RoundedImageView) findViewById(R.id.add_photo1);
                     Uri selectedImage = data.getData();
                     selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
-
-
-                    //    addPhoto.setHint("");
-                   //     addPhoto.setCompoundDrawables(null, null, null, null);
                         addPhoto.setBackground(d);
-                       // Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(30).oval(false).build();
-                       // Picasso.get().load(imageURL).transform(transformation).into(photoHere);
-
                     } catch (FileNotFoundException e) {
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
                         addPhoto.setBackground(d);
+                    }
+                    break;
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (resultCode == Activity.RESULT_OK) {
+                        selectedImage2 = result.getUri();
+                        try {
+                            RoundedImageView addPhoto = findViewById(R.id.add_photo1);
+                            addPhoto.setPadding(0,0,0,0);
+                            Transformation transformation = new RoundedTransformationBuilder().cornerRadiusDp(20).oval(false).build();
+                            Picasso.get().load(selectedImage2.toString()).noFade().fit().centerCrop().transform(transformation).into(addPhoto);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                        Exception error = result.getError();
                     }
                     break;
             }
@@ -439,14 +452,10 @@ public class AddAnchor extends AppCompatActivity implements View.OnClickListener
     private void addPhotoUriToDB(Uri downloadUri) {
         Log.d("TAG8", "addPhotoUriToDB: " + currKey + " " + downloadUri);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day))
-                .child(String.valueOf(currKey2));
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Calendar").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day)).child(String.valueOf(currKey2));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(String.valueOf(currKey));
         mDatabase2.child("photoUri").setValue((downloadUri.toString()));
-
-
     }
 
     /**

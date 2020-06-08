@@ -200,18 +200,19 @@
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
+
             <TextView
                 android:id="@+id/location"
-                android:layout_width="138dp"
+                android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="264dp"
-                android:layout_marginEnd="191dp"
-                android:layout_marginBottom="227dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="281dp"
+                android:layout_marginEnd="231dp"
+                android:layout_marginBottom="210dp"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="2dp"
                 android:drawableTint="#616161"
@@ -220,19 +221,18 @@
                 android:textColor="#616161"
                 android:textSize="14sp" />
 
-
             <EditText
                 android:id="@+id/locationText"
-                android:layout_width="302dp"
-                android:layout_height="44dp"
+                android:layout_width="215dp"
+                android:layout_height="39dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="293dp"
+                android:layout_marginStart="117dp"
+                android:layout_marginTop="275dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="184dp"
+                android:layout_marginBottom="210dp"
                 android:background="@drawable/add_task_round"
                 android:elevation="2dp"
                 android:fontFamily="sans-serif-light"
@@ -245,19 +245,18 @@
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
-
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/photo_here"
-                android:layout_width="302dp"
-                android:layout_height="159dp"
+                android:layout_width="319dp"
+                android:layout_height="190dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="348dp"
+                android:layout_marginTop="321dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="23dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false" />
 

@@ -172,6 +172,7 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
             @Override
             public void onEventClick(Object o, @NotNull RectF rectF) {
                 String id = ((Event) o).getId();
+
                 if(openPopUp.get(id).getType().equals("task")) {
                     Intent intent = new Intent(getActivity(), TaskPagePopup.class);
                     getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -182,13 +183,38 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    Bundle b = new Bundle();
-                    b.putString("AnchorKeyFromWeek", ((Event) o).getId());
-                    b.putString("date",openPopUp.get(id).getDate());
-                    intent.putExtras(b);
-                    startActivity(intent);
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(id);
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.hasChild("photoUri")) {
+                                Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                Bundle b = new Bundle();
+                                b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                                b.putString("date",openPopUp.get(id).getDate());
+                                b.putString("photo", "yes");
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+
+                            else {
+                                Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                Bundle b = new Bundle();
+                                b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                                b.putString("date",openPopUp.get(id).getDate());
+                                b.putString("photo", "no");
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+
                 }
             }
         });
