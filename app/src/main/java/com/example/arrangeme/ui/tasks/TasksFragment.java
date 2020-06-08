@@ -50,7 +50,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class TasksFragment extends Fragment implements View.OnClickListener {
-    public static String[] filter;
     ArrayList<String> keys;
     private FrameLayout containerFilter;
     private RecyclerView mRecycler;
@@ -178,7 +177,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setRecycler(RecyclerView mRecycler) {
-        Log.d("TAG8", "FILTER: " + TasksFragment.filter);
         keys = new ArrayList<>();
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(layoutManager);
@@ -191,6 +189,9 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelTasks model) {
+                if (FilterFragment.Category_Set.contains(model.getCategory().toUpperCase())){ // filter hide
+                    holder.itemView.setVisibility(View.INVISIBLE);
+                }
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 int x = TaskCategory.fromStringToInt(model.getCategory());

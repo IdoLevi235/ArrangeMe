@@ -27,6 +27,7 @@ import com.example.arrangeme.AnchorPagePopup;
 import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
+import com.example.arrangeme.ui.calendar.FilterFragment;
 import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -271,13 +272,19 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
     /**
      * Show schedule for specified day in recycler view
      */
-    private void showSchedule() {
+    protected void showSchedule() {
+        noItemsText.setVisibility(View.GONE);
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(String.valueOf(dateString)).child("schedule");
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(schRef, MainModelMonth.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelMonth model) {
                 try {
+
+                    if (!FilterFragment.Category_Set.isEmpty() &&
+                            !FilterFragment.Category_Set.contains(model.getCategory())){ // filter hide
+                        holder.itemView.setVisibility(View.GONE);
+                    }
                     holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
                     //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
                     String cat = model.getCategory();

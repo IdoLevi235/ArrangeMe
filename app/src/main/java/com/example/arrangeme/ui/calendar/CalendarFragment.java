@@ -128,7 +128,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     private void closeFilterFragment() {
         flag = 0;
-        getActivity().getSupportFragmentManager().popBackStack();
+        //getActivity().getSupportFragmentManager().popBackStack();
         }
 
     private void openFilterFragment() {

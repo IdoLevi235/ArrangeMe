@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -34,7 +35,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     private Button choresBtn;
     private Button otherBtn;
     private CheckBox checkBoxAll;
-    protected Set<String> Category_Set = new HashSet<String>();
+    private AppCompatImageView applyBtn;
+
+
+    public static Set<String> Category_Set = new HashSet<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +49,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+
 
         studyBtn =view.findViewById(R.id.studyBtn);
         studyBtn.setOnClickListener(this);
@@ -77,107 +83,133 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         checkBoxAll =view.findViewById(R.id.checkBoxAll);
         checkBoxAll.setOnClickListener(this);
 
+        applyBtn=view.findViewById(R.id.buttonApply);
+        applyBtn.setOnClickListener(this);
+
+        initButtons();
+
     }
 
+    private void initButtons() {
+        if (Category_Set.contains("SPORT")) {
+            setBtnFocus(sportBtn);
+        } if (Category_Set.contains("STUDY")) {
+            setBtnFocus(studyBtn);
+        } if (Category_Set.contains("NUTRITION")) {
+            setBtnFocus(nutritionBtn);
+        } if (Category_Set.contains("FRIENDS")) {
+            setBtnFocus(friendsBtn);
+        } if (Category_Set.contains("FAMILY")) {
+            setBtnFocus(familyBtn);
+        } if (Category_Set.contains("RELAX")) {
+            setBtnFocus(relaxBtn);
+        } if (Category_Set.contains("CHORES")) {
+            setBtnFocus(choresBtn);
+        } if (Category_Set.contains("OTHER")) {
+            setBtnFocus(otherBtn);
+        } if (Category_Set.contains("WORK")) {
+            setBtnFocus(workBtn);
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.studyBtn):
-                if(!Category_Set.contains("Study"))
+                if(!Category_Set.contains("STUDY"))
                 {
-                    Category_Set.add("Study");
+                    Category_Set.add("STUDY");
                     setBtnFocus(studyBtn);
                 }
                 else {
-                    Category_Set.remove("Study");
+                    Category_Set.remove("STUDY");
                     setBtnUnFocus(studyBtn);
                 }
                 break;
             case (R.id.friendsBtn):
-                if(!Category_Set.contains("Friends"))
+                if(!Category_Set.contains("FRIENDS"))
                 {
-                    Category_Set.add("Friends");
+                    Category_Set.add("FRIENDS");
                     setBtnFocus(friendsBtn);
                 }
                 else {
-                    Category_Set.remove("Friends");
+                    Category_Set.remove("FRIENDS");
                     setBtnUnFocus(friendsBtn);
                 }
                 break;
             case (R.id.familyBtn):
-                if(!Category_Set.contains("Family"))
+                if(!Category_Set.contains("FAMILY"))
                 {
-                    Category_Set.add("Family");
+                    Category_Set.add("FAMILY");
                     setBtnFocus(familyBtn);
                 }
                 else {
-                    Category_Set.remove("Family");
+                    Category_Set.remove("FAMILY");
                     setBtnUnFocus(familyBtn);
                 }
                 break;
             case (R.id.workBtn):
-                if(!Category_Set.contains("Work"))
+                if(!Category_Set.contains("WORK"))
                 {
-                    Category_Set.add("Work");
+                    Category_Set.add("WORK");
                     setBtnFocus(workBtn);
                 }
                 else {
-                    Category_Set.remove("Work");
+                    Category_Set.remove("WORK");
                     setBtnUnFocus(workBtn);
                 }
                 break;
             case (R.id.relaxBtn):
-                if(!Category_Set.contains("Relax"))
+                if(!Category_Set.contains("RELAX"))
                 {
-                    Category_Set.add("Relax");
+                    Category_Set.add("RELAX");
                     setBtnFocus(relaxBtn);
                 }
                 else {
-                    Category_Set.remove("Relax");
+                    Category_Set.remove("RELAX");
                     setBtnUnFocus(relaxBtn);
                 }
                 break;
             case (R.id.sportBtn):
-                if(!Category_Set.contains("Sport"))
+                if(!Category_Set.contains("SPORT"))
                 {
-                    Category_Set.add("Sport");
+                    Category_Set.add("SPORT");
                     setBtnFocus(sportBtn);
                 }
                 else {
-                    Category_Set.remove("Sport");
+                    Category_Set.remove("SPORT");
                     setBtnUnFocus(sportBtn);
                 }
                 break;
             case (R.id.nutritionBtn):
-                if(!Category_Set.contains("Nutrition"))
+                if(!Category_Set.contains("NUTRITION"))
                 {
-                    Category_Set.add("Nutrition");
+                    Category_Set.add("NUTRITION");
                     setBtnFocus(nutritionBtn);
                 }
                 else {
-                    Category_Set.remove("Nutrition");
+                    Category_Set.remove("NUTRITION");
                     setBtnUnFocus(nutritionBtn);
                 }
                 break;
             case (R.id.choresBtn):
-                if(!Category_Set.contains("Chores"))
+                if(!Category_Set.contains("CHORES"))
                 {
-                    Category_Set.add("Chores");
+                    Category_Set.add("CHORES");
                     setBtnFocus(choresBtn);
                 }
                 else {
-                    Category_Set.remove("Chores");
+                    Category_Set.remove("CHORES");
                     setBtnUnFocus(choresBtn);
                 }
                 break;
             case (R.id.otherBtn):
-                if(!Category_Set.contains("Other"))
+                if(!Category_Set.contains("OTHER"))
                 {
-                    Category_Set.add("Other");
+                    Category_Set.add("OTHER");
                     setBtnFocus(otherBtn);
                 }
                 else {
-                    Category_Set.remove("Other");
+                    Category_Set.remove("OTHER");
                     setBtnUnFocus(otherBtn);
                 }
                 break;
@@ -186,45 +218,50 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                 if(!checkBoxAll.isChecked())
                 {
                     setBtnUnFocus(studyBtn);
-                    Category_Set.remove("Study");
+                    Category_Set.remove("STUDY");
                     setBtnUnFocus(friendsBtn);
-                    Category_Set.remove("Friends");
+                    Category_Set.remove("FRIENDS");
                     setBtnUnFocus(familyBtn);
-                    Category_Set.remove("Family");
+                    Category_Set.remove("FAMILY");
                     setBtnUnFocus(workBtn);
-                    Category_Set.remove("Work");
+                    Category_Set.remove("WORK");
                     setBtnUnFocus(relaxBtn);
-                    Category_Set.remove("Relax");
+                    Category_Set.remove("RELAX");
                     setBtnUnFocus(nutritionBtn);
-                    Category_Set.remove("Nutrition");
+                    Category_Set.remove("NUTRITION");
                     setBtnUnFocus(sportBtn);
-                    Category_Set.remove("Sport");
+                    Category_Set.remove("SPORT");
                     setBtnUnFocus(choresBtn);
-                    Category_Set.remove("Chores");
+                    Category_Set.remove("CHORES");
                     setBtnUnFocus(otherBtn);
-                    Category_Set.remove("Other");
+                    Category_Set.remove("OTHER");
                 }
                 else {
                     setBtnFocus(studyBtn);
-                    Category_Set.add("Study");
+                    Category_Set.add("STUDY");
                     setBtnFocus(friendsBtn);
-                    Category_Set.add("Friends");
+                    Category_Set.add("FRIENDS");
                     setBtnFocus(familyBtn);
-                    Category_Set.add("Family");
+                    Category_Set.add("FAMILY");
                     setBtnFocus(workBtn);
-                    Category_Set.add("Work");
+                    Category_Set.add("WORK");
                     setBtnFocus(relaxBtn);
-                    Category_Set.add("Relax");
+                    Category_Set.add("RELAX");
                     setBtnFocus(nutritionBtn);
-                    Category_Set.add("Nutrition");
+                    Category_Set.add("NUTRITION");
                     setBtnFocus(sportBtn);
-                    Category_Set.add("Sport");
+                    Category_Set.add("SPORT");
                     setBtnFocus(choresBtn);
-                    Category_Set.add("Chores");
+                    Category_Set.add("CHORES");
                     setBtnFocus(otherBtn);
-                    Category_Set.add("Other");
+                    Category_Set.add("OTHER");
                 }
                 break;
+            case (R.id.buttonApply):
+                Log.d("TAG5", "onClick: apply");
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+
             default:
                 break;
         }
