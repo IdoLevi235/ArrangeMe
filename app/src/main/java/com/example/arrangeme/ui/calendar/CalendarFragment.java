@@ -35,7 +35,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     private Button DayBtn;
     private Button WeekBtn;
     private Button MonthBtn;
-    private int flag=0;
+    public static int flag=0;
 
 
     @SuppressLint("ResourceType")
