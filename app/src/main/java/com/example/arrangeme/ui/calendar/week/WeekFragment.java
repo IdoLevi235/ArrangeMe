@@ -82,12 +82,12 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         for (HashMap<String, String> entry : message) {
                             if(entry.get("type").equals("anchor")) {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("AnchorID"));
-                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"));
+                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"),entry.get("photoUri"));
                                 openPopUp.put(sc.getIdForCalendar(),sc1);
                             }
                             else {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
-                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"));
+                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"),entry.get("photoUri"));
                                 openPopUp.put(sc.getIdForCalendar(),sc1);
                             }
                             scheduleFromDB.add(sc);
@@ -140,16 +140,31 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         if(!ds.hasChild("category")){
                                 Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, " ", ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                ScheduleItem sc1=new ScheduleItem(ds.child("date").getValue().toString(), "anchor");
-                                openPopUp.put(ds.getKey(),sc1);
+                                if(ds.hasChild("photoUri")) {
+                                ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", ds.child("photoUri").getValue().toString());
+                                    openPopUp.put(ds.getKey(),sc1);
+                            }
+                            else {
+                                ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", " ");
+                                    openPopUp.put(ds.getKey(),sc1);
+                            }
+
                                 listOfEvents.add(event);
                         }
                         else {
                                Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, ds.child("category").getValue().toString(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                ScheduleItem sc1=new ScheduleItem(ds.child("date").getValue().toString(), "anchor");
+                            if(ds.hasChild("photoUri")) {
+                                ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", ds.child("photoUri").getValue().toString());
                                 openPopUp.put(ds.getKey(),sc1);
+                            }
+                            else {
+                                ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", " ");
+                                openPopUp.put(ds.getKey(),sc1);
+                            }
+
                                listOfEvents.add(event);
                             }
                         }
@@ -172,13 +187,26 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                 String id = ((Event) o).getId();
 
                 if(openPopUp.get(id).getType().equals("task")) {
-                    Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    Bundle b = new Bundle();
-                    b.putString("TaskKeyFromWeek", ((Event) o).getId());
-                    b.putString("date",openPopUp.get(id).getDate());
-                    intent.putExtras(b);
-                    startActivity(intent);
+                    if(openPopUp.get(id).getPhotoUri()!=null&&openPopUp.get(id).getPhotoUri().length()>2) {
+                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                        b.putString("date", openPopUp.get(id).getDate());
+                        b.putString("photo", "yes");
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Bundle b = new Bundle();
+                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                        b.putString("date", openPopUp.get(id).getDate());
+                        b.putString("photo", "no");
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
                 }
                 else {
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(id);

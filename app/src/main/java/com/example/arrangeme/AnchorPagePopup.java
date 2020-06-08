@@ -1,17 +1,11 @@
 package com.example.arrangeme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,20 +16,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.arrangeme.Entities.AnchorEntity;
-import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
-import com.example.arrangeme.Enums.TaskCategory;
-import com.example.arrangeme.ui.tasks.TaskPagePopup;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -196,7 +188,6 @@ public class AnchorPagePopup extends AppCompatActivity implements Popup, View.On
 
     @Override
     public void definePopUpSize() {
-
     }
 
     /**

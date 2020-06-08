@@ -22,9 +22,10 @@ public class ScheduleItem{
     String reminderType;
     String idForCalendar;
 
-    public ScheduleItem(String date, String type) {
+    public ScheduleItem(String date, String type, String photoUri) {
         this.date = date;
         this.type = type;
+        this.photoUri=photoUri;
     }
 
 
@@ -59,11 +60,7 @@ public class ScheduleItem{
         this.isWithTask = isWithTask;
     }
 
-    public ScheduleItem(String startTime, String endTime, String category) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.category = category;
-    }
+
 
     public ScheduleItem() {
 
@@ -94,6 +91,7 @@ public class ScheduleItem{
         this.location = location;
     }
 
+
     public ScheduleItem(String category, String createDate, String description, String location, String photoUri, String reminderType) {
         this.category = category;
         this.createDate = createDate;
@@ -102,6 +100,8 @@ public class ScheduleItem{
         this.photoUri = photoUri;
         this.reminderType = reminderType;
     }
+
+
 
 
     public String getIdForCalendar() {

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -81,14 +82,14 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private int reminderInt;
     private RoundedImageView photoHere;
     private String date;
+    private String flagPhoto;
+    private  RelativeLayout relativeLayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskpagepopup);
-
-        //this function define the size of this window
-        this.definePopUpSize();
 
         //task key is the key for the task that the user touched
         try {
@@ -98,16 +99,22 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
                     fromWhereTheTask = 0;
                     String str = b.getString("TaskKeyFromWeek");
                     taskKey = str.substring(4);
+                    flagPhoto=b.getString("photo");
                     date = b.getString("date");
                 }
                 else { // from tasks tab
                     taskKey = b.getString("TaskKey");
+                    flagPhoto=b.getString("photo");
                     fromWhereTheTask = 1;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        relativeLayout = findViewById(R.id.relativeLayout6);
+        relativeLayout.setOnClickListener(this);
+        definePopUpSize1(flagPhoto);
 
         //define buttons
         applyBtn=findViewById(R.id.applyBtn);
@@ -519,22 +526,59 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         }
     }
 
+    public void definePopUpSize1(String flagPhoto) {
+        if(flagPhoto.equals("yes"))
+        {
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+            getWindow().setLayout((int) (width *0.9 ), (int) (height *0.84));
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.dimAmount = 0.5f;
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = -15;
+            getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            getWindow().setAttributes(params);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.setFinishOnTouchOutside(false);
+        }
+        else{
+
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
+            lp= new RelativeLayout.LayoutParams(lp.width, 950);
+            lp.setMarginStart(55);
+            Log.d("popupsize", "lp: "+lp.height);
+            lp.topMargin=150;
+            relativeLayout.setTranslationY(0);
+            relativeLayout.setLayoutParams(lp);
+            relativeLayout.setFocusable(true);
+            relativeLayout.setElevation(10);
+
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+            getWindow().setLayout((int) (width *0.9 ), (int) (height *0.55));
+            WindowManager.LayoutParams params = getWindow().getAttributes();
+            params.dimAmount = 0.5f;
+            params.gravity = Gravity.CENTER;
+            params.x = 0;
+            params.y = -20;
+            getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            getWindow().setAttributes(params);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.setFinishOnTouchOutside(false);
+            relativeLayout.setBackgroundColor(R.drawable.themecorners);
+            relativeLayout.setBackgroundResource(R.drawable.themecorners);
+        }
+
+    }
+
     @Override
     public void definePopUpSize() {
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        getWindow().setLayout((int) (width *0.9 ), (int) (height *0.78));
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.dimAmount = 0.5f;
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -15;
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        getWindow().setAttributes(params);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        this.setFinishOnTouchOutside(false);
     }
 
     @Override
