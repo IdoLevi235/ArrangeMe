@@ -1,4 +1,5 @@
 package com.example.arrangeme.ui.myprofile;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -79,6 +80,7 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_profile_info, container, false);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -10,6 +10,21 @@
     tools:context=".AddTasks.AddTasks">
 
 
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="376dp"
+        android:layout_height="650dp"
+        android:layout_weight="1"
+        app:cropBorderLineColor="@android:color/holo_red_dark"
+        app:cropBorderLineThickness="1dp"
+        app:cropFixAspectRatio="true"
+        app:cropShape="oval"
+        app:layout_constraintBottom_toBottomOf="@+id/calendars_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <View
         android:id="@+id/view7"
         android:layout_width="349dp"
@@ -206,10 +221,11 @@
             android:text="Set reminder?"
             android:textSize="13sp" />
 
-        <Button
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/add_photo"
             android:layout_width="141dp"
             android:layout_height="106dp"
+            android:elevation="2dp"
             android:layout_below="@id/locationBtn"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -220,12 +236,8 @@
             android:layout_marginEnd="242dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/add_task_round"
-            android:capitalize="none"
-            android:drawableRight="@android:drawable/ic_menu_camera"
             android:fontFamily="@font/montserrat"
             android:hint="Add photo"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
             android:textAllCaps="false" />
 
         <Spinner

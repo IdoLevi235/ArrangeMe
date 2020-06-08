@@ -50,6 +50,12 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -83,20 +89,19 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
     private TextView textViewHelloAdd;
     private EditText desc;
     private Switch show_spinner;
-    private Button addPhoto;
+    private RoundedImageView addPhoto;
     private EditText addLocation;
     private ImageView photo;
     private TaskEntity taskEntityToAdd;
     private ReminderType chosenReminder;
     private Uri selectedImage2;
     private final int[] newKey2 = new int[1];
-
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase2;
     private String currentDate;
     private StorageReference mStorageRef;
-    private Uri downloadUri2;
     private int currKey;
+    private Uri downloadUri;
 
     /**
      * @param savedInstanceState
@@ -122,6 +127,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         desc=findViewById(R.id.desc_text);
         addPhoto=findViewById(R.id.add_photo);
         addPhoto.setOnClickListener(this);
+        addPhoto.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
+        addPhoto.setPadding(100,100,102,100);
         addLocation=(EditText)findViewById(R.id.locationBtn);
         leftScrl=findViewById(R.id.btnLeftScrl);
         rightScrl=findViewById(R.id.btnRightScrl);
@@ -387,9 +394,8 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         @Override
         public void onComplete(@NonNull Task<Uri> task) {
             if (task.isSuccessful()) {
-                Uri downloadUri = task.getResult();
+                downloadUri = task.getResult();
                 addPhotoUriToDB(downloadUri);
-                Log.d("TAG8", "onComplete: down: " + downloadUri);
             } else {
                 Log.d("TAG8", "onComplete: Download link generation failed");
             }
@@ -406,8 +412,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      */
     private void addPhotoUriToDB(Uri downloadUri) {
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").
-                child(Globals.UID).child("tasks").child("Pending_tasks").child(String.valueOf(currKey));
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks").child(String.valueOf(currKey));
         mDatabase.child("photoUri").setValue(downloadUri.toString());
     }
 
@@ -416,6 +421,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      * includes form validations, adding to DB and success alertbox
      */
     private void addTaskToDB() {
+
             String description = desc.getText().toString();
             String location = addLocation.getText().toString();
             if(mainAdapter.getCurrentCategory()==null) { //if no category picked
@@ -493,15 +499,18 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      * Picking photo from phone's gallery to upload
      */
     private void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+//        //Create an Intent with action as ACTION_PICK
+//        Intent intent=new Intent(Intent.ACTION_PICK);
+//        // Sets the type as image/*. This ensures only components of type image are selected
+//        intent.setType("image/*");
+//        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+//        String[] mimeTypes = {"image/jpeg", "image/png"};
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+//        // Launching the Intent
+//        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+
+        CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
+
     }
 
     /**
@@ -517,19 +526,36 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    Button addPhoto = (Button)findViewById(R.id.add_photo);
+                    Button addPhoto2 = (Button)findViewById(R.id.add_photo);
                     Uri selectedImage = data.getData();
                     selectedImage2=selectedImage;
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, String.valueOf(R.drawable.add_task_round));
-                        addPhoto.setHint("");
-                        addPhoto.setCompoundDrawables(null,null,null,null);
+                        addPhoto2.setHint("");
+                        addPhoto2.setCompoundDrawables(null,null,null,null);
                         addPhoto.setBackground(d);
 
                     } catch (FileNotFoundException e) {
                         Drawable d = getResources().getDrawable(R.drawable.google_xml);
                         addPhoto.setBackground(d);
+                    }
+                    break;
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    if (resultCode == Activity.RESULT_OK) {
+                        selectedImage2 = result.getUri();
+                        try {
+                            RoundedImageView addPhoto = findViewById(R.id.add_photo);
+                            addPhoto.setPadding(0,0,0,0);
+
+                            Transformation transformation = new RoundedTransformationBuilder().cornerRadiusDp(20).oval(false).build();
+                            Picasso.get().load(selectedImage2.toString()).noFade().fit().centerCrop().transform(transformation).into(addPhoto);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                        Exception error = result.getError();
                     }
                     break;
             }
