@@ -36,8 +36,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     private Button otherBtn;
     private CheckBox checkBoxAll;
     private AppCompatImageView applyBtn;
+    private CheckBox taskCB;
+    private CheckBox anchorCB;
 
-
+    public static int typeFilter=0; // 0 = both, 1=only task, 2= only anchors
     public static Set<String> Category_Set = new HashSet<String>();
 
     @Override
@@ -86,8 +88,27 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         applyBtn=view.findViewById(R.id.buttonApply);
         applyBtn.setOnClickListener(this);
 
-        initButtons();
+        taskCB=view.findViewById(R.id.checkBoxTask);
+        anchorCB=view.findViewById(R.id.checkBoxAnchor);
 
+        initButtons();
+        initCheckBoxes();
+
+    }
+
+    private void initCheckBoxes() {
+        if (typeFilter==1) {
+            taskCB.setChecked(true);
+            anchorCB.setChecked(false);
+        }
+        else if (typeFilter==2) {
+            taskCB.setChecked(false);
+            anchorCB.setChecked(true);
+        }
+        else {
+            taskCB.setChecked(true);
+            anchorCB.setChecked(true);
+        }
     }
 
     private void initButtons() {
@@ -110,6 +131,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         } if (Category_Set.contains("WORK")) {
             setBtnFocus(workBtn);
         }
+
     }
     @Override
     public void onClick(View v) {
@@ -258,7 +280,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case (R.id.buttonApply):
-                Log.d("TAG5", "onClick: apply");
+                if (taskCB.isChecked()&&!anchorCB.isChecked()) {
+                    typeFilter=1;
+                }
+                else if (!taskCB.isChecked()&&anchorCB.isChecked()) {
+                    typeFilter=2;
+
+                }
+                else typeFilter=0;
+                
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
 

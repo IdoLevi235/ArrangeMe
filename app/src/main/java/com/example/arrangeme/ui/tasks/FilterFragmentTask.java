@@ -53,9 +53,6 @@ public class FilterFragmentTask extends FilterFragment {
         super.onClick(v);
 
         switch (v.getId()){
-            case (R.id.buttonApply):
-                getActivity().getSupportFragmentManager().popBackStack();
-                break;
         }
     }
 }
