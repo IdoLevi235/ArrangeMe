@@ -352,12 +352,12 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/photo_here"
                 android:layout_width="316dp"
-                android:layout_height="185dp"
+                android:layout_height="175dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="11dp"
-                android:layout_marginTop="369dp"
+                android:layout_marginTop="372dp"
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/montserrat"
                 android:textAllCaps="false" />
