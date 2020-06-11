@@ -136,6 +136,9 @@ public class Screen7Q extends Fragment implements View.OnClickListener {
                 } else if (selectedRadioButtonID == R.id.radioButton75) {
                     Server.questionnaireFill("11",5);
                 }
+                else {
+                    Server.questionnaireFill("11",6);
+                }
                 navController.navigate(R.id.action_screen7Q_to_screen8Q);
                 break;
             default:

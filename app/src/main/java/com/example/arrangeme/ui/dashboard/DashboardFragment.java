@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private LinearLayoutManager layoutManager;
     private Button chooseTasksBtn;
     private Button questionnaireBtn;
+    private ImageView imageView7;
     private DatabaseReference mDatabase;
     private RecyclerView mRecycler;
     private FirebaseRecyclerOptions<MainModelSchedule> options;
@@ -132,9 +134,34 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         rankit.setOnClickListener(this);
         view11=view.findViewById(R.id.view11);
         view11.setOnClickListener(this);
+        imageView7=view.findViewById(R.id.imageView7);
+        imageView7.setImageResource(0);
+        setGenderPhoto();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.checkIfPersonalityVectorFilled();
         }
+
+    private void setGenderPhoto() {
+        DatabaseReference quesRef=  FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personality_vector").child("1");
+        quesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.getValue().toString().equals("1")){
+                    imageView7.setImageResource(R.drawable.try2);
+                }
+                else if (dataSnapshot.getValue().toString().equals("2")) {
+                    imageView7.setImageResource(R.drawable.try1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     private void showTodaySchedule() {
         showScheduleRate();
@@ -295,6 +322,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                         q_answers.add(Integer.parseInt(data.getValue().toString()));
                     }
                 }
+//                if (q_answers.get(0).equals(1)){
+//                    imageView7.setImageResource(R.drawable.try2);
+//                }
+//                else if (q_answers.get(0).equals(2)){
+//                    imageView7.setImageResource(R.drawable.try1);
+//                }
                 if (q_answers.contains(0)) { //questionnaire not filled
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
@@ -303,7 +336,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     noScheduleYet.setText("You don't have schedule for today");
                     quesMessage.setVisibility(View.VISIBLE);
                     quesMessage.setText("You must complete the questionnaire in order to receive schedules!");
-
                     int answers[] = new int[25];
                     int i=0;
                     for (Integer x : q_answers){

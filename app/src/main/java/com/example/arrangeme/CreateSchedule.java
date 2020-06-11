@@ -359,6 +359,8 @@ public class CreateSchedule {
                  Integer diff = originalRequestedFreqVec.get(c) - currentFreqVec.get(c);
                  difference.put(c,diff);
              }
+
+
                 Log.d("finalsch", "finalCheck: " + difference);
 
              // positive number - the user is missing tasks in this category - add a task from this category to the final schedule
@@ -421,6 +423,7 @@ public class CreateSchedule {
                 Log.d("finalsch", "finalCheck: hoursMap = " + hoursMap); // works
                 onlyAvailableHoursList.addAll(hoursMap.keySet()); // all available hours are in ArrayList finalAvailableHoursList now
                 List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 3);
+                Collections.shuffle(smallerLists);
                 List<List<String>> smallerListsClone = new ArrayList<>(smallerLists); // clone
                 Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
 
