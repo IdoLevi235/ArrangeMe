@@ -76,7 +76,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                 ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"),entry.get("photoUri"));
                                 openPopUp.put(sc.getIdForCalendar(),sc1);
                             }
-                            else {
+                            else if(entry.get("type").equals("task")) {
                                 sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
                                 ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"),entry.get("photoUri"));
                                 openPopUp.put(sc.getIdForCalendar(),sc1);
