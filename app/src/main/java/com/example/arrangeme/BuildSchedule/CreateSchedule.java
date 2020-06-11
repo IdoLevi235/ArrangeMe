@@ -361,7 +361,7 @@ public class CreateSchedule {
                  difference.put(c,diff);
              }
 
-             
+
              Log.d("finalsch", "finalCheck: " + difference);
 
              // positive number - the user is missing tasks in this category - add a task from this category to the final schedule
