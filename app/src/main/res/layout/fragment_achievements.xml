@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:isScrollContainer="true"
     android:overScrollMode="ifContentScrolls"
-    tools:context=".ui.myprofile.Achievements">
+    tools:context=".menu.myprofile.Achievements">
 
 
     <RelativeLayout

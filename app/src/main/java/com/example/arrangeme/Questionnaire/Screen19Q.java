@@ -19,13 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.arrangeme.CreateSchedule;
+import com.example.arrangeme.BuildSchedule.CreateSchedule;
 import com.example.arrangeme.Globals;
-import com.example.arrangeme.Homepage;
-import com.example.arrangeme.MainActivity;
+import com.example.arrangeme.menu.Homepage;
 import com.example.arrangeme.R;
 import com.example.arrangeme.Server;
-import com.example.arrangeme.Signup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

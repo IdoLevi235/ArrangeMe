@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.arrangeme.ui.dashboard.DashboardFragment"
+        android:name="com.example.arrangeme.menu.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.example.arrangeme.ui.calendar.CalendarFragment"
+        android:name="com.example.arrangeme.menu.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
 
 
     <fragment
         android:id="@+id/navigation_tasks"
-        android:name="com.example.arrangeme.ui.tasks.TasksFragment"
+        android:name="com.example.arrangeme.menu.tasks.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.arrangeme.ui.schedule.ScheduleFragment"
+        android:name="com.example.arrangeme.menu.schedule.ScheduleFragment"
         android:label="fragment_schedule"
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/navigation_myprofile"
-        android:name="com.example.arrangeme.ui.myprofile.MyProfileFragment"
+        android:name="com.example.arrangeme.menu.myprofile.MyProfileFragment"
         android:label="fragment_myprofile"
         tools:layout="@layout/fragment_myprofile" />
 

@@ -7,7 +7,7 @@
     android:background="#FFF4F4F4"
     android:layout_gravity="right"
     android:elevation="3dp"
-    tools:context=".ui.calendar.FilterFragment">
+    tools:context=".menu.calendar.FilterFragment">
 
     <TextView
         android:id="@+id/filterText"

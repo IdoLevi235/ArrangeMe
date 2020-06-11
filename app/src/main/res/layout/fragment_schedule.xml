@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF4F4F4"
-    tools:context=".ui.schedule.ScheduleFragment">
+    tools:context=".menu.schedule.ScheduleFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/rankit"
@@ -202,31 +202,18 @@
         app:layout_constraintTop_toBottomOf="@+id/chooseDate2"
         app:layout_constraintVertical_bias="0.00999999" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="369dp"
-        android:layout_height="490dp"
+    <RelativeLayout
+        android:id="@+id/scheduleExistsLayout"
+        android:layout_width="365dp"
+        android:layout_height="511dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/rateMsgSch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPleaseChooseAdd"
-        app:layout_constraintVertical_bias="0.18" />
-
-    <RelativeLayout
-        android:id="@+id/scheduleExistsLayout"
-        android:layout_width="373dp"
-        android:layout_height="476dp"
-        android:elevation="1.5dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.086">
+        app:layout_constraintTop_toBottomOf="@+id/chooseDate2"
+        app:layout_constraintVertical_bias="0.13999999">
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -245,35 +232,34 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerSchedule"
-            android:layout_width="373dp"
-            android:layout_height="490dp"
+            android:layout_width="352dp"
+            android:layout_height="507dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-17dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="-19dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="0dp"
             android:elevation="1.5dp" />
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/rateMsgSch"
-        android:layout_width="236dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="9dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:layout_constraintVertical_bias="0.048"
+        android:layout_width="314dp"
+        android:layout_height="60dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:textColor="#A38839"
         android:textSize="10sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scheduleExistsLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
