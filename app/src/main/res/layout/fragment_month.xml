@@ -7,52 +7,37 @@
     android:background="#FFF4F4F4"
     tools:context=".menu.calendar.month.MonthFragment">
 
-    <RelativeLayout
-        android:id="@+id/view_month"
-        android:layout_width="380dp"
-        android:layout_height="169dp"
+    <TextView
+        android:id="@+id/noItemsText"
+        android:layout_width="319dp"
+        android:layout_height="43dp"
+        android:elevation="3dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/eventsRecyclerView"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintVertical_bias="0.186" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventsRecyclerView"
+        android:layout_width="361dp"
+        android:layout_height="163dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
-        app:layout_constraintVertical_bias="0.652">
+        app:layout_constraintVertical_bias="0.319">
 
-        <TextView
-            android:id="@+id/noItemsText"
-            android:layout_width="319dp"
-            android:layout_height="43dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="102dp"
-            android:layout_marginEnd="38dp"
-            android:layout_marginBottom="168dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/montserrat"
-            android:gravity="center"
-            android:textSize="12sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/eventsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginBottom="4dp"
-            android:elevation="2dp"
-            android:visibility="visible">
-
-        </androidx.recyclerview.widget.RecyclerView>
-    </RelativeLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <View
         android:id="@+id/view5"
@@ -67,6 +52,21 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addTasksFloater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:src="@drawable/plus"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monthCalendar"
+        app:rippleColor="#FFFFFF" />
+
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/monthCalendar"
         android:layout_width="470dp"
@@ -78,26 +78,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:mcv_selectionColor="@color/arrangeMeMain"
-        app:mcv_showOtherDates="all" />
+        app:mcv_showOtherDates="all">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addTasksFloater"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="333dp"
-        android:layout_marginTop="408dp"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:elevation="4dp"
-        android:src="@drawable/plus"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/monthCalendar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.686"
-        app:layout_constraintStart_toStartOf="@+id/monthCalendar"
-        app:layout_constraintTop_toTopOf="@+id/monthCalendar"
-        app:layout_constraintVertical_bias="0.55"
-        app:rippleColor="#FFFFFF" />
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

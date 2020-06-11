@@ -417,9 +417,9 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.button.setText(str);
-                holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
-                holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
-                holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
+              //  holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
+               // holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
+               // holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                 //if (model.getType().equals("ANCHOR")) {
                 //    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
                 // } else if (model.getType().equals("TASK")) {
