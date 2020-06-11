@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -72,8 +73,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView quesMessage;
     private TextView welcome;
     private TextView rateMsg;
+    private ProgressBar progressBar5;
     private RelativeLayout view11;
     private AppCompatImageView rankit;
+    private ProgressBar progressBar6;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -124,10 +127,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         rankit.setOnClickListener(this);
         view11=view.findViewById(R.id.view11);
         view11.setOnClickListener(this);
+        progressBar6=view.findViewById(R.id.progressBar6);
         imageView7=view.findViewById(R.id.imageView7);
         imageView7.setImageResource(0);
+        progressBar6.setVisibility(View.VISIBLE);
         setGenderPhoto();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
         this.checkIfPersonalityVectorFilled();
         }
 
@@ -208,14 +214,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                             Bundle b = new Bundle();
                             b.putString("TaskKeyFromWeek", id);
                             b.putString("date",today);
-                            b.putString("photo", "yes");
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
                             intent.putExtras(b);
                             startActivity(intent);
                         }
                     });
 
                 }
-        }
+                progressBar6.setVisibility(View.GONE);
+
+            }
 
 
             @NonNull
@@ -319,6 +332,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 //                    imageView7.setImageResource(R.drawable.try1);
 //                }
                 if (q_answers.contains(0)) { //questionnaire not filled
+                    rankit.setVisibility(View.GONE);
+                    progressBar6.setVisibility(View.GONE);
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
                     noSchRelative.setVisibility(View.VISIBLE);
@@ -364,6 +379,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     showTodaySchedule();
                 }
                 else {
+                    rankit.setVisibility(View.GONE);
+                    progressBar6.setVisibility(View.GONE);
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
                     noSchRelative.setVisibility(View.VISIBLE);

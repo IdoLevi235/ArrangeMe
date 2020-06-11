@@ -129,7 +129,24 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         final HashSet<String> datesWithAnchors = new HashSet<>();
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules");
         anchRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Anchors");
-        //child of pending tasks that they are tasks
+        schRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild(String.valueOf(dateString))){
+                    showOnlyAnchors();
+                }
+                else {
+                    addTasks.setEnabled(false); // if schedule exists this date, dont add anchors
+                    showSchedule();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         Query query_sch = schRef;
         Query query_anchors = anchRef;
         query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {

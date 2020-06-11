@@ -156,7 +156,11 @@ public class Homepage extends AppCompatActivity{
         if (count == 0) {
             if (navView.getSelectedItemId()!=R.id.navigation_dashboard) {
                 super.onBackPressed();
+                if(navView.getSelectedItemId()==R.id.navigation_calendar){
+                    super.onBackPressed();
+                }
             }
+
             else {
                 //do nothing for now
             }

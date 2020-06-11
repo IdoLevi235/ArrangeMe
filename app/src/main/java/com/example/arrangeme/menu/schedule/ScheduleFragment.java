@@ -129,7 +129,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         initializeFields();
         initializeComponents(view);
 
-        // First entrace - take the date from homepage or put today's date
+        // First entrance - take the date from homepage or put today's date
         date = ((Homepage) getActivity()).getDateToShowInScheduleFragment();
         if (date!=null) { // came from choosetasks
             ((Homepage) getActivity()).setDateToShowInScheduleFragment(null);
@@ -142,7 +142,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         datePicker.setText(date);
         datePicker.setOnClickListener(this);
         checkIfQuestionnaireFilled();
-        initializeSchedule();
         initSwipes();
     }
 
@@ -237,6 +236,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     }
                 }
                 if (q_answers.contains(0)) {
+                    chooseMessage.setVisibility(View.GONE);
+                    chooseTaskBtn.setVisibility(View.GONE);
+                    rankit.setVisibility(View.GONE);
                     noSchRel.setVisibility(View.VISIBLE);
                   //  view4.setVisibility(View.GONE);
                     schExistRel.setVisibility(View.GONE);
@@ -260,6 +262,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     });
 
                 }
+                else { // ques is ok
+                    initializeSchedule();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -280,6 +285,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getChildrenCount() == 0) {
+                        rankit.setVisibility(View.GONE);
                         noSchRel.setVisibility(View.VISIBLE);
                    //     view4.setVisibility(View.GONE);
                         noScheduleYet.setVisibility(View.VISIBLE);
@@ -432,6 +438,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                     swapItems(dataSnapshot,handler);
                                 }
                             }
+                        }
+                        else {
+                            Toast.makeText(getContext(),"You can't change anchor's hours",Toast.LENGTH_LONG).show();
                         }
                     }
 
