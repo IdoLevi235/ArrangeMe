@@ -149,8 +149,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 else if (dataSnapshot.getValue().toString().equals("2")) {
                     imageView7.setImageResource(R.drawable.try1);
                 }
-                else {
+                else if (dataSnapshot.getValue().toString().equals("3")){
                     imageView7.setImageResource(R.drawable.try3);
+                }
+                else {
+                    imageView7.setImageResource(R.drawable.try1);
                 }
             }
 
