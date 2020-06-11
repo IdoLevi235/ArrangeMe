@@ -360,8 +360,8 @@ public class CreateSchedule {
                  difference.put(c,diff);
              }
 
-
-                Log.d("finalsch", "finalCheck: " + difference);
+             
+             Log.d("finalsch", "finalCheck: " + difference);
 
              // positive number - the user is missing tasks in this category - add a task from this category to the final schedule
              // negative number - the user has too much from this category - delete a task from this category to the final schedule
@@ -423,9 +423,9 @@ public class CreateSchedule {
                 Log.d("finalsch", "finalCheck: hoursMap = " + hoursMap); // works
                 onlyAvailableHoursList.addAll(hoursMap.keySet()); // all available hours are in ArrayList finalAvailableHoursList now
                 List<List<String>> smallerLists = Lists.partition(onlyAvailableHoursList, 3);
-                Collections.shuffle(smallerLists);
                 List<List<String>> smallerListsClone = new ArrayList<>(smallerLists); // clone
-                Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
+                Collections.shuffle(smallerListsClone);
+        Log.d("finalsch", "finalCheck: smaller Lists" + smallerLists);
 
 
                 //each sublist is a possible free hour
