@@ -8,6 +8,8 @@ public class MainModelTasks {
     private int catIcon;
     private int catBackground;
 
+    private String photoUri;
+
     public MainModelTasks() {
     }
 
@@ -57,5 +59,13 @@ public class MainModelTasks {
 
     public void setCatBackground(int catBackground) {
         this.catBackground = catBackground;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 }

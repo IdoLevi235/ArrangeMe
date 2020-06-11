@@ -205,6 +205,13 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
                             b.putString("TaskKey", taskKey);
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
+
                             intent.putExtras(b);
                             startActivity(intent);
                         }
