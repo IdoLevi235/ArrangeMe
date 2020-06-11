@@ -75,17 +75,19 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
                     if (mDatabase2.exists()) {
                         ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                         for (HashMap<String, String> entry : message) {
-                            if(entry.get("type").equals("anchor")) {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("AnchorID"));
-                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"), entry.get("photoUri"));
-                                openPopUp.put(sc.getIdForCalendar(),sc1);
+                            if(entry!=null) {
+                                if (entry.get("type").equals("anchor")) {
+
+                                    sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"), entry.get("AnchorID"));
+                                    ScheduleItem sc1 = new ScheduleItem(entry.get("date"), entry.get("type"), entry.get("photoUri"));
+                                    openPopUp.put(sc.getIdForCalendar(), sc1);
+                                } else {
+                                    sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"), entry.get("activeKey"));
+                                    ScheduleItem sc1 = new ScheduleItem(entry.get("date"), entry.get("type"), entry.get("photoUri"));
+                                    openPopUp.put(sc.getIdForCalendar(), sc1);
+                                }
+                                scheduleFromDB.add(sc);
                             }
-                            else {
-                                sc = new ScheduleItem(entry.get("startTime"), entry.get("endTime"), entry.get("category"), entry.get("type"), entry.get("date"), entry.get("description"), entry.get("location"),entry.get("activeKey"));
-                                ScheduleItem sc1=new ScheduleItem(entry.get("date"), entry.get("type"), entry.get("photoUri"));
-                                openPopUp.put(sc.getIdForCalendar(),sc1);
-                            }
-                            scheduleFromDB.add(sc);
                         }
                     }
                 }
