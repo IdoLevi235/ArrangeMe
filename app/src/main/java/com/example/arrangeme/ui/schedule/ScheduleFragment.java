@@ -556,6 +556,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                 Bundle b = new Bundle();
                                 b.putString("TaskKeyFromWeek", id);
                                 b.putString("date",date);
+                                if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                    b.putString("photo", "yes");
+                                }
+                                else {
+                                    b.putString("photo", "no");
+                                }
                                 intent.putExtras(b);
                                 Log.d("popopo", "onClick: activeKey=" + id);
                                 startActivity(intent);
@@ -568,6 +574,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
                             b.putString("AnchorKeyFromWeek", id);
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
                             b.putString("date",date);
                             intent.putExtras(b);
                             startActivity(intent);

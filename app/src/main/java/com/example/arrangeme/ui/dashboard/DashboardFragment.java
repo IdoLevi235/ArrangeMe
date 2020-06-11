@@ -164,6 +164,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                         Bundle b = new Bundle();
                         b.putString("AnchorKeyFromWeek", id);
                         b.putString("date",today);
+                        if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                            b.putString("photo", "yes");
+                        }
+                        else {
+                            b.putString("photo", "no");
+                        }
                         intent.putExtras(b);
                         startActivity(intent);
                     }
@@ -185,6 +191,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                             Bundle b = new Bundle();
                             b.putString("TaskKeyFromWeek", id);
                             b.putString("date",today);
+                            b.putString("photo", "yes");
                             intent.putExtras(b);
                             startActivity(intent);
                         }

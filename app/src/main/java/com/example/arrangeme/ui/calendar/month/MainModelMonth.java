@@ -10,6 +10,9 @@ public class MainModelMonth {
     private String AnchorID;
     private String activeKey;
 
+
+    private String photoUri;
+
     public MainModelMonth(String category, String description, String time, String type, String creteDate) {
         this.category = category;
         this.description = description;
@@ -85,5 +88,13 @@ public class MainModelMonth {
     public void setActiveKey(String activeKey) {
         this.activeKey = activeKey;
     }
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
+
 }
 

@@ -11,6 +11,8 @@ public class MainModelSchedule {
     private String endTime;
     private String activeKey;
 
+
+    private String photoUri;
     private String AnchorID;
 
 
@@ -80,6 +82,15 @@ public class MainModelSchedule {
     public void setAnchorID(String anchorID) {
         AnchorID = anchorID;
     }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
+
 }
 
 
