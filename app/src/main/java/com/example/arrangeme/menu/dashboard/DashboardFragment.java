@@ -214,7 +214,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                             Bundle b = new Bundle();
                             b.putString("TaskKeyFromWeek", id);
                             b.putString("date",today);
-                            b.putString("photo", "yes");
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
                             intent.putExtras(b);
                             startActivity(intent);
                         }
@@ -327,7 +332,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 //                    imageView7.setImageResource(R.drawable.try1);
 //                }
                 if (q_answers.contains(0)) { //questionnaire not filled
-                    rankit.setEnabled(false);
+                    rankit.setVisibility(View.GONE);
                     progressBar6.setVisibility(View.GONE);
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);
@@ -374,7 +379,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     showTodaySchedule();
                 }
                 else {
-                    rankit.setEnabled(false);
+                    rankit.setVisibility(View.GONE);
                     progressBar6.setVisibility(View.GONE);
                     view11.setVisibility(View.GONE);
                     mRecycler.setVisibility(View.GONE);

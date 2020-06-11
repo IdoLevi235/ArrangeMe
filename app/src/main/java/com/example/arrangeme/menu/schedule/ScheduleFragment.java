@@ -238,7 +238,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 if (q_answers.contains(0)) {
                     chooseMessage.setVisibility(View.GONE);
                     chooseTaskBtn.setVisibility(View.GONE);
-                    rankit.setEnabled(false);
+                    rankit.setVisibility(View.GONE);
                     noSchRel.setVisibility(View.VISIBLE);
                   //  view4.setVisibility(View.GONE);
                     schExistRel.setVisibility(View.GONE);
@@ -285,7 +285,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getChildrenCount() == 0) {
-                        rankit.setEnabled(false);
+                        rankit.setVisibility(View.GONE);
                         noSchRel.setVisibility(View.VISIBLE);
                    //     view4.setVisibility(View.GONE);
                         noScheduleYet.setVisibility(View.VISIBLE);
