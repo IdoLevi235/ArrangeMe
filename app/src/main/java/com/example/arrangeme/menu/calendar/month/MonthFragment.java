@@ -324,6 +324,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                                 Bundle b = new Bundle();
                                 b.putString("AnchorKeyFromWeek", id);
                                 b.putString("date", String.valueOf(dateString));
+                                if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                    b.putString("photo", "yes");
+                                }
+                                else {
+                                    b.putString("photo", "no");
+                                }
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }
@@ -344,6 +350,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                                 Bundle b = new Bundle();
                                 b.putString("TaskKeyFromWeek", id);
                                 b.putString("date", String.valueOf(dateString));
+                                if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                    b.putString("photo", "yes");
+                                }
+                                else {
+                                    b.putString("photo", "no");
+                                }
                                 intent.putExtras(b);
                                 startActivity(intent);
                             }
@@ -409,6 +421,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             Bundle b = new Bundle();
                             b.putString("AnchorKey", key);
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
                             intent.putExtras(b);
                             startActivity(intent);
                             //for now, only anchors
