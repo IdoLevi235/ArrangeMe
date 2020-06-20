@@ -7,35 +7,20 @@
     android:background="#FFF4F4F4"
     tools:context=".menu.calendar.month.MonthFragment">
 
-    <TextView
-        android:id="@+id/noItemsText"
-        android:layout_width="319dp"
-        android:layout_height="43dp"
-        android:elevation="3dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/eventsRecyclerView"
-        app:layout_constraintHorizontal_bias="0.686"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5"
-        app:layout_constraintVertical_bias="0.186" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
         android:layout_width="361dp"
-        android:layout_height="163dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:layout_height="150dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="2dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
-        app:layout_constraintVertical_bias="0.319">
+        app:layout_constraintVertical_bias="0.59000003">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -57,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:elevation="10dp"
+        android:elevation="99dp"
         android:src="@drawable/plus"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/view5"

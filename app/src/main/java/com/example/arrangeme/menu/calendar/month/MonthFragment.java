@@ -121,9 +121,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         UID = user.getUid();
         addTasks=view.findViewById(R.id.addTasksFloater);
         addTasks.setOnClickListener(this);
-        noItemsText=view.findViewById(R.id.noItemsText);
-        noItemsText.setText("No schedule/anchors to show");
-        noItemsText.setVisibility(View.VISIBLE);
         monthCalendar=view.findViewById(R.id.monthCalendar);
         final HashSet<String> datesWithTasks = new HashSet<>();
         final HashSet<String> datesWithAnchors = new HashSet<>();
@@ -239,7 +236,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 //spinner.setVisibility(View.VISIBLE);
                 addTasks.setEnabled(true);
                 monthCalendar.setSelectionColor(ContextCompat.getColor(getContext(), R.color.arrangeMeMain));
-                noItemsText.setVisibility(View.VISIBLE);
                 dateString.setLength(0);
                 int dayOfMonth = date.getDay();
                 int month = date.getMonth();
@@ -283,14 +279,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             };
         });
         /* Calendar stuff End*/
-
     }
 
     /**
      * Show schedule for specified day in recycler view
      */
     protected void showSchedule() {
-        noItemsText.setVisibility(View.GONE);
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(String.valueOf(dateString)).child("schedule");
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(schRef, MainModelMonth.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
@@ -325,9 +319,9 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length(), 0);
                     str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     holder.button.setText(str);
-                    holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
-                    holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-                    holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
+                   // holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
+                   // holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+                   holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                     if (model.getType().equals("anchor")) {
                         holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
                         holder.button.setBackgroundResource
@@ -409,7 +403,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelMonth model) {
                 //  spinner.setVisibility(View.VISIBLE);
-                noItemsText.setVisibility(View.GONE);
                 holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
                 //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
                 SpannableStringBuilder str = new SpannableStringBuilder
