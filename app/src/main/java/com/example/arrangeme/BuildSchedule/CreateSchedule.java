@@ -616,32 +616,34 @@ public class CreateSchedule {
     }
 
     private void divideReccSch() {
-        for (AnchorEntity anchor : anchorsList){ // comparing each anchor with every item in the suggested schedule
-            LocalTime anchorStart = LocalTime.parse( anchor.getStartTime());
-            LocalTime anchorEnd = LocalTime.parse( anchor.getEndTime());
-            for (ScheduleItem scheduleItem : recommendedSchedule){
-                LocalTime scheduleItemStart = LocalTime.parse(scheduleItem.getStartTime());
-                LocalTime scheduleItemEnd = LocalTime.parse(scheduleItem.getEndTime());
-                if (anchorStart.isBefore(scheduleItemEnd) && scheduleItemStart.isBefore(anchorEnd)) //overlap
-                {
-                    if (!recommSchBadHours.contains(scheduleItem)) {
-                        recommSchBadHours.add(scheduleItem);
+        if (anchorsList.isEmpty()){
+            recommSchGoodHours.addAll(recommendedSchedule);
+        }
+        else {
+            for (AnchorEntity anchor : anchorsList) { // comparing each anchor with every item in the suggested schedule
+                LocalTime anchorStart = LocalTime.parse(anchor.getStartTime());
+                LocalTime anchorEnd = LocalTime.parse(anchor.getEndTime());
+                for (ScheduleItem scheduleItem : recommendedSchedule) {
+                    LocalTime scheduleItemStart = LocalTime.parse(scheduleItem.getStartTime());
+                    LocalTime scheduleItemEnd = LocalTime.parse(scheduleItem.getEndTime());
+                    if (anchorStart.isBefore(scheduleItemEnd) && scheduleItemStart.isBefore(anchorEnd)) //overlap
+                    {
+                        if (!recommSchBadHours.contains(scheduleItem)) {
+                            recommSchBadHours.add(scheduleItem);
+                        }
+                    } else { // no overlap
+                        if (!recommSchGoodHours.contains(scheduleItem))
+                            recommSchGoodHours.add(scheduleItem);
                     }
                 }
-                else
-                { // no overlap
-                    if (!recommSchGoodHours.contains(scheduleItem))
-                        recommSchGoodHours.add(scheduleItem);
+                //iterating on all goods and delete them if they are in bad
+            }
+            for (ScheduleItem badItem : recommSchBadHours) {
+                while (recommSchGoodHours.contains(badItem)) {
+                    recommSchGoodHours.remove(badItem);
                 }
             }
-            //iterating on all goods and delete them if they are in bad
         }
-        for (ScheduleItem badItem : recommSchBadHours){
-            while (recommSchGoodHours.contains(badItem)){
-                 recommSchGoodHours.remove(badItem);
-            }
-        }
-
     }
 
     private void deleteAnchorsFromRecommSch() {
