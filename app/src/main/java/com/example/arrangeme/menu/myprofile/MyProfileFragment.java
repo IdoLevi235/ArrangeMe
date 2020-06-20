@@ -31,6 +31,8 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,6 +74,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     int flag=0;
     private Uri profileImage2;
     CropImageView cropImageView = null;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
+    String UID;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -99,6 +104,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
+
         avatarBtn = view.findViewById(R.id.AvatarCircle);
         avatarBtn.setOnClickListener(this);
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
@@ -116,6 +125,11 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         setUpIcons();
         setUpImages();
         setUpAvatar();
+
+        points=view.findViewById(R.id.points);
+        level=view.findViewById(R.id.level);
+        setUpLevel();
+
         pictureCircle.setOnClickListener(this);
 
 
@@ -123,11 +137,30 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         profileName=view.findViewById(R.id.profileName);
         profileName.setText(Globals.currentUsername);
         level=view.findViewById(R.id.level);
-        level.setText("master of schedules");
+       // level.setText("master of schedules");
         progressBarLevel=view.findViewById(R.id.progressBarLevel);
-        points=view.findViewById(R.id.points);
-        points.setText("1000");
 
+
+    }
+
+    private void setUpLevel() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 Log.d("TAG2", "onDataChange: "  + dataSnapshot);
+                 String lvl = (String) dataSnapshot.child("level").getValue();
+                 Long p = (Long) dataSnapshot.child("points").getValue();
+                 level.setText(lvl);
+                 points.setText(p + " POINTS");
+                 progressBarLevel.setProgress(Math.toIntExact(p/2));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

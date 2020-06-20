@@ -52,7 +52,7 @@
             android:elevation="2dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:text="7 Days Of Completed Tasks"
+            android:text="First schedule"
             android:textSize="18sp" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:elevation="2dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Complete a week of no missing tasks" />
+            android:text="You creatd your first schedule!" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -120,8 +120,7 @@
             android:layout_marginBottom="21dp"
             android:elevation="2dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:text="10 more tasks until the next level" />
+            android:gravity="center" />
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
             android:id="@+id/circularProgressBar"
@@ -138,7 +137,7 @@
             android:elevation="2dp"
             app:cpb_background_progressbar_color="#DADADA"
             app:cpb_background_progressbar_width="13dp"
-            app:cpb_progress="70"
+            app:cpb_progress="0"
             app:cpb_progress_direction="to_right"
             app:cpb_progressbar_color="@color/study"
             app:cpb_progressbar_width="7dp"

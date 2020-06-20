@@ -97,19 +97,20 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.dislike:
                 mDatabase.child("successful").setValue("no");
+                getPoints();
                 Bundle b = new Bundle();
                 Intent i1 = new Intent(ScheduleFeedback.this, Homepage.class);
                 if (isFromSchedule == true){ // from schedule
                     b.putString("FromHomepage","3");
                     b.putString("date",date);
                     i1.putExtras(b);
-
                 }
                 startActivity(i1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.like:
                 mDatabase.child("successful").setValue("yes");
+                getPoints();
                 Bundle b2 = new Bundle();
                 Intent i2 = new Intent(ScheduleFeedback.this, Homepage.class);
                 if (isFromSchedule == true){ // from schedule
@@ -124,5 +125,21 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
                 break;
 
         }
+    }
+
+    private void getPoints() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info").child("points");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long p = (Long) dataSnapshot.getValue();
+                dbRef.setValue(p+5);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -38,6 +38,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     Switch buildYour;
     Switch googleSync;
     Button backBtn;
+    Button ques;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         phoneNotif=findViewById(R.id.Phone);
         buildYour=findViewById(R.id.build);
         googleSync=findViewById(R.id.google);
+        ques=findViewById(R.id.fillTheQuestion);
+        ques.setOnClickListener(this);
 
     }
 
@@ -137,6 +140,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
 
             case R.id.backBtn:
                onBackPressed();
+                break;
+
+            case R.id.fillTheQuestion:
+
+                break;
+            default:
                 break;
         }
     }

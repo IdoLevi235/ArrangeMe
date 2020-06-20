@@ -887,11 +887,13 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         for (Integer y : frequencyVector.values())
             freqArray.add(y);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("group");
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Long g = (Long) dataSnapshot.getValue();
+                Long g = (Long) dataSnapshot.child("group").getValue();
+                Long p = (Long) dataSnapshot.child("points").getValue(); // points
+                mDatabase.child("points").setValue(p+10);
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
                 Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
