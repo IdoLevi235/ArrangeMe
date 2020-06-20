@@ -270,6 +270,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             mDatabase.child("users").child(Globals.UID).child("settings").child("app_notifications").setValue("no");
                             mDatabase.child("users").child(Globals.UID).child("settings").child("build_your_sch_reminders").setValue("no");
                             mDatabase.child("users").child(Globals.UID).child("settings").child("google_calendar_sync").setValue("no");
+                                mDatabase.child("users").child(Globals.UID).child("personal_info").child("level").setValue("Beginner");
+                            mDatabase.child("users").child(Globals.UID).child("personal_info").child("points").setValue(0);
                             Vector<Integer> personality_vector = new Vector<Integer>();
                             personality_vector.setSize(25);
                             for (int i=1;i<=25;i++){

@@ -8,6 +8,8 @@ import android.os.Build;
 import android.widget.Button;
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
+
 /**
  * Global functions and varaibles
  */

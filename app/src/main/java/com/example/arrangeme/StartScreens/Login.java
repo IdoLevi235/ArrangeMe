@@ -304,6 +304,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 mDatabase.child("users").child(Globals.UID).child("settings").child("google_calendar_sync").setValue("no");
                 mDatabase.child("users").child(Globals.UID).child("personal_info").child("email").setValue(Globals.currentEmail);
                 mDatabase.child("users").child(Globals.UID).child("personal_info").child("fname").setValue(Globals.currentUsername);
+                mDatabase.child("users").child(Globals.UID).child("personal_info").child("level").setValue("Beginner");
+                mDatabase.child("users").child(Globals.UID).child("personal_info").child("points").setValue(0);
                 Vector<Integer> personality_vector = new Vector<Integer>();
                 personality_vector.setSize(25);
                 for (int i=1;i<=25;i++){
@@ -345,7 +347,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.currentUsername = user.getDisplayName();
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
-
                                 Intent intent = new Intent(Login.this, Homepage.class);
                                 startActivity(intent);
                                 finish();
