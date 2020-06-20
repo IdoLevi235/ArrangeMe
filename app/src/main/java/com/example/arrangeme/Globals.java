@@ -107,5 +107,8 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
     }
 
 
+    public void simulateUsers() {
+    }
+
 
 }

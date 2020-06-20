@@ -48,30 +48,22 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="102dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcler_choosetasks"
-        android:layout_width="316dp"
-        android:layout_height="199dp"
-        android:elevation="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="339dp"
-        android:layout_height="233dp"
+        android:layout_width="348dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/rounded_rec_pink"
-        android:elevation="1.5dp"
+        android:elevation="3dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="0.0">
-
-
-    </View>
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewHello"
@@ -119,18 +111,16 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="90dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="87dp"
+        android:layout_width="97dp"
+        android:layout_height="77dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="27dp"
         app:layout_constraintBottom_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout4"
         app:layout_constraintVertical_bias="0.277"
-        app:srcCompat="@drawable/basket" />
+        app:srcCompat="@drawable/basket3" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
@@ -140,28 +130,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewNumbersRed"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/circle_textview_red"
+        android:background="@drawable/circle_textview_green"
         android:gravity="center"
         android:text="1"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textViewHowManyMore"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <TextView
         android:id="@+id/textViewHowManyMore"
@@ -186,6 +171,8 @@
         android:layout_marginTop="30dp"
         android:elevation="4dp"
         android:gravity="center"
+        android:fontFamily="@font/montserrat"
+        android:textSize="10dp"
         app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -224,10 +211,10 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recylcler_choosetasks"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.588" />
 
     <Button
         android:id="@+id/notif"

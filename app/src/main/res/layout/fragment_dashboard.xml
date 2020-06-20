@@ -23,7 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDash"
         android:layout_width="369dp"
-        android:layout_height="239dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="3dp"

@@ -79,7 +79,7 @@
         android:layout_height="34dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Month Name Year"
+        android:text="June 2020"
         android:textAllCaps="true"
         android:textColor="@color/arrangeMeMain"
         android:textSize="22sp"

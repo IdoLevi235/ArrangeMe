@@ -159,7 +159,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private void initializeToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.backsmall);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_40);
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -184,7 +184,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         tv2=findViewById(R.id.textViewExplanation);
         numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
         numberTextView.setText(Integer.toString(count));
-        numberTextView.setBackgroundResource(R.drawable.red_textview);
+        numberTextView.setBackgroundResource(R.drawable.green_textview);
         howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
         helloTxt = (TextView) findViewById(R.id.textViewHello);
         helloTxt.setText("Hello, " + Globals.currentUsername + "!");
@@ -210,7 +210,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
     /**
      * @param date
-     * check if there is already a schedule in the systen for this user in this date.
+     * check if there is already a schedule in the system for this user in this date.
      * if so - give him a special message
      */
     private void checkIfThereIsSchedule(String date) {
@@ -327,7 +327,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         holder.button.setBackgroundResource(catBackgroundFull[x]);
         count--;
         if (count == numOfTasksToChoose - 1) { //green-->red
-            numberTextView.setBackgroundResource(R.drawable.red_textview);
+            numberTextView.setBackgroundResource(R.drawable.green_textview);
         }
         numberTextView.setText(Integer.toString(count));
         howMuchMore.setText("(You can choose " + Integer.toString(numOfTasksToChoose - count) + " more tasks..)");
@@ -341,7 +341,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         if (count < numOfTasksToChoose) { //stay red
             count++;
             holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
-            numberTextView.setBackgroundResource(R.drawable.red_textview);
+            numberTextView.setBackgroundResource(R.drawable.green_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
 
@@ -351,7 +351,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             Log.d("TAG6", "chooseTask: green");
             count++;
             holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
-            numberTextView.setBackgroundResource(R.drawable.green_textview);
+            numberTextView.setBackgroundResource(R.drawable.red_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
         }
@@ -375,7 +375,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     tv.setVisibility(View.VISIBLE);
                     howMuchMore.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
-                    view4.setVisibility(View.GONE);
+                  //  view4.setVisibility(View.GONE);
                     imv4.setVisibility(View.GONE);
                     tv2.setVisibility(View.GONE);
                     numberTextView.setVisibility(View.GONE);
@@ -386,7 +386,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     tv.setVisibility(View.GONE);
                     howMuchMore.setVisibility(View.VISIBLE);
                     spinner.setVisibility(View.VISIBLE);
-                    view4.setVisibility(View.VISIBLE);
+                    //view4.setVisibility(View.VISIBLE);
                     imv4.setVisibility(View.VISIBLE);
                     tv2.setVisibility(View.VISIBLE);
                     numberTextView.setVisibility(View.VISIBLE);
