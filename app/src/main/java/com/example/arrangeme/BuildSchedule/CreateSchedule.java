@@ -4,12 +4,11 @@ import android.app.PendingIntent;
 import android.transition.Scene;
 import android.util.Log;
 import androidx.annotation.NonNull;
-
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.Entities.AnchorEntity;
 import com.example.arrangeme.Entities.ScheduleItem;
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.TaskCategory;
-import com.example.arrangeme.Globals;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -104,6 +103,33 @@ public class CreateSchedule {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("FINDSCHE", "onFailure: " + e );
+                    }
+                });
+    }
+
+    public  Task<HttpsCallableResult> findScheduleUserCentered(ArrayList timeVector, ArrayList frequencyVector, String date, ArrayList<String> keysChosen) {
+        // Create the arguments to the callable function.
+        initFreqVecHashMap(frequencyVector); // storing the requested freq vec for later use
+        Map<String, Object> data = new HashMap<>();
+        String id=Globals.UID;
+        data.put("id", id);
+        data.put("freqVec", frequencyVector);
+        data.put("timeVec", timeVector);
+        return mFunctions
+                .getHttpsCallable("findScheduleUserCentered")
+                .call(data)
+                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                    @Override
+                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                        List<HashMap<String,String>> data1 = (List<HashMap<String, String>>) httpsCallableResult.getData();
+                        Log.d("findScheduleUserCentered", "onSuccess: " + data1);
+                        makeFixes(data1,frequencyVector,timeVector,date,keysChosen);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("findScheduleUserCentered", "onFailure: " + e );
                     }
                 });
     }

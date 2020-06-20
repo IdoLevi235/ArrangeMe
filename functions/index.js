@@ -5,24 +5,6 @@ const euc = require('euclidean-distance');
 var createKDTree = require("static-kdtree");
 require('firebase/auth');
 require('firebase/database');
-// const firebase = require('firebase/app');
-// var firebaseConfig = {
-//     apiKey: "AIzaSyDMWj1qvYW2baOqTQRZI1WSzc1zWdY0uFM",
-//     authDomain: "arrangeme-b5809.firebaseapp.com",
-//     databaseURL: "https://arrangeme-b5809.firebaseio.com",
-//     // projectId: "arrangeme-b5809",
-//     storageBucket: "arrangeme-b5809.appspot.com",
-//     // messagingSenderId: "sender-id",
-//     // appId: "1:24099753586:android:e9bcbc2f7a6e094f603ceb",
-//     // measurementId: "G-measurement-id",
-// };
-
-// var id = 'sim1';
-// var mygroup = 3;
-
-// firebase.initializeApp(firebaseConfig);
-
-// var db = firebase.database();
 
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
@@ -145,6 +127,87 @@ exports.findSchedule = functions.https.onCall((data, context) => {
         for (const index in knnFreq) {
             var time_withkey = [];
             var a = Math.floor(knnFreq[index] / 21);
+            var b = all_info[a].time_vector;
+            for (const key in b) {
+                time_withkey.push(b[key]);
+            }
+            time_vec.push(time_withkey);
+            schedules.push(all_info[a].schedule);
+        }
+        return { time_vec, schedules };
+    }
+});
+
+// this function finds the fitted schedule User Centered approach
+exports.findScheduleUserCentered = functions.https.onCall((data, context) => {
+    var all_freqs_vec = [];
+    var all_info = [];
+    var info_freqsvec = [];
+    var ref = admin.database().ref('users/' + data.id+'/Schedules');
+    return new Promise((resolve, reject) => {
+        ref.once('value', (snap) => {
+            snap.forEach(x => {
+                info_freqsvec = theClosestFreqVec(x);
+                if(!info_freqsvec){
+                    return;
+                }
+                all_freqs_vec.push(info_freqsvec[0]);
+                all_info.push({
+                    id: x.key,
+                    dates: info_freqsvec[1],
+                    time_vector: info_freqsvec[2],
+                    schedule: info_freqsvec[3]
+                });
+            });
+            var tree = createKDTree(all_freqs_vec);
+            var knnFreq = tree.knn(data.freqVec, 10);
+            tree.dispose();
+            timeVec_Sched = theClosestTimeVec(all_freqs_vec, knnFreq, all_info);
+            var timeTree = createKDTree(timeVec_Sched.time_vec);
+            var res = timeTree.knn(data.timeVec, 1);
+            timeTree.dispose();
+            var chosen_sched = timeVec_Sched.schedules[res[0]];
+            if(chosen_sched){
+                console.log(chosen_sched);
+                resolve(chosen_sched);
+            }
+            else{
+                reject(new Error('Error in function!'));
+            }
+        }).catch(reject);
+    });
+
+    function theClosestFreqVec(x) {
+        
+        var freqs_vec = [];
+        var data = x.val().data;
+        var Schedule = x.val().schedule;
+        var info = [];
+        var info_freqsvec = []
+        var freq_withkey = [];
+        var freq = [];
+        if(data.successful==="no")
+            return;
+        freq_withkey = data.frequency_vector;
+        for (const key in freq_withkey) {
+            freq.push(freq_withkey[key]);
+        }
+        info.push(x.key);
+        info.push(data.time_vector);
+        info.push(Schedule);
+        
+        info_freqsvec.push(freq);
+        info_freqsvec.push(...info);
+        
+        return (info_freqsvec);
+    }
+
+    function theClosestTimeVec(all_freqs_vec, knnFreq, all_info) {
+        var time_vec = [];
+        var schedules = [];
+        for (const index in knnFreq) {
+            var time_withkey = [];
+            var a = knnFreq[index];
             var b = all_info[a].time_vector;
             for (const key in b) {
                 time_withkey.push(b[key]);

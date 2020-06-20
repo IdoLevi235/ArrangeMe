@@ -71,6 +71,7 @@
         android:layout_height="45dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:text="Build Your Schedule"
         android:textColor="@color/arrangeMeMain"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,13 +82,13 @@
 
     <TextView
         android:id="@+id/textViewPleaseChoose"
-        android:layout_width="352dp"
-        android:layout_height="33dp"
+        android:layout_width="346dp"
+        android:layout_height="50dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:text="Please choose a day and which tasks you would like to do in this day!"
+        android:text="Please choose a day and which tasks you would like to do in this day"
         android:textColor="#4E4E4E"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -168,17 +169,16 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:elevation="4dp"
-        android:gravity="center"
         android:fontFamily="@font/montserrat"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/view4"
+        android:gravity="center"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/confirmTasksBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/chooseDate"
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <ProgressBar
         android:id="@+id/progressBar3"

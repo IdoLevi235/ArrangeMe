@@ -135,7 +135,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
         this.checkIfPersonalityVectorFilled();
-        }
+    }
 
     private void setGenderPhoto() {
         DatabaseReference quesRef=  FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personality_vector").child("1");
@@ -171,37 +171,38 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         fbAdapter = new FirebaseRecyclerAdapter<MainModelSchedule, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
+                Log.d("TAG7", "onBindViewHolder: ");
                 String s = model.getEndTime().equals("00:00") ? "23:59" : model.getEndTime();
                 LocalTime itemEndTime = LocalTime.parse(s);
                 LocalTime now = LocalTime.now();
                 if (itemEndTime.isBefore(now)){
                     holder.itemView.setVisibility(View.GONE);
-                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
                 //holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
-               // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-               // holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
+                // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+                // holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
                 if(model.getType().equals("anchor")){
-                holder.button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {   //OPEN ANCHOR POPUP
-                        String id = model.getAnchorID();
-                        Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Bundle b = new Bundle();
-                        b.putString("AnchorKeyFromWeek", id);
-                        b.putString("date",today);
-                        if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
-                            b.putString("photo", "yes");
+                    holder.button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {   //OPEN ANCHOR POPUP
+                            String id = model.getAnchorID();
+                            Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("AnchorKeyFromWeek", id);
+                            b.putString("date",today);
+                            if (model.getPhotoUri()!=null && model.getPhotoUri().length()>2) {
+                                b.putString("photo", "yes");
+                            }
+                            else {
+                                b.putString("photo", "no");
+                            }
+                            intent.putExtras(b);
+                            startActivity(intent);
                         }
-                        else {
-                            b.putString("photo", "no");
-                        }
-                        intent.putExtras(b);
-                        startActivity(intent);
-                    }
-                });
+                    });
 
                 } else if (model.getType().equals("task")){
                     holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
@@ -281,7 +282,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         Intent ct;
         switch (v.getId()) {
             case (R.id.chooseTasksBtn):
-                 ct= new Intent(getActivity(), ChooseTasks.class);
+                ct= new Intent(getActivity(), ChooseTasks.class);
                 getActivity().startActivity(ct);
                 break;
             case (R.id.rankit):
@@ -349,7 +350,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     int answers[] = new int[25];
                     int i=0;
                     for (Integer x : q_answers){
-                       answers[i++]=x;
+                        answers[i++]=x;
                     }
                     Intent intent = new Intent(getActivity(),Questionnaire.class);
                     intent.putExtra("answers",answers);

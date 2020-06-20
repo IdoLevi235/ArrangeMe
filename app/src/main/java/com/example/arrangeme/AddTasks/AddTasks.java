@@ -32,7 +32,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.Entities.TaskEntity;
 import com.example.arrangeme.Enums.ReminderType;
-import com.example.arrangeme.Globals;
 import com.example.arrangeme.menu.Homepage;
 import com.example.arrangeme.R;
 import com.google.android.gms.tasks.Continuation;
@@ -54,7 +53,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
+import com.example.arrangeme.Globals;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;

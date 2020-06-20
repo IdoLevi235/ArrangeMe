@@ -87,7 +87,6 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private int count;
     private TextView numberTextView;
     private TextView howMuchMore;
-    private TextView helloTxt;
     private Button confirm;
     private RecyclerView mRecycler;
     private RelativeLayout rl;
@@ -98,6 +97,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private FirebaseRecyclerAdapter<MainModel, MyViewHolder> fbAdapter;
     private TextView tv;
     private TextView tv2;
+    private TextView tv3;
     private View view4;
     private ProgressBar spinner;
     private Button setDate;
@@ -182,12 +182,11 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         tv = findViewById(R.id.textView16);
         tv.setVisibility(View.GONE);
         tv2=findViewById(R.id.textViewExplanation);
+        tv3= findViewById(R.id.textViewPleaseChoose);
         numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
         numberTextView.setText(Integer.toString(count));
         numberTextView.setBackgroundResource(R.drawable.green_textview);
         howMuchMore = (TextView) findViewById(R.id.textViewHowManyMore);
-        helloTxt = (TextView) findViewById(R.id.textViewHello);
-        helloTxt.setText("Hello, " + Globals.currentUsername + "!");
         confirm = (Button) findViewById(R.id.confirmTasksBtn);
         confirm.setOnClickListener(this);
         setDate = (Button)findViewById(R.id.chooseDate);
@@ -372,6 +371,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
                     tv.setText("You have no pending tasks.\n You can add new tasks in tasks tab");
+                    mRecycler.setVisibility(View.GONE);
+                    tv3.setVisibility(View.INVISIBLE);
+                    setDate.setVisibility(View.INVISIBLE);
                     tv.setVisibility(View.VISIBLE);
                     howMuchMore.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
@@ -897,7 +899,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
                 Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
-                ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date,keysChosen);
+
+                //TODO: check is the user has 30 schedules (if so, send the function to findScheduleUserCentered - in gray and if not, to the simulation)
+                ce.findScheduleUserCentered(timeArray,freqArray,date,keysChosen);
+                //ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date,keysChosen);
             }
 
             @Override
