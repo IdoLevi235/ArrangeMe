@@ -3,6 +3,8 @@ package com.example.arrangeme.menu;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +24,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * Home page class - the main page of the application. has bottom navigation bar with 5 fragments
@@ -93,6 +97,9 @@ public class Homepage extends AppCompatActivity{
         contextOfApplication = getApplicationContext();
 
 
+        //TODO: add check if you are a new user
+        //This is the call for the help system
+        new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("First, Add New Tasks").setSecondaryText("In order to build a schedule you need to add new tasks").setBackgroundColour(Color.parseColor("#20666E")).show();
 
     }
 

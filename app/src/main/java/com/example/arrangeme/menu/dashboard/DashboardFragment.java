@@ -33,6 +33,7 @@ import com.example.arrangeme.Enums.TaskCategory;
 import com.example.arrangeme.Globals;
 import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
+import com.example.arrangeme.StartScreens.MainActivity;
 import com.example.arrangeme.menu.schedule.ScheduleFeedback;
 import com.example.arrangeme.menu.schedule.MainModelSchedule;
 import com.example.arrangeme.menu.schedule.MyViewHolder;
@@ -54,6 +55,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener, PersonalityVectorValidate {
 
@@ -138,6 +141,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         progressBar6.setVisibility(View.VISIBLE);
         setGenderPhoto();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+
 
         this.checkIfPersonalityVectorFilled();
     }
