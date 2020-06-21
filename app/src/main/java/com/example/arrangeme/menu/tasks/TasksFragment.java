@@ -3,6 +3,7 @@ package com.example.arrangeme.menu.tasks;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class TasksFragment extends Fragment implements View.OnClickListener {
@@ -90,7 +92,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("TAG8", "onViewCreated: HELLO");
         view4 = view.findViewById(R.id.view4);
         spinner = (ProgressBar) view.findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
@@ -171,6 +172,20 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         });
         helper.attachToRecyclerView(mRecycler);
         /* swipe stuff end */
+
+
+        //this function is the help system 
+        new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.add).setPrimaryText("Click to add a new task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
+        {
+            @Override
+            public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
+            {
+                if (state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
+                {
+                    // User has pressed the prompt target
+                }
+            }
+        }).show();
     }
 
     public void setRecycler(RecyclerView mRecycler) {

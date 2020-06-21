@@ -11,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.StartScreens.MainActivity;
+import com.example.arrangeme.menu.dashboard.DashboardFragment;
+import com.example.arrangeme.menu.tasks.TaskPagePopup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -25,6 +28,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
@@ -97,14 +101,24 @@ public class Homepage extends AppCompatActivity{
         contextOfApplication = getApplicationContext();
 
 
-        //TODO: add check if you are a new user
         //This is the call for the help system
-        new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("First, Add New Tasks").setSecondaryText("In order to build a schedule you need to add new tasks").setBackgroundColour(Color.parseColor("#20666E")).show();
-
+       // if(Globals.isNewUser==true) {
+            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
+            {
+                @Override
+                public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
+                {
+                    if (state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
+                    {
+                        // User has pressed the prompt target
+                    }
+                }
+            }).show();
+       // }
     }
 
     /**
-     * Thie function returns the context
+     * The function returns the context
      * @return Context
      */
     public static Context getContextOfApplication()
