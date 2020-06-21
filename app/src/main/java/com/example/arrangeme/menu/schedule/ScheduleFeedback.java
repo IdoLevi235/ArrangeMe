@@ -128,6 +128,9 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * get 5 points and update level after rating a schedule
+     */
     private void getPoints() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info");
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {

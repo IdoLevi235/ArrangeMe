@@ -707,6 +707,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
+    /**
+     * @param v
+     */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.chooseDate2:
@@ -725,6 +728,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
+    /**
+     * creating the date picker dialog
+     */
     private void createDatePickerDialog() {
         final Calendar c = Calendar.getInstance();
         DatePickerDialog dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
