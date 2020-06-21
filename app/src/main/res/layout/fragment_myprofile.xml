@@ -59,12 +59,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" >
 
-        <ProgressBar
-            android:id="@+id/progressBar7"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="99dp" />
     </com.theartofdev.edmodo.cropper.CropImageView>
 
     <RelativeLayout

@@ -135,9 +135,9 @@ public class Screen2Q extends Fragment implements View.OnClickListener {
                     } else if (btn_unfocus == btn[1]) {
                         Server.questionnaireFill("2",2);
                     } else if (btn_unfocus==btn[2]) {
-                        Server.questionnaireFill("2",3);
-                    }else {
                         Server.questionnaireFill("2",4);
+                    }else {
+                        Server.questionnaireFill("2",3);
                     }
                 }
                 if (smoke.isChecked())
