@@ -211,6 +211,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String imageURL = (String) dataSnapshot.getValue();
+                    if (imageURL!=null)
                     try {
                         Transformation transformation = new RoundedTransformationBuilder().oval(true).scaleType(ImageView.ScaleType.FIT_XY).build();
                         //   Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(0).oval(true).build();

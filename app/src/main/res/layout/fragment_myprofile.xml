@@ -57,7 +57,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" >
+
+        <ProgressBar
+            android:id="@+id/progressBar7"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="99dp" />
+    </com.theartofdev.edmodo.cropper.CropImageView>
 
     <RelativeLayout
         android:id="@+id/relativeLayout7"
@@ -105,20 +113,20 @@
 
         <TextView
             android:id="@+id/level"
-            android:layout_width="162dp"
-            android:layout_height="18dp"
+            android:layout_width="225dp"
+            android:layout_height="17dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="99dp"
             android:layout_marginTop="47dp"
-            android:layout_marginEnd="148dp"
-            android:layout_marginBottom="39dp"
+            android:layout_marginEnd="87dp"
+            android:layout_marginBottom="41dp"
             android:fontFamily="@font/montserrat"
             android:gravity="left"
             android:textColor="@color/darkgray"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/points"
