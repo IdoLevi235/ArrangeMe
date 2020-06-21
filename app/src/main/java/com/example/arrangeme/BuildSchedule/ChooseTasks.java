@@ -370,7 +370,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
-                    tv.setText("You have no pending tasks.\n You can add new tasks in tasks tab");
+                    tv.setText("You have no pending tasks\n\n You can add new tasks by pressing the 'Add New Task button'");
                     mRecycler.setVisibility(View.GONE);
                     tv3.setVisibility(View.INVISIBLE);
                     setDate.setVisibility(View.INVISIBLE);
@@ -381,7 +381,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     imv4.setVisibility(View.GONE);
                     tv2.setVisibility(View.GONE);
                     numberTextView.setVisibility(View.GONE);
-                    confirm.setText("Add new tasks");
+                    confirm.setText("Add new task");
                 }
 
                 else {

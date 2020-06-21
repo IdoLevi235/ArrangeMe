@@ -77,6 +77,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private RelativeLayout view11;
     private AppCompatImageView rankit;
     private ProgressBar progressBar6;
+    private TextView hello;
+    private TextView ScheduleForToday;
+
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -111,6 +114,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         user = mAuth.getCurrentUser();
         UID = user.getUid();
         rateMsg=view.findViewById(R.id.rateMsg);
+        hello=view.findViewById(R.id.Hello);
+        ScheduleForToday=view.findViewById(R.id.ScheduleForToday);
         welcome=view.findViewById(R.id.welcomText);
         welcome.setText("Welcome " + Globals.currentUsername +"!");
         chooseTasksBtn = view.findViewById(R.id.chooseTasksBtn);
@@ -385,6 +390,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     showTodaySchedule();
                 }
                 else {
+                    ScheduleForToday.setVisibility(View.INVISIBLE);
+                    hello.setVisibility(View.INVISIBLE);
                     rankit.setVisibility(View.GONE);
                     progressBar6.setVisibility(View.GONE);
                     view11.setVisibility(View.GONE);
@@ -393,7 +400,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     noScheduleYet.setVisibility(View.VISIBLE);
                     noScheduleYet.setText("You don't have schedule for today");
                     quesMessage.setVisibility(View.VISIBLE);
-                    quesMessage.setText("Please insert tasks and press on\n'Build A Schedule' button!");
+                    quesMessage.setText("Please insert tasks and press on\n'Build A Schedule' button");
                     questionnaireBtn.setVisibility(View.GONE);
                 }
             }
