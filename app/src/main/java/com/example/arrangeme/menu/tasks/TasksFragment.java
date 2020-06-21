@@ -64,6 +64,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     private View view4;
     private RelativeLayout rlNotasks;
     private TextView noTask;
+    private TextView noTask2;
     private int flag = 0;
     private LinearLayoutManager layoutManager;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
@@ -98,6 +99,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         rlNotasks = view.findViewById(R.id.noTasksLayout);
         rlNotasks.setVisibility(View.GONE);
         noTask = view.findViewById(R.id.noTasks);
+        noTask2= view.findViewById(R.id.noTasks2);
         noTask.setVisibility(View.GONE);
         tv = view.findViewById(R.id.textView6);
 
@@ -250,7 +252,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                     rlNotasks.setVisibility(View.VISIBLE);
                     noTask.setVisibility(View.VISIBLE);
                     mRecycler.setVisibility(View.INVISIBLE);
-                    noTask.setText("You have currently no tasks. \n\n Press the Plus button below to add some new tasks.");
+                    noTask.setText("You have currently no tasks");
+                    noTask2.setText("Press the Plus button below to add some new tasks");
                     addTasks.setElevation(99);
                 }
             }

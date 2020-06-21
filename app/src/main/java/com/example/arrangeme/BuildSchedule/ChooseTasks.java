@@ -375,7 +375,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
                     tv.setText("You have no pending tasks");
-                    tv4.setText(" You can add new tasks by pressing the "+'"'+"Add New Task"+'"'+" button");
+                    tv4.setText(" You can add new tasks by pressing the "+'"'+"Add New Task"+'"'+" button below");
                     noTasksLayout.setVisibility(View.VISIBLE);
                     mRecycler.setVisibility(View.GONE);
                     tv3.setVisibility(View.INVISIBLE);

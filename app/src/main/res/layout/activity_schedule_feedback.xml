@@ -104,7 +104,7 @@
                     android:layout_marginTop="81dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginBottom="247dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="This information is very important in order to recommend you successful schedules in the future"
                     android:textColor="@color/darkgray"
