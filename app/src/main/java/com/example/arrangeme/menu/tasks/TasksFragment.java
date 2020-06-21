@@ -61,6 +61,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     private FloatingActionButton addTasks;
     private ProgressBar spinner;
     private TextView tv;
+    private View view4;
     private RelativeLayout rlNotasks;
     private TextView noTask;
     private int flag = 0;
@@ -89,17 +90,16 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("TAG8", "onViewCreated: HELLO");
+        view4 = view.findViewById(R.id.view4);
         spinner = (ProgressBar) view.findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
         addTasks = (FloatingActionButton) view.findViewById(R.id.add);
         addTasks.setOnClickListener(this);
-        tv = view.findViewById(R.id.textView7);
-        tv.setVisibility(View.GONE);
         rlNotasks = view.findViewById(R.id.noTasksLayout);
         rlNotasks.setVisibility(View.GONE);
         noTask = view.findViewById(R.id.noTasks);
         noTask.setVisibility(View.GONE);
-
+        tv = view.findViewById(R.id.textView6);
 
         /* Recycler view stuff */
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -146,8 +146,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                             }
                         });
                         fbAdapter.getRef(position).setValue(null);
-
-
+                        checkIfThereArePendingTasks(mDatabase);
                         break;
                     default:
                         break;
@@ -245,9 +244,12 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
+                    tv.setVisibility(View.INVISIBLE);
+                    view4.setVisibility(View.INVISIBLE);
                     spinner.setVisibility(View.GONE);
                     rlNotasks.setVisibility(View.VISIBLE);
                     noTask.setVisibility(View.VISIBLE);
+                    mRecycler.setVisibility(View.INVISIBLE);
                     noTask.setText("You have currently no tasks. \n\n Press the Plus button below to add some new tasks.");
                     addTasks.setElevation(99);
                 }
