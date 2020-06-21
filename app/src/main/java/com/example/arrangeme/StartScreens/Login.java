@@ -265,9 +265,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     FirebaseUser user = mAuth.getCurrentUser();
                         boolean isNewuser = task.getResult().getAdditionalUserInfo().isNewUser();
                         if (isNewuser) {
+                            Globals.isNewUser=true;
                             updateUI(user,true);
                         }
                         else {
+                            Globals.isNewUser=false;
                             updateUI(user,false);
                         }
                     }
@@ -347,6 +349,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Globals.currentUsername = user.getDisplayName();
                                 Globals.currentEmail = user.getEmail();
                                 Globals.UID = user.getUid();
+                                Globals.isNewUser=false;
                                 Intent intent = new Intent(Login.this, Homepage.class);
                                 startActivity(intent);
                                 finish();
