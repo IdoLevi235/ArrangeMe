@@ -260,6 +260,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fname).build();
                             user.updateProfile(profileUpdates);
                             Globals.UID = user.getUid();
+                            Globals.isNewUser=true;
 
                             /* addNewUserToDB is now here because of problems with Globals.UID */
                             mDatabase = FirebaseDatabase.getInstance().getReference();

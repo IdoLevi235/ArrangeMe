@@ -40,6 +40,7 @@ public class Globals {
      * Current username
      */
     public static String currentUsername;
+    public static boolean isNewUser;
 
 
     /**
