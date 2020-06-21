@@ -98,11 +98,13 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private TextView tv;
     private TextView tv2;
     private TextView tv3;
+    private TextView tv4;
     private View view4;
     private ProgressBar spinner;
     private Button setDate;
     private ImageView imv4;
     private Button notif;
+    private RelativeLayout noTasksLayout;
     Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
             R.drawable.work_white, R.drawable.nutrition_white,
             R.drawable.family_white, R.drawable.chores_white,
@@ -181,8 +183,10 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         spinner.setVisibility(View.VISIBLE);
         tv = findViewById(R.id.textView16);
         tv.setVisibility(View.GONE);
+        noTasksLayout= findViewById(R.id.noTasksLayout);
         tv2=findViewById(R.id.textViewExplanation);
         tv3= findViewById(R.id.textViewPleaseChoose);
+        tv4= findViewById(R.id.textView17);
         numberTextView = (TextView) findViewById(R.id.textViewNumbersRed);
         numberTextView.setText(Integer.toString(count));
         numberTextView.setBackgroundResource(R.drawable.green_textview);
@@ -370,7 +374,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount() == 0) {
-                    tv.setText("You have no pending tasks\n\n You can add new tasks by pressing the 'Add New Task button'");
+                    tv.setText("You have no pending tasks");
+                    tv4.setText(" You can add new tasks by pressing the "+'"'+"Add New Task"+'"'+" button");
+                    noTasksLayout.setVisibility(View.VISIBLE);
                     mRecycler.setVisibility(View.GONE);
                     tv3.setVisibility(View.INVISIBLE);
                     setDate.setVisibility(View.INVISIBLE);

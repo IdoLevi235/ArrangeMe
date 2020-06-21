@@ -400,7 +400,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     noScheduleYet.setVisibility(View.VISIBLE);
                     noScheduleYet.setText("You don't have schedule for today");
                     quesMessage.setVisibility(View.VISIBLE);
-                    quesMessage.setText("Please insert tasks and press on\n'Build A Schedule' button");
+                    quesMessage.setText("Please insert tasks and press on\n"+'"'+"Build A Schedule"+'"'+" button");
                     questionnaireBtn.setVisibility(View.GONE);
                 }
             }
