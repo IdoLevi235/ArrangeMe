@@ -453,7 +453,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
               else { // validations passed
                     String s = confirm.getText().toString() ;
                     Log.d("TAG9", "onClick: " + s);
-                    if (s.equals("Add new tasks")){ // add new tasks button
+                    if (s.equals("Add new task")){ // add new tasks button
                         Intent i = new Intent(ChooseTasks.this,AddTasks.class);
                         startActivity(i);
                     }
