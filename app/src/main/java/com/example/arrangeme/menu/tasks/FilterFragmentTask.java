@@ -13,6 +13,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.example.arrangeme.R;
 import com.example.arrangeme.menu.calendar.FilterFragment;
 
+/**
+ * This class contorls the filter in tasks tab
+ */
 public class FilterFragmentTask extends FilterFragment {
     private TextView chooseText1;
     private TextView chooseText2;
@@ -21,6 +24,11 @@ public class FilterFragmentTask extends FilterFragment {
     private View view3;
     private RadioGroup rg1;
     private AppCompatImageView applyBtn;
+
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -40,6 +48,9 @@ public class FilterFragmentTask extends FilterFragment {
         applyBtn.setOnClickListener(this);
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         super.onClick(v);

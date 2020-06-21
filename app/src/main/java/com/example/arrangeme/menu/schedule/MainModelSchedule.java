@@ -1,5 +1,8 @@
 package com.example.arrangeme.menu.schedule;
 
+/**
+ * Main model of schedule recycler, taking information directly from FirebaseUI
+ */
 public class MainModelSchedule {
     private String category;
     private String description;

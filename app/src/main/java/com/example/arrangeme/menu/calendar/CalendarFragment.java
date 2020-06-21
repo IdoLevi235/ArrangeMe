@@ -27,6 +27,9 @@ import com.example.arrangeme.menu.calendar.day.DayFragment;
 import com.example.arrangeme.menu.calendar.month.MonthFragment;
 import com.example.arrangeme.menu.calendar.week.WeekFragment;
 
+/**
+ * class that controls the main calendar fragment
+ */
 public class CalendarFragment extends Fragment implements View.OnClickListener{
 
     private CalendarViewModel calendarViewModel;
@@ -39,6 +42,12 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     public static int flag=0;
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel = ViewModelProviders.of(this).get(CalendarViewModel.class);
@@ -63,6 +72,10 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         return root;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -76,6 +89,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
     }
 
+    /**
+     * @param v
+     */
     @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -107,12 +123,22 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
+    /**
+     * Toolbar creation
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.calendar_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    /**
+     * Toolbar Item selected listener
+     * @param item
+     * @return
+     */
     @SuppressLint("ResourceType")
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
@@ -129,11 +155,17 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Closing filter
+     */
     private void closeFilterFragment() {
         flag = 0;
         //getActivity().getSupportFragmentManager().popBackStack();
         }
 
+    /**
+     * Open filter
+     */
     private void openFilterFragment() {
         flag=1;
         FilterFragment filterFragment = new FilterFragment();
@@ -145,6 +177,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
     }
 
 
+    /**
+     * @param calenderFragment
+     */
     @SuppressLint("ResourceType")
     private void openCalendarFragment(Fragment calenderFragment) {
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -152,9 +187,5 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         transaction.addToBackStack(null);
         transaction.add(R.id.calendars_container, calenderFragment,"Blank").commit();
     }
-
-
-    //TODO: When press back in the phone itself there is a problem, the calender vanished..
-    //TODO: Google Synchronization with the calendar
 }
 

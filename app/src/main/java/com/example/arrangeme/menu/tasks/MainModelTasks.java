@@ -1,6 +1,9 @@
 
 package com.example.arrangeme.menu.tasks;
 
+/**
+ * Main odel of the tasks recycler view, taking information for FirebaseUI
+ */
 public class MainModelTasks {
     private int catBackgroundFull;
     private String category;

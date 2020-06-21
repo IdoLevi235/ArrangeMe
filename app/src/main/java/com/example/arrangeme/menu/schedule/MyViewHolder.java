@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.R;
 
+/**
+ * Schdule's view holder
+ */
 public class MyViewHolder extends RecyclerView.ViewHolder {
     //Elements of the recycler
     public Button anchorOrTask;

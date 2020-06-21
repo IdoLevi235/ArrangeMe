@@ -21,6 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+/**
+ * Class that contorls the popup of choosing new avatar
+ */
 public class AvatarsPopup extends Activity implements View.OnClickListener{
 
 
@@ -33,6 +36,9 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
     private int[] drawable = {R.drawable.circle_avatar1, R.drawable.circle_avatar6, R.drawable.circle_avatar3, R.drawable.circle_avatar2, R.drawable.circle_avatar5, R.drawable.circle_avatar4};
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,9 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
 
     }
 
+    /**
+     * Overriding onbackpressed to return to my profile
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -63,6 +72,9 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -96,6 +108,10 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
         }
     }
 
+    /**
+     * Updating new chosen avatar in DB
+     * @param ChosenAvatar
+     */
     private void updateAvatar(int ChosenAvatar) {
         String avatar= "avatar"+ChosenAvatar;
         Log.d("avatar", "updateAvatar: avatar"+avatar);
@@ -108,6 +124,9 @@ public class AvatarsPopup extends Activity implements View.OnClickListener{
     }
 
 
+    /**
+     * Define popup size
+     */
     public void definePopUpSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

@@ -47,6 +47,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
+/**
+ * Class that controls  tasks fragment
+ */
 public class TasksFragment extends Fragment implements View.OnClickListener {
     ArrayList<String> keys;
     private FrameLayout containerFilter;
@@ -80,6 +83,12 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                     R.drawable.rounded_rec_other_nostroke};
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         tasksViewModel = ViewModelProviders.of(this).get(TasksViewModel.class);
@@ -90,6 +99,10 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view4 = view.findViewById(R.id.view4);
@@ -188,6 +201,10 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         }).show();
     }
 
+    /**
+     * setting recycler view
+     * @param mRecycler
+     */
     public void setRecycler(RecyclerView mRecycler) {
         keys = new ArrayList<>();
         mRecycler.setHasFixedSize(true);
@@ -256,6 +273,10 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Check if there are any pending task - if not, show message
+     * @param mDatabase
+     */
     private void checkIfThereArePendingTasks(DatabaseReference mDatabase) {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -280,6 +301,9 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -289,12 +313,22 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Create toolbar
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.calendar_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * toolbar click listener
+     * @param item
+     * @return
+     */
     @SuppressLint("ResourceType")
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
@@ -311,11 +345,17 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Close fiilter
+     */
     private void closeFilterFragment() {
         flag = 0;
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
+    /**
+     * open filter
+     */
     private void openFilterFragment() {
         flag = 1;
         FilterFragmentTask filterFragmentTask = new FilterFragmentTask();

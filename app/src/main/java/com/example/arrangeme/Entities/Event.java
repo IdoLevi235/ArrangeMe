@@ -12,6 +12,9 @@ import java.util.Calendar;
 import kotlin.Metadata;
 import kotlin.jvm.internal.Intrinsics;
 
+/**
+ * This entity represents events in weekly and daily calendars
+ */
 public class Event implements WeekViewDisplayable<Event> {
     @NotNull
     private final String id;

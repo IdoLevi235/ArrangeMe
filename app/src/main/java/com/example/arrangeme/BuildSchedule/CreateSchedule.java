@@ -39,6 +39,9 @@ import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
+/**
+ * Class that contains all the schedule building process and algorithms
+ */
 public class CreateSchedule {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -52,10 +55,20 @@ public class CreateSchedule {
     HashMap<String,Integer> originalRequestedFreqVec = new HashMap<>();
     ArrayList<ScheduleItem> finalSchedule = new ArrayList<>();
     ArrayList<ScheduleItem> tempTasks = new ArrayList<>();
+
+    /**
+     * Constructor
+     */
     public CreateSchedule(){
         mFunctions = FirebaseFunctions.getInstance();
     }
 
+    /**
+     * Function that calls function in our remote server (cloud function)
+     * This function classifies new user in out system to one of the groups
+     * @param id
+     * @return Task<HttpsCallableResult>
+     */
     public  Task<HttpsCallableResult> classifyUserGroup(String id) {
         // Create the arguments to the callable function.
         Map<String, Object> data = new HashMap<>();
@@ -81,6 +94,16 @@ public class CreateSchedule {
                 });
     }
 
+    /**
+     *    Function that calls function in our remote server (cloud function)
+     *     This is our algorithm, phase 2, user-user
+     * @param group
+     * @param timeVector
+     * @param frequencyVector
+     * @param date
+     * @param keysChosen
+     * @return Task<HttpsCallableResult>
+     */
     public  Task<HttpsCallableResult> findBestSchedule(int group, ArrayList timeVector, ArrayList frequencyVector, String date, ArrayList<String> keysChosen) {
         // Create the arguments to the callable function.
         initFreqVecHashMap(frequencyVector); // storing the requested freq vec for later use
@@ -107,6 +130,15 @@ public class CreateSchedule {
                 });
     }
 
+    /**
+     * Function that calls function in our remote server (cloud function)
+     *    This is our algorithm, phase 3, item-item, user centered approach
+     * @param timeVector
+     * @param frequencyVector
+     * @param date
+     * @param keysChosen
+     * @return
+     */
     public  Task<HttpsCallableResult> findScheduleUserCentered(ArrayList timeVector, ArrayList frequencyVector, String date, ArrayList<String> keysChosen) {
         // Create the arguments to the callable function.
         initFreqVecHashMap(frequencyVector); // storing the requested freq vec for later use
@@ -134,6 +166,10 @@ public class CreateSchedule {
                 });
     }
 
+    /**
+     * Initializng requested frequency vector
+     * @param frequencyVector
+     */
     private void initFreqVecHashMap(ArrayList frequencyVector) {
         requestedFreqVec.put("STUDY", (Integer) frequencyVector.get(0));
         requestedFreqVec.put("SPORT", (Integer) frequencyVector.get(1));
@@ -156,6 +192,14 @@ public class CreateSchedule {
 
     }
 
+    /**
+     * The fixing procces starts here, adding anchors to anchors list , deleting old schedule of this date, and then fixes
+     * @param recommendedSch
+     * @param requestedFreqVec
+     * @param requestedTimeVector
+     * @param date
+     * @param keysChosen
+     */
     public void makeFixes(List<HashMap<String, String>> recommendedSch, ArrayList requestedFreqVec, ArrayList requestedTimeVector, String date, ArrayList<String> keysChosen) {
         Log.d("FINDSCHE", "makeFixes: " + recommendedSch.getClass());
         Log.d("FINDSCHE", "makeFixes: " + recommendedSch);
@@ -220,6 +264,10 @@ public class CreateSchedule {
         });
     }
 
+    /**
+     * Getting the details of tasks in "temp" in our DB.  these are the tasks the user wanted to assign in his schedule
+     * @param date
+     */
     private void getTempsDetails(String date) { // key = schedule item key
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -258,6 +306,10 @@ public class CreateSchedule {
 
     }
 
+    /**
+     * Adding schedule to DB , removing from temp to active tasks in our DB.
+     * @param date
+     */
     private void addTasksToDB(String date) {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -313,6 +365,10 @@ public class CreateSchedule {
 
     }
 
+    /**
+     * Move unchosen tasks from temp back to pending tasks
+     * This function call helper function for each task in a loop
+     */
     private void moveTasksFromTempToPending() {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -342,6 +398,16 @@ public class CreateSchedule {
 
     }
 
+    /**
+     * Helper function that moves a task from temp to pending
+     * @param key
+     * @param category
+     * @param createDate
+     * @param description
+     * @param location
+     * @param reminderType
+     * @param photoURI
+     */
     private void putInPendingTasks(String key, String category, String createDate, String description, String location, String reminderType, String photoURI) {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -355,6 +421,9 @@ public class CreateSchedule {
         newRef.child(key).child("photoUri").setValue(photoURI);
     }
 
+    /**
+     * Final fixes - if the user didnt get all the categories he asked for
+     */
     private void finalCheck(){
             HashMap<String,Integer> currentFreqVec = new HashMap<String,Integer>() {{
                 put("STUDY",0); put("SPORT",0); put("WORK",0); put("NUTRITION",0); put("FAMILY",0);
@@ -527,6 +596,10 @@ public class CreateSchedule {
     }
 
 
+    /**
+     * Unify good schedule (tasks of the recommended schedule that dont overlap with user's anchors)
+     * with user's anchors
+     */
     private void unifyGoodScheduleWithAnchors() {
         finalSchedule.addAll(recommSchGoodHours);
         //make the anchors from anchorlist a scheduleitems
@@ -562,6 +635,9 @@ public class CreateSchedule {
         Log.d("finalsch", "unifyGoodScheduleWithAnchors: " + finalSchedule);
     }
 
+    /**
+     * From the recommended schedule, take only tasks in hours that dont overlap with user's anchors
+     */
     private void goodHoursCheck() {
         String newCat = "";
         String goodItemCategory="";
@@ -603,6 +679,10 @@ public class CreateSchedule {
             }
         }
     }
+    /**
+     * From the recommended schedule, put in bad hours list tasks from recommended schedule
+     * that overlap with anchors, and save it for later to user
+     */
 
     private void badHoursCheck() {
         Iterator<ScheduleItem> it = recommSchBadHours.iterator();
@@ -615,6 +695,9 @@ public class CreateSchedule {
         }
     }
 
+    /**
+     * Divide to bad/good lists
+     */
     private void divideReccSch() {
         if (anchorsList.isEmpty()){
             recommSchGoodHours.addAll(recommendedSchedule);
@@ -646,6 +729,9 @@ public class CreateSchedule {
         }
     }
 
+    /**
+     * Remove anchors from recommended schedule
+     */
     private void deleteAnchorsFromRecommSch() {
         Iterator<ScheduleItem> i = recommendedSchedule.iterator();
         while (i.hasNext()) {
@@ -655,6 +741,12 @@ public class CreateSchedule {
             }
         }
     }
+
+    /**
+     * Convert the recieved recommended schedule from  List<HashMap<String, String>> to ArrayList<ScheduleItem>
+     * @param recommendedSch
+     * @return ArrayList<ScheduleItem>
+     */
     private ArrayList<ScheduleItem> convertStringsToSchedule(List<HashMap<String, String>> recommendedSch) {
         ArrayList<ScheduleItem> items= new ArrayList<>();
         for (Map<String, String> entry : recommendedSch) {

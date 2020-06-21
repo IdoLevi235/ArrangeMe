@@ -51,6 +51,9 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+/**
+ * Task popup class
+ */
 public class TaskPagePopup extends Activity  implements View.OnClickListener, Popup {
 
     private ImageView applyBtn;
@@ -79,6 +82,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     private  RelativeLayout relativeLayout;
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +137,12 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     }
 
 
-    //set data to the views from the DB
+    /**
+     * set data to the views from the DB
+     * shows the task's details in the activity layou
+     * @param fromWhereTheTask
+     */
+
     public void showDetail(int fromWhereTheTask) {
         TaskEntity taskToPresent =new TaskEntity();
         if(fromWhereTheTask==0) {
@@ -190,10 +201,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     }
 
-
-    //shows the task's details in the activity layout
-
-
+    /**
+     * Show task's image in the popup
+     */
     @Override
     public void showImage(){
         try{
@@ -229,7 +239,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         }
     }
 
-    //turn on the edit mode
+    /**
+     * turn on the edit mode
+     */
     public void editMode() {
         //change the icon view from edit to delete
         editModeBtn.setImageResource(R.drawable.ic_delete_black_24dp);
@@ -330,6 +342,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     }
 
 
+    /**
+     * Define spinner of reminders
+     */
     private void defineSpinner() {
         // Initializing a String Array
         String[] reminderItems = new String[]{
@@ -389,6 +404,11 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         });
     }
 
+    /**
+     * Make edits in the DB.
+     * Divide to edit tasks from schedules OR edit tasks that havent been assigned to schedules yet
+     * @param editedTaskToChange
+     */
     private void addTaskToDB(TaskEntity editedTaskToChange) { // editing here
         if(fromWhereTheTask==0){ // update in active tasks + sch
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Active_tasks");
@@ -423,6 +443,10 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             });
         }
 
+    /**
+     * edit tasks that are assigned to schedule
+     * @param editedTaskToChange
+     */
     private void updateTaskInSchedule(TaskEntity editedTaskToChange) {
         String activeKey = "2305" + taskKey;
         Query q = schRef.orderByChild("activeKey").equalTo(activeKey);
@@ -453,6 +477,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     }
 
 
+    /**
+     * Delete task with popup delete button
+     */
     private void deleteTaskFromDB() {
         // delete from active tasks/pending tasks
         mDatabase.child(taskKey).setValue(null);
@@ -465,9 +492,11 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
             deleteTaskFromSchedule();
         }
 
-        //TODO: add "undo" delete like in tab tasks?
     }
 
+    /**
+     * Delete task that is assigned to schedule with popup button
+     */
     private void deleteTaskFromSchedule() {
         String activeKey = "2305" + taskKey;
         Query q = schRef.orderByChild("activeKey").equalTo(activeKey);
@@ -488,13 +517,18 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     }
 
 
-    //return o task tab
+    /**
+     * return o task tab
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    /**
+     * @param v
+     */
     //onclick for the show task popup
     @Override
     public void onClick(View v) {
@@ -519,6 +553,10 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         }
     }
 
+    /**
+     * Define popup size - with photo
+     * @param flagPhoto
+     */
     public void definePopUpSize1(String flagPhoto) {
         if(flagPhoto.equals("yes"))
         {
@@ -570,10 +608,17 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     }
 
+
+    /**
+     *
+     */
     @Override
     public void definePopUpSize() {
     }
 
+    /**
+     * Disable background  views behind popup
+     */
     @Override
     public void disableViews() {
         SpinnerShow.setEnabled(false);
@@ -589,6 +634,9 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
     }
 
+    /**
+     *
+     */
     @Override
     public void showDetails() {
 

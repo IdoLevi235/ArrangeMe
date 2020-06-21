@@ -57,6 +57,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Class that controls the dashboard fragment
+ */
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener, PersonalityVectorValidate {
@@ -102,6 +105,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private String UID;
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
@@ -111,6 +120,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         return root;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -148,6 +161,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         this.checkIfPersonalityVectorFilled();
     }
 
+    /**
+     * Setting boy/girl/none photo in the top of the dashboard
+     */
     private void setGenderPhoto() {
         DatabaseReference quesRef=  FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personality_vector").child("1");
         quesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -176,6 +192,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    /**
+     * Showing todays schedule
+     */
     private void showTodaySchedule() {
         showScheduleRate();
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
@@ -262,6 +281,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    /**
+     * Show today's schedule rate if exists
+     */
     private void showScheduleRate() {
         DatabaseReference dbRef;
         dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(today).child("data");
@@ -287,6 +309,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         });
     }
 
+    /**
+     * @param v
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
@@ -309,12 +334,23 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         }
     }
 
+    /**
+     * Toolbar creation
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.dashboard_menu_xml, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
     }
+
+    /**
+     * Toolbar click listener
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -329,6 +365,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     }
 
 
+    /**
+     * checking if personality vector is full. if not - show message
+     */
     @Override
     public void checkIfPersonalityVectorFilled() {
         final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
@@ -383,6 +422,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         });
     }
 
+    /**
+     * If personality vector is full we can show the schedule
+     */
     private void quesIsOK() {
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
