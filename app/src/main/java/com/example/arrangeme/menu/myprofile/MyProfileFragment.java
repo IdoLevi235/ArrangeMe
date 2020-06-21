@@ -53,6 +53,9 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+/**
+ * Class that controls the my profile fragment
+ */
 public class MyProfileFragment extends Fragment implements View.OnClickListener {
 
     private static final int GALLERY_REQUEST_CODE = 1;
@@ -79,6 +82,12 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     String UID;
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         myProfileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
@@ -93,6 +102,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         return root;
     }
 
+    /**
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.profile_menu, menu);
@@ -100,7 +113,10 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
-
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -133,7 +149,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         pictureCircle.setOnClickListener(this);
 
 
-        //TODO insert user details - progress bar, name, level, points
         profileName=view.findViewById(R.id.profileName);
         profileName.setText(Globals.currentUsername);
         level=view.findViewById(R.id.level);
@@ -143,6 +158,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    /**
+     * Getting user's level from DB and put it in the textview
+     */
     private void setUpLevel() {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -164,6 +182,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    /**
+     *  Getting user's avatar from DB and put it in the imageview
+     */
     public void setUpAvatar() {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -194,6 +215,11 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    /**
+     * @param resName
+     * @param c
+     * @return
+     */
     public int getResId(String resName, Class<?> c) {
 
         try {
@@ -205,6 +231,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Set up profile image
+     */
     public void setUpImages() {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("profile_photo");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -227,12 +256,18 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
             });
     }
 
+    /**
+     * Set up icons of achievments/imfo fragments
+     */
     private void setUpIcons() {
         tabLayout.setInlineLabel(true);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -255,6 +290,11 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
@@ -289,14 +329,19 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
+    /**
+     * Pick profile photo from gallery
+     */
     private void pickFromGallery() {
         CropImage.activity().start(getContext(), this);
 
     }
 
 
-
-
+    /**
+     * @param item
+     * @return
+     */
     @SuppressLint("ResourceType")
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
@@ -348,7 +393,9 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     }
 
 
-
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){

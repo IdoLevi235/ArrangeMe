@@ -1,5 +1,8 @@
 package com.example.arrangeme.AddTasks;
 
+/**
+ * Main Model of the recycler view - all the getters and setters
+ */
 public class MainModel {
     Integer catBackground;
     Integer catLogo;

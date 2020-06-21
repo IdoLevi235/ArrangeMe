@@ -21,6 +21,9 @@ import com.example.arrangeme.R;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class that controls on the filter
+ */
 public class FilterFragment extends Fragment implements View.OnClickListener {
 
 
@@ -41,6 +44,12 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     public static int typeFilter=0; // 0 = both, 1=only task, 2= only anchors
     public static Set<String> Category_Set = new HashSet<String>();
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -48,6 +57,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -95,6 +108,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * initializing task/anchor filter checkboxes
+     */
     private void initCheckBoxes() {
         if (typeFilter==1) {
             taskCB.setChecked(true);
@@ -110,6 +126,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Init filter buttons
+     */
     private void initButtons() {
         if (Category_Set.contains("SPORT")) {
             setBtnFocus(sportBtn);
@@ -132,6 +151,10 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -297,6 +320,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * @param btn
+     */
     public void setBtnFocus(Button btn){
         switch (btn.getId()) {
             case (R.id.studyBtn):
@@ -376,6 +402,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param btn
+     */
        public void setBtnUnFocus(Button btn){
            switch (btn.getId()) {
                case (R.id.studyBtn):
@@ -456,7 +485,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    //TODO: set padding isn't working here
 
 
 

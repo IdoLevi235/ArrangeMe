@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arrangeme.R;
 
+/**
+ * vIEW HOLDER OF RECYCLER VIEW IN MONTH FRAGMENT
+ */
 class MyViewHolder extends RecyclerView.ViewHolder {
     //Elements of the recycler
     Button anchorOrTask;

@@ -1,5 +1,8 @@
 package com.example.arrangeme.Enums;
 
+/**
+ * Enum of all reminder types
+ */
 public enum ReminderType {
   FIVE_MIN,FIFTEEN_MIN,ONE_HOUR,ONE_DAY,NONE;
 

@@ -1,5 +1,8 @@
 package com.example.arrangeme.Enums;
 
+/**
+ * Enum of all task categories
+ */
 public enum TaskCategory {
   STUDY, SPORT, WORK, NUTRITION, FAMILY, CHORES, RELAX, FRIENDS, OTHER;
 

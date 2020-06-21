@@ -1,5 +1,8 @@
 package com.example.arrangeme.menu.calendar.month;
 
+/**
+ * Main model of recycler view, taking information from FirebaseUI
+ */
 public class MainModelMonth {
     private String category;
     private String description;

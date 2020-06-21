@@ -32,6 +32,9 @@ import java.util.Queue;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+/**
+ * Settings activity
+ */
 public class Settings extends AppCompatActivity implements View.OnClickListener{
     DatabaseReference mDatabase;
     Button applyBtn;
@@ -46,6 +49,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     ArrayList<Integer> q_answers = new ArrayList<>();
     int answers[] = new int[25];
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    /**
+     * Setting notification channeel
+     * @param str
+     */
     private void setChannel(String str) {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         List<NotificationChannel> channelsList= notificationManager.getNotificationChannels();
@@ -142,11 +152,17 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -188,6 +204,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     * Show previous values of switches
+     */
     private void showPrevValues() {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -221,6 +240,4 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
-
-
 }

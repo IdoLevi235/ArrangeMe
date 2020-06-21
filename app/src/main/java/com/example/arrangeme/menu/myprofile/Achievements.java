@@ -26,6 +26,9 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 
+/**
+ * Class that controls achievements fragment in my profile
+ */
 public class Achievements extends Fragment implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
@@ -33,10 +36,17 @@ public class Achievements extends Fragment implements View.OnClickListener{
     String UID;
     private TextView pointsToNextLevel;
     private CircularProgressBar circularProgressBar;
+
+    /**
+     *
+     */
     public Achievements() {
         // Required empty public constructor
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,12 @@ public class Achievements extends Fragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_achievements, container, false);
@@ -52,6 +68,10 @@ public class Achievements extends Fragment implements View.OnClickListener{
 
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,27 +81,13 @@ public class Achievements extends Fragment implements View.OnClickListener{
 
         pointsToNextLevel=view.findViewById(R.id.TasksUntilNextLevel);
         circularProgressBar = view.findViewById(R.id.circularProgressBar);
-        checkLevel();
         setPointsToNextlvl();
 
     }
 
-    private void checkLevel() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info").child("points");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Long p = (Long) dataSnapshot.getValue();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
+    /**
+     * Setting the "points to next level" text + circular progress bar
+     */
     private void setPointsToNextlvl() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info").child("points");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,6 +109,9 @@ public class Achievements extends Fragment implements View.OnClickListener{
         });
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 

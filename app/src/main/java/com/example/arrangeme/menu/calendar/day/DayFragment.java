@@ -40,6 +40,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class controls the Dail calendar inside calendar tab
+ */
 public class DayFragment extends Fragment implements  View.OnClickListener{
 
     private WeekView dayCalendar;
@@ -52,6 +55,12 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
     String[] cat = {"study", "sport", "work", "nutrition","family", "chores", "relax", "friends", "other"};
 
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_day, container, false);
@@ -281,6 +290,10 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
         return calendar;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -298,6 +311,9 @@ public class DayFragment extends Fragment implements  View.OnClickListener{
     }
 
 
+    /**
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 

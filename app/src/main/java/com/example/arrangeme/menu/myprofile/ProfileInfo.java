@@ -33,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
+/**
+ * Class that controls profile info fragment
+ */
 public class ProfileInfo extends Fragment implements View.OnClickListener {
 
     private boolean hidePass=true;
@@ -50,17 +53,29 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
 
+    /**
+     * Empty constructor
+     */
     public ProfileInfo() {
         // Required empty public constructor
     }
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -68,6 +83,10 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_profile_info, container, false);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -131,6 +150,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Checking if this is a google user or regular user
+     */
     private void checkIfFromGoogle() {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info").child("password");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,6 +172,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * Show details for google user
+     */
     public void showDetailsGoogle() {
         Log.d("TAG4", "onDataChange: INSIDE GOOGLE FUNCTION");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
@@ -179,6 +204,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * Disable TetxViews if not in edit mode
+     */
     public void disableViews() {
         emailText.setEnabled(false);
         emailText.setClickable(false);
@@ -194,6 +222,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         lastName.setClickable(false);
     }
 
+    /**
+     * Show details for regular user
+     */
     public void showDetailsRegularUser() {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -223,6 +254,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * Edit mode
+     */
     //transform to edit mode
     public void editMode() {
         editModeBtn.setVisibility(View.GONE);
@@ -240,6 +274,13 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
         lastName.setClickable(true);
     }
 
+    /**
+     * After making changes in edit mode this this function write user's new details to DB
+     * @param email
+     * @param password
+     * @param first
+     * @param last
+     */
     public void EditUserInDB(String email, String password, String first, String last) {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("personal_info");
 
@@ -271,9 +312,10 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
 
     }
 
-    //Apply the editing changes
+    /**
+     * Apply edit changes
+     */
     public void applyMode() {
-        //change the details in DB.
         if (passwordText.length() == 0) {
             SweetAlertDialog ad = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
             ad.setTitleText("Error");
@@ -303,6 +345,9 @@ public class ProfileInfo extends Fragment implements View.OnClickListener {
     }
 
 
+    /**
+     * @param v
+     */
         @Override
         public void onClick (View v){
             switch (v.getId()) {

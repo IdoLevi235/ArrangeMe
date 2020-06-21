@@ -55,6 +55,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Class that controls schedule fragment
+ * @param <RecyclerAdapter>
+ */
 public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.OnClickListener{
     private ScheduleViewModel scheduleViewModel;
     private RelativeLayout noSchRel;
@@ -110,6 +114,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     private String deletedReminderType;
     private boolean isFromChooseTasks=false;
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
@@ -117,12 +127,21 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         return root;
     }
 
+    /**
+     * Toolbar creation
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -145,6 +164,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         initSwipes();
     }
 
+    /**
+     * Init onSwipe listeners to delete items from schedules
+     */
     private void initSwipes() {
         try{
             ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -222,6 +244,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
+    /**
+     * Check if user filled quetionnaire, if not - show message
+     */
     private void checkIfQuestionnaireFilled() {
         final ArrayList<Integer> q_answers = new ArrayList<Integer>() ;
         DatabaseReference mDatabase;
@@ -274,6 +299,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     }
 
+    /**
+     * Initialize schedule in chose date
+     */
     private void initializeSchedule() {
         // set date
         /*Fire base UI stuff */
@@ -320,6 +348,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }
     }
 
+    /**
+     * Show schedule's rate if exists
+     */
     private void showScheduleRate() {
         DatabaseReference dbRef;
         dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
@@ -348,6 +379,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     }
 
+    /**
+     * Initialize FirebaseUI to take schedules directly from DB
+     */
     private void initializeFirebaseUI() {
         showScheduleRate();
         options = new FirebaseRecyclerOptions.Builder<MainModelSchedule>().setQuery(mDatabase, MainModelSchedule.class).build();
@@ -374,6 +408,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         recyclerSchedule.setAdapter(fbAdapter);
     }
 
+    /**
+     * Init xml components
+     * @param view
+     */
     private void initializeComponents(View view) {
         datePicker = (Button)view.findViewById(R.id.chooseDate2);
         spinner=(ProgressBar)view.findViewById(R.id.progressBar2);
@@ -396,6 +434,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         rankit.setOnClickListener(this);
     }
 
+    /**
+     * Init global fields
+     */
     private void initializeFields() {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -404,6 +445,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         longPressPositions[0]=-1;longPressPositions[1]=-1;
     }
 
+    /**
+     * Set long click listener for swaping items in schedule
+     * @param holder
+     * @param position
+     */
     private void setLongClickListenerToItem(MyViewHolder holder, int position) {
         holder.button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -454,6 +500,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         });
     }
 
+    /**
+     * Swapping between items in schedule
+     * @param dataSnapshot
+     * @param handler
+     */
     private void swapItems(DataSnapshot dataSnapshot, Handler handler) {
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -510,6 +561,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         }, 850);
     }
 
+    /**
+     * Un-choose item with long click
+     * @param holder
+     * @param key
+     * @param dataSnapshot
+     */
     private void cancelPickedItemWithLongClick(MyViewHolder holder, String key, DataSnapshot dataSnapshot) {
         longPressKeys[0]=-1;
         String cat = (String) dataSnapshot.child(key).child("category").getValue();
@@ -518,6 +575,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         longPressCount[0]--;
     }
 
+    /**
+     * Long click on first item
+     * @param holder
+     * @param key
+     * @param position
+     */
     private void zeroLongPresses(MyViewHolder holder, String key, int position) {
         longPressCount[0]++; //count=1;
         if (longPressKeys[0]==-1)
@@ -530,6 +593,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
     }
 
+    /**
+     * Set regular click listener for item
+     * @param holder
+     * @param position
+     * @param model
+     */
     private void setClickListenerToItem(MyViewHolder holder, int position, MainModelSchedule model) {
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -597,6 +666,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
 
     }
 
+    /**
+     * Init item of schedule's view holder
+     * @param holder
+     * @param position
+     * @param model
+     */
     public void InitItemOfSchedule(MyViewHolder holder, int position, MainModelSchedule model) {
         try {
             holder.timeText.setText(model.getStartTime() + "-" + model.getEndTime());
