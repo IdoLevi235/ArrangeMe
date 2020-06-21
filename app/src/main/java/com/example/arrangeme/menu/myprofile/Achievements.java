@@ -88,8 +88,12 @@ public class Achievements extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Long p = (Long) dataSnapshot.getValue();
-                pointsToNextLevel.setText((20 - (p%20)) + " More Points Until Next level");
-                circularProgressBar.setProgress(p/2);
+                if (p<200) {
+                    int x = (int) (20 - (p % 20));
+                    String s = String.valueOf(x);
+                    pointsToNextLevel.setText(s+ " More Points Until Next level");
+                    circularProgressBar.setProgress((20-x)*5);
+                }
             }
 
             @Override

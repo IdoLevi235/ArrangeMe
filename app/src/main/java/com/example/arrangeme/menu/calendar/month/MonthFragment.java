@@ -1,5 +1,6 @@
 package com.example.arrangeme.menu.calendar.month;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -47,6 +48,8 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashSet;
 
 
@@ -122,6 +125,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         addTasks=view.findViewById(R.id.addTasksFloater);
         addTasks.setOnClickListener(this);
         monthCalendar=view.findViewById(R.id.monthCalendar);
+        noItemsText=view.findViewById(R.id.textView8);
         final HashSet<String> datesWithTasks = new HashSet<>();
         final HashSet<String> datesWithAnchors = new HashSet<>();
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules");
@@ -279,13 +283,44 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             };
         });
         /* Calendar stuff End*/
+
+        setToday();
+
+    }
+
+    private void setToday() {
+        monthCalendar.setSelectedDate(CalendarDay.today());
+        monthCalendar.setSelectionColor(ContextCompat.getColor(getContext(), R.color.arrangeMeMain));
+        dateString = getSBfromCalendarDay(CalendarDay.today());
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild(String.valueOf(dateString))){
+                    showOnlyAnchors();
+                }
+                else {
+                    addTasks.setEnabled(false); // if schedule exists this date, dont add anchors
+                    showSchedule();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**
      * Show schedule for specified day in recycler view
      */
     protected void showSchedule() {
+        noItemsText.setVisibility(View.GONE);
+        mRecycler.setVisibility(View.VISIBLE);
         schRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules").child(String.valueOf(dateString)).child("schedule");
+        //check
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(schRef, MainModelMonth.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
             @Override
@@ -398,6 +433,28 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
      */
     private void showOnlyAnchors() {
         Query q = anchRef.orderByChild("date").equalTo(String.valueOf(dateString));
+
+        //check if there are anchors, if not show msg
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()==0) {// no anchors (and no schedule)
+                    noItemsText.setVisibility(View.VISIBLE);
+                    mRecycler.setVisibility(View.GONE);
+                }
+                else showAnchors(q);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showAnchors(Query q) {
+        noItemsText.setVisibility(View.GONE);
+        mRecycler.setVisibility(View.VISIBLE);
         options = new FirebaseRecyclerOptions.Builder<MainModelMonth>().setQuery(q, MainModelMonth.class).build();
         fbAdapter = new FirebaseRecyclerAdapter<MainModelMonth, MyViewHolder>(options) {
             @Override
@@ -410,14 +467,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.button.setText(str);
-              //  holder.button.setLayoutParams(new LinearLayout.LayoutParams(680, ViewGroup.LayoutParams.MATCH_PARENT));
-               // holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT));
-               // holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
-                //if (model.getType().equals("ANCHOR")) {
-                //    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-                // } else if (model.getType().equals("TASK")) {
-                //    holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
-                //}
+                holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                 holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time); //for now it only show anchors
                 holder.button.setBackgroundResource
                         (R.drawable.rounded_temp_grey_anchor);

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.example.arrangeme.Questionnaire.Questionnaire;
 import com.example.arrangeme.R;
 import com.example.arrangeme.ReminderBroadcast;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Queue;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -37,8 +40,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     Switch phoneNotif;
     Switch buildYour;
     Switch googleSync;
+    Switch quesSwitch;
     Button backBtn;
     Button ques;
+    ArrayList<Integer> q_answers = new ArrayList<>();
+    int answers[] = new int[25];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,34 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         googleSync=findViewById(R.id.google);
         ques=findViewById(R.id.fillTheQuestion);
         ques.setOnClickListener(this);
+        quesSwitch=findViewById(R.id.ques_switch);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currUID).child("personality_vector");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (!(data.getKey().equals("0"))) { // ignore children 0 of "Personality vector" (doesn't exist (null), only 1-->25)
+                        q_answers.add(Integer.parseInt(data.getValue().toString()));
+                    }
+                }
+                int i = 0;
+
+                for (Integer x : q_answers) {
+                    answers[i++] = x;
+                }
+                if (q_answers.contains(0)) {
+                    quesSwitch.setChecked(false);
+                } else {
+                    quesSwitch.setChecked(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
@@ -143,6 +178,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
                 break;
 
             case R.id.fillTheQuestion:
+                Intent intent = new Intent(Settings.this,Questionnaire.class);
+                intent.putExtra("answers",answers);
+                startActivity(intent);
 
                 break;
             default:

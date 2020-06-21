@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.arrangeme.Globals;
 import com.example.arrangeme.R;
 import com.example.arrangeme.menu.Homepage;
 import com.google.firebase.auth.FirebaseAuth;
@@ -128,12 +129,15 @@ public class ScheduleFeedback extends AppCompatActivity implements View.OnClickL
     }
 
     private void getPoints() {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info").child("points");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("personal_info");
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Long p = (Long) dataSnapshot.getValue();
-                dbRef.setValue(p+5);
+                Long p = (Long) dataSnapshot.child("points").getValue();
+                Long newp=p+5;
+                dbRef.child("points").setValue(newp);
+                if (newp<200)
+                    Globals.checkForNewLevel(dbRef,newp);
             }
 
             @Override

@@ -6,7 +6,14 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,6 +29,8 @@ public class Globals {
      * Current user's Email
      */
     public static String currentEmail;
+    public final static int MAX_POINTS = 200;
+    public final static int LEVELS_AMOUNT = 10;
     private  Button btn_unfocus2;
     private  Button btn_focus;
     private  Button btn_unfocus2a;
@@ -112,5 +121,22 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
     public void simulateUsers() {
     }
 
-
+    public static void checkForNewLevel(DatabaseReference dbRef, Long points){
+        ArrayList<String> levels = new ArrayList<>();
+        levels.add("Beginner"); levels.add("Intermediate");
+        levels.add("Tasks Skilled"); levels.add("Advanced");
+        levels.add("Experienced Scheduler");levels.add("Professional");
+        levels.add("Specialist");levels.add("Master of Schedules");
+        levels.add("Grand Master of Schedules"); levels.add("Ultimate Master of Schedules");
+        int sum = MAX_POINTS;
+        int count=LEVELS_AMOUNT;
+        if (points<MAX_POINTS){
+            while (sum>points){
+                sum-=20;
+                count--;
+            }
+            String level  = levels.get(count);
+            dbRef.child("level").setValue(level);
+        }
+    }
 }

@@ -901,14 +901,34 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Long g = (Long) dataSnapshot.child("group").getValue();
                 Long p = (Long) dataSnapshot.child("points").getValue(); // points
-                mDatabase.child("points").setValue(p+10);
+                Long newp = p+10;
+                mDatabase.child("points").setValue(newp);
+                if (newp<200) {
+                    Globals.checkForNewLevel(mDatabase, newp);
+                }
                 Integer group = g.intValue();
                 CreateSchedule ce = new CreateSchedule();
                 Log.d("CreateSchedule", +group+timeArray.toString()+freqArray.toString());
 
-                //TODO: check is the user has 30 schedules (if so, send the function to findScheduleUserCentered - in gray and if not, to the simulation)
-                ce.findScheduleUserCentered(timeArray,freqArray,date,keysChosen);
-                //ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date,keysChosen);
+                //check if user centered or not
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getChildrenCount()<30){
+                            ce.findBestSchedule(Math.toIntExact(group),timeArray,freqArray,date,keysChosen);
+                        }
+                        else {
+                            ce.findScheduleUserCentered(timeArray,freqArray,date,keysChosen);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -918,6 +938,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         });
 
     }
+
+
 
     /**
      * if there was a problem (not enough tasks picked for example)

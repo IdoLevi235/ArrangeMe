@@ -56,6 +56,7 @@
         android:id="@+id/monthCalendar"
         android:layout_width="470dp"
         android:layout_height="361dp"
+        android:defaultFocusHighlightEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -66,6 +67,21 @@
         app:mcv_showOtherDates="all">
 
     </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="99dp"
+        android:text="You have no schedule or anchors in this day."
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.821" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
