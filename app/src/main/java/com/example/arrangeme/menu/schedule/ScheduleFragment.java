@@ -389,6 +389,13 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             @SuppressLint({"WrongConstant", "SetTextI18n"})
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModelSchedule model) {
+                if (position==0){
+                    ViewGroup.LayoutParams params=schExistRel.getLayoutParams();
+                    int x = fbAdapter.getItemCount();
+                    x = x>6 ? 6 : x;
+                    params.height=225*(x);
+                    schExistRel.setLayoutParams(params);
+                }
                 InitItemOfSchedule(holder, position, model); // Init each item in schedule
                 setClickListenerToItem(holder, position,model); // Short click --> cancel pick
                 setLongClickListenerToItem(holder, position); // Long clicks
@@ -403,7 +410,6 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 return new MyViewHolder(v);
             }
         };
-
         fbAdapter.startListening();
         recyclerSchedule.setAdapter(fbAdapter);
     }

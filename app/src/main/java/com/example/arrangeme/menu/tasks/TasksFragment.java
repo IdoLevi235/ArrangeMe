@@ -237,6 +237,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 //                    holder.itemView.setVisibility(View.INVISIBLE);
 //                }
 
+
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 int x = TaskCategory.fromStringToInt(model.getCategory());

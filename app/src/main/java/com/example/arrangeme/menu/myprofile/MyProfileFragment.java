@@ -254,7 +254,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                             public void run() {
                                 spinner.setVisibility(View.INVISIBLE);
                             }
-                        }, 1000);   //5 seconds
+                        }, 550);   //5 seconds
 
 
                     } catch (Exception e) {

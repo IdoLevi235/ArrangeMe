@@ -86,7 +86,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private ProgressBar progressBar6;
     private TextView hello;
     private TextView ScheduleForToday;
-
+    private int count=0;
     Integer[] catIcon = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
@@ -206,9 +206,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 LocalTime itemEndTime = LocalTime.parse(s);
                 LocalTime now = LocalTime.now();
                 if (itemEndTime.isBefore(now)){
+                    count++;
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
+                if (position==fbAdapter.getItemCount()-1){
+                    ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
+                    int x = fbAdapter.getItemCount()-count;
+                    x = x>3 ? 3 : x;
+                    params.height=225*(x);
+                    mRecycler.setLayoutParams(params);
+                }
+
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
                 //holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
                 // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
