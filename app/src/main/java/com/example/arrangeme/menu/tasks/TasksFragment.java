@@ -203,10 +203,10 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
             Globals.tutorial++;
             new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(R.id.add).setPrimaryText("Click to add a new task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
-        else if(Globals.tutorial==3){
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
-        }
+//        else if(Globals.tutorial==3){
+//            Globals.tutorial++;
+//            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
+//        }
         //}
     }
 
@@ -271,7 +271,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                 spinner.setVisibility(View.GONE);
                 if(Globals.tutorial==3){
                     Globals.tutorial++;
-                    new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setClipToView(card.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
+                    new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
                 }
 
             }
