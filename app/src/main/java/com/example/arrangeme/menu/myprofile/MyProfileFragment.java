@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -69,6 +70,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private TextView level;
     private TextView points;
     private ProgressBar progressBarLevel;
+    private ProgressBar spinner;
     //private Button pictureCircle;
     private FrameLayout containerFilter;
     private Uri profileImage;
@@ -128,7 +130,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         avatarBtn.setOnClickListener(this);
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
-
+        spinner=view.findViewById(R.id.progressBar5);
         pictureCircle = view.findViewById(R.id.pictureCircle);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -154,8 +156,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         level=view.findViewById(R.id.level);
        // level.setText("master of schedules");
         progressBarLevel=view.findViewById(R.id.progressBarLevel);
-
-
+        spinner.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -240,11 +241,22 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String imageURL = (String) dataSnapshot.getValue();
-                    if (imageURL!=null)
+                    if (imageURL!=null) {
+                        spinner.setVisibility(View.VISIBLE);
+                    }
                     try {
                         Transformation transformation = new RoundedTransformationBuilder().oval(true).scaleType(ImageView.ScaleType.FIT_XY).build();
                         //   Transformation transformation = new RoundedTransformationBuilder().borderColor(Color.BLACK).borderWidthDp(0).cornerRadiusDp(0).oval(true).build();
                         Picasso.get().load(imageURL).noFade().fit().centerCrop().transform(transformation).into(pictureCircle);
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                spinner.setVisibility(View.INVISIBLE);
+                            }
+                        }, 1000);   //5 seconds
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -254,6 +266,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
                 }
             });
+
     }
 
     /**
