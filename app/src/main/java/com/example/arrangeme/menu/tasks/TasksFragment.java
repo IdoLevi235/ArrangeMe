@@ -45,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal;
 
 
 /**
@@ -117,6 +118,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         noTask.setVisibility(View.GONE);
         tv = view.findViewById(R.id.textView6);
 
+
         /* Recycler view stuff */
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler = view.findViewById(R.id.recyclerTasks);
@@ -163,6 +165,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                         });
                         fbAdapter.getRef(position).setValue(null);
                         checkIfThereArePendingTasks(mDatabase);
+
                         break;
                     default:
                         break;
@@ -202,16 +205,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         }
         else if(Globals.tutorial==3){
             Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler.findViewById(R.id.button235)).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
-                @Override
-                public void onPromptStateChanged(@NonNull MaterialTapTargetPrompt prompt, int state) {
-                    if (state == MaterialTapTargetPrompt.STATE_FINISHING)
-                    {
-                        Globals.tutorial++;
-                        new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("You can delete the tasks by swapping left").setBackgroundColour(Color.parseColor("#20666E")).show();
-                    }
-                }
-            }).show();
+            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
         //}
     }
@@ -223,6 +217,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     public void setRecycler(RecyclerView mRecycler) {
         keys = new ArrayList<>();
         mRecycler.setHasFixedSize(true);
+        LinearLayout card = (LinearLayout) layoutManager.findViewByPosition(0);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
@@ -274,6 +269,10 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 
                 });
                 spinner.setVisibility(View.GONE);
+                if(Globals.tutorial==3){
+                    Globals.tutorial++;
+                    new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setClipToView(card.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
+                }
 
             }
 
