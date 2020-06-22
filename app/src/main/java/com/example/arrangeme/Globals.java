@@ -31,11 +31,7 @@ public class Globals {
     public static String currentEmail;
     public final static int MAX_POINTS = 200;
     public final static int LEVELS_AMOUNT = 10;
-    private  Button btn_unfocus2;
-    private  Button btn_focus;
-    private  Button btn_unfocus2a;
-    private  Button btn_unfocus2b;
-    private  Button btn_focus2;
+    public static int tutorial;
     /**
      * Current username
      */
@@ -140,4 +136,6 @@ public static Button setFocus2(Button btn_unfocus2a, Button btn_unfocus2b, Butto
             dbRef.child("level").setValue(level);
         }
     }
+
+
 }

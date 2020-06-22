@@ -83,6 +83,7 @@ public class Homepage extends AppCompatActivity{
         Log.d("TAG1", "onCreate: in homepage" + date);
         if (data != null && data.contentEquals("1")) {
             navView.setSelectedItemId(R.id.navigation_tasks);
+            tutorial();
         }
         else if(data != null && data.contentEquals("2")){
             navView.setSelectedItemId(R.id.navigation_calendar);
@@ -102,19 +103,17 @@ public class Homepage extends AppCompatActivity{
 
 
         //This is the call for the help system
-       // if(Globals.isNewUser==true) {
-            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
-            {
-                @Override
-                public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
-                {
-                    if (state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
-                    {
-                        // User has pressed the prompt target
-                    }
-                }
-            }).show();
-       // }
+        tutorial();
+
+    }
+
+    private void tutorial() {
+        // if(Globals.isNewUser==true) {
+        if(Globals.tutorial==0) {
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
+        // }
     }
 
     /**

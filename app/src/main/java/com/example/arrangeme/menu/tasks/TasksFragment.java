@@ -186,19 +186,34 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         helper.attachToRecyclerView(mRecycler);
         /* swipe stuff end */
 
+        tutorial();
+    }
 
-        //this function is the help system 
-        new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.add).setPrimaryText("Click to add a new task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
-        {
-            @Override
-            public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
-            {
-                if (state == MaterialTapTargetPrompt.STATE_NON_FOCAL_PRESSED)
-                {
-                    // User has pressed the prompt target
+    /**
+     * defining the tutorial in the start of the app
+     */
+    private void tutorial() {
+
+        //this function is the help system
+        // if(Globals.isNewUser==true) {
+        if(Globals.tutorial==1) {
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(R.id.add).setPrimaryText("Click to add a new task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
+        else if(Globals.tutorial==3){
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler.findViewById(R.id.button235)).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
+                @Override
+                public void onPromptStateChanged(@NonNull MaterialTapTargetPrompt prompt, int state) {
+                    if (state == MaterialTapTargetPrompt.STATE_FINISHING)
+                    {
+                        Globals.tutorial++;
+                        new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("You can delete the tasks by swapping left").setBackgroundColour(Color.parseColor("#20666E")).show();
+                    }
                 }
-            }
-        }).show();
+            }).show();
+        }
+        //}
     }
 
     /**
@@ -221,6 +236,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 //                if (FilterFragment.Category_Set.contains(model.getCategory().toUpperCase())){ // filter hide
 //                    holder.itemView.setVisibility(View.INVISIBLE);
 //                }
+
                 holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 int x = TaskCategory.fromStringToInt(model.getCategory());

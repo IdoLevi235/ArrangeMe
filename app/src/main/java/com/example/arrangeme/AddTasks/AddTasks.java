@@ -66,6 +66,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * Add Tasks class - here the user can insert new tasks.
@@ -183,8 +184,23 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         confirmBtn.setOnClickListener(this);
         /* confirm button click listener end*/
 
+        tutorial();
     }
 
+
+    /**
+     * defining the tutorial in the start of the app
+     */
+    private void tutorial() {
+        //this function is the help system
+        // if(Globals.isNewUser==true) {
+        if(Globals.tutorial==2) {
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.add_photo).setPrimaryText("Upload a task photo").setSecondaryText("You can even upload a photo to your task!").setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
+
+        //}
+    }
 
     /**
      * @param spinner
@@ -496,18 +512,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      * Picking photo from phone's gallery to upload
      */
     private void pickFromGallery() {
-//        //Create an Intent with action as ACTION_PICK
-//        Intent intent=new Intent(Intent.ACTION_PICK);
-//        // Sets the type as image/*. This ensures only components of type image are selected
-//        intent.setType("image/*");
-//        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-//        String[] mimeTypes = {"image/jpeg", "image/png"};
-//        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-//        // Launching the Intent
-//        startActivityForResult(intent,GALLERY_REQUEST_CODE);
-
         CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
-
     }
 
     /**
@@ -566,7 +571,6 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         switch(v.getId()){
             case (R.id.btnRightScrl):
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -588,12 +592,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
 
             default:
                 break;
-
         }
         return false;
     }
 }
-
-//TODO: rounded corners at the photo
-//TODO: stretched photo
-//TODO: toolbar items
