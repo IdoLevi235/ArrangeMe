@@ -61,15 +61,17 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
             hash.put(cat[i], catColor[i]);
         }
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            @NonNull
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    DataSnapshot mDatabase2 = ds.child("schedule");
-                    if (mDatabase2.exists()) {
-                        ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
+        try {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Schedules");
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                @NonNull
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        DataSnapshot mDatabase2 = ds.child("schedule");
+                        if (mDatabase2.exists()) {
+                            ArrayList<HashMap<String, String>> message = (ArrayList) mDatabase2.getValue();
                             for (HashMap<String, String> entry : message) {
                                 if (entry != null) {
                                     if (entry.get("type").equals("anchor")) {
@@ -85,9 +87,9 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                                     scheduleFromDB.add(sc);
                                 }
                             }
+                        }
                     }
-                }
-                for (int i = 0; i < scheduleFromDB.size(); i++) {
+                    for (int i = 0; i < scheduleFromDB.size(); i++) {
                         Calendar cal = Calendar.getInstance();
                         Calendar cal2 = Calendar.getInstance();
                         try {
@@ -96,158 +98,154 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                    if (scheduleFromDB.get(i).getType().equals("task")) {
-                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
-                        listOfEvents.add(event);
-                    }
-                    else {
-                        if(scheduleFromDB.get(i).getCategory()==null){
-                            scheduleFromDB.get(i).setCategory(" ");
+                        if (scheduleFromDB.get(i).getType().equals("task")) {
+                            Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), hash.get(scheduleFromDB.get(i).getCategory().toLowerCase())), false, false);
+                            listOfEvents.add(event);
+                        } else {
+                            if (scheduleFromDB.get(i).getCategory() == null) {
+                                scheduleFromDB.get(i).setCategory(" ");
+                            }
+                            Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                            listOfEvents.add(event);
                         }
-                        Event event = new Event((scheduleFromDB.get(i).getIdForCalendar()), scheduleFromDB.get(i).getDescription(), cal, cal2, scheduleFromDB.get(i).getCategory(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                        listOfEvents.add(event);
                     }
+                    weekCalendar.submit(listOfEvents);
                 }
-                weekCalendar.submit(listOfEvents);
-                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-        /**
-         *this reference is to load all the anchors for the user to the weekview
-         */
-        DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
-        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                }
+            });
+            /**
+             *this reference is to load all the anchors for the user to the weekview
+             */
+            DatabaseReference mDatabase2 = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors");
+            mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Calendar cal = Calendar.getInstance();
                         Calendar cal2 = Calendar.getInstance();
                         try {
-                            Log.d("mDatabase2Week", "onDataChange: "+ds.child("date").getValue().toString());
+                            Log.d("mDatabase2Week", "onDataChange: " + ds.child("date").getValue().toString());
                             cal = DateStringToCalendar(ds.child("date").getValue().toString(), ds.child("startTime").getValue().toString());
                             cal2 = DateStringToCalendar(ds.child("date").getValue().toString(), ds.child("endTime").getValue().toString());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
 
-                        if(!ds.hasChild("category")){
-                                Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, " ", ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                                if(ds.hasChild("photoUri")) {
+                        if (!ds.hasChild("category")) {
+                            Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, " ", ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                            if (ds.hasChild("photoUri")) {
                                 ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", ds.child("photoUri").getValue().toString());
-                                    openPopUp.put(ds.getKey(),sc1);
-                            }
-                            else {
+                                openPopUp.put(ds.getKey(), sc1);
+                            } else {
                                 ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", " ");
-                                    openPopUp.put(ds.getKey(),sc1);
+                                openPopUp.put(ds.getKey(), sc1);
                             }
 
-                                listOfEvents.add(event);
-                        }
-                        else {
-                               Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, ds.child("category").getValue().toString(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
-                            if(ds.hasChild("photoUri")) {
+                            listOfEvents.add(event);
+                        } else {
+                            Event event = new Event((ds.getKey()), ds.child("description").getValue().toString(), cal, cal2, ds.child("category").getValue().toString(), ContextCompat.getColor(getActivity(), R.color.anchor), false, false);
+                            if (ds.hasChild("photoUri")) {
                                 ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", ds.child("photoUri").getValue().toString());
-                                openPopUp.put(ds.getKey(),sc1);
-                            }
-                            else {
+                                openPopUp.put(ds.getKey(), sc1);
+                            } else {
                                 ScheduleItem sc1 = new ScheduleItem(ds.child("date").getValue().toString(), "anchor", " ");
-                                openPopUp.put(ds.getKey(),sc1);
+                                openPopUp.put(ds.getKey(), sc1);
                             }
 
-                               listOfEvents.add(event);
-                            }
+                            listOfEvents.add(event);
                         }
-                weekCalendar.submit(listOfEvents);
+                    }
+                    weekCalendar.submit(listOfEvents);
                 }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
 
-        /**
-         * when clicking on the events , it will open their details in pop up window
-         */
-        weekCalendar.setOnEventClickListener(new OnEventClickListener() {
-            @Override
-            public void onEventClick(Object o, @NotNull RectF rectF) {
-                String id = ((Event) o).getId();
+            /**
+             * when clicking on the events , it will open their details in pop up window
+             */
+            weekCalendar.setOnEventClickListener(new OnEventClickListener() {
+                @Override
+                public void onEventClick(Object o, @NotNull RectF rectF) {
+                    String id = ((Event) o).getId();
 
-                if(openPopUp.get(id).getType().equals("task")) {
-                    if(openPopUp.get(id).getPhotoUri()!=null&&openPopUp.get(id).getPhotoUri().length()>2) {
-                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Bundle b = new Bundle();
-                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
-                        b.putString("date", openPopUp.get(id).getDate());
-                        b.putString("photo", "yes");
-                        intent.putExtras(b);
-                        startActivity(intent);
-                    }
-                    else{
-                        Intent intent = new Intent(getActivity(), TaskPagePopup.class);
-                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Bundle b = new Bundle();
-                        b.putString("TaskKeyFromWeek", ((Event) o).getId());
-                        b.putString("date", openPopUp.get(id).getDate());
-                        b.putString("photo", "no");
-                        intent.putExtras(b);
-                        startActivity(intent);
+                    if (openPopUp.get(id).getType().equals("task")) {
+                        if (openPopUp.get(id).getPhotoUri() != null && openPopUp.get(id).getPhotoUri().length() > 2) {
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                            b.putString("date", openPopUp.get(id).getDate());
+                            b.putString("photo", "yes");
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getActivity(), TaskPagePopup.class);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            Bundle b = new Bundle();
+                            b.putString("TaskKeyFromWeek", ((Event) o).getId());
+                            b.putString("date", openPopUp.get(id).getDate());
+                            b.putString("photo", "no");
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+                    } else {
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(id);
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                if (dataSnapshot.hasChild("photoUri")) {
+                                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                    Bundle b = new Bundle();
+                                    b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                                    b.putString("date", openPopUp.get(id).getDate());
+                                    b.putString("photo", "yes");
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
+                                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                    Bundle b = new Bundle();
+                                    b.putString("AnchorKeyFromWeek", ((Event) o).getId());
+                                    b.putString("date", openPopUp.get(id).getDate());
+                                    b.putString("photo", "no");
+                                    intent.putExtras(b);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
                     }
                 }
-                else {
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("Anchors").child(id);
-                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            });
 
-                            if (dataSnapshot.hasChild("photoUri")) {
-                                Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                Bundle b = new Bundle();
-                                b.putString("AnchorKeyFromWeek", ((Event) o).getId());
-                                b.putString("date",openPopUp.get(id).getDate());
-                                b.putString("photo", "yes");
-                                intent.putExtras(b);
-                                startActivity(intent);
-                            }
+            weekCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
+                @Override
+                public void onEmptyViewClicked(@NotNull Calendar calendar) {
+                    addAnchor();
+                }
+            });
 
-                            else {
-                                Intent intent = new Intent(getActivity(), AnchorPagePopup.class);
-                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                Bundle b = new Bundle();
-                                b.putString("AnchorKeyFromWeek", ((Event) o).getId());
-                                b.putString("date",openPopUp.get(id).getDate());
-                                b.putString("photo", "no");
-                                intent.putExtras(b);
-                                startActivity(intent);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-
-                    }
-            }
-        });
-
-        weekCalendar.setOnEmptyViewClickListener(new OnEmptyViewClickListener() {
-            @Override
-            public void onEmptyViewClicked(@NotNull Calendar calendar) {
-                addAnchor();
-            }
-        });
-
-        setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
-}
+    }
 
     public void onBackPressed() {
     }
