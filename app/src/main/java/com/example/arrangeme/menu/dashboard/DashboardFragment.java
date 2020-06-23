@@ -103,6 +103,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String UID;
+    private boolean flag;
+    private int firstPosition;
 
 
     /**
@@ -206,10 +208,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 LocalTime itemEndTime = LocalTime.parse(s);
                 LocalTime now = LocalTime.now();
                 if (itemEndTime.isBefore(now)){
-                    count++;
+//                    count++;
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
+
+                if(flag==false){
+                    flag=true;
+                    firstPosition=position; // first shown position
+                }
+
                 if (position==fbAdapter.getItemCount()-1){
                     ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
                     int x = fbAdapter.getItemCount()-count;
@@ -217,7 +225,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     params.height=225*(x);
                     mRecycler.setLayoutParams(params);
                 }
-
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
                 //holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
                 // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -283,8 +290,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule, parent, false);
                 return new MyViewHolder(v);
             }
-
         };
+        fbAdapter.getItemCount();
         fbAdapter.startListening();
         mRecycler.setAdapter(fbAdapter);
 

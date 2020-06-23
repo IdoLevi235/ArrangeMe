@@ -393,7 +393,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                     ViewGroup.LayoutParams params=schExistRel.getLayoutParams();
                     int x = fbAdapter.getItemCount();
                     x = x>6 ? 6 : x;
-                    params.height=212*(x);
+                    params.height=212*(x); // was 225
                     schExistRel.setLayoutParams(params);
                 }
                 InitItemOfSchedule(holder, position, model); // Init each item in schedule
