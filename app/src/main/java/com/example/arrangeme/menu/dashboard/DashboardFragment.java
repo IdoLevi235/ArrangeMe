@@ -417,7 +417,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     noScheduleYet.setVisibility(View.VISIBLE);
                     noScheduleYet.setText("You don't have schedule for today");
                     quesMessage.setVisibility(View.VISIBLE);
-                    quesMessage.setText("You must complete the questionnaire in order to receive schedules!");
+                    quesMessage.setText("You must complete the questionnaire in order to receive schedules");
                     int answers[] = new int[25];
                     int i=0;
                     for (Integer x : q_answers){

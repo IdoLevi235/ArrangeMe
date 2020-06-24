@@ -84,7 +84,7 @@
             android:elevation="5dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:visibility="visible" />
 
 

@@ -54,6 +54,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.094"></Button>
 
+    <TextView
+        android:id="@+id/MyScheduleHeadline"
+        android:layout_width="314dp"
+        android:layout_height="43dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="My Schedules"
+        android:textColor="@color/arrangeMeMain"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/textViewPleaseChooseAdd"
+        android:layout_width="377dp"
+        android:layout_height="62dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:textColor="#4E4E4E"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseDate2"
+        app:layout_constraintVertical_bias="0.00999999" />
+
     <RelativeLayout
         android:id="@+id/noScheduleLayout"
         android:layout_width="340dp"
@@ -61,7 +92,6 @@
         android:background="@drawable/rounded_rec_pink"
         android:elevation="1.5dp"
         android:visibility="gone"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,28 +149,29 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="You need to choose tasks for today in order to make you schedule"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:visibility="gone" />
 
 
         <Button
             android:id="@+id/questionnaireBtn"
-            android:layout_width="281dp"
-            android:layout_height="41dp"
+            android:layout_width="240dp"
+            android:layout_height="37dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="173dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="31dp"
-            android:background="@drawable/btn_rounded"
-            android:elevation="1.5dp"
-            android:fontFamily="sans-serif-medium"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="174dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/btn_rounded_yellow"
+            android:elevation="2dp"
+            android:fontFamily="@font/montserrat"
             android:shadowColor="#535353"
-            android:text=" Fill The Questionnaire Now!"
+            android:text="Fill The Questionnaire"
             android:textAllCaps="false"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:visibility="gone" />
 
@@ -156,13 +187,13 @@
             android:layout_marginTop="174dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
-            android:shadowColor="#535353"
             android:background="@drawable/dashboard_topbuttons"
             android:drawableRight="@drawable/scfhedule_2"
             android:drawablePadding="-8dp"
             android:elevation="1.5dp"
             android:fontFamily="@font/montserrat"
             android:paddingRight="6dp"
+            android:shadowColor="#535353"
             android:text="Build A Schedule"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
@@ -170,37 +201,6 @@
             android:visibility="gone" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/MyScheduleHeadline"
-        android:layout_width="314dp"
-        android:layout_height="43dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="My Schedules"
-        android:textColor="@color/arrangeMeMain"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <TextView
-        android:id="@+id/textViewPleaseChooseAdd"
-        android:layout_width="377dp"
-        android:layout_height="62dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center"
-        android:textColor="#4E4E4E"
-        android:textSize="15sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDate2"
-        app:layout_constraintVertical_bias="0.00999999" />
 
     <RelativeLayout
         android:id="@+id/scheduleExistsLayout"
