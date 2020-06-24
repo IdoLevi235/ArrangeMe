@@ -208,7 +208,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 LocalTime itemEndTime = LocalTime.parse(s);
                 LocalTime now = LocalTime.now();
                 if (itemEndTime.isBefore(now)){
-//                    count++;
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }

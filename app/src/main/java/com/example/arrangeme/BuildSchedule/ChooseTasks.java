@@ -279,8 +279,8 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                             (model.getDescription() + "\n\nCategory : ");
                 str.setSpan(new RelativeSizeSpan(1.5f), 0, model.getDescription().length(), 0);
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
                 holder.button.setText(str);
+                holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(800, 180));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
                 if (positionsMarked.contains(position)){ // to keep it marked when scrolling
