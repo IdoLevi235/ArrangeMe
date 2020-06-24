@@ -368,6 +368,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                    // holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
                    holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
                     if (model.getType().equals("anchor")) {
+                        holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.anchor));
                         holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
                         holder.button.setBackgroundResource
                                 (R.drawable.category_btn_schedule);
