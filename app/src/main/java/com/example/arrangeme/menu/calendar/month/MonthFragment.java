@@ -156,6 +156,39 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         });
 
         Query query_sch = schRef;
+        query_sch.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    datesWithTasks.add(ds.getKey());
+                }
+                /* decorator start */
+                monthCalendar.addDecorator(new DayViewDecorator() {
+                    @Override
+                    public boolean shouldDecorate(CalendarDay day) {
+                        StringBuilder dateSB = getSBfromCalendarDay(day);
+                        String date = dateSB.toString();
+                        if (datesWithTasks.contains(date))
+                            return true;
+                        else
+                            return false;
+                    }
+
+                    @Override
+                    public void decorate(DayViewFacade view) {
+                        view.addSpan(new DotSpan(5,ContextCompat.getColor(getContext(), R.color.arrangeMeMain)));
+                    }
+
+                });
+                /* decorator end */
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         Query query_anchors = anchRef;
         query_anchors.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -178,39 +211,6 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     @Override
                     public void decorate(DayViewFacade view) {
                         view.addSpan(new DotSpan(5, Color.RED));
-                    }
-
-                });
-                /* decorator end */
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        query_sch.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    datesWithTasks.add(ds.getKey());
-                }
-                /* decorator start */
-                monthCalendar.addDecorator(new DayViewDecorator() {
-                    @Override
-                    public boolean shouldDecorate(CalendarDay day) {
-                        StringBuilder dateSB = getSBfromCalendarDay(day);
-                        String date = dateSB.toString();
-                        if (datesWithTasks.contains(date))
-                            return true;
-                        else
-                            return false;
-                    }
-
-                    @Override
-                    public void decorate(DayViewFacade view) {
-                        view.addSpan(new DotSpan(5,ContextCompat.getColor(getContext(), R.color.arrangeMeMain)));
                     }
 
                 });
@@ -479,7 +479,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 holder.timeText.setText(model.getStartTime() + " - " + model.getEndTime());
                 //holder.button.setText("\t"+model.getDescription()+" \n\n\t"+"Category: " + model.getCategory().toLowerCase());
                 SpannableStringBuilder str = new SpannableStringBuilder
-                        (model.getDescription() + "\n\nCategory : " + model.getCategory());
+                        (model.getDescription() + "\nAnchors " + model.getCategory());
                 str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length() + 1, 0);
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.button.setText(str);
