@@ -479,9 +479,12 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.button.setText(str);
                 holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
-                holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time); //for now it only show anchors
-                holder.button.setBackgroundResource
-                        (R.drawable.rounded_temp_grey_anchor);
+                holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.anchor));
+                holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                holder.button.setCompoundDrawablesWithIntrinsicBounds
+                        (0, 0, R.drawable.anchor,
+                                0);
                 // spinner.setVisibility(View.GONE);
                 holder.button.setOnClickListener(v -> { //goto anchor/task popup
                     schRef.addListenerForSingleValueEvent(new ValueEventListener() {
