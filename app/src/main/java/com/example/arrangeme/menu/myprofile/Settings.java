@@ -142,8 +142,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
         if (cid.equals("ques")){
             Log.d("TAG6", "createNotificationChannel: HELLO");
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY,18);
-            calendar.set(Calendar.MINUTE,59);
+            calendar.set(Calendar.HOUR_OF_DAY,19);
+            calendar.set(Calendar.MINUTE,9);
             Intent ct1 = new Intent(getApplicationContext(), ReminderBroadcast.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,ct1,0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
