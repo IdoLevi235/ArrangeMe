@@ -267,13 +267,13 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MainModel model) {
-                if (position==0){
-                    ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
-                    int x = fbAdapter.getItemCount();
-                    x = x>2 ? 2 : x;
-                    params.height=245*(x);
-                    mRecycler.setLayoutParams(params);
-                }
+//                if (position==0){
+//                    ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
+//                    int x = fbAdapter.getItemCount();
+//                    x = x>2 ? 2 : x;
+//                    params.height=245*(x);
+//                    mRecycler.setLayoutParams(params);
+//                }
                 SpannableStringBuilder str = null;
                     str = new SpannableStringBuilder
                             (model.getDescription() + "\n\nCategory : ");
