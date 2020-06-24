@@ -59,7 +59,7 @@ import java.util.HashSet;
  * This class controls the month view calendar
  */
 public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.OnClickListener {
-    Integer[] catIcon = {R.drawable.study_white,
+    Integer[] catIconWhite = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
             R.drawable.nutrition_white,
@@ -67,6 +67,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
             R.drawable.chores_white,
             R.drawable.relax_white,
             R.drawable.friends_white, 0};
+    Integer[] catIcon = {R.drawable.study, R.drawable.sport,
+            R.drawable.work, R.drawable.nutrition,
+            R.drawable.familycat, R.drawable.chores,
+            R.drawable.relax, R.drawable.friends_cat, 0};
     Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
             {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
                     R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
