@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.arrangeme.Anchors.AddAnchor;
@@ -73,6 +74,8 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
                     R.drawable.rounded_rec_other_nostroke};
     StringBuilder dateString = new StringBuilder();
+    Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+            R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView monthCalendar;
     private RelativeLayout relativeLayout;
    // private TextView eventsName;
@@ -226,6 +229,9 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycler.getContext(),
+                layoutManager.getOrientation());
+        mRecycler.addItemDecoration(dividerItemDecoration);
 
         /* Calendar stuff */
         monthCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -346,7 +352,7 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     SpannableStringBuilder str;
                     if(cat!=null) {
                         str = new SpannableStringBuilder
-                                (model.getDescription() + "\n\nCategory : " + cat);
+                                (model.getDescription() + "\nCategory : " + cat);
                     }
                     else {
                         str = new SpannableStringBuilder(model.getDescription());
@@ -360,7 +366,11 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                     if (model.getType().equals("anchor")) {
                         holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
                         holder.button.setBackgroundResource
-                                (R.drawable.rounded_temp_grey_anchor);
+                                (R.drawable.category_btn_schedule);
+                        holder.button.setCompoundDrawablesWithIntrinsicBounds
+                                (0, 0, R.drawable.anchor,
+                                        0);
+
                         holder.button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {   //OPEN ANCHOR POPUP
@@ -381,9 +391,10 @@ public class MonthFragment<RecyclerAdapter> extends Fragment implements  View.On
                             }
                         });
                     } else if (model.getType().equals("task")) {
+                        holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(model.getCategory())]));
                         holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
                         holder.button.setBackgroundResource
-                                (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                                (R.drawable.category_btn_schedule);
                         holder.button.setCompoundDrawablesWithIntrinsicBounds
                                 (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
                                         0);

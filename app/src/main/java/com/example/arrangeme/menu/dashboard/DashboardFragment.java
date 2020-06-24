@@ -213,18 +213,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
 
-                if(flag==false){
-                    flag=true;
-                    firstPosition=position; // first shown position
-                }
-
-                if (position==fbAdapter.getItemCount()-1){
-                    ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
-                    int x = fbAdapter.getItemCount()-count;
-                    x = x>3 ? 3 : x;
-                    params.height=225*(x);
-                    mRecycler.setLayoutParams(params);
-                }
+//                if(flag==false){
+//                    flag=true;
+//                    firstPosition=position; // first shown position
+//                }
+//
+//                if (position==fbAdapter.getItemCount()-1){
+//                    ViewGroup.LayoutParams params=mRecycler.getLayoutParams();
+//                    int x = fbAdapter.getItemCount()-count;
+//                    x = x>3 ? 3 : x;
+//                    params.height=225*(x);
+//                    mRecycler.setLayoutParams(params);
+//                }
                 sf.InitItemOfSchedule(holder,position,model); // Init each item in schedule
                 //holder.button.setLayoutParams (new LinearLayout.LayoutParams(650, ViewGroup.LayoutParams.MATCH_PARENT));
                 // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
