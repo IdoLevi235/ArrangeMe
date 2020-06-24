@@ -51,6 +51,8 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
+            style="?android:attr/borderlessButtonStyle"
+            android:stateListAnimator="@null"
             tools:ignore="RtlCompat" />
 
 
