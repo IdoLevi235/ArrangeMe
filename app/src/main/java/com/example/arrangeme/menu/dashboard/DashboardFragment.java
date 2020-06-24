@@ -2,6 +2,7 @@ package com.example.arrangeme.menu.dashboard;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,9 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,19 +90,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     private TextView hello;
     private TextView ScheduleForToday;
     private int count=0;
-    Integer[] catIcon = {R.drawable.study_white,
-            R.drawable.sport_white,
-            R.drawable.work_white,
-            R.drawable.nutrition_white,
-            R.drawable.family_white,
-            R.drawable.chores_white,
-            R.drawable.relax_white,
-            R.drawable.friends_white, 0};
-    Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
-            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+    Integer[] catIcon = {R.drawable.study, R.drawable.sport,
+            R.drawable.work, R.drawable.nutrition,
+            R.drawable.familycat, R.drawable.chores,
+            R.drawable.relax, R.drawable.friends_cat, 0};
+    Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+            R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String UID;
@@ -147,6 +143,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         questionnaireBtn.setOnClickListener(this);
         mRecycler=view.findViewById(R.id.recyclerDash);
         mRecycler.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycler.getContext(), layoutManager.getOrientation());
+        Drawable div = ContextCompat.getDrawable(getContext(),R.drawable.divider);
+        dividerItemDecoration.setDrawable(div);
+        mRecycler.addItemDecoration(dividerItemDecoration);
         rankit = view.findViewById(R.id.rankit);
         rankit.setOnClickListener(this);
         view11=view.findViewById(R.id.view11);
@@ -156,7 +157,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
         imageView7.setImageResource(0);
         progressBar6.setVisibility(View.VISIBLE);
         setGenderPhoto();
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
 
 
@@ -230,6 +230,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 // holder.timeText.setLayoutParams (new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
                 // holder.anchorOrTask.setLayoutParams (new LinearLayout.LayoutParams(80, 76));
                 if(model.getType().equals("anchor")){
+                    holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.anchor));
+                    holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
+                    holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                    holder.button.setCompoundDrawablesWithIntrinsicBounds
+                            (0, 0, R.drawable.anchor,
+                                    0);
                     holder.button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {   //OPEN ANCHOR POPUP
@@ -251,13 +257,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                     });
 
                 } else if (model.getType().equals("task")){
+                    holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(model.getCategory())]));
                     holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
                     holder.button.setBackgroundResource
-                            (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                            (R.drawable.category_btn_schedule);
                     holder.button.setCompoundDrawablesWithIntrinsicBounds
                             (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
-                                    0);
-                    holder.button.setOnClickListener(new View.OnClickListener() {
+                                    0);                    holder.button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             String id = model.getActiveKey();

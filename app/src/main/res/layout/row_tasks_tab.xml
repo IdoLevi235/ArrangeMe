@@ -20,7 +20,7 @@
 
         <Button
             android:id="@+id/button235"
-            android:layout_width="285dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contextClickable="true"
             android:fontFamily="@font/montserrat"
@@ -30,6 +30,8 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
+            style="?android:attr/borderlessButtonStyle"
+            android:stateListAnimator="@null"
             tools:ignore="RtlCompat" />
 
         <TextView

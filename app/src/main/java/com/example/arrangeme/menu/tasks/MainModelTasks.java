@@ -11,10 +11,22 @@ public class MainModelTasks {
     private int catIcon;
     private int catBackground;
 
+
+    private int color;
     private String photoUri;
 
     public MainModelTasks() {
     }
+
+    public MainModelTasks(int catBackgroundFull, String category, String description, int catIcon, int catBackground, int color) {
+        this.catBackgroundFull = catBackgroundFull;
+        this.category = category;
+        this.description = description;
+        this.catIcon = catIcon;
+        this.catBackground = catBackground;
+        this.color = color;
+    }
+
 
     public MainModelTasks(int catBackgroundFull, String category, String description, int catIcon, int catBackground) {
         this.catBackgroundFull = catBackgroundFull;
@@ -22,6 +34,16 @@ public class MainModelTasks {
         this.description = description;
         this.catIcon = catIcon;
         this.catBackground = catBackground;
+        this.color = color;
+    }
+
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public int getCatBackgroundFull() {

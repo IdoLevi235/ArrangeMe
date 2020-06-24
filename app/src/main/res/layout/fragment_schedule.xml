@@ -22,12 +22,12 @@
         android:padding="8dp"
         android:src="@drawable/star_ranking"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/scheduleExistsLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintVertical_bias="0.07999998" />
 
     <Button
         android:id="@+id/chooseDate2"
@@ -249,17 +249,18 @@
 
     <TextView
         android:id="@+id/rateMsgSch"
-        android:layout_width="287dp"
-        android:layout_height="37dp"
+        android:layout_width="365dp"
+        android:layout_height="34dp"
         android:fontFamily="@font/montserrat"
         android:gravity="left"
-        android:textSize="13sp"
+        android:textColor="#F4BB06"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleExistsLayout"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintVertical_bias="0.13" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

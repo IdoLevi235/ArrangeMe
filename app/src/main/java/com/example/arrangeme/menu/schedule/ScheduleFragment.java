@@ -3,7 +3,9 @@ package com.example.arrangeme.menu.schedule;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -25,9 +27,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,7 +94,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
     final int[] longPressKeys = new int[2];
     final int[] longPressPositions = new int[2];
     private Button datePicker;
-    Integer[] catIcon = {R.drawable.study_white,
+    Integer[] catIconWhite = {R.drawable.study_white,
             R.drawable.sport_white,
             R.drawable.work_white,
             R.drawable.nutrition_white,
@@ -98,11 +102,23 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
             R.drawable.chores_white,
             R.drawable.relax_white,
             R.drawable.friends_white, 0};
-    Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
-            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+    Integer[] catIcon = {R.drawable.study, R.drawable.sport,
+            R.drawable.work, R.drawable.nutrition,
+            R.drawable.familycat, R.drawable.chores,
+            R.drawable.relax, R.drawable.friends_cat, 0};
+//    Integer[] catBackgroundFull =
+//            {R.drawable.category_btn_schedule, R.drawable.category_btn_schedule,
+//                    R.drawable.category_btn_schedule, R.drawable.category_btn_schedule,
+//                    R.drawable.category_btn_schedule, R.drawable.category_btn_schedule,
+//                    R.drawable.category_btn_schedule, R.drawable.category_btn_schedule,
+//                    R.drawable.category_btn_schedule};
+//    Integer[] catBackgroundFull = //IMPORTANT: DONT CHANGE THE ORDER HERE!!!!
+//            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
+//                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
+//                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
+//                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke, R.drawable.rounded_rec_other_nostroke};
+Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+        R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
     private FirebaseAuth mAuth;
     private String deletedType;
     private String deletedActiveKey;
@@ -398,7 +414,7 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                 }
                 InitItemOfSchedule(holder, position, model); // Init each item in schedule
                 setClickListenerToItem(holder, position,model); // Short click --> cancel pick
-                setLongClickListenerToItem(holder, position); // Long clicks
+                setLongClickListenerToItem(holder, position,model); // Long clicks
                 spinner.setVisibility(View.GONE);
                 isFromChooseTasks=false;
             }
@@ -432,6 +448,10 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerSchedule.setLayoutManager(layoutManager);
         recyclerSchedule.setItemAnimator(new DefaultItemAnimator());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerSchedule.getContext(), layoutManager.getOrientation());
+        Drawable div = ContextCompat.getDrawable(getContext(),R.drawable.divider);
+        dividerItemDecoration.setDrawable(div);
+        recyclerSchedule.addItemDecoration(dividerItemDecoration);
         noSchRel=view.findViewById(R.id.noScheduleLayout);
         schExistRel=view.findViewById(R.id.scheduleExistsLayout);
         view4 = view.findViewById(R.id.view4);
@@ -455,8 +475,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
      * Set long click listener for swaping items in schedule
      * @param holder
      * @param position
+     * @param model
      */
-    private void setLongClickListenerToItem(MyViewHolder holder, int position) {
+    private void setLongClickListenerToItem(MyViewHolder holder, int position, MainModelSchedule model) {
         holder.button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -470,11 +491,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                 //nothing to do here yet..
                             }
                             else if (longPressCount[0] == 0) {//0 long presses until now
-                                zeroLongPresses(holder,key,position);
+                                zeroLongPresses(holder,key,position,model);
                             }
                             else if (longPressCount[0] == 1) {//1 long presses until now
                                 if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
-                                    cancelPickedItemWithLongClick(holder,key,dataSnapshot);
+                                    cancelPickedItemWithLongClick(holder,key,dataSnapshot,model);
                                 } else { //this is the second pick --> make swap
                                     Handler handler = new Handler();
                                     longPressCount[0]++;//count=2;
@@ -485,7 +506,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                     if (longPressPositions[0] == -1)
                                         longPressPositions[0] = position;//get first key
                                     else longPressPositions[1] = position;
-                                    holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+                                    holder.button.setBackgroundResource(R.drawable.rounded_dark_primary);
+                                    holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
+                                    holder.button.setCompoundDrawablesWithIntrinsicBounds
+                                            (0, 0, catIconWhite[TaskCategory.fromStringToInt(model.getCategory())],
+                                                    0);
                                     //SWAPPING HERE
                                     swapItems(dataSnapshot,handler);
                                 }
@@ -572,13 +597,18 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
      * @param holder
      * @param key
      * @param dataSnapshot
+     * @param model
      */
-    private void cancelPickedItemWithLongClick(MyViewHolder holder, String key, DataSnapshot dataSnapshot) {
+    private void cancelPickedItemWithLongClick(MyViewHolder holder, String key, DataSnapshot dataSnapshot, MainModelSchedule model) {
         longPressKeys[0]=-1;
         String cat = (String) dataSnapshot.child(key).child("category").getValue();
-        holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
         longPressPositions[0]=-1;
         longPressCount[0]--;
+        holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+        holder.button.setCompoundDrawablesWithIntrinsicBounds
+                (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
+                        0);
+        holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(cat)]));
     }
 
     /**
@@ -586,8 +616,9 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
      * @param holder
      * @param key
      * @param position
+     * @param model
      */
-    private void zeroLongPresses(MyViewHolder holder, String key, int position) {
+    private void zeroLongPresses(MyViewHolder holder, String key, int position, MainModelSchedule model) {
         longPressCount[0]++; //count=1;
         if (longPressKeys[0]==-1)
             longPressKeys[0]=Integer.parseInt(key);//get first key
@@ -596,7 +627,12 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
         if (longPressPositions[0]==-1)
             longPressPositions[0]=(position);//get first key
         else longPressPositions[1]=(position);
-        holder.button.setBackgroundResource(R.drawable.rounded_rec_darkblue_nostroke);
+        holder.button.setBackgroundResource(R.drawable.rounded_dark_primary);
+        holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
+        holder.button.setCompoundDrawablesWithIntrinsicBounds
+                (0, 0, catIconWhite[TaskCategory.fromStringToInt(model.getCategory())],
+                        0);
+
     }
 
     /**
@@ -619,7 +655,11 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                                 if (longPressKeys[0] == x || longPressKeys[1] == x) { // press cancel
                                     longPressKeys[0] = -1;
                                     String cat = (String) dataSnapshot.child(key).child("category").getValue();
-                                    holder.button.setBackgroundResource(catBackgroundFull[TaskCategory.fromStringToInt(cat)]);
+                                    holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                                    holder.button.setCompoundDrawablesWithIntrinsicBounds
+                                            (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
+                                                    0);
+                                    holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(cat)]));
                                     longPressPositions[0] = -1;
                                     longPressCount[0]--;
                                 }
@@ -688,22 +728,24 @@ public class ScheduleFragment<RecyclerAdapter> extends Fragment implements View.
                         (model.getDescription() + "\n\nCategory : " + cat);
             }
             else {
-                str = new SpannableStringBuilder(model.getDescription());
+                str = new SpannableStringBuilder
+                        (model.getDescription() + "\n\nAnchor");
             }
             str.setSpan(new RelativeSizeSpan(1.3f), 0, model.getDescription().length(), 0);
             str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.button.setText(str);
-          //  holder.button.setLayoutParams(new LinearLayout.LayoutParams(600, 200));
-          //  holder.timeText.setLayoutParams(new LinearLayout.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-         //   holder.anchorOrTask.setLayoutParams(new LinearLayout.LayoutParams(80, 76));
             if (model.getType().equals("anchor")) {
+                holder.button.setTextColor(ContextCompat.getColor(getContext(), R.color.anchor));
                 holder.anchorOrTask.setBackgroundResource(R.drawable.try_anchor_time);
-                holder.button.setBackgroundResource
-                        (R.drawable.rounded_temp_grey_anchor);
+                holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                holder.button.setCompoundDrawablesWithIntrinsicBounds
+                        (0, 0, R.drawable.anchor,
+                                0);
             } else if (model.getType().equals("task")) {
+                holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(model.getCategory())]));
                 holder.anchorOrTask.setBackgroundResource(R.drawable.task_time);
                 holder.button.setBackgroundResource
-                        (catBackgroundFull[TaskCategory.fromStringToInt(model.getCategory())]);
+                        (R.drawable.category_btn_schedule);
                 holder.button.setCompoundDrawablesWithIntrinsicBounds
                         (0, 0, catIcon[TaskCategory.fromStringToInt(model.getCategory())],
                                 0);

@@ -4,7 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,11 +24,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,17 +79,16 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     private TextView noTask2;
     private int flag = 0;
     private LinearLayoutManager layoutManager;
-    Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
-            R.drawable.work_white, R.drawable.nutrition_white,
-            R.drawable.family_white, R.drawable.chores_white,
-            R.drawable.relax_white, R.drawable.friends_white, 0};
-    Integer[] catBackgroundFull =
-            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
-                    R.drawable.rounded_rec_other_nostroke};
-
+//    Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
+//            R.drawable.work_white, R.drawable.nutrition_white,
+//            R.drawable.family_white, R.drawable.chores_white,
+//            R.drawable.relax_white, R.drawable.friends_white, 0};
+    Integer[] catIcon = {R.drawable.study, R.drawable.sport,
+            R.drawable.work, R.drawable.nutrition,
+            R.drawable.familycat, R.drawable.chores,
+            R.drawable.relax, R.drawable.friends_cat, 0};
+    Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+            R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
     /**
      * @param inflater
      * @param container
@@ -122,6 +127,9 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
         /* Recycler view stuff */
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler = view.findViewById(R.id.recyclerTasks);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycler.getContext(),
+                layoutManager.getOrientation());
+        mRecycler.addItemDecoration(dividerItemDecoration);
         setRecycler(mRecycler);
         /* Recycler view stuff End*/
 
@@ -203,11 +211,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
             Globals.tutorial++;
             new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(R.id.add).setPrimaryText("Click to add a new task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
-//        else if(Globals.tutorial==3){
-//            Globals.tutorial++;
-//            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(mRecycler).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
-//        }
-        //}
     }
 
     /**
@@ -217,7 +220,6 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     public void setRecycler(RecyclerView mRecycler) {
         keys = new ArrayList<>();
         mRecycler.setHasFixedSize(true);
-        LinearLayout card = (LinearLayout) layoutManager.findViewByPosition(0);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(Globals.UID).child("tasks").child("Pending_tasks");
@@ -233,11 +235,25 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 //                }
 
 
-                holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
+                holder.button.setText("\t  " + model.getCategory() + " \n\n\t  " + model.getDescription());
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
-                holder.button.setBackgroundResource(catBackgroundFull[x]);
+                holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                String cat = model.getCategory();
+                SpannableStringBuilder str = null;
+                if(cat!=null) {
+                    str = new SpannableStringBuilder
+                            (model.getDescription() + "\n\nCategory : " + cat);
+                }
+                else {
+                    str = new SpannableStringBuilder(model.getDescription());
+                }
+                str.setSpan(new RelativeSizeSpan(1.5f), 0, model.getDescription().length(), 0);
+                str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.button.setText(str);
+                holder.button.setTextColor(ContextCompat.getColor(getContext(), catColor[TaskCategory.fromStringToInt(model.getCategory())]));
                 holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
+                holder.button.setPadding(15,10,15,0);
                 holder.button.setOnClickListener(v -> {
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         //This method gets the task key from the database and pass it to the next activity with a bundle
@@ -271,7 +287,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
                 spinner.setVisibility(View.GONE);
                 if(Globals.tutorial==3){
                     Globals.tutorial++;
-                    new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch or edit task details ").setBackgroundColour(Color.parseColor("#20666E")).show();
+                    new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch and edit task details").setSecondaryText("You can delete tasks by swapping left").setBackgroundColour(Color.parseColor("#20666E")).show();
                 }
 
             }

@@ -39,6 +39,8 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
+        android:stateListAnimator="@null"
+        style="?android:attr/borderlessButtonStyle"
         tools:ignore="RtlCompat" />
 
     <TextView

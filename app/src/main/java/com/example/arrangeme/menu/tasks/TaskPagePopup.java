@@ -50,6 +50,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal;
 
 /**
  * Task popup class
@@ -133,6 +135,11 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
 
         //set data for the view from the DB
         this.showDetail(fromWhereTheTask);
+
+        if(Globals.tutorial==4){
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.editModeBtn).setPrimaryText("Click to edit tasks details").setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
 
     }
 

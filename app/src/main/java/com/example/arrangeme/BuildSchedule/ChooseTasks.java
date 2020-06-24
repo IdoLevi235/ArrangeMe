@@ -3,8 +3,10 @@ package com.example.arrangeme.BuildSchedule;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +23,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -105,21 +109,23 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     private ImageView imv4;
     private Button notif;
     private RelativeLayout noTasksLayout;
-    Integer[] catIcon = {R.drawable.study_white, R.drawable.sport_white,
-            R.drawable.work_white, R.drawable.nutrition_white,
-            R.drawable.family_white, R.drawable.chores_white,
-            R.drawable.relax_white, R.drawable.friends_white, 0};
-    Integer[] catBackgroundFull =
-            {R.drawable.rounded_rec_study_nostroke, R.drawable.rounded_rec_sport_nostroke,
-                    R.drawable.rounded_rec_work_nostroke, R.drawable.rounded_rec_nutrition_nostroke,
-                    R.drawable.rounded_rec_family_nostroke, R.drawable.rounded_rec_chores_nostroke,
-                    R.drawable.rounded_rec_relax_nostroke, R.drawable.rounded_rec_friends_nostroke,
-                    R.drawable.rounded_rec_other_nostroke};
-
+    Integer[] catIcon = {R.drawable.study, R.drawable.sport,
+            R.drawable.work, R.drawable.nutrition,
+            R.drawable.familycat, R.drawable.chores,
+            R.drawable.relax, R.drawable.friends_cat, 0};
     ArrayList<String> categoriesChosen = new ArrayList<>();
     ArrayList<Integer> positionsMarked = new ArrayList<>();
     ArrayList<String> keysChosen = new ArrayList<>();
-
+    Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutrition,
+            R.color.family, R.color.chores, R.color.relax,R.color.friends, R.color.other};
+    Integer[] catIconWhite = {R.drawable.study_white,
+            R.drawable.sport_white,
+            R.drawable.work_white,
+            R.drawable.nutrition_white,
+            R.drawable.family_white,
+            R.drawable.chores_white,
+            R.drawable.relax_white,
+            R.drawable.friends_white, 0};
     Map<String, Boolean> hoursMap;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -197,6 +203,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
         setDate.setOnClickListener(this);
         layoutManager = new LinearLayoutManager(ChooseTasks.this, LinearLayoutManager.VERTICAL, false);
         mRecycler = findViewById(R.id.recylcler_choosetasks);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycler.getContext(),
+                layoutManager.getOrientation());
+        mRecycler.addItemDecoration(dividerItemDecoration);
 
     }
 
@@ -265,20 +274,31 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
                     params.height=245*(x);
                     mRecycler.setLayoutParams(params);
                 }
-
-                holder.button.setText("\t" + model.getCategory() + " \n\n\t" + model.getDescription());
+                SpannableStringBuilder str = null;
+                    str = new SpannableStringBuilder
+                            (model.getDescription() + "\n\nCategory : ");
+                str.setSpan(new RelativeSizeSpan(1.5f), 0, model.getDescription().length(), 0);
+                str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.button.setTypeface(Typeface.create("montserrat", Typeface.NORMAL));
+                holder.button.setText(str);
                 holder.button.setLayoutParams(new LinearLayout.LayoutParams(800, 180));
                 int x = TaskCategory.fromStringToInt(model.getCategory());
-                if (positionsMarked.contains(position)){
-                    holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
+                if (positionsMarked.contains(position)){ // to keep it marked when scrolling
+                    holder.button.setBackgroundResource(R.drawable.rounded_dark_primary);
+                    holder.button.setTextColor(Color.WHITE);
+                    holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIconWhite[x], 0);
                 }
                 else {
-                    holder.button.setBackgroundResource(catBackgroundFull[x]);
+                    holder.button.setTextColor(ContextCompat.getColor(ChooseTasks.this, catColor[TaskCategory.fromStringToInt(model.getCategory())]));
+                    holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
+                    holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+                   // holder.button.setTextSize(12);
                 }
-                holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
+                holder.button.setPadding(15,10,15,0);
                 holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         itemOnClick(holder, position, model);
                     }
                 });
@@ -308,17 +328,17 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
      */
     private void itemOnClick(MyViewHolder holder, int position, MainModel model) {
         Drawable dDarkblue = ResourcesCompat.getDrawable(getResources(),
-                R.drawable.rounded_rec_blue_nostroke, null);
+                R.drawable.rounded_dark_primary, null);
         Drawable dCurr = holder.button.getBackground();
         Drawable.ConstantState constantStateDrawableA = dDarkblue.getConstantState();
         Drawable.ConstantState constantStateDrawableB = dCurr.getConstantState();
-        if (!constantStateDrawableA.equals(constantStateDrawableB)) { //Not pressed yet
+        if (!constantStateDrawableA.equals(constantStateDrawableB)) { //Not pressed yet - pick
             String key = fbAdapter.getRef(position).getKey();
             keysChosen.add(key);
-            chooseTask(holder);
+            chooseTask(holder,model);
             categoriesChosen.add(model.getCategory());
             positionsMarked.add(position);
-
+            holder.button.setPadding(15,10,15,0);
         } else { //pressed, unpick
             String key = fbAdapter.getRef(position).getKey();
             keysChosen.remove(key);
@@ -335,7 +355,9 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
      */
     private void unChooseTask(MyViewHolder holder, MainModel model) {
         int x = TaskCategory.fromStringToInt(model.getCategory());
-        holder.button.setBackgroundResource(catBackgroundFull[x]);
+        holder.button.setBackgroundResource(R.drawable.category_btn_schedule);
+        holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIcon[x], 0);
+        holder.button.setTextColor(ContextCompat.getColor(ChooseTasks.this, catColor[TaskCategory.fromStringToInt(model.getCategory())]));
         count--;
         if (count == numOfTasksToChoose - 1) { //green-->red
             numberTextView.setBackgroundResource(R.drawable.green_textview);
@@ -347,11 +369,15 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
     /**
      * chooseTask - click listener in case that the element haven't been picked yet
      * @param holder
+     * @param model
      */
-    private void chooseTask(MyViewHolder holder) {
+    private void chooseTask(MyViewHolder holder, MainModel model) {
+        int x = TaskCategory.fromStringToInt(model.getCategory());
         if (count < numOfTasksToChoose) { //stay red
             count++;
-            holder.button.setBackgroundResource(R.drawable.rounded_rec_blue_nostroke);
+            holder.button.setBackgroundResource(R.drawable.rounded_dark_primary);
+            holder.button.setCompoundDrawablesWithIntrinsicBounds(0, 0, catIconWhite[x], 0);
+            holder.button.setTextColor(Color.WHITE);
             numberTextView.setBackgroundResource(R.drawable.green_textview);
             numberTextView.setText(Integer.toString(count));
             howMuchMore.setText("(You can choose " + (numOfTasksToChoose - count) + " more tasks..)");
