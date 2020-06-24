@@ -1,7 +1,9 @@
 package com.example.arrangeme.menu.calendar;
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +28,8 @@ import com.example.arrangeme.R;
 import com.example.arrangeme.menu.calendar.day.DayFragment;
 import com.example.arrangeme.menu.calendar.month.MonthFragment;
 import com.example.arrangeme.menu.calendar.week.WeekFragment;
+
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * class that controls the main calendar fragment
@@ -87,6 +91,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener{
         WeekBtn.setOnClickListener(this);
         MonthBtn.setOnClickListener(this);
         Globals.setFocus2(DayBtn,MonthBtn ,WeekBtn);
+
     }
 
     /**

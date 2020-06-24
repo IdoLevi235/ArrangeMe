@@ -1,8 +1,10 @@
 package com.example.arrangeme.menu.calendar.week;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class WeekFragment extends Fragment implements View.OnClickListener, OnMonthChangeListener {
@@ -244,6 +248,12 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if(Globals.tutorial==6) {
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.floatingActionButton).setPrimaryText("Add the anchors here").setSecondaryText("After assigning tasks, you can assign anchors. Anchors are fixed parts in the day like important meetings or weddings").setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
+
         return view;
     }
 

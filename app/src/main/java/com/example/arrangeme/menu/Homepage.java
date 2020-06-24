@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -111,8 +112,11 @@ public class Homepage extends AppCompatActivity{
         // if(Globals.isNewUser==true) {
         if(Globals.tutorial==0) {
             Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
+
+
+
         // }
     }
 

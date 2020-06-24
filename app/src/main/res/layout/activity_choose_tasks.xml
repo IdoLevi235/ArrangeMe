@@ -52,8 +52,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcler_choosetasks"
-        android:layout_width="349dp"
-        android:layout_height="246dp"
+        android:layout_width="352dp"
+        android:layout_height="224dp"
         android:layout_marginStart="32dp"
         android:background="@drawable/rounded_rec_pink"
         android:elevation="3dp"
@@ -245,7 +245,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="250dp"
         android:background="@drawable/btn_rounded"
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
@@ -256,7 +255,7 @@
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <Button
         android:id="@+id/notif"

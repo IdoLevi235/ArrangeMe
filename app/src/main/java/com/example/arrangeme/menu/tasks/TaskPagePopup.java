@@ -96,16 +96,15 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         try {
             Bundle b = getIntent().getExtras();
             if (b != null) {
-                if (b.getString("TaskKeyFromWeek")!=null) { // from calendars/dashboard/schedule
+                if (b.getString("TaskKeyFromWeek") != null) { // from calendars/dashboard/schedule
                     fromWhereTheTask = 0;
                     String str = b.getString("TaskKeyFromWeek");
                     taskKey = str.substring(4);
-                    flagPhoto=b.getString("photo");
+                    flagPhoto = b.getString("photo");
                     date = b.getString("date");
-                }
-                else { // from tasks tab
+                } else { // from tasks tab
                     taskKey = b.getString("TaskKey");
-                    flagPhoto=b.getString("photo");
+                    flagPhoto = b.getString("photo");
                     fromWhereTheTask = 1;
                 }
             }
@@ -118,17 +117,17 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         definePopUpSize1(flagPhoto);
 
         //define buttons
-        applyBtn=findViewById(R.id.applyBtn);
+        applyBtn = findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(this);
-        editModeBtn=findViewById(R.id.editModeBtn);
+        editModeBtn = findViewById(R.id.editModeBtn);
         editModeBtn.setOnClickListener(this);
         SpinnerShow = findViewById(R.id.SpinnerShow);
-        descriptionText =findViewById(R.id.descriptionText);
-        locationText =findViewById(R.id.locationText);
-        textCategory= findViewById(R.id.textCategory);
+        descriptionText = findViewById(R.id.descriptionText);
+        locationText = findViewById(R.id.locationText);
+        textCategory = findViewById(R.id.textCategory);
         spinnerReminder = (Spinner) findViewById(R.id.spinner);
         reminder_switch = (Switch) findViewById(R.id.reminder_switch);
-        photoHere=findViewById(R.id.photo_here);
+        photoHere = findViewById(R.id.photo_here);
 
         //disable all views
         this.disableViews();
@@ -136,11 +135,16 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
         //set data for the view from the DB
         this.showDetail(fromWhereTheTask);
 
-        if(Globals.tutorial==4){
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.editModeBtn).setPrimaryText("Click to edit tasks details").setBackgroundColour(Color.parseColor("#20666E")).show();
-        }
+        // if(Globals.isNewUser==true) {
+        tutorial();
+        //}
+    }
 
+    public void tutorial() {
+        if (Globals.tutorial == 4) {
+            Globals.tutorial++;
+            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.editModeBtn).setPrimaryText("Click to edit tasks details").setTextGravity(Gravity.CENTER).setBackgroundColour(Color.parseColor("#20666E")).show();
+        }
     }
 
 
