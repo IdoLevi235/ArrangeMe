@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -196,7 +197,7 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
         // if(Globals.isNewUser==true) {
         if(Globals.tutorial==2) {
             Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.add_photo).setPrimaryText("Upload a task photo").setSecondaryText("You can even upload a photo to your task!").setBackgroundColour(Color.parseColor("#20666E")).show();
+            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.RIGHT).setTarget(R.id.add_photo).setPrimaryText("Upload a task photo").setSecondaryText("You can even upload a photo to your task!").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
 
         //}

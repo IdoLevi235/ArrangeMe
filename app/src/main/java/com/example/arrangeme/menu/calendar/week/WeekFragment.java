@@ -251,7 +251,7 @@ public class WeekFragment extends Fragment implements View.OnClickListener, OnMo
 
         if(Globals.tutorial==6) {
             Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.floatingActionButton).setPrimaryText("Add the anchors here").setSecondaryText("After assigning tasks, you can assign anchors. Anchors are fixed parts in the day like important meetings or weddings").setBackgroundColour(Color.parseColor("#20666E")).show();
+            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.RIGHT).setTarget(R.id.floatingActionButton).setPrimaryText("Add the anchors here").setSecondaryText("After assigning tasks, you can assign anchors. Anchors are fixed parts in the day like important meetings or weddings").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
 
         return view;
