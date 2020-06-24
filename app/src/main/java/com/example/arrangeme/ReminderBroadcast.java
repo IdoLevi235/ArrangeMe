@@ -55,7 +55,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
                     }
                 }
                 if (q_answers.contains(0)) {
-                    Log.d("TAG6", "onDataChange: notification!!!!");
                     Intent i = new Intent(context, Questionnaire.class);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, i, PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "ques")
