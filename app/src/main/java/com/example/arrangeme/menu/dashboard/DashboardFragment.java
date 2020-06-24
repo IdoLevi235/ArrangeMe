@@ -207,10 +207,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 String s = model.getEndTime().equals("00:00") ? "23:59" : model.getEndTime();
                 LocalTime itemEndTime = LocalTime.parse(s);
                 LocalTime now = LocalTime.now();
-                if (itemEndTime.isBefore(now)){
-                    holder.itemView.setVisibility(View.GONE);
-                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-                }
+//                if (itemEndTime.isBefore(now)){
+//                    holder.itemView.setVisibility(View.GONE);
+//                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+//                }
 
 //                if(flag==false){
 //                    flag=true;
