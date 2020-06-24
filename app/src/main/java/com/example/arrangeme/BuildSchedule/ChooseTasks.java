@@ -276,7 +276,7 @@ public class ChooseTasks extends AppCompatActivity implements View.OnClickListen
 //                }
                 SpannableStringBuilder str = null;
                     str = new SpannableStringBuilder
-                            (model.getDescription() + "\n\nCategory : ");
+                            (model.getDescription() + "\n\nCategory : " + model.getCategory());
                 str.setSpan(new RelativeSizeSpan(1.5f), 0, model.getDescription().length(), 0);
                 str.setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, model.getDescription().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.button.setText(str);
