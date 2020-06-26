@@ -109,13 +109,12 @@ public class Homepage extends AppCompatActivity{
     }
 
     private void tutorial() {
-        // if(Globals.isNewUser==true) {
-        if(Globals.tutorial==0) {
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+        if(Globals.isNewUser==true) {
+            if (Globals.tutorial == 0) {
+                Globals.tutorial++;
+                new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.navigation_tasks).setPrimaryText("Hi! Click to add your first task").setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+            }
         }
-
-
 
         // }
     }

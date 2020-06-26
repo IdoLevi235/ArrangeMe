@@ -194,13 +194,13 @@ public class AddTasks extends AppCompatActivity implements View.OnClickListener,
      */
     private void tutorial() {
         //this function is the help system
-        // if(Globals.isNewUser==true) {
+         if(Globals.isNewUser==true) {
         if(Globals.tutorial==2) {
             Globals.tutorial++;
             new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.RIGHT).setTarget(R.id.add_photo).setPrimaryText("Upload a task photo").setSecondaryText("You can even upload a photo to your task!").setBackgroundColour(Color.parseColor("#20666E")).show();
         }
 
-        //}
+        }
     }
 
     /**

@@ -207,14 +207,15 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
     private void tutorial() {
 
         //this function is the help system
-        // if(Globals.isNewUser==true) {
-        if(Globals.tutorial==1) {
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(R.id.add).setPrimaryText("Click to add a new task").setTextGravity(Gravity.CENTER).setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
-        }
-        if(Globals.tutorial==5) {
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.navigation_calendar).setPrimaryText("Here you can add anchors to the calendar").setSecondaryText("After assigning tasks, you can assign anchors. Anchors are fixed parts in the day like important meetings or weddings").setBackgroundColour(Color.parseColor("#20666E")).show();
+        if (Globals.isNewUser == true) {
+            if (Globals.tutorial == 1) {
+                Globals.tutorial++;
+                new MaterialTapTargetPrompt.Builder(getActivity()).setTarget(R.id.add).setPrimaryText("Click to add a new task").setTextGravity(Gravity.CENTER).setSecondaryText("In order to build a schedule you need to add new tasks.").setBackgroundColour(Color.parseColor("#20666E")).show();
+            }
+            if (Globals.tutorial == 5) {
+                Globals.tutorial++;
+                new MaterialTapTargetPrompt.Builder(this).setTextGravity(Gravity.CENTER).setTarget(R.id.navigation_calendar).setPrimaryText("Here you can add anchors to the calendar").setSecondaryText("After assigning tasks, you can assign anchors. Anchors are fixed parts in the day like important meetings or weddings").setBackgroundColour(Color.parseColor("#20666E")).show();
+            }
         }
     }
 
@@ -290,10 +291,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener {
 
                 });
                 spinner.setVisibility(View.GONE);
-                if(Globals.tutorial==3){
+                if (Globals.isNewUser == true) {
+                    if(Globals.tutorial==3){
                     Globals.tutorial++;
                     new MaterialTapTargetPrompt.Builder(getActivity()).setPromptFocal(new RectanglePromptFocal()).setTarget(holder.button).setTextGravity(Gravity.CENTER).setClipToView(mRecycler.getChildAt(0)).setPrimaryText("Click to watch and edit task details").setSecondaryText("You can delete tasks by swapping left").setBackgroundColour(Color.parseColor("#20666E")).show();
-
+                    }
                 }
 
             }

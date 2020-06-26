@@ -141,9 +141,11 @@ public class TaskPagePopup extends Activity  implements View.OnClickListener, Po
     }
 
     public void tutorial() {
-        if (Globals.tutorial == 4) {
-            Globals.tutorial++;
-            new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.editModeBtn).setTextGravity(Gravity.RIGHT).setPrimaryText("Click to edit tasks details").setTextGravity(Gravity.CENTER).setBackgroundColour(Color.parseColor("#20666E")).show();
+        if (Globals.isNewUser == true) {
+            if (Globals.tutorial == 4) {
+                Globals.tutorial++;
+                new MaterialTapTargetPrompt.Builder(this).setTarget(R.id.editModeBtn).setTextGravity(Gravity.RIGHT).setPrimaryText("Click to edit tasks details").setTextGravity(Gravity.CENTER).setBackgroundColour(Color.parseColor("#20666E")).show();
+            }
         }
     }
 

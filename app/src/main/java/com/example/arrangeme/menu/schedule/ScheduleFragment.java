@@ -369,6 +369,7 @@ Integer[] catColor={R.color.study, R.color.sport, R.color.work, R.color.nutritio
      */
     private void showScheduleRate() {
         DatabaseReference dbRef;
+        rankit.setVisibility(View.VISIBLE);
         dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(UID).child("Schedules").child(date).child("data");
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
