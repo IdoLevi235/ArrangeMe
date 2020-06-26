@@ -147,7 +147,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
             Intent ct1 = new Intent(getApplicationContext(), ReminderBroadcast.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,ct1,0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),60*1000,pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
         }
     }
