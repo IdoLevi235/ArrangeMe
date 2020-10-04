@@ -196,11 +196,15 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
                     String avatarName = (String) mDatabase2.getValue();
                     int avatarID = getResId(avatarName, R.drawable.class); // or other resource class
-                    avatarBtn.setImageResource(avatarID); // set as image
-                    String background_avatar = "circle_"+avatarName;
-                    int backgroundID = getResId(background_avatar, R.drawable.class); // or other resource class
-                    avatarBtn.setBackgroundResource(backgroundID);
-
+                    try {
+                        avatarBtn.setImageResource(avatarID); // set as image
+                        String background_avatar = "circle_" + avatarName;
+                        int backgroundID = getResId(background_avatar, R.drawable.class); // or other resource class
+                        avatarBtn.setBackgroundResource(backgroundID);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {
